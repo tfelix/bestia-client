@@ -11,5 +11,5 @@ dest_files=[ "res://.import/bestia.ogg-ea619a5c526cddf14355f68875f2c055.oggstr" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

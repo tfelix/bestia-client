@@ -4,7 +4,6 @@ class_name ChatHoverText
 export(int) var display_time = 3
 
 func _ready():
-	print_debug("ready called")
 	$DestroyTimer.wait_time = display_time
 	get_tree().get_root().connect("size_changed", self, "_update_position")
 	_update_position()

@@ -2,6 +2,7 @@
 
 ## Images, Particles, Textures
 
+* [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), CC BY 3.0
 * [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), CC0
 
 ## Music

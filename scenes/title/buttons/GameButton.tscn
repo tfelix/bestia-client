@@ -15,4 +15,5 @@ text = "Start Game"
 [node name="BestiaAudio" type="AudioStreamPlayer" parent="." index="1"]
 stream = ExtResource( 3 )
 
-[connection signal="pressed" from="." to="." method="_on_GameButton_pressed"]
+[connection signal="on_Button_pressed" from="." to="." method="_on_GameButton_on_Button_pressed"]
+[connection signal="finished" from="BestiaAudio" to="." method="_on_BestiaAudio_finished"]

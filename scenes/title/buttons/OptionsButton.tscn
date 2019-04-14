@@ -9,3 +9,4 @@ margin_bottom = 42.0
 [node name="Label" parent="." index="0"]
 text = "Options"
 
+[connection signal="pressed" from="." to="." method="_on_MenuButton_pressed"]

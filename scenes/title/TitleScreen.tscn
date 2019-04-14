@@ -58,9 +58,10 @@ custom_constants/separation = 6
 [node name="GameButton" parent="Menu/Buttons" instance=ExtResource( 4 )]
 margin_right = 1120.0
 margin_bottom = 32.0
-scene_to_load = "res://scenes/game/Game.tscn"
+scene_to_load = "res://scenes/intro/Intro.tscn"
 
 [node name="OptionsButton" parent="Menu/Buttons" instance=ExtResource( 5 )]
+visible = false
 margin_top = 38.0
 margin_right = 1120.0
 margin_bottom = 70.0
@@ -77,9 +78,13 @@ v1.0.0"
 valign = 2
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -14.959
 autoplay = true
 
+[connection signal="on_Button_pressed" from="Menu/Buttons/GameButton" to="." method="_on_GameButton_on_Button_pressed"]
+[connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
+[connection signal="fade_out_finished" from="FadeIn" to="." method="_on_FadeIn_fade_out_finished"]

@@ -21,3 +21,4 @@ custom_constants/shadow_offset_y = 5
 text = "Label"
 valign = 1
 
+[connection signal="pressed" from="." to="." method="_on_MenuButton_pressed"]

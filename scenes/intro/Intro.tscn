@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/intro/Intro.gd" type="Script" id=1]
-[ext_resource path="res://audio/story.ogg" type="AudioStream" id=2]
+[ext_resource path="res://audio/bgm/story.ogg" type="AudioStream" id=2]
 [ext_resource path="res://scenes/intro/Step1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/intro/Step3.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/intro/FadeInOut.tscn" type="PackedScene" id=5]
