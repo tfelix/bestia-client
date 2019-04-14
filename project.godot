@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Control",
+"class": "ChatHoverText",
+"language": "GDScript",
+"path": "res://scenes/game/chat/ChatHoverText.gd"
+}, {
+"base": "ResourceFormatLoader",
+"class": "HTerrainDataLoader",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_loader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": "HTerrainDataSaver",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_saver.gd"
+}, {
+"base": "Node",
+"class": "Weather",
+"language": "GDScript",
+"path": "res://scenes/game/Waether.gd"
+}, {
+"base": "Reference",
+"class": "WeatherData",
+"language": "GDScript",
+"path": "res://WeatherData.gd"
+} ]
+_global_script_class_icons={
+"ChatHoverText": "",
+"HTerrainDataLoader": "",
+"HTerrainDataSaver": "",
+"Weather": "",
+"WeatherData": ""
+}
+
+[application]
+
+config/name="Bestia Leviathan"
+run/main_scene="res://scenes/title/TitleScreen.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/aspect="keep_width"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "zylann.hterrain" )
+
+[rendering]
+
+environment/default_clear_color=Color( 0.14902, 0.192157, 0.219608, 1 )
+environment/default_environment="res://default_env.tres"

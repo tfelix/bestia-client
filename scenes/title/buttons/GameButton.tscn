@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/title/buttons/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/title/buttons/GameButton.gd" type="Script" id=2]
+[ext_resource path="res://audio/fx/bestia.ogg" type="AudioStream" id=3]
+
+[node name="GameButton" instance=ExtResource( 1 )]
+margin_right = 216.0
+margin_bottom = 42.0
+script = ExtResource( 2 )
+
+[node name="Label" parent="." index="0"]
+text = "Start Game"
+
+[node name="BestiaAudio" type="AudioStreamPlayer" parent="." index="1"]
+stream = ExtResource( 3 )
+
+[connection signal="pressed" from="." to="." method="_on_GameButton_pressed"]

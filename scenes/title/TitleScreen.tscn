@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/title/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://visual/img/landscape-nature-clouds-cloudy.jpg" type="Texture" id=2]
+[ext_resource path="res://visual/img/logo-full-white.png" type="Texture" id=3]
+[ext_resource path="res://scenes/title/buttons/GameButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/title/buttons/OptionsButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=6]
+[ext_resource path="res://scenes/FadeIn.tscn" type="PackedScene" id=7]
+[ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=8]
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ -149.0 ]
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 80.0
+margin_top = 20.0
+margin_right = -80.0
+margin_bottom = -20.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu"]
+editor/display_folded = true
+margin_right = 1120.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 100, 200 )
+
+[node name="TextureRect" type="TextureRect" parent="Menu/CenterContainer"]
+margin_left = 310.0
+margin_right = 810.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 500, 300 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+margin_top = 304.0
+margin_right = 1120.0
+margin_bottom = 490.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 6
+
+[node name="GameButton" parent="Menu/Buttons" instance=ExtResource( 4 )]
+margin_right = 1120.0
+margin_bottom = 32.0
+scene_to_load = "res://scenes/game/Game.tscn"
+
+[node name="OptionsButton" parent="Menu/Buttons" instance=ExtResource( 5 )]
+margin_top = 38.0
+margin_right = 1120.0
+margin_bottom = 70.0
+scene_to_load = "res://scenes/options/Options.tscn"
+
+[node name="VersionLabel" type="Label" parent="Menu"]
+margin_top = 494.0
+margin_right = 1120.0
+margin_bottom = 680.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 6 )
+text = "Bestia Leviathan
+v1.0.0"
+valign = 2
+
+[node name="FadeIn" parent="." instance=ExtResource( 7 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -14.959
+autoplay = true
+

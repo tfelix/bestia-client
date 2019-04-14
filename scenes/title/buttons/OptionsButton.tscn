@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/title/buttons/MenuButton.tscn" type="PackedScene" id=1]
+
+[node name="MenuButton" instance=ExtResource( 1 )]
+margin_right = 155.0
+margin_bottom = 42.0
+
+[node name="Label" parent="." index="0"]
+text = "Options"
+
