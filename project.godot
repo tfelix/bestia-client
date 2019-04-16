@@ -14,20 +14,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/game/chat/ChatHoverText.gd"
 }, {
-"base": "ResourceFormatLoader",
-"class": "HTerrainDataLoader",
+"base": "Reference",
+"class": "ItemModel",
 "language": "GDScript",
-"path": "res://addons/zylann.hterrain/hterrain_resource_loader.gd"
+"path": "res://scenes/game/ui/inventory/ItemModel.gd"
 }, {
-"base": "ResourceFormatSaver",
-"class": "HTerrainDataSaver",
+"base": "Node",
+"class": "PickUp",
 "language": "GDScript",
-"path": "res://addons/zylann.hterrain/hterrain_resource_saver.gd"
+"path": "res://mesh/items/PickUpRange.gd"
 }, {
 "base": "Control",
 "class": "ScreenBottomText",
 "language": "GDScript",
-"path": "res://scenes/game/ui/ScreenBottomText.gd"
+"path": "res://scenes/game/ui/dialog_text/ScreenBottomText.gd"
 }, {
 "base": "Node",
 "class": "Weather",
@@ -41,8 +41,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ChatHoverText": "",
-"HTerrainDataLoader": "",
-"HTerrainDataSaver": "",
+"ItemModel": "",
+"PickUp": "",
 "ScreenBottomText": "",
 "Weather": "",
 "WeatherData": ""
@@ -61,16 +61,49 @@ window/size/width=1280
 window/size/height=720
 window/stretch/aspect="keep_width"
 
-[editor_plugins]
-
-enabled=PoolStringArray( "zylann.hterrain" )
-
 [input]
 
 left_click={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
+}
+shortcut_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shortcut_2={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_3={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_4={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_5={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_6={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_7={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_8={
+"deadzone": 0.5,
+"events": [  ]
+}
+shortcut_9={
+"deadzone": 0.5,
+"events": [  ]
 }
 
 [layer_names]

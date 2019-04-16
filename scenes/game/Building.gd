@@ -1,7 +1,10 @@
 extends Spatial
 
+onready var player = $AnimationPlayer
+
 func _on_Area_body_entered(body):
 	print_debug("player inside")
+	player.play("roof_fade")
 	for n in get_children():
 		if n.name.begins_with("Roof"):
 			print_debug(n)
@@ -9,6 +12,7 @@ func _on_Area_body_entered(body):
 
 func _on_Area_body_exited(body):
 	print_debug("player exit")
+	player.play_backwards("roof_fade")
 	for n in get_children():
 		if n.name.begins_with("Roof"):
 			print_debug(n)

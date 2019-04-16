@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/game/Building.gd" type="Script" id=1]
 [ext_resource path="res://scenes/game/BuildingGround.material" type="Material" id=2]
@@ -41,6 +41,34 @@ points = PoolVector3Array( -1, 1, 0.1, 1, 1, -0.1, 1, 1, 0.1, -1, 1, -0.1, -1, -
 
 [sub_resource type="BoxShape" id=12]
 extents = Vector3( 2, 1, 2 )
+
+[sub_resource type="Animation" id=13]
+resource_name = "roof_fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Roof07:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.67451, 0.0627451, 0.0627451, 1 ), Color( 0.67451, 0.0627451, 0.0627451, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Roof06:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.67451, 0.0627451, 0.0627451, 1 ), Color( 0.67451, 0.0627451, 0.0627451, 0 ) ]
+}
 
 [node name="Building" type="Spatial"]
 script = ExtResource( 1 )
@@ -133,6 +161,7 @@ collision_layer = 32
 shape = SubResource( 8 )
 
 [node name="Wall05" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 1, 0 )
 mesh = SubResource( 4 )
 material/0 = null
@@ -144,6 +173,7 @@ collision_layer = 32
 shape = SubResource( 9 )
 
 [node name="Wall06" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -1, 1, 0 )
 mesh = SubResource( 4 )
 material/0 = null
@@ -155,6 +185,7 @@ collision_layer = 32
 shape = SubResource( 10 )
 
 [node name="Wall07" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -1, 1, -2 )
 mesh = SubResource( 4 )
 material/0 = null
@@ -171,6 +202,9 @@ collision_layer = 32
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.930069, 0.978027, -1.00708 )
 shape = SubResource( 12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/roof_fade = SubResource( 13 )
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

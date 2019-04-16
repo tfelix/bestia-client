@@ -10,11 +10,11 @@ height = 1.8
 [node name="sign_small" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="PlayerDetection" type="Area" parent="." index="2"]
+[node name="UseRange" type="Area" parent="." index="2"]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="PlayerDetection" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="UseRange" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.906596, 0 )
 shape = SubResource( 1 )
 

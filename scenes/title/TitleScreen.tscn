@@ -10,6 +10,7 @@
 [ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=8]
 
 [node name="TitleScreen" type="Control"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -25,6 +26,7 @@ expand = true
 stretch_mode = 7
 
 [node name="Menu" type="VBoxContainer" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 80.0
@@ -48,6 +50,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Buttons" type="VBoxContainer" parent="Menu"]
+editor/display_folded = true
 margin_top = 304.0
 margin_right = 1120.0
 margin_bottom = 490.0

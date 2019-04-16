@@ -1,8 +1,8 @@
 extends Spatial
 
-onready var Actions = load("res://Actions.gd")
+var Actions = load("res://Actions.gd")
 onready var player = get_tree().get_root().get_node("Game/Player")
-onready var DialogText = preload("res://scenes/game/ui/ScreenBottomText.tscn")
+var DialogText = load("res://scenes/game/ui/ScreenBottomText.tscn")
 
 export var text = ""
 
@@ -20,7 +20,7 @@ func _on_col_input_event(camera, event, click_position, click_normal, shape_idx)
 		return
 	get_tree().set_input_as_handled()
 	print_debug("sign was clicked")
-	var is_player_in_range = $PlayerDetection.overlaps_body(player)
+	var is_player_in_range = $UseRange.overlaps_body(player)
 	
 	if is_player_in_range:
 		var dialog = DialogText.instance()
