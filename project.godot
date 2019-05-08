@@ -12,22 +12,27 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ChatHoverText",
 "language": "GDScript",
-"path": "res://scenes/game/chat/ChatHoverText.gd"
+"path": "res://scenes/ui/chat/ChatHoverText.gd"
 }, {
 "base": "Reference",
 "class": "ItemModel",
 "language": "GDScript",
-"path": "res://scenes/game/ui/inventory/ItemModel.gd"
+"path": "res://scenes/ui/inventory/ItemModel.gd"
 }, {
-"base": "Node",
+"base": "Area",
 "class": "PickUp",
 "language": "GDScript",
-"path": "res://mesh/items/PickUpRange.gd"
+"path": "res://mesh/items/PickUp.gd"
 }, {
 "base": "Control",
 "class": "ScreenBottomText",
 "language": "GDScript",
-"path": "res://scenes/game/ui/dialog_text/ScreenBottomText.gd"
+"path": "res://scenes/ui/dialog_text/ScreenBottomText.gd"
+}, {
+"base": "RichTextLabel",
+"class": "TimedTextLabel",
+"language": "GDScript",
+"path": "res://scenes/ui/timed_text_label/TimedTextLabel.gd"
 }, {
 "base": "Node",
 "class": "Weather",
@@ -37,20 +42,21 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "WeatherData",
 "language": "GDScript",
-"path": "res://WeatherData.gd"
+"path": "res://scenes/game/weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
 "ChatHoverText": "",
 "ItemModel": "",
 "PickUp": "",
 "ScreenBottomText": "",
+"TimedTextLabel": "",
 "Weather": "",
 "WeatherData": ""
 }
 
 [application]
 
-config/name="Bestia Leviathan"
+config/name="Bestia Behemoth"
 run/main_scene="res://scenes/title/TitleScreen.tscn"
 boot_splash/image="res://visual/img/logo-full-white.png"
 config/icon="res://icon.png"

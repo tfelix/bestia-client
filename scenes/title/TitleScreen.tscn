@@ -10,7 +10,6 @@
 [ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=8]
 
 [node name="TitleScreen" type="Control"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -76,12 +75,13 @@ margin_right = 1120.0
 margin_bottom = 680.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 6 )
-text = "Bestia Leviathan
-v1.0.0"
+text = "Bestia Behemoth
+v 0.0.0 - Alpha"
 valign = 2
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]
 visible = false
+fade_duration_ms = 1500
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )

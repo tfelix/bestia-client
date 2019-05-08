@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://mesh/items/Item.gd" type="Script" id=1]
+[ext_resource path="res://mesh/items/PickUp.gd" type="Script" id=2]
+
+[sub_resource type="SphereShape" id=1]
+radius = 1.1
+
+[node name="Item" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="ItemMesh" type="MeshInstance" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="ItemMesh"]
+
+[node name="PickUp" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="Range" type="CollisionShape" parent="PickUp"]
+shape = SubResource( 1 )
+
+[node name="Interactions" type="Node" parent="."]
+
+[node name="Attack" type="Node" parent="Interactions"]
+
+[node name="PickUp" type="Node" parent="Interactions"]
+
+[connection signal="input_event" from="ItemMesh/StaticBody" to="PickUp" method="_on_StaticBody_input_event"]
