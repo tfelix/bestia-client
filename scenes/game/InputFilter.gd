@@ -1,5 +1,7 @@
 extends Spatial
 
+var Item = load("res://mesh/items/Item.gd")
+
 # This checks might very well be done inside the camera
 # or can even be extracted to an own script.
 # Terrain has nothing to do with movement. Maybe it should be on the player node.
@@ -44,10 +46,20 @@ func _physics_process(delta):
 	
 	if collisions.size() > 0:
 		print_debug("Found collisions: ", collisions.size())
-		pointer.translation = collisions[0].position
-		pointer.animate()
-		player.move_to(collisions[0].position)
+		_handle_click(collisions)
+		#pointer.translation = collisions[0].position
+		#pointer.animate()
+		#player.move_to(collisions[0].position)
+
+func _handle_click(nodes):
+	for node in nodes:
+		print_debug(node.collider.get_class())
+		if node.collider is Item:
+			node.clicked()
+		else:
+			print_debug("No item")
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-		last_click = event.position
+		print_debug("_unhandled_input")
+	#	last_click = event.position

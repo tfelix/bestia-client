@@ -2,6 +2,7 @@ extends Area
 class_name PickUp
 
 signal item_picked(item)
+signal item_clicked()
 
 var Actions = load("res://Actions.gd")
 var ItemModel = load("res://scenes/ui/inventory/ItemModel.gd")
@@ -47,6 +48,8 @@ func _displayPickupMessage():
 func _on_StaticBody_input_event(camera, event, click_position, click_normal, shape_idx):
 	if !event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
 		return
+		
+	emit_signal("item_clicked")
 	
 	var is_player_in_range = overlaps_body(player)
 	if is_player_in_range:

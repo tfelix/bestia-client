@@ -1,4 +1,5 @@
 extends KinematicBody
+class_name Player
 
 const GRAVITY = -9.81
 const SPEED = 200

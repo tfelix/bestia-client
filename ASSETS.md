@@ -4,6 +4,7 @@
 
 * [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), CC BY 3.0
 * [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), CC0
+* [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), CC0
 
 ## Music
 

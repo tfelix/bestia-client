@@ -2,7 +2,7 @@ extends Spatial
 
 var Actions = load("res://Actions.gd")
 onready var player = get_tree().get_root().get_node("Game/Player")
-var DialogText = load("res://scenes/game/ui/ScreenBottomText.tscn")
+var DialogText = load("res://scenes/ui/dialog_text/ScreenBottomText.tscn")
 
 export var text = ""
 

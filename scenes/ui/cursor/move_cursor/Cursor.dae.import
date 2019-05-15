@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Cursor.dae-f11348b1547f1964533fed0469c6542e.scn"
+path="res://.import/Cursor.dae-4beae00316022af259cff219aece1923.scn"
 
 [deps]
 
-source_file="res://scenes/ui/move_cursor/Cursor.dae"
-dest_files=[ "res://.import/Cursor.dae-f11348b1547f1964533fed0469c6542e.scn" ]
+source_file="res://scenes/ui/cursor/move_cursor/Cursor.dae"
+dest_files=[ "res://.import/Cursor.dae-4beae00316022af259cff219aece1923.scn" ]
 
 [params]
 

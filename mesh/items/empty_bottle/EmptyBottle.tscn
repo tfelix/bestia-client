@@ -11,7 +11,7 @@ height = 0.3
 [sub_resource type="SphereShape" id=2]
 radius = 0.27753
 
-[node name="Bottle" index="0" instance=ExtResource( 1 )]
+[node name="Bottle" instance=ExtResource( 1 )]
 item_icon = ExtResource( 2 )
 item_name = "Bottle"
 

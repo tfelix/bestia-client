@@ -1,9 +1,12 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/ui/dialog_text/ScreenBottomText.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/DialogText/DialogText.gd" type="Script" id=1]
 [ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scenes/ui/dialog_text/ScreenBottomText_RichTextLabel.gd" type="Script" id=3]
+[ext_resource path="res://scenes/ui/DialogText/DialogText_RichTextLabel.gd" type="Script" id=3]
 [ext_resource path="res://visual/icons/cancel.svg" type="Texture" id=4]
+
+
+
 
 [node name="ScreenBottomText" type="Control"]
 anchor_right = 1.0

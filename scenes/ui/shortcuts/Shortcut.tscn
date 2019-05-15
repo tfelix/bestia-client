@@ -43,6 +43,6 @@ margin_top = 44.0
 margin_right = 40.0
 margin_bottom = 58.0
 theme = SubResource( 2 )
-text = "A"
+text = "-"
 align = 1
 
