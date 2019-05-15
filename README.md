@@ -1,11 +1,5 @@
 # Bestia Game Client
 
-<p align="center">
-  <img src="src/assets/img/logo-full-black.png" style="width: 45%; height: 45%;">
-</p>
-
-[![Build Status](https://travis-ci.org/tfelix/bestia-client.svg?branch=master)](https://travis-ci.org/tfelix/bestia-client)
-
 This is the client implementation of the [Bestia Game](https://bestia-game.net).
 
 Currently its meant as a development platform and as a small introduction game, thus currently no connection to the server
@@ -18,14 +12,16 @@ You can also get in touch via [Discord](https://discord.gg/zZW8M2S).
 
 ## Development
 
-_TODO_
+The Bestia Game Client is build upon the great Godot Engine. If you want to contribute or develop you will need the engine to load
+the code inside this repository. You can find the [Godot Engine](https://godotengine.org) here and you also want to take a look at the
+[Godot documentation](https://docs.godotengine.org/en/3.1/).
 
 ## Contributing
 
 Contribution is quite simple, there is no Contributing Guide yet. The main points are:
 
-* Found a bug? Report it on GitHub Issues and include a code sample.
-* Before submitting a Pull Request run your code through TS Lint using our config and keep the coding style already present.
+* Found a bug? Report it on [GitHub Issues](https://github.com/tfelix/bestia-client/issues) and include a code sample.
+* Before submitting a Pull Request please make sure you follow the [Godot best practices](https://docs.godotengine.org/en/3.1/getting_started/workflow/best_practices/)
 
 Have an idea which would benefit the game? Cool, tell us via our [Discord Server](https://discord.gg/zZW8M2S).
 
