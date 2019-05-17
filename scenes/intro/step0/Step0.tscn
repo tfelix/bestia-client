@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/intro/step0/BigBang.material" type="Material" id=1]
-[ext_resource path="res://visual/img/logo-full-white.png" type="Texture" id=2]
+[ext_resource path="res://img/logo-full-white.png" type="Texture" id=2]
+
 
 [node name="Step0" type="TextureRect"]
 material = ExtResource( 1 )

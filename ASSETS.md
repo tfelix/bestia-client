@@ -2,9 +2,16 @@
 
 ## Images, Particles, Textures
 
-* [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), CC BY 3.0
+* Title Screen by nicole-mason, Unsplash
 * [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), CC0
 * [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), CC0
+
+# Icons
+
+* [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), CC BY 3.0
+* [Sword clash icon by Lorc](https://game-icons.net/1x1/lorc/sword-clash.html), CC BY 3.0
+* [Card play icon by Quoting](https://game-icons.net/1x1/quoting/card-play.html),  CC BY 3.0
+* [Cancel icon by sbed](https://game-icons.net/1x1/sbed/cancel.html), CC BY 3.0
 
 ## Music
 

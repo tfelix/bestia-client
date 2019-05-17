@@ -3,12 +3,9 @@
 [ext_resource path="res://scenes/ui/DialogText/DialogText.gd" type="Script" id=1]
 [ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/ui/DialogText/DialogText_RichTextLabel.gd" type="Script" id=3]
-[ext_resource path="res://visual/icons/cancel.svg" type="Texture" id=4]
+[ext_resource path="res://scenes/ui/CloseButton/CloseButton.tscn" type="PackedScene" id=4]
 
-
-
-
-[node name="ScreenBottomText" type="Control"]
+[node name="DialogText" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -54,14 +51,10 @@ size_flags_horizontal = 3
 custom_fonts/normal_font = ExtResource( 2 )
 script = ExtResource( 3 )
 
-[node name="CloseButton" type="TextureButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="CloseButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
 margin_left = 1096.0
 margin_right = 1146.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 50, 50 )
-texture_normal = ExtResource( 4 )
-expand = true
-stretch_mode = 4
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

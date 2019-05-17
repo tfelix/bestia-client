@@ -1,26 +1,34 @@
-extends RigidBody2D
+extends KinematicBody
+class_name Player
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var MoveSpeed = 100
+const GRAVITY = -9.81
+const SPEED = 200
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+var destination = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var ui_right = Input.is_action_pressed("ui_right")
-	var ui_left = Input.is_action_pressed("ui_left")
+# Emitted when the player movement has stopped.
+signal movement_stopped()
+
+func _physics_process(delta):
+	if translation != destination and destination != null:
+		var gap = destination - translation
+		# gap.y = 0
+		gap = gap.normalized()
+		
+		var velocity = gap * SPEED * delta
+		# velocity.y += delta * GRAVITY
+		
+		move_and_slide(velocity, Vector3.UP)
+		
+		var angle = atan2(velocity.x, velocity.z)
+		var player_rot = rotation
+		player_rot.y = angle
+		
+		# Snap to target if we are close to destination
+		if gap.length()  < 0.1:
+			translation = Vector3(destination.x, translation.y, destination.z)
+			destination = null
+			emit_signal("movement_stopped")
 	
-	var moveSpeed = 0
-	
-	if ui_right:
-		moveSpeed = MoveSpeed
-	elif ui_left:
-		moveSpeed = -MoveSpeed
-	
-	set_axis_velocity(Vector2(moveSpeed, linear_velocity.y))
-	
-	pass
+func move_to(destination):
+	self.destination = destination

@@ -1,8 +1,9 @@
 [gd_resource type="SpatialMaterial" load_steps=4 format=2]
 
-[ext_resource path="res://visual/textures/Ground03/Ground03_col.jpg" type="Texture" id=1]
-[ext_resource path="res://visual/textures/Ground03/Ground03_disp.jpg" type="Texture" id=2]
-[ext_resource path="res://visual/textures/Ground03/Ground03_rgh.jpg" type="Texture" id=3]
+[ext_resource path="res://terrain/Ground03/Ground03_col.jpg" type="Texture" id=1]
+[ext_resource path="res://terrain/Ground03/Ground03_disp.jpg" type="Texture" id=2]
+[ext_resource path="res://terrain/Ground03/Ground03_rgh.jpg" type="Texture" id=3]
+
 
 [resource]
 albedo_texture = ExtResource( 1 )
