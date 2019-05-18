@@ -1,6 +1,8 @@
 extends Spatial
 class_name Item
 
+var Actions = load("res://Actions.gd")
+
 export(Texture) var item_icon
 export(String) var item_name = "undefined"
 export(int) var item_weight = 10 # 1 unit is 100gr thus 10 is 1kg
@@ -13,16 +15,19 @@ func _orient_item_randomly():
   pass
 
 func _on_PickUpCollidor_mouse_entered():
-	print_debug("Mouse entered")
-	pass # Replace with function body.
+  print_debug("Mouse entered")
+  pass # Replace with function body.
 
 func _on_PickUpCollidor_mouse_exited():
-	print_debug("Mouse exit")
-	pass # Replace with function body.
+  print_debug("Mouse exit")
+  pass # Replace with function body.
 
-func _on_PickUp_item_clicked():
-	if $Selection.is_selected:
-		$Selection.unselected()
-	else:
-		$Selection.selected()
-		$Interactions.trigger_interaction(self)
+func _on_PickUpCollidor_clicked(camera, event, click_position, click_normal, shape_idx):
+  if !event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
+    return
+
+  if $Selection.is_selected:
+    $Selection.unselected()
+  else:
+    $Selection.selected()
+    $Interactions.trigger_interaction(self)

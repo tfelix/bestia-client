@@ -5,16 +5,17 @@
 [ext_resource path="res://mesh/items/EmptyBottle/EmptyBottleMesh.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
+radius = 0.271649
+height = 0.319953
 
 [node name="Bottle" instance=ExtResource( 1 )]
 item_icon = ExtResource( 2 )
 item_name = "Bottle"
 
 [node name="EmptyBottleMesh" parent="." index="0" instance=ExtResource( 3 )]
-editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="ClickCollidor" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0135072, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, -0.00826207, 0.278209, 0 )
 shape = SubResource( 1 )
 
 [node name="Selection" parent="." index="3"]

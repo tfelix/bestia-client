@@ -90,6 +90,10 @@ window/size/width=1280
 window/size/height=720
 window/stretch/aspect="keep_width"
 
+[global]
+
+layer=false
+
 [input]
 
 left_click={
@@ -144,6 +148,7 @@ shortcut_10={
 3d_physics/layer_1="structures"
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemies"
+3d_physics/layer_4="item"
 3d_physics/layer_6="terrain"
 
 [rendering]

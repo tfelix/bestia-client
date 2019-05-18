@@ -20,7 +20,8 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="ClickCollidor" type="StaticBody" parent="."]
-collision_mask = 2
+collision_layer = 8
+collision_mask = 0
 
 [node name="Selection" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -29,6 +30,7 @@ interactions = NodePath("../Interactions")
 [node name="Interactions" parent="." instance=ExtResource( 4 )]
 
 [connection signal="item_clicked" from="PickUp" to="." method="_on_PickUp_item_clicked"]
+[connection signal="input_event" from="ClickCollidor" to="." method="_on_PickUpCollidor_clicked"]
 [connection signal="mouse_entered" from="ClickCollidor" to="." method="_on_PickUpCollidor_mouse_entered"]
 [connection signal="mouse_exited" from="ClickCollidor" to="." method="_on_PickUpCollidor_mouse_exited"]
 
