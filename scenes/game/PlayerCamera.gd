@@ -23,6 +23,7 @@ export var min_zoomlevel = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.player_camera = self
 	_translate_cam()
 
 func _unhandled_input(event):
@@ -48,12 +49,12 @@ func _prepare_rotation_cam(event: InputEventMouseMotion):
 	start_cam_move = event.position
 	delta_rot_x += move_delta.x * camera_move_speed
 	delta_rot_y += move_delta.y * camera_move_speed
-	
+
 	if current_rotation_x > max_angle_delta_x_degree and delta_rot_x > 0:
 		delta_rot_x = 0
 	if current_rotation_x < -max_angle_delta_x_degree and delta_rot_x < 0:
 		delta_rot_x = 0
-	
+
 	if current_rotation_y > max_angle_delta_y_degree and delta_rot_y > 0:
 		delta_rot_y = 0
 	if current_rotation_y < -10 and delta_rot_y < 0:
@@ -64,13 +65,13 @@ func _zoom_in():
 	if zoomlevel < min_zoomlevel:
 		zoomlevel = min_zoomlevel
 	_translate_cam()
-	
+
 func _zoom_out():
 	zoomlevel += 1
 	if zoomlevel > max_zoomlevel:
 		zoomlevel = max_zoomlevel
 	_translate_cam()
-	
+
 func _translate_cam():
 	var target = get_parent().translation
 	var updated_translation_pos = camera_start_position * camera_zoom_increment * zoomlevel

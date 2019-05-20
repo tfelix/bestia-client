@@ -4,3 +4,5 @@ extends Node
 const ITEM_SELECTED = "item_selected"
 
 const TERRAIN_CLICKED = "terrain_clicked"
+
+const PLAYER_MOVE_REQUSTED = "player_move_requested"

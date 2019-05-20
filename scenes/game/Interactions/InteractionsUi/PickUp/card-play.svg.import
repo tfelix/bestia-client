@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/card-play.svg-a695408a0e6d370418de43142b35f125.stex"
+path="res://.import/card-play.svg-fcc74c56b1f9caa68ff66c7342be1a3f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/InteractionsUi/PickUp/card-play.svg"
-dest_files=[ "res://.import/card-play.svg-a695408a0e6d370418de43142b35f125.stex" ]
+source_file="res://scenes/game/Interactions/InteractionsUi/PickUp/card-play.svg"
+dest_files=[ "res://.import/card-play.svg-fcc74c56b1f9caa68ff66c7342be1a3f.stex" ]
 
 [params]
 

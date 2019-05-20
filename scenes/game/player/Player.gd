@@ -13,6 +13,7 @@ signal movement_stopped()
 
 func _ready():
   PubSub.subscribe(PST.TERRAIN_CLICKED, self)
+  PubSub.subscribe(PST.PLAYER_MOVE_REQUSTED, self)
 
 func free():
   PubSub.unsubscribe(self)
@@ -40,8 +41,11 @@ func _physics_process(delta):
 			emit_signal("movement_stopped")
 
 func move_to(destination):
-  self.destination = destination
+	self.destination = destination
+	$MoveIndicator.translation = destination
+	$MoveIndicator.play()
 
 func event_published(event_key, payload):
-  if event_key == PST.TERRAIN_CLICKED:
-    move_to(payload)
+  match (event_key):
+    PST.TERRAIN_CLICKED, PST.PLAYER_MOVE_REQUSTED:
+      move_to(payload)

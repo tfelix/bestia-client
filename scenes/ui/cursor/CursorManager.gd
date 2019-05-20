@@ -9,6 +9,10 @@ enum Cursor {
 	NONE
 }
 
+# A better approach would be scan every frame with a raycast what is under
+# the mouse and then ask the cursor nodes which cursor should be displayed.
+# More and more cursors can be added then as sub nodes.
+
 func _ready():
 	Input.set_custom_mouse_cursor(cursorHand)
 

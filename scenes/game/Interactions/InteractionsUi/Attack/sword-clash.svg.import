@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sword-clash.svg-cb1309860e5a67827aa28e4d6013c707.stex"
+path="res://.import/sword-clash.svg-8acd77e31104daec199577d1fd7f865c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/InteractionsUi/Attack/sword-clash.svg"
-dest_files=[ "res://.import/sword-clash.svg-cb1309860e5a67827aa28e4d6013c707.stex" ]
+source_file="res://scenes/game/Interactions/InteractionsUi/Attack/sword-clash.svg"
+dest_files=[ "res://.import/sword-clash.svg-8acd77e31104daec199577d1fd7f865c.stex" ]
 
 [params]
 
