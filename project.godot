@@ -17,17 +17,12 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "Item",
 "language": "GDScript",
-"path": "res://mesh/items/Item/Item.gd"
+"path": "res://items/Item/Item.gd"
 }, {
 "base": "Reference",
 "class": "ItemModel",
 "language": "GDScript",
 "path": "res://scenes/ui/inventory/ItemModel.gd"
-}, {
-"base": "Area",
-"class": "PickUp",
-"language": "GDScript",
-"path": "res://mesh/items/PickUp.gd"
 }, {
 "base": "KinematicBody",
 "class": "Player",
@@ -63,7 +58,6 @@ _global_script_class_icons={
 "ChatHoverText": "",
 "Item": "",
 "ItemModel": "",
-"PickUp": "",
 "Player": "",
 "PubSub": "",
 "ScreenBottomText": "",

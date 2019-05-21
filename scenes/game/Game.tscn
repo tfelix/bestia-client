@@ -8,16 +8,18 @@
 [ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://scenes/game/Terrain.gd" type="Script" id=7]
 [ext_resource path="res://scenes/game/weather/Rain.tscn" type="PackedScene" id=8]
-[ext_resource path="res://mesh/structures/grass/grass_01.obj" type="ArrayMesh" id=9]
-[ext_resource path="res://mesh/structures/grass/grass.material" type="Material" id=10]
+[ext_resource path="res://structures/grass/grass_01.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://structures/grass/grass.material" type="Material" id=10]
 [ext_resource path="res://scenes/game/basic-water/basic_water_material.material" type="Material" id=11]
 [ext_resource path="res://scenes/game/Building.tscn" type="PackedScene" id=12]
-[ext_resource path="res://mesh/structures/small_fire/SmallFire.tscn" type="PackedScene" id=13]
-[ext_resource path="res://mesh/structures/small_sign/sign_small.tscn" type="PackedScene" id=14]
-[ext_resource path="res://mesh/structures/Crystal_005.obj" type="ArrayMesh" id=15]
-[ext_resource path="res://mesh/structures/Crystal.material" type="Material" id=16]
+[ext_resource path="res://structures/small_fire/SmallFire.tscn" type="PackedScene" id=13]
+[ext_resource path="res://structures/small_sign/sign_small.tscn" type="PackedScene" id=14]
+[ext_resource path="res://structures/Crystal_005.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://structures/Crystal.material" type="Material" id=16]
 [ext_resource path="res://scenes/ui/GameUI.tscn" type="PackedScene" id=17]
-[ext_resource path="res://mesh/items/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=18]
+[ext_resource path="res://items/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=18]
+
+
 
 [sub_resource type="ProceduralSky" id=1]
 
