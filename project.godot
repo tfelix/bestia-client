@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/ui/chat/ChatHoverText.gd"
 }, {
+"base": "Reference",
+"class": "DayData",
+"language": "GDScript",
+"path": "res://scenes/game/DayData.gd"
+}, {
 "base": "Spatial",
 "class": "Item",
 "language": "GDScript",
@@ -56,6 +61,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ChatHoverText": "",
+"DayData": "",
 "Item": "",
 "ItemModel": "",
 "Player": "",
@@ -149,4 +155,3 @@ shortcut_10={
 
 environment/default_clear_color=Color( 0.14902, 0.192157, 0.219608, 1 )
 quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"

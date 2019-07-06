@@ -18,4 +18,3 @@ material/0 = SubResource( 1 )
 
 [node name="AnimationPlayer" parent="." index="1"]
 playback_speed = 1.6
-

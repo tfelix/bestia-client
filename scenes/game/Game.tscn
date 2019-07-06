@@ -1,13 +1,13 @@
 [gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://scenes/ui/cursor/CursorManager.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game/Manager/Manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/game/InputFilter.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/Player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/game/PlayerCamera.gd" type="Script" id=4]
+[ext_resource path="res://scenes/game/weather/Rain.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=6]
-[ext_resource path="res://scenes/game/Terrain.gd" type="Script" id=7]
-[ext_resource path="res://scenes/game/weather/Rain.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/game/PlayerCamera.gd" type="Script" id=6]
+[ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://scenes/game/Terrain.gd" type="Script" id=8]
 [ext_resource path="res://structures/grass/grass_01.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://structures/grass/grass.material" type="Material" id=10]
 [ext_resource path="res://scenes/game/basic-water/basic_water_material.material" type="Material" id=11]
@@ -19,22 +19,22 @@
 [ext_resource path="res://scenes/ui/GameUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://items/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=18]
 
-
-
 [sub_resource type="ProceduralSky" id=1]
+sun_color = Color( 0.611765, 0.0156863, 0.0156863, 1 )
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-ambient_light_energy = 0.2
-ambient_light_sky_contribution = 0.5
-fog_enabled = true
+fog_depth_begin = 1000.0
+fog_depth_end = 3000.0
+fog_depth_curve = 4.2871
 fog_transmit_enabled = true
 ss_reflections_enabled = true
 ssao_enabled = true
-dof_blur_far_enabled = true
-dof_blur_far_distance = 300.0
+dof_blur_far_distance = 100.0
+dof_blur_far_amount = 0.05
 glow_enabled = true
+adjustment_enabled = true
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.607843, 0.807843, 0.25098, 1 )
@@ -70,7 +70,25 @@ subdivide_depth = 10
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="CursorManager" parent="." instance=ExtResource( 1 )]
+[node name="Manager" parent="." instance=ExtResource( 1 )]
+
+[node name="DayManager" parent="Manager" index="2"]
+world_environment_path = NodePath("../../WorldEnvironment")
+
+[node name="Timer" parent="Manager/DayManager" index="0"]
+wait_time = 1.0
+
+[node name="Sun" type="DirectionalLight" parent="Manager/DayManager" index="1"]
+transform = Transform( 0.866025, -9.55343e-016, -0.5, 0.5, 1.6547e-015, 0.866025, 0, -1, 1.91069e-015, 0, 5, 0 )
+visible = false
+light_color = Color( 0.905882, 0.545098, 0.12549, 1 )
+shadow_enabled = true
+shadow_contact = 0.05
+directional_shadow_blend_splits = true
+directional_shadow_normal_bias = 0.3
+directional_shadow_bias_split_scale = 0.2
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 60.0
 
 [node name="InputFilter" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.43866e-005, 0.0211306, -0.00779343 )
@@ -80,22 +98,25 @@ script = ExtResource( 2 )
 editor/display_folded = true
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 0, -2.20015 )
 
+[node name="Rain" parent="Player" instance=ExtResource( 4 )]
+splash_pool_size = 250
+
+[node name="MoveIndicator" parent="Player" instance=ExtResource( 5 )]
+transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 3.16294, 0, 0 )
+
 [node name="PlayerCamera" type="Camera" parent="Player"]
 transform = Transform( 1.42857, 0, 0, 0, 1.24187, 0.706101, 0, -0.706101, 1.24187, 0, 6.51444, 10.8326 )
 current = true
 fov = 50.0
 far = 3000.0
-script = ExtResource( 4 )
-
-[node name="MoveIndicator" parent="Player" instance=ExtResource( 5 )]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 3.16294, 0, 0 )
+script = ExtResource( 6 )
 
 [node name="Terrain" type="MeshInstance" parent="."]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50 )
-mesh = ExtResource( 6 )
+mesh = ExtResource( 7 )
 material/0 = SubResource( 3 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="StaticBody" type="StaticBody" parent="Terrain"]
 editor/display_folded = true
@@ -106,20 +127,6 @@ collision_mask = 2
 [node name="CollisionShape" type="CollisionShape" parent="Terrain/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50 )
 shape = SubResource( 4 )
-
-[node name="Weather" type="Node" parent="."]
-editor/display_folded = true
-
-[node name="Rain" parent="Weather" instance=ExtResource( 8 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 0, -2.20015 )
-splash_area = 40
-splashes_per_second = 400
-splash_pool_size = 250
-
-[node name="Sun" type="DirectionalLight" parent="."]
-transform = Transform( -0.407719, 0.446907, -0.796266, 0.203685, 0.89458, 0.397792, 0.8901, 1.32635e-008, -0.455765, 0, 4.82424, 0 )
-light_energy = 0.2
-shadow_enabled = true
 
 [node name="Grass" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1.31006, 0, 0, 0, 1, 2.17476, 0.318712, -0.165079 )
@@ -145,13 +152,13 @@ mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Building" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7672, 0.12854, -5.88525 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7672, -0.0736397, -5.88525 )
 
 [node name="SmallFire" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8258, 0, 0 )
 
 [node name="sign_small" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, 0, -4.60115 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, -0.0673933, -4.60115 )
 text = "Haus von rogget"
 
 [node name="Crystal" type="MeshInstance" parent="."]
@@ -166,5 +173,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22542, 0, 0.160558 )
 
 [node name="Bottle2" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34783, 0, 0.160558 )
-
 [connection signal="input_event" from="Terrain/StaticBody" to="Terrain" method="_on_StaticBody_input_event"]
+
+[editable path="Manager"]
