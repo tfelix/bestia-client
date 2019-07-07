@@ -1,4 +1,5 @@
 extends Node
+class_name Interactions
 
 # Interactions have two puposes. On the one hand they should show up
 # as an icon when being selected and upon click they should register

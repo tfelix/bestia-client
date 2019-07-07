@@ -71,6 +71,7 @@ subdivide_depth = 10
 environment = SubResource( 2 )
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 
 [node name="DayManager" parent="Manager" index="2"]
 world_environment_path = NodePath("../../WorldEnvironment")

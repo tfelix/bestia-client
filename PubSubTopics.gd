@@ -1,7 +1,7 @@
 extends Node
 
 # Holds the names of the PubSub topics used for sending inside the engine.
-const ITEM_SELECTED = "item_selected"
+const ENTITY_SELECTED = "item_selected"
 
 const TERRAIN_CLICKED = "terrain_clicked"
 

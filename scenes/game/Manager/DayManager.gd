@@ -24,7 +24,7 @@ func process_daytime():
 	var time = OS.get_time();
 	var day_data = DayData.new()
 	# day_data.progress = (time.hour * 60 + time.minute) / (24.0 * 60)
-	temp_minutes += 10
+	temp_minutes += 1
 	temp_minutes %= 1440
 	
 	day_data.progress = temp_minutes / (24.0 * 60)

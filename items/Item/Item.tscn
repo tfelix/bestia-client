@@ -15,9 +15,12 @@ collision_mask = 0
 
 [node name="Selection" parent="." instance=ExtResource( 2 )]
 visible = false
-interactions = NodePath("../Interactions")
+selection_mesh = NodePath("../Interactions")
 
 [node name="Interactions" parent="." instance=ExtResource( 3 )]
+
+[node name="PickUp" parent="Interactions" index="0"]
+editor/display_folded = true
 
 [node name="PickUpArea" type="Area" parent="Interactions/PickUp" index="0"]
 collision_layer = 0
@@ -25,7 +28,6 @@ collision_mask = 2
 
 [node name="Range" type="CollisionShape" parent="Interactions/PickUp/PickUpArea"]
 shape = SubResource( 1 )
-
 [connection signal="input_event" from="Collidor" to="." method="_on_PickUpCollidor_clicked"]
 [connection signal="mouse_entered" from="Collidor" to="." method="_on_PickUpCollidor_mouse_entered"]
 [connection signal="mouse_exited" from="Collidor" to="." method="_on_PickUpCollidor_mouse_exited"]
