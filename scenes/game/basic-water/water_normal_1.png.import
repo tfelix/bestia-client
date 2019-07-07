@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/water_normal_1.png-91fda06a7cfaac112aee316a293a0264.stex"
+path="res://.import/water_normal_1.png-27138a8df6d2050f4faac6518dad60d7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/basic-water/water_normal_1.png"
-dest_files=[ "res://.import/water_normal_1.png-91fda06a7cfaac112aee316a293a0264.stex" ]
+source_file="res://scenes/Game/basic-water/water_normal_1.png"
+dest_files=[ "res://.import/water_normal_1.png-27138a8df6d2050f4faac6518dad60d7.stex" ]
 
 [params]
 

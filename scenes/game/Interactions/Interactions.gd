@@ -6,7 +6,7 @@ class_name Interactions
 # themselve as default interaction for this kind of entity.
 enum InteractionAsset {ITEM, STRUCTURE, NPC}
 
-var InteractionUi = load("res://scenes/game/Interactions/InteractionsUi/InteractionsUi.tscn")
+var InteractionUi = load("res://scenes/Game/Interactions/InteractionsUi/InteractionsUi.tscn")
 
 onready var parent = get_parent()
 var ui = null

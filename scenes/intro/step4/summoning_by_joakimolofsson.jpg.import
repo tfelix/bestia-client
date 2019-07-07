@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/summoning_by_joakimolofsson.jpg-1042a5d2239e0c9588d3baab3b56d7e8.stex"
+path="res://.import/summoning_by_joakimolofsson.jpg-3dcbe8c56db39489ac90838aeb97869f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/intro/step4/summoning_by_joakimolofsson.jpg"
-dest_files=[ "res://.import/summoning_by_joakimolofsson.jpg-1042a5d2239e0c9588d3baab3b56d7e8.stex" ]
+source_file="res://scenes/Intro/step4/summoning_by_joakimolofsson.jpg"
+dest_files=[ "res://.import/summoning_by_joakimolofsson.jpg-3dcbe8c56db39489ac90838aeb97869f.stex" ]
 
 [params]
 

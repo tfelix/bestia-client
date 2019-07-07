@@ -1,16 +1,18 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scenes/intro/Intro.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Intro/Intro.gd" type="Script" id=1]
 [ext_resource path="res://audio/bgm/story.ogg" type="AudioStream" id=2]
-[ext_resource path="res://scenes/intro/step8/Step8.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/intro/step7/Step7.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/intro/step6/Step6.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/intro/step5/Step5.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/intro/step4/Step4.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/intro/step3/Step3.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/intro/step2/Step2.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/intro/step1/Step1.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/intro/FadeInOut.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Intro/step8/Step8.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Intro/step7/Step7.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Intro/step6/Step6.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Intro/step5/Step5.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Intro/step4/Step4.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Intro/step3/Step3.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Intro/step2/Step2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Intro/step1/Step1.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Intro/FadeInOut.tscn" type="PackedScene" id=11]
+
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_step_1"

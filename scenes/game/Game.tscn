@@ -1,22 +1,22 @@
 [gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://scenes/game/Manager/Manager.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/game/InputFilter.gd" type="Script" id=2]
-[ext_resource path="res://scenes/game/Player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/game/weather/Rain.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/ui/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/game/PlayerCamera.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Game/InputFilter.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=6]
 [ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=7]
-[ext_resource path="res://scenes/game/Terrain.gd" type="Script" id=8]
+[ext_resource path="res://scenes/Game/Terrain.gd" type="Script" id=8]
 [ext_resource path="res://structures/grass/grass_01.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://structures/grass/grass.material" type="Material" id=10]
-[ext_resource path="res://scenes/game/basic-water/basic_water_material.material" type="Material" id=11]
-[ext_resource path="res://scenes/game/Building.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Game/basic-water/basic_water_material.material" type="Material" id=11]
+[ext_resource path="res://scenes/Game/Building.tscn" type="PackedScene" id=12]
 [ext_resource path="res://structures/small_fire/SmallFire.tscn" type="PackedScene" id=13]
-[ext_resource path="res://structures/small_sign/sign_small.tscn" type="PackedScene" id=14]
+[ext_resource path="res://structures/small_sign/SignSmall.tscn" type="PackedScene" id=14]
 [ext_resource path="res://structures/Crystal_005.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://structures/Crystal.material" type="Material" id=16]
-[ext_resource path="res://scenes/ui/GameUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/GameUI/GameUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://items/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ProceduralSky" id=1]
@@ -71,9 +71,9 @@ subdivide_depth = 10
 environment = SubResource( 2 )
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
 
 [node name="DayManager" parent="Manager" index="2"]
+editor/display_folded = true
 world_environment_path = NodePath("../../WorldEnvironment")
 
 [node name="Timer" parent="Manager/DayManager" index="0"]
@@ -96,7 +96,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.43866e-005, 0.0211306, -0.0
 script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 0, -2.20015 )
 
 [node name="Rain" parent="Player" instance=ExtResource( 4 )]

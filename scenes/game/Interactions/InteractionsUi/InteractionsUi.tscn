@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/game/Interactions/InteractionsUi/InteractionsUi.gd" type="Script" id=1]
-[ext_resource path="res://scenes/game/Interactions/InteractionsUi/Attack/Attack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Game/Interactions/InteractionsUi/InteractionsUi.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Game/Interactions/InteractionsUi/Attack/Attack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Game/Interactions/InteractionsUi/Attack/sword-clash.svg" type="Texture" id=3]
+
+
 
 [node name="Interactions" type="Control"]
 script = ExtResource( 1 )
@@ -11,8 +14,14 @@ margin_right = 262.0
 margin_bottom = 178.0
 
 [node name="Attack" parent="VBoxContainer" instance=ExtResource( 2 )]
-margin_right = 262.0
+margin_right = 512.0
 margin_bottom = 0.0
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+margin_top = 4.0
+margin_right = 512.0
+margin_bottom = 516.0
+texture_normal = ExtResource( 3 )
 
 [node name="Panel" type="Panel" parent="."]
 visible = false

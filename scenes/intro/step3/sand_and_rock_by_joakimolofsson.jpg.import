@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sand_and_rock_by_joakimolofsson.jpg-2ed0d7049b68f6a6f75751bf6770bfe6.stex"
+path="res://.import/sand_and_rock_by_joakimolofsson.jpg-2e6697a7b7a1948e82d8ebc0e6e26d39.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/intro/step3/sand_and_rock_by_joakimolofsson.jpg"
-dest_files=[ "res://.import/sand_and_rock_by_joakimolofsson.jpg-2ed0d7049b68f6a6f75751bf6770bfe6.stex" ]
+source_file="res://scenes/Intro/step3/sand_and_rock_by_joakimolofsson.jpg"
+dest_files=[ "res://.import/sand_and_rock_by_joakimolofsson.jpg-2e6697a7b7a1948e82d8ebc0e6e26d39.stex" ]
 
 [params]
 

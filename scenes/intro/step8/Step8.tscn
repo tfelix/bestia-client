@@ -1,7 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/intro/step8/Step8.gd" type="Script" id=1]
-[ext_resource path="res://scenes/ui/timed_text_label/TimedTextLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Intro/step8/Step8.gd" type="Script" id=1]
+[ext_resource path="res://scenes/GameUI/timed_text_label/TimedTextLabel.tscn" type="PackedScene" id=2]
+
+
+
 
 [node name="Step8" type="Control"]
 anchor_right = 1.0

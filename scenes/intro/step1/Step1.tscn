@@ -1,7 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/intro/step1/Step1.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Intro/step1/Step1.gd" type="Script" id=1]
 [ext_resource path="res://img/fx/flare_blue.png" type="Texture" id=2]
+
+
 
 
 

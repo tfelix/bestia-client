@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ChatHoverText",
 "language": "GDScript",
-"path": "res://scenes/ui/chat/ChatHoverText.gd"
+"path": "res://scenes/GameUI/chat/ChatHoverText.gd"
 }, {
 "base": "Reference",
 "class": "DayData",
 "language": "GDScript",
-"path": "res://scenes/game/DayData.gd"
+"path": "res://scenes/Game/DayData.gd"
 }, {
 "base": "Node",
 "class": "Interactions",
 "language": "GDScript",
-"path": "res://scenes/game/Interactions/Interactions.gd"
+"path": "res://scenes/Game/Interactions/Interactions.gd"
 }, {
 "base": "Spatial",
 "class": "Item",
@@ -32,12 +32,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ItemModel",
 "language": "GDScript",
-"path": "res://scenes/ui/inventory/ItemModel.gd"
-}, {
-"base": "KinematicBody",
-"class": "Player",
-"language": "GDScript",
-"path": "res://scenes/game/Player/Player.gd"
+"path": "res://scenes/GameUI/inventory/ItemModel.gd"
 }, {
 "base": "Node",
 "class": "PubSub",
@@ -47,22 +42,17 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ScreenBottomText",
 "language": "GDScript",
-"path": "res://scenes/ui/DialogText/DialogText.gd"
+"path": "res://scenes/GameUI/DialogText/DialogText.gd"
 }, {
 "base": "RichTextLabel",
 "class": "TimedTextLabel",
 "language": "GDScript",
-"path": "res://scenes/ui/timed_text_label/TimedTextLabel.gd"
-}, {
-"base": "Node",
-"class": "Weather",
-"language": "GDScript",
-"path": "res://scenes/game/Waether.gd"
+"path": "res://scenes/GameUI/timed_text_label/TimedTextLabel.gd"
 }, {
 "base": "Reference",
 "class": "WeatherData",
 "language": "GDScript",
-"path": "res://scenes/game/weather/WeatherData.gd"
+"path": "res://scenes/Game/WeatherData.gd"
 } ]
 _global_script_class_icons={
 "ChatHoverText": "",
@@ -70,18 +60,16 @@ _global_script_class_icons={
 "Interactions": "",
 "Item": "",
 "ItemModel": "",
-"Player": "",
 "PubSub": "",
 "ScreenBottomText": "",
 "TimedTextLabel": "",
-"Weather": "",
 "WeatherData": ""
 }
 
 [application]
 
 config/name="Bestia Behemoth"
-run/main_scene="res://scenes/title/TitleScreen.tscn"
+run/main_scene="res://scenes/Game/Game.tscn"
 boot_splash/image="res://img/splash.png"
 config/icon="res://icon.png"
 
@@ -95,10 +83,6 @@ Global="*res://Global.gd"
 window/size/width=1280
 window/size/height=720
 window/stretch/aspect="keep_width"
-
-[global]
-
-layer=false
 
 [input]
 

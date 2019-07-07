@@ -1,7 +1,7 @@
 extends Node
 
 var PST = load("res://PubSubTopics.gd")
-var weather_data = preload("res://scenes/game/weather/WeatherData.gd").new()
+var weather_data = preload("res://scenes/Game/WeatherData.gd").new()
 var counter = 0
 
 # This is some mockup to check and test changing weather effects.

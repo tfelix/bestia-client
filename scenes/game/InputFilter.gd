@@ -18,7 +18,6 @@ const COLLISION_MASK = 32
 
 var last_click = Vector2.ZERO
 
-onready var pointer = get_node("../MoveCursor")
 onready var player = get_node("../Player")
 onready var camera = get_node("../Player/PlayerCamera")
 
@@ -47,9 +46,6 @@ func _physics_process(delta):
 	if collisions.size() > 0:
 		print_debug("Found collisions: ", collisions.size())
 		_handle_click(collisions)
-		#pointer.translation = collisions[0].position
-		#pointer.animate()
-		#player.move_to(collisions[0].position)
 
 func _handle_click(nodes):
 	for node in nodes:

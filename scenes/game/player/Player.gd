@@ -1,5 +1,5 @@
 extends KinematicBody
-class_name Player
+# class_name Player
 
 var PST = load("res://PubSubTopics.gd")
 

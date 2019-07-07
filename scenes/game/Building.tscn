@@ -1,8 +1,10 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scenes/game/Building.gd" type="Script" id=1]
-[ext_resource path="res://scenes/game/BuildingGround.material" type="Material" id=2]
-[ext_resource path="res://scenes/game/BuildingWallMaterial.material" type="Material" id=3]
+[ext_resource path="res://scenes/Game/Building.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Game/BuildingGround.material" type="Material" id=2]
+[ext_resource path="res://scenes/Game/BuildingWallMaterial.material" type="Material" id=3]
+
+
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 2, 0.2, 2 )

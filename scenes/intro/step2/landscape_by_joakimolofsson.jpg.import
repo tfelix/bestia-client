@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/landscape_by_joakimolofsson.jpg-f4f125aa964737247a68bd631e5f349c.stex"
+path="res://.import/landscape_by_joakimolofsson.jpg-11617f2e8c4a299e27269424bb95cb58.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/intro/step2/landscape_by_joakimolofsson.jpg"
-dest_files=[ "res://.import/landscape_by_joakimolofsson.jpg-f4f125aa964737247a68bd631e5f349c.stex" ]
+source_file="res://scenes/Intro/step2/landscape_by_joakimolofsson.jpg"
+dest_files=[ "res://.import/landscape_by_joakimolofsson.jpg-11617f2e8c4a299e27269424bb95cb58.stex" ]
 
 [params]
 

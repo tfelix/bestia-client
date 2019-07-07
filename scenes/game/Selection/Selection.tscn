@@ -1,6 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/game/Selection/Selection.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Game/Selection/Selection.gd" type="Script" id=1]
+
+
 
 [sub_resource type="QuadMesh" id=1]
 

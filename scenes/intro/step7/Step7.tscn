@@ -1,6 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/intro/step7/Step7.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Intro/step7/Step7.gd" type="Script" id=1]
+
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "mana_animation"
