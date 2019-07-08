@@ -21,8 +21,13 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 0.
 shape = SubResource( 1 )
 
 [node name="Selection" parent="." index="2"]
-interactions_path = NodePath("../Interactions")
-selection_mesh = NodePath("../EmptyBottleMesh/small_flask")
+selection_mesh_path = NodePath("../EmptyBottleMesh/small_flask")
+
+[node name="Interactions" parent="." index="3"]
+editor/display_folded = true
+
+[node name="PickUpArea" parent="Interactions/PickUp" index="0"]
+editor/display_folded = true
 
 [editable path="EmptyBottleMesh"]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Sign.png-7abf6b7972d5b52fc1d4419abfb5b60b.s3tc.stex"
-path.etc2="res://.import/Sign.png-7abf6b7972d5b52fc1d4419abfb5b60b.etc2.stex"
+path.s3tc="res://.import/blob.png-0cd53cf616db341fdcfdbb44e2335415.s3tc.stex"
+path.etc2="res://.import/blob.png-0cd53cf616db341fdcfdbb44e2335415.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://structures/small_sign/images/Sign.png"
-dest_files=[ "res://.import/Sign.png-7abf6b7972d5b52fc1d4419abfb5b60b.s3tc.stex", "res://.import/Sign.png-7abf6b7972d5b52fc1d4419abfb5b60b.etc2.stex" ]
+source_file="res://mesh/mobs/Blob/blob.png"
+dest_files=[ "res://.import/blob.png-0cd53cf616db341fdcfdbb44e2335415.s3tc.stex", "res://.import/blob.png-0cd53cf616db341fdcfdbb44e2335415.etc2.stex" ]
 
 [params]
 

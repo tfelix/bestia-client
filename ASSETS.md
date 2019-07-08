@@ -12,10 +12,12 @@
 * [Sword clash icon by Lorc](https://game-icons.net/1x1/lorc/sword-clash.html), CC BY 3.0
 * [Card play icon by Quoting](https://game-icons.net/1x1/quoting/card-play.html),  CC BY 3.0
 * [Cancel icon by sbed](https://game-icons.net/1x1/sbed/cancel.html), CC BY 3.0
+* [logging.svg](https://game-icons.net/1x1/skoll/logging.html), Skoll, CC BY 3.0
 
-## Music
+## Music / Audio
 
 * [RPG Town Loop #2 by Sirkoto51](https://freesound.org/people/Sirkoto51/sounds/349179/)
+* [chopping_wood_01.wav](https://freesound.org/people/micahlg/sounds/421928/), micahlg
 
 ## Shader
 

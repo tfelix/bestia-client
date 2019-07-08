@@ -2,16 +2,19 @@ extends Spatial
 
 var PST = load("res://PubSubTopics.gd")
 
-export(NodePath) var interactions_path
-export(NodePath) var selection_mesh
+export(NodePath) var selection_mesh_path = ""
 
 var is_selected: bool = false
 var interactions: Interactions
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	interactions = get_node(interactions_path)
-	var node = get_node(selection_mesh)
+	assert(!selection_mesh_path.is_empty())
+	
+	# Find the interaction path
+	interactions = get_parent().get_node("Interactions")
+	
+	var node = get_node(selection_mesh_path)
 	var aabb = node.get_aabb()
 	var longest_axis_size = aabb.get_longest_axis_size()
 	$RingHighlight.transform.scaled(Vector3(longest_axis_size, longest_axis_size, 1))
@@ -31,7 +34,8 @@ func selected():
 func unselected():
 	visible = false
 	is_selected = false
-	interactions.abort_interaction()
+	if interactions != null:
+		interactions.abort_interaction()
 
 
 func event_published(event_key, payload):

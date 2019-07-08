@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/small_sign.dae-7b469bffd572169e1eb08d86159507cf.scn"
+path="res://.import/small_sign.dae-1127e04928b39593fa1fa72331fd69d2.scn"
 
 [deps]
 
-source_file="res://structures/small_sign/small_sign.dae"
-dest_files=[ "res://.import/small_sign.dae-7b469bffd572169e1eb08d86159507cf.scn" ]
+source_file="res://mesh/structures/SignSmall/small_sign.dae"
+dest_files=[ "res://.import/small_sign.dae-1127e04928b39593fa1fa72331fd69d2.scn" ]
 
 [params]
 

@@ -9,7 +9,7 @@ var sunrise_duration = 1.0/24 * 3 # 3hrs
 var current_daytime: DayData
 var world_environment: WorldEnvironment
 
-var temp_minutes = 100
+var temp_minutes = 600
 
 var color_sunrise = Vector3(222, 177, 255)
 var color_day = Vector3(255, 255, 255)
@@ -24,8 +24,6 @@ func process_daytime():
 	var time = OS.get_time();
 	var day_data = DayData.new()
 	# day_data.progress = (time.hour * 60 + time.minute) / (24.0 * 60)
-	temp_minutes += 10
-	temp_minutes %= 1440
 
 	day_data.progress = temp_minutes / (24.0 * 60)
 	print_debug("Current day progress: ", day_data.progress)

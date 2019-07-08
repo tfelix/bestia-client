@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/blob.dae-e86b17185e214d3dbbd9e41fca4ed0f7.scn"
+path="res://.import/blob.dae-41e14d608e3c596cb6f3c0dabd028597.scn"
 
 [deps]
 
-source_file="res://mob/blob.dae"
-dest_files=[ "res://.import/blob.dae-e86b17185e214d3dbbd9e41fca4ed0f7.scn" ]
+source_file="res://mesh/mobs/Blob/blob.dae"
+dest_files=[ "res://.import/blob.dae-41e14d608e3c596cb6f3c0dabd028597.scn" ]
 
 [params]
 
