@@ -23,9 +23,13 @@ export (EntityKind) var entity_kind = EntityKind.ITEM
 # - no -- Execute behavior
 # no: - Select the object and show all possible actions
 func _on_Collidor_input_event(camera, event, click_position, click_normal, shape_idx):
-	if !event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
-		return
-	
+	if event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
+		_handle_default_input()
+	if event.is_action_pressed(Actions.ACTION_RIGHT_CLICK):
+		_handle_secondary_input()
+
+
+func _handle_default_input():
 	if $Selection.is_selected:
 		$Selection.unselected()
 		$Interactions.abort_interaction()
@@ -35,8 +39,14 @@ func _on_Collidor_input_event(camera, event, click_position, click_normal, shape
 		else:
 			$Interactions.show_possible_interactions()
 			$Selection.selected()
-		
 
+func _handle_secondary_input():
+	if $Selection.is_selected:
+		$Selection.unselected()
+		$Interactions.abort_interaction()
+	else:
+		$Interactions.show_possible_interactions()
+		$Selection.selected()
 
 func _on_Collidor_mouse_entered():
   print_debug("Mouse entered")

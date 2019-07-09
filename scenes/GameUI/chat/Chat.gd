@@ -5,7 +5,7 @@ const MAX_CHAT_COUNT = 30
 
 signal on_chat_send
 
-onready var chat_line_container = $MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer
+onready var chat_line_container = $MarginContainer/VBoxContainer/ScrollContainer/VBoxTextRow
 onready var player = get_tree().get_root().get_node("Game/Player")
 
 # Called when the node enters the scene tree for the first time.
@@ -15,7 +15,8 @@ func _ready():
 
 func _clear_text():
 	$MarginContainer/VBoxContainer/HBoxContainer/Text.clear()
-	
+
+# TODO Better handle the support of nicknames when there is some chatting
 func _insert_chat_text(text):
 	var new_chat_label = Label.new()
 	new_chat_label.text = text

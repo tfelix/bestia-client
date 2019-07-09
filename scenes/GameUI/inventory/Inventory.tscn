@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/GameUI/inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/inventory/cancel.svg" type="Texture" id=2]
-
+[ext_resource path="res://audio/fx/click3.wav" type="AudioStream" id=3]
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.5
@@ -16,6 +16,7 @@ margin_bottom = 360.0
 script = ExtResource( 1 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -29,7 +30,7 @@ margin_bottom = 171.0
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 773.0
-margin_bottom = 823.0
+margin_bottom = 335.0
 
 [node name="Header" type="HBoxContainer" parent="PanelContainer/Content"]
 margin_right = 766.0
@@ -56,4 +57,6 @@ margin_right = 766.0
 margin_bottom = 328.0
 rect_min_size = Vector2( 0, 300 )
 
+[node name="AudioClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="pressed" from="PanelContainer/Content/Header/Close" to="." method="_on_Close_pressed"]

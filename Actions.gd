@@ -1,5 +1,6 @@
 # Contains the name constants of the player actions.
 const ACTION_LEFT_CLICK = "left_click"
+const ACTION_RIGHT_CLICK = "right_click"
 
 const SHORTCUT_1 = "shortcut_1"
 const SHORTCUT_2 = "shortcut_2"

@@ -25,7 +25,7 @@ func has_default_interaction(node: Entity) -> bool:
 
 func trigger_interaction(node: Entity) -> void:
 	if node == null:
-		printerr("No interaction node given")
+		printerr("No entity node given")
 		return
 	
 	var kind = node.entity_kind

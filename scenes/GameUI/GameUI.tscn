@@ -6,8 +6,6 @@
 [ext_resource path="res://scenes/GameUI/menu/Menu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GameUI/inventory/Inventory.tscn" type="PackedScene" id=5]
 
-
-
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,6 +25,5 @@ margin_bottom = -239.0
 
 [node name="Inventory" parent="." instance=ExtResource( 5 )]
 visible = false
-
 [connection signal="on_chat_send" from="ChatPanel" to="." method="_on_ChatPanel_on_chat_send"]
 [connection signal="inventory_clicked" from="Menu" to="." method="_on_Menu_inventory_clicked"]
