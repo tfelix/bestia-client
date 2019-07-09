@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Game/Interactions/InteractionsUi/InteractionsUi.gd" type="Script" id=1]
 
-[node name="Interactions" type="Control"]
+[node name="InteractionsUi" type="Control"]
 margin_right = 500.0
 margin_bottom = 500.0
 script = ExtResource( 1 )

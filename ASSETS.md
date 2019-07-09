@@ -5,6 +5,7 @@
 * Title Screen by nicole-mason, Unsplash
 * [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), CC0
 * [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), CC0
+* [Kenney's Audio Pack](https://kenney.nl/assets/ui-audio), CC0
 
 # Icons
 

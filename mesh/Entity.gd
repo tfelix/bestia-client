@@ -30,8 +30,12 @@ func _on_Collidor_input_event(camera, event, click_position, click_normal, shape
 		$Selection.unselected()
 		$Interactions.abort_interaction()
 	else:
-		$Selection.selected()
-		$Interactions.trigger_interaction(self)
+		if $Interactions.has_default_interaction(self):
+			$Interactions.trigger_interaction(self)
+		else:
+			$Interactions.show_possible_interactions()
+			$Selection.selected()
+		
 
 
 func _on_Collidor_mouse_entered():

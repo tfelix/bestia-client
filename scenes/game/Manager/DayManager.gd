@@ -11,10 +11,10 @@ var world_environment: WorldEnvironment
 
 var temp_minutes = 600
 
-var color_sunrise = Vector3(222, 177, 255)
-var color_day = Vector3(255, 255, 255)
-var color_evening = Vector3(231, 139, 32)
-var color_night = Vector3(0, 2, 120)
+var color_sunrise = Color(0.870588, 0.694118, 1)
+var color_day = Color(1, 1, 1)
+var color_evening = Color(0.905882, 0.545098, 0.12549)
+var color_night = Color(0, 0.007843, 0.470588)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,6 +24,8 @@ func process_daytime():
 	var time = OS.get_time();
 	var day_data = DayData.new()
 	# day_data.progress = (time.hour * 60 + time.minute) / (24.0 * 60)
+	temp_minutes += 10
+	temp_minutes %= 24 * 60
 
 	day_data.progress = temp_minutes / (24.0 * 60)
 	print_debug("Current day progress: ", day_data.progress)
@@ -31,6 +33,7 @@ func process_daytime():
 	PubSub.publish(PST.ENV_DAYTIME_CHANGED, day_data)
 	adjust_sun_position()
 	adjust_sun_energy()
+	adjust_sun_color()
 
 func adjust_sun_position():
 	var sun = $Sun as DirectionalLight
@@ -63,8 +66,21 @@ func adjust_sun_energy():
 	print_debug("Ambient Light intensity: ", env.ambient_light_energy)
 
 func adjust_sun_color():
+	var env = (world_environment.environment as Environment)
+	# FIXME This function is bullshit
 	var blend_fac = clamp(-18.123 * pow(current_daytime.progress, 2) + 1.13, 0, 1)
-	pass
+	blend_fac = 0.9
+	print_debug(blend_fac)
+	var sun_color: Color
+	# TODO Add the blend to the night color
+	if current_daytime.progress < 0.5:
+		# Sunrise
+		sun_color = color_sunrise.linear_interpolate(color_day, blend_fac)
+	else:
+		# Dawn
+		sun_color = color_day.linear_interpolate(color_evening, blend_fac)
+	env.ambient_light_color = sun_color
+	print_debug("Ambient color: ", sun_color)
 
 func _on_Timer_timeout():
 	process_daytime()

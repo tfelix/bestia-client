@@ -26,6 +26,7 @@ sun_color = Color( 0.611765, 0.0156863, 0.0156863, 1 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+ambient_light_sky_contribution = 0.8
 fog_depth_begin = 1000.0
 fog_depth_end = 3000.0
 fog_depth_curve = 4.2871

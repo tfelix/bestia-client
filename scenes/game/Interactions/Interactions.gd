@@ -17,6 +17,12 @@ func _process(delta):
 		ui.margin_left = screen_pos.x
 		ui.margin_top = screen_pos.y
 
+func has_default_interaction(node: Entity) -> bool:
+	if node == null:
+		return false
+	var kind = node.entity_kind
+	return Global.default_interactions.has(kind)
+
 func trigger_interaction(node: Entity) -> void:
 	if node == null:
 		printerr("No interaction node given")
@@ -24,21 +30,23 @@ func trigger_interaction(node: Entity) -> void:
 	
 	var kind = node.entity_kind
 	if !Global.default_interactions.has(kind):
-		_show_possible_interaction()
-	else:
-		var default_interaction = Global.default_interactions[kind]
-		var interaction_node = get_node(default_interaction)
-		if interaction_node == null:
-			print("No interaction of type '", default_interaction, "' found")
-			return
-		interaction_node.trigger_interaction(node)
+		printerr("No default interaction set for kind: ", kind)
+		return
+	
+	var default_interaction = Global.default_interactions[kind]
+	var interaction_node = get_node(default_interaction)
+	if interaction_node == null:
+		print("No interaction of type '", default_interaction, "' found")
+		return
+	interaction_node.trigger_interaction(node)
 
 func abort_interaction() -> void:
+	# TODO A call to this should also unselect the entity
 	if ui != null:
 		ui.queue_free()
 		ui = null
 
-func _show_possible_interaction():
+func show_possible_interactions():
 	if ui == null:
 		ui = InteractionUi.instance()
 		ui.entity = parent_entity

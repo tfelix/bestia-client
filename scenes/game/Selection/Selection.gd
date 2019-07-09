@@ -5,14 +5,11 @@ var PST = load("res://PubSubTopics.gd")
 export(NodePath) var selection_mesh_path = ""
 
 var is_selected: bool = false
-var interactions: Interactions
+onready var interactions: Interactions = get_parent().get_node("Interactions")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(!selection_mesh_path.is_empty())
-	
-	# Find the interaction path
-	interactions = get_parent().get_node("Interactions")
 	
 	var node = get_node(selection_mesh_path)
 	var aabb = node.get_aabb()
