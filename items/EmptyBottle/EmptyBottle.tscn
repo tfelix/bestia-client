@@ -8,12 +8,14 @@
 radius = 0.277413
 height = 0.307557
 
-[node name="Bottle" instance=ExtResource( 1 )]
+[node name="Bottle" index="0" instance=ExtResource( 1 )]
 item_icon = ExtResource( 2 )
 item_name = "Empty Bottle"
 item_weight = 1
 
 [node name="EmptyBottleMesh" parent="." index="0" instance=ExtResource( 3 )]
+
+[node name="Collidor" parent="." index="1"]
 editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Collidor" index="0"]
@@ -24,9 +26,6 @@ shape = SubResource( 1 )
 selection_mesh_path = NodePath("../EmptyBottleMesh/small_flask")
 
 [node name="Interactions" parent="." index="3"]
-editor/display_folded = true
-
-[node name="PickUpArea" parent="Interactions/PickUp" index="0"]
 editor/display_folded = true
 
 [editable path="EmptyBottleMesh"]

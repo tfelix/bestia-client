@@ -8,3 +8,4 @@ var default_interactions = {}
 var pickup_item_message
 
 var player_camera: Camera
+var player: Player

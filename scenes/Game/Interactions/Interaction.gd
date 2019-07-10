@@ -24,8 +24,10 @@ func insert_ui_child(node: InteractionsUi):
 # It is called if the player clicks on it and it now
 # must handle this interaction request.
 func trigger_interaction(node: Entity):
+	if node.is_player_in_range():
+		# Try to move to the entity location
+		print_debug("player not in range")
 	printerr("trigger_interaction was not overriden")
-	pass
 
 # This is strange and we need another way so we dont need to override
 # the parent function.

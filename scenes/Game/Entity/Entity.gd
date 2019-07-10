@@ -14,6 +14,7 @@ enum EntityKind {
 }
 
 var id = 0
+
 export (EntityKind) var entity_kind = EntityKind.ITEM
 
 # The clicking should work like so:
@@ -40,6 +41,7 @@ func _handle_default_input():
 			$Interactions.show_possible_interactions()
 			$Selection.selected()
 
+
 func _handle_secondary_input():
 	if $Selection.is_selected:
 		$Selection.unselected()
@@ -47,6 +49,7 @@ func _handle_secondary_input():
 	else:
 		$Interactions.show_possible_interactions()
 		$Selection.selected()
+
 
 func _on_Collidor_mouse_entered():
   print_debug("Mouse entered")

@@ -3,8 +3,6 @@
 [ext_resource path="res://scenes/Game/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Player/Player.tres" type="Material" id=2]
 
-
-
 [sub_resource type="CylinderShape" id=1]
 
 [sub_resource type="CylinderMesh" id=2]
@@ -43,3 +41,4 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 2.
 mesh = SubResource( 4 )
 material/0 = null
 
+[node name="Components" type="Node" parent="."]

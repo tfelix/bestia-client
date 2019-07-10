@@ -1,5 +1,5 @@
 extends KinematicBody
-# class_name Player
+class_name Player
 
 var PST = load("res://PubSubTopics.gd")
 
@@ -12,14 +12,18 @@ var destination = null
 signal movement_stopped()
 
 func _ready():
-  PubSub.subscribe(PST.TERRAIN_CLICKED, self)
-  PubSub.subscribe(PST.PLAYER_MOVE_REQUSTED, self)
+	PubSub.subscribe(PST.TERRAIN_CLICKED, self)
+	PubSub.subscribe(PST.PLAYER_MOVE_REQUSTED, self)
+	Global.player = self
 
 func free():
   PubSub.unsubscribe(self)
   .free()
 
 func _physics_process(delta):
+	if !_can_move():
+		destination = null
+		return
 	if translation != destination and destination != null:
 		var gap = destination - translation
 		# gap.y = 0
@@ -41,11 +45,23 @@ func _physics_process(delta):
 			emit_signal("movement_stopped")
 
 func move_to(destination):
+	if !_can_move():
+		return
 	self.destination = destination
 	$MoveIndicator.translation = destination
 	$MoveIndicator.play()
+	
+func _can_move() -> bool:
+	for c in $Components.get_children():
+		if c is NoMovement:
+			return false
+	return true
 
-func event_published(event_key, payload):
+func event_published(event_key, payload) -> void:
   match (event_key):
     PST.TERRAIN_CLICKED, PST.PLAYER_MOVE_REQUSTED:
       move_to(payload)
+
+# TODO This must be done in all entities, also player must be converted to entity
+func add_component(comp: Component) -> void:
+	$Components.add_child(comp)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Game/Manager/CursorManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Manager/WeatherManager.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Game/Manager/DayManager.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Game/Manager/FakeServerManager.gd" type="Script" id=4]
 
 [node name="Manager" type="Node"]
 
@@ -16,9 +17,13 @@ script = ExtResource( 2 )
 autostart = true
 
 [node name="DayManager" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="DayManager"]
 autostart = true
+
+[node name="FakeServerManager" type="Node" parent="."]
+script = ExtResource( 4 )
 [connection signal="timeout" from="WeatherManager/Timer" to="WeatherManager" method="_on_Timer_timeout"]
 [connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_Timer_timeout"]
