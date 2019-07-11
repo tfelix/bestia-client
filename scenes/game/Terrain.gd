@@ -8,4 +8,4 @@ func _on_StaticBody_input_event(camera, event, click_position, click_normal, sha
     return
 
   print_debug("Terrain was clicked")
-  PubSub.publish(PST.TERRAIN_CLICKED, click_position)
+  # PubSub.publish(PST.TERRAIN_CLICKED, click_position)

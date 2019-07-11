@@ -5,7 +5,7 @@ var Actions = load("res://Actions.gd")
 var ItemModel = load("res://scenes/ui/inventory/ItemModel.gd")
 var ItemPickupMessage = load("res://scenes/ui/item_pickup_message/ItemPickupMessage.tscn")
 
-onready var player = get_tree().get_root().get_node("Game/Player")
+onready var player = Global.player
 onready var item = get_node("../..")
 
 func trigger_interaction(node: Spatial) -> void:

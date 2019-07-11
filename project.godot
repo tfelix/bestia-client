@@ -64,10 +64,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/NoMovement.gd"
 }, {
-"base": "KinematicBody",
+"base": "Spatial",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scenes/Game/Entity/Player/PlayerMesh.gd"
+"path": "res://scenes/Game/Entity/Player/Player.gd"
 }, {
 "base": "Node",
 "class": "PubSub",

@@ -10,6 +10,7 @@ enum EntityKind {
 	ITEM, 
 	STRUCTURE, 
 	NPC,
+	MOB,
 	VEGETATION
 }
 
@@ -50,12 +51,3 @@ func _handle_secondary_input():
 		$Interactions.show_possible_interactions()
 		$Selection.selected()
 
-
-func _on_Collidor_mouse_entered():
-  print_debug("Mouse entered")
-  pass # Replace with function body.
-
-
-func _on_Collidor_mouse_exited():
-  print_debug("Mouse exit")
-  pass # Replace with function body.

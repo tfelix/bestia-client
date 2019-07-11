@@ -1,7 +1,7 @@
 extends Node
 
-var cursorHand = load("res://scenes/ui/cursor/cursor-hand.png")
-var cursorAttack = load("res://scenes/ui/cursor/cursor-attack.png")
+var cursorHand = load("res://scenes/GameUI/cursor/cursor-hand.png")
+var cursorAttack = load("res://scenes/GameUI/cursor/cursor-attack.png")
 
 enum Cursor {
 	NORMAL,

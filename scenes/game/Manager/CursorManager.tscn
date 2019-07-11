@@ -2,9 +2,5 @@
 
 [ext_resource path="res://scenes/Game/Manager/CursorManager.gd" type="Script" id=1]
 
-
-
-
 [node name="CursorManager" type="Node"]
 script = ExtResource( 1 )
-

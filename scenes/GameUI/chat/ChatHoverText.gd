@@ -17,7 +17,7 @@ func set_text(text):
 	$Text.text = text
 
 func _update_position():
-	var player = get_tree().get_root().get_node("Game/Player")
+	var player = Global.player
 	var label = $Text
 	var camera = get_tree().get_root().get_camera()
 	

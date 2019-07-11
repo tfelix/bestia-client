@@ -6,7 +6,7 @@ const MAX_CHAT_COUNT = 30
 signal on_chat_send
 
 onready var chat_line_container = $MarginContainer/VBoxContainer/ScrollContainer/VBoxTextRow
-onready var player = get_tree().get_root().get_node("Game/Player")
+onready var player = Global.player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

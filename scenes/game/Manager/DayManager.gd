@@ -28,7 +28,7 @@ func process_daytime():
 	temp_minutes %= 24 * 60
 
 	day_data.progress = temp_minutes / (24.0 * 60)
-	print_debug("Current day progress: ", day_data.progress)
+	# print_debug("Current day progress: ", day_data.progress)
 	current_daytime = day_data
 	PubSub.publish(PST.ENV_DAYTIME_CHANGED, day_data)
 	adjust_sun_position()
@@ -63,14 +63,13 @@ func adjust_sun_energy():
 		var progress = (current_daytime.progress - adjusted_sunrise_start) / (adjusted_sunrise_end - adjusted_sunrise_start)
 		var clamped_progress = clamp(progress, 0, 1)
 		env.ambient_light_energy = clamped_progress
-	print_debug("Ambient Light intensity: ", env.ambient_light_energy)
+	# print_debug("Ambient Light intensity: ", env.ambient_light_energy)
 
 func adjust_sun_color():
 	var env = (world_environment.environment as Environment)
 	# FIXME This function is bullshit
 	var blend_fac = clamp(-18.123 * pow(current_daytime.progress, 2) + 1.13, 0, 1)
 	blend_fac = 0.9
-	print_debug(blend_fac)
 	var sun_color: Color
 	# TODO Add the blend to the night color
 	if current_daytime.progress < 0.5:
@@ -80,7 +79,7 @@ func adjust_sun_color():
 		# Dawn
 		sun_color = color_day.linear_interpolate(color_evening, blend_fac)
 	env.ambient_light_color = sun_color
-	print_debug("Ambient color: ", sun_color)
+	# print_debug("Ambient color: ", sun_color)
 
 func _on_Timer_timeout():
 	process_daytime()

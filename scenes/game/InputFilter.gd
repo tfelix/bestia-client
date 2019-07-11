@@ -1,6 +1,6 @@
 extends Spatial
 
-var Item = load("res://mesh/items/Item.gd")
+var Item = load("res://scenes/Game/Entity/Item/Item.tscn")
 
 # This checks might very well be done inside the camera
 # or can even be extracted to an own script.
