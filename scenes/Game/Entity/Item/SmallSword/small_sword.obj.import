@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/small_sword.obj-7baed49b7f1289b863513d2b68e22663.mesh"
+
+[deps]
+
+files=[ "res://.import/small_sword.obj-7baed49b7f1289b863513d2b68e22663.mesh" ]
+
+source_file="res://scenes/Game/Entity/Item/SmallSword/small_sword.obj"
+dest_files=[ "res://.import/small_sword.obj-7baed49b7f1289b863513d2b68e22663.mesh", "res://.import/small_sword.obj-7baed49b7f1289b863513d2b68e22663.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

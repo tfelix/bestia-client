@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Entity.gd" type="Script" id=1]
-[ext_resource path="res://mesh/InteractionRange.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game/Entity/InteractionRange.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Game/Selection/Selection.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
 
@@ -19,6 +19,8 @@ visible = false
 [node name="Interactions" parent="." instance=ExtResource( 4 )]
 
 [node name="Components" type="Node" parent="."]
+
+[node name="LocalComponents" type="Node" parent="."]
 [connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]
 [connection signal="mouse_entered" from="Collidor" to="." method="_on_Collidor_mouse_entered"]
 [connection signal="mouse_exited" from="Collidor" to="." method="_on_Collidor_mouse_exited"]
