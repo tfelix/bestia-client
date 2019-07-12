@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Mob/Mob.tscn" type="PackedScene" id=1]
+[ext_resource path="res://audio/fx/punch_01.wav" type="AudioStream" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -27,5 +28,10 @@ selection_mesh_path = NodePath("../MeshInstance")
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0.890747, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
+
+[node name="AudioPunch" type="AudioStreamPlayer" parent="." index="7"]
+stream = ExtResource( 2 )
+volume_db = -9.838
+bus = "Fx"
 
 [editable path="Interactions"]

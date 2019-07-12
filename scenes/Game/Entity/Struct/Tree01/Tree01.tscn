@@ -1,40 +1,43 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01Mesh.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game/Interactions/ChopTree/ChopTree.tscn" type="PackedScene" id=3]
 
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.00392157, 0.607843, 0.152941, 1 )
 
-
-[sub_resource type="CapsuleShape" id=1]
-
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="CapsuleShape" id=2]
 
 [sub_resource type="CapsuleShape" id=3]
 
-[node name="Tree01" index="0" instance=ExtResource( 1 )]
+[sub_resource type="SphereShape" id=4]
+
+[node name="Tree01" instance=ExtResource( 1 )]
 entity_kind = 3
 
 [node name="Tree01Mesh" parent="." index="0" instance=ExtResource( 2 )]
-editor/display_folded = true
 
-[node name="Collidor" parent="." index="1"]
-editor/display_folded = true
+[node name="Tree" parent="Tree01Mesh" index="0"]
+material/0 = SubResource( 1 )
 
-[node name="Trunk" type="CollisionShape" parent="Collidor" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -3, 0, 1, -1.31134e-007, 0, 4.11477, 0 )
-shape = SubResource( 1 )
-
-[node name="Crown" type="CollisionShape" parent="Collidor" index="1"]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 13.2818, 0 )
-shape = SubResource( 2 )
-
-[node name="InteractionRange" parent="." index="2"]
+[node name="InteractionRange" parent="." index="1"]
 editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionRange" index="0"]
 transform = Transform( 2.5, 0, 0, 0, -1.09278e-007, 3.244, 0, -2.5, -1.418e-007, 0, 4.34091, 0 )
+shape = SubResource( 2 )
+
+[node name="Collidor" parent="." index="2"]
+editor/display_folded = true
+
+[node name="Trunk" type="CollisionShape" parent="Collidor" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -3, 0, 1, -1.31134e-007, 0, 4.11477, 0 )
 shape = SubResource( 3 )
+
+[node name="Crown" type="CollisionShape" parent="Collidor" index="1"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 13.2818, 0 )
+shape = SubResource( 4 )
 
 [node name="Selection" parent="." index="3"]
 selection_mesh_path = NodePath("../Tree01Mesh/Tree")
