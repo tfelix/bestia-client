@@ -3,6 +3,9 @@ class_name Entity
 
 var Actions = load("res://Actions.gd")
 
+signal component_changed(component)
+signal component_removed(component)
+
 # Base class for all adressable entities in the bestia game.
 # The entity will be managed by the network manager and filled
 # with data from the server.
@@ -15,8 +18,32 @@ enum EntityKind {
 }
 
 var id = 0
+onready var _components = $Components
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
+
+"""
+Returns the bounding box of the mesh of this entity. Then a unit sized
+cube is returned.
+"""
+func get_aabb() -> AABB:
+	return AABB(Vector3.ZERO, Vector3.ONE)
+
+
+func get_component(component_name: String) -> Component:
+	return _components.find_node(component_name, false, false)
+	
+
+func update_component(component: Component):
+	var old_comp = null
+	for c in _components.get_children():
+		if typeof(c) == typeof(component):
+			old_comp = c
+			break
+	if !old_comp == null:
+		_components.remove_child(old_comp)
+	_components.add_child(component)
+	emit_signal("component_changed", component)
 
 # The clicking should work like so:
 # Select the object and see if there is a default behavior

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mana-foreground.png-9afcd2d157b2545a1b4fd2502890e998.stex"
+path="res://.import/placeholder.png-ef21141e6f7fef7ccb4b638348400c3b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/bars/mana/mana-foreground.png"
-dest_files=[ "res://.import/mana-foreground.png-9afcd2d157b2545a1b4fd2502890e998.stex" ]
+source_file="res://placeholder.png"
+dest_files=[ "res://.import/placeholder.png-ef21141e6f7fef7ccb4b638348400c3b.stex" ]
 
 [params]
 

@@ -1,10 +1,11 @@
-extends Spatial
+extends Entity
 class_name Player
 
 var PST = load("res://PubSubTopics.gd")
 
 # Emitted when the player movement has stopped.
 signal movement_stopped()
+signal status_values_changed(changed_values)
 
 func _ready():
 	PubSub.subscribe(PST.TERRAIN_CLICKED, self)
@@ -14,6 +15,12 @@ func _ready():
 func free():
   PubSub.unsubscribe(self)
   .free()
+
+
+# TODO Later access the real mesh of the player
+func get_aabb() -> AABB:
+	return AABB(Vector3.ZERO, Vector3(1, 2.2, 1))
+
 
 func move_to(destination):
 	if !can_move():

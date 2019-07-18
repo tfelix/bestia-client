@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=2]
@@ -15,7 +15,9 @@
 [ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=15]
-[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/Game/Bar/SimpleBar.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/Game/Entity/Progress/Progress.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ProceduralSky" id=1]
 sun_color = Color( 0.611765, 0.0156863, 0.0156863, 1 )
@@ -132,6 +134,7 @@ material/0 = null
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
 
 [node name="Entities" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="Tree02" parent="Entities" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.06069, 0, -4.91571 )
@@ -172,7 +175,12 @@ fov = 50.0
 far = 3000.0
 script = ExtResource( 15 )
 
-[node name="TestMob" parent="Entities" instance=ExtResource( 16 )]
+[node name="HealthBar" parent="Entities/Player" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.656738, 0 )
+
+[node name="Progress" parent="Entities/Player" instance=ExtResource( 17 )]
+
+[node name="TestMob" parent="Entities" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01152, 0, 0 )
 [connection signal="input_event" from="Terrain/StaticBody" to="Terrain" method="_on_StaticBody_input_event"]
 

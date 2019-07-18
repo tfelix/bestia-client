@@ -1,30 +1,20 @@
-extends Control
+extends Spatial
 
-var duration_ms: int = 1000
-var can_user_cancel: bool = false
-var can_move: bool = false
+var duration_ms: int = 5000
 signal progress_completed
 
-const _base_animation_duration = 5000.0
+onready var bar = $SimpleBar
+onready var update_tween = $UpdateTween
+
+const _y_offset = 0.4
 
 func _ready():
-	_update_position()
-	_adapt_speed()
+	update_tween.interpolate_property(bar, "percentage", 1.0, 0.0, duration_ms / 1000.0, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	update_tween.start()
+	var y_pos = get_parent().get_aabb().size.y + _y_offset
+	transform.origin = Vector3(0, y_pos, 0)
 
-func _adapt_speed():
-	var fac = _base_animation_duration / duration_ms
-	$AnimationPlayer.playback_speed = fac
-	$AnimationPlayer.play("Progress")
 
-func _update_position():
-	var parent = get_parent()
-	var camera = get_tree().get_root().get_camera()
-
-	var offset = Vector2(get_size().x / 2, 0)
-	var node_height = Vector3(0, 3, 0)
-	var pos = camera.unproject_position(parent.get_translation() + node_height) - offset
-	set_position(pos)
-
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_UpdateTween_tween_all_completed():
 	emit_signal("progress_completed")
 	queue_free()

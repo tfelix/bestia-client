@@ -9,8 +9,6 @@ var sunrise_duration = 1.0/24 * 3 # 3hrs
 var current_daytime: DayData
 var world_environment: WorldEnvironment
 
-var temp_minutes = 600
-
 var color_sunrise = Color(0.870588, 0.694118, 1)
 var color_day = Color(1, 1, 1)
 var color_evening = Color(0.905882, 0.545098, 0.12549)
@@ -23,11 +21,7 @@ func _ready():
 func process_daytime():
 	var time = OS.get_time();
 	var day_data = DayData.new()
-	# day_data.progress = (time.hour * 60 + time.minute) / (24.0 * 60)
-	temp_minutes += 10
-	temp_minutes %= 24 * 60
-
-	day_data.progress = temp_minutes / (24.0 * 60)
+	day_data.progress = (time.hour * 60 + time.minute) / (24.0 * 60)
 	# print_debug("Current day progress: ", day_data.progress)
 	current_daytime = day_data
 	PubSub.publish(PST.ENV_DAYTIME_CHANGED, day_data)

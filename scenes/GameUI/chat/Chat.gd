@@ -6,7 +6,6 @@ const MAX_CHAT_COUNT = 30
 signal on_chat_send
 
 onready var chat_line_container = $MarginContainer/VBoxContainer/ScrollContainer/VBoxTextRow
-onready var player = Global.player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,4 +43,4 @@ func _entered_chat(text):
 func _display_hover_chat(text):
 	var chat_text = HoverChatText.instance()
 	chat_text.set_text(text)
-	player.add_child(chat_text)
+	Global.player.add_child(chat_text)

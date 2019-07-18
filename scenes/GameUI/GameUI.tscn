@@ -1,10 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GameUI/GameUI.gd" type="Script" id=1]
-[ext_resource path="res://scenes/GameUI/chat/Chat.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/GameUI/shortcuts/Shortcuts.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/GameUI/menu/Menu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/GameUI/inventory/Inventory.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/GameUI/Chat/Chat.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GameUI/shortcuts/Shortcuts.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=5]
+
+
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -12,18 +14,18 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
 
-[node name="ChatPanel" parent="." instance=ExtResource( 2 )]
+[node name="CharacterPlate" parent="." instance=ExtResource( 2 )]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 300.0
+margin_bottom = 175.0
+
+[node name="ChatPanel" parent="." instance=ExtResource( 3 )]
 margin_left = 10.0
 margin_bottom = -10.0
 
-[node name="Shortcuts" parent="." instance=ExtResource( 3 )]
-
-[node name="Menu" parent="." instance=ExtResource( 4 )]
-margin_left = 10.0
-margin_top = 186.0
-margin_bottom = -239.0
+[node name="Shortcuts" parent="." instance=ExtResource( 4 )]
 
 [node name="Inventory" parent="." instance=ExtResource( 5 )]
-visible = false
+[connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
 [connection signal="on_chat_send" from="ChatPanel" to="." method="_on_ChatPanel_on_chat_send"]
-[connection signal="inventory_clicked" from="Menu" to="." method="_on_Menu_inventory_clicked"]

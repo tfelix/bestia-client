@@ -1,6 +1,16 @@
-class_name ItemModel
+enum ItemType {
+	USABLE,
+	EQUIP,
+	ETC
+}
 
-var icon: Texture
-var name: String = "undefined"
-var weight: int = 10
-var amount: int = 1
+class ItemModel:
+	var icon: Texture
+	var name: String = "undefined"
+	var weight: int = 10
+	var amount: int = 1
+	var stackable: bool = true
+	var type = ItemType.USABLE
+	
+	func totalWeight():
+		return weight * amount

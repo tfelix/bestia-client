@@ -3,18 +3,17 @@
 [ext_resource path="res://scenes/Game/Damage/Damage3D.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Damage/DamageLabel.tscn" type="PackedScene" id=2]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 params_billboard_mode = 1
 
-[sub_resource type="ViewportTexture" id=1]
+[sub_resource type="ViewportTexture" id=2]
 flags = 4
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="Animation" id=2]
-resource_name = "fade"
+[sub_resource type="Animation" id=3]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:material_override:albedo_color")
@@ -50,13 +49,13 @@ render_target_clear_mode = 2
 [node name="DamageLabelGUI" parent="Viewport" instance=ExtResource( 2 )]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-material_override = SubResource( 3 )
+material_override = SubResource( 1 )
 cast_shadow = 0
 double_sided = false
-texture = SubResource( 1 )
+texture = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade = SubResource( 2 )
+anims/fade = SubResource( 3 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Viewport/DamageLabelGUI"]

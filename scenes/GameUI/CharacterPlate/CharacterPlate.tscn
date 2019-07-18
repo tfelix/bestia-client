@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
+[ext_resource path="res://placeholder.png" type="Texture" id=2]
+[ext_resource path="res://scenes/GameUI/BarBig/BigBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GameUI/menu/knapsack.png" type="Texture" id=4]
+
+[node name="CharacterPlate" type="Control"]
+margin_right = 290.0
+margin_bottom = 165.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="Rows" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 157.0
+
+[node name="InfoMargin" type="MarginContainer" parent="PanelContainer/Rows"]
+margin_right = 274.0
+margin_bottom = 22.0
+custom_constants/margin_top = 4
+
+[node name="CharacterInfo" type="Label" parent="PanelContainer/Rows/InfoMargin"]
+margin_top = 4.0
+margin_right = 274.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 18 )
+text = "CharacterName"
+
+[node name="Main" type="HBoxContainer" parent="PanelContainer/Rows"]
+margin_top = 26.0
+margin_right = 274.0
+margin_bottom = 106.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Rows/Main"]
+editor/display_folded = true
+margin_right = 70.0
+margin_bottom = 80.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 8
+custom_constants/margin_left = 5
+
+[node name="CharacterImage" type="TextureRect" parent="PanelContainer/Rows/Main/MarginContainer"]
+margin_left = 5.0
+margin_top = 8.0
+margin_right = 65.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 60, 60 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Bars" type="VBoxContainer" parent="PanelContainer/Rows/Main"]
+margin_left = 74.0
+margin_right = 274.0
+margin_bottom = 80.0
+
+[node name="HealthBar" parent="PanelContainer/Rows/Main/Bars" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 20.0
+bar_color = Color( 0.698039, 0, 0.211765, 1 )
+update_bar_color = Color( 1, 0.803922, 0.803922, 1 )
+
+[node name="HealthLabel" type="Label" parent="PanelContainer/Rows/Main/Bars"]
+margin_top = 24.0
+margin_right = 200.0
+margin_bottom = 38.0
+text = "HP: 124 / 234"
+
+[node name="ManaBar" parent="PanelContainer/Rows/Main/Bars" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 42.0
+margin_right = 200.0
+margin_bottom = 62.0
+bar_color = Color( 0, 0.282353, 0.611765, 1 )
+update_bar_color = Color( 0.447059, 0.635294, 1, 1 )
+
+[node name="ManaLabel" type="Label" parent="PanelContainer/Rows/Main/Bars"]
+margin_top = 66.0
+margin_right = 200.0
+margin_bottom = 80.0
+text = "Mana: 0 / 0"
+
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/Rows"]
+margin_top = 110.0
+margin_right = 274.0
+margin_bottom = 150.0
+
+[node name="Inventory" type="TextureButton" parent="PanelContainer/Rows/Buttons"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+[connection signal="pressed" from="PanelContainer/Rows/Buttons/Inventory" to="." method="_on_Inventory_pressed"]

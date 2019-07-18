@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item-obtained.png-1edfeea37ebcd49271fa1ac64295ec35.stex"
+path="res://.import/battle-gear.svg-c405394efe81c9ca961bd1940f785077.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/item_pickup_message/item-obtained.png"
-dest_files=[ "res://.import/item-obtained.png-1edfeea37ebcd49271fa1ac64295ec35.stex" ]
+source_file="res://scenes/GameUI/Inventory/battle-gear.svg"
+dest_files=[ "res://.import/battle-gear.svg-c405394efe81c9ca961bd1940f785077.stex" ]
 
 [params]
 

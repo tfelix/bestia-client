@@ -1,8 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/GameUI/chat/ChatHoverText.gd" type="Script" id=1]
-
-
+[ext_resource path="res://scenes/GameUI/Chat/ChatHoverText.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.631373 )
@@ -448,5 +446,4 @@ text = "jhjhkjhkhgjhgjhg Nice."
 wait_time = 3.0
 one_shot = true
 autostart = true
-
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ChatHoverText",
 "language": "GDScript",
-"path": "res://scenes/GameUI/chat/ChatHoverText.gd"
+"path": "res://scenes/GameUI/Chat/ChatHoverText.gd"
 }, {
 "base": "Node",
 "class": "Component",
@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Item/Item.gd"
 }, {
-"base": "Reference",
-"class": "ItemModel",
-"language": "GDScript",
-"path": "res://scenes/GameUI/inventory/ItemModel.gd"
-}, {
 "base": "Entity",
 "class": "Mob",
 "language": "GDScript",
@@ -69,10 +64,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/NoMovement.gd"
 }, {
-"base": "Spatial",
+"base": "Entity",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Player/Player.gd"
+}, {
+"base": "Component",
+"class": "PlayerInfoComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/PlayerInfoComponent/PlayerInfoComponent.gd"
 }, {
 "base": "Node",
 "class": "PubSub",
@@ -83,6 +83,16 @@ _global_script_classes=[ {
 "class": "ScreenBottomText",
 "language": "GDScript",
 "path": "res://scenes/GameUI/DialogText/DialogText.gd"
+}, {
+"base": "Spatial",
+"class": "SimpleBar",
+"language": "GDScript",
+"path": "res://scenes/Game/Bar/SimpleBar.gd"
+}, {
+"base": "Component",
+"class": "StatusComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/StatusComponent/StatusComponent.gd"
 }, {
 "base": "RichTextLabel",
 "class": "TimedTextLabel",
@@ -104,12 +114,14 @@ _global_script_class_icons={
 "Interactions": "",
 "InteractionsUi": "",
 "Item": "",
-"ItemModel": "",
 "Mob": "",
 "NoMovement": "",
 "Player": "",
+"PlayerInfoComponent": "",
 "PubSub": "",
 "ScreenBottomText": "",
+"SimpleBar": "",
+"StatusComponent": "",
 "TimedTextLabel": "",
 "WeatherData": ""
 }
@@ -131,6 +143,10 @@ Global="*res://Global.gd"
 window/size/width=1280
 window/size/height=720
 window/stretch/aspect="keep_width"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "decals" )
 
 [importer_defaults]
 
@@ -1232,39 +1248,48 @@ shortcut_1={
 }
 shortcut_2={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_3={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_4={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_5={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_6={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_7={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_8={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_9={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
 }
 shortcut_10={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"unicode":0,"echo":false,"script":null)
+ ]
 }
 right_click={
 "deadzone": 0.5,
