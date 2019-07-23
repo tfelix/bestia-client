@@ -2,6 +2,7 @@ extends Node
 class_name Entity
 
 var Actions = load("res://Actions.gd")
+var PST = load("res://PubSubTopics.gd")
 
 signal component_changed(component)
 signal component_removed(component)
@@ -21,6 +22,13 @@ var id = 0
 onready var _components = $Components
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
+
+func _ready():
+	PubSub.publish(PST.ENTITY_ADDED, self)
+
+func free():
+  PubSub.publish(PST.ENTITY_REMOVED, self)
+  .free()
 
 """
 Returns the bounding box of the mesh of this entity. Then a unit sized

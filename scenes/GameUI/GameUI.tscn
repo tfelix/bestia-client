@@ -6,8 +6,6 @@
 [ext_resource path="res://scenes/GameUI/shortcuts/Shortcuts.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=5]
 
-
-
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -25,7 +23,12 @@ margin_left = 10.0
 margin_bottom = -10.0
 
 [node name="Shortcuts" parent="." instance=ExtResource( 4 )]
+anchor_left = 1.0
+anchor_top = 1.0
+margin_left = -286.0
+margin_top = -148.0
 
 [node name="Inventory" parent="." instance=ExtResource( 5 )]
+visible = false
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
 [connection signal="on_chat_send" from="ChatPanel" to="." method="_on_ChatPanel_on_chat_send"]

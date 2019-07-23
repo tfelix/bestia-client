@@ -134,6 +134,10 @@ margin_top = 72.0
 margin_right = 766.0
 margin_bottom = 372.0
 rect_min_size = Vector2( 0, 300 )
+max_columns = 0
+same_column_width = true
+fixed_column_width = 50
+fixed_icon_size = Vector2( 50, 50 )
 
 [node name="AudioClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )

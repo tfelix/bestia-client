@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=2]
@@ -6,18 +6,19 @@
 [ext_resource path="res://terrain/Grass01/grass_01.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://scenes/Game/basic-water/basic_water_material.material" type="Material" id=5]
 [ext_resource path="res://scenes/GameUI/GameUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/Game/Building.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/SignSmall.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=15]
-[ext_resource path="res://scenes/Game/Bar/SimpleBar.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/Game/Entity/Progress/Progress.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/Game/Entities.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Game/Building.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/SignSmall.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=16]
+[ext_resource path="res://scenes/Game/Bar/SimpleBar.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/Game/Entity/Progress/Progress.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ProceduralSky" id=1]
 sun_color = Color( 0.611765, 0.0156863, 0.0156863, 1 )
@@ -94,7 +95,7 @@ directional_shadow_max_distance = 60.0
 
 [node name="Terrain" type="MeshInstance" parent="."]
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0170135, -0.000244141, -50.001 )
 mesh = ExtResource( 2 )
 material/0 = SubResource( 3 )
 script = ExtResource( 3 )
@@ -134,38 +135,38 @@ material/0 = null
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
 
 [node name="Entities" type="Node" parent="."]
-editor/display_folded = true
+script = ExtResource( 7 )
 
-[node name="Tree02" parent="Entities" instance=ExtResource( 7 )]
+[node name="Tree02" parent="Entities" instance=ExtResource( 8 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.06069, 0, -4.91571 )
 visible = false
 
-[node name="Bottle" parent="Entities" instance=ExtResource( 8 )]
+[node name="Bottle" parent="Entities" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22542, 0, 0.160558 )
 
-[node name="Bottle2" parent="Entities" instance=ExtResource( 8 )]
+[node name="Bottle2" parent="Entities" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34783, 0, 0.160558 )
 
-[node name="Tree01" parent="Entities" instance=ExtResource( 7 )]
+[node name="Tree01" parent="Entities" instance=ExtResource( 8 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -6.48433, 0, -8.21341 )
 
-[node name="Building" parent="Entities" instance=ExtResource( 9 )]
+[node name="Building" parent="Entities" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7672, -0.0736397, -5.88525 )
 
-[node name="SmallFire" parent="Entities" instance=ExtResource( 10 )]
+[node name="SmallFire" parent="Entities" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8258, 0, 0 )
 
-[node name="sign_small" parent="Entities" instance=ExtResource( 11 )]
+[node name="sign_small" parent="Entities" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, -0.0673933, -4.60115 )
 text = "Haus von rogget"
 
-[node name="Player" parent="Entities" instance=ExtResource( 12 )]
+[node name="Player" parent="Entities" instance=ExtResource( 13 )]
 
-[node name="Rain" parent="Entities/Player" instance=ExtResource( 13 )]
+[node name="Rain" parent="Entities/Player" instance=ExtResource( 14 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 17.6515, -2.20015 )
 splash_pool_size = 250
 
-[node name="MoveIndicator" parent="Entities/Player" instance=ExtResource( 14 )]
+[node name="MoveIndicator" parent="Entities/Player" instance=ExtResource( 15 )]
 transform = Transform( 0.91, 0, 0, 0, 0.91, 0, 0, 0, 0.91, 7.75301, 0, -2.20015 )
 
 [node name="PlayerCamera" type="Camera" parent="Entities/Player"]
@@ -173,14 +174,14 @@ transform = Transform( 1, 0, 0, 0, 0.869308, 0.49427, 0, -0.49427, 0.869308, 0, 
 current = true
 fov = 50.0
 far = 3000.0
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 
-[node name="HealthBar" parent="Entities/Player" instance=ExtResource( 16 )]
+[node name="HealthBar" parent="Entities/Player" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.656738, 0 )
 
-[node name="Progress" parent="Entities/Player" instance=ExtResource( 17 )]
+[node name="Progress" parent="Entities/Player" instance=ExtResource( 18 )]
 
-[node name="TestMob" parent="Entities" instance=ExtResource( 18 )]
+[node name="TestMob" parent="Entities" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01152, 0, 0 )
 [connection signal="input_event" from="Terrain/StaticBody" to="Terrain" method="_on_StaticBody_input_event"]
 

@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/DayData.gd"
 }, {
 "base": "Node",
+"class": "Entities",
+"language": "GDScript",
+"path": "res://scenes/Game/Entities.gd"
+}, {
+"base": "Node",
 "class": "Entity",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Entity.gd"
@@ -89,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Bar/SimpleBar.gd"
 }, {
+"base": "Trigger",
+"class": "SkillTrigger",
+"language": "GDScript",
+"path": "res://scenes/GameUI/shortcuts/SkillTrigger.gd"
+}, {
 "base": "Component",
 "class": "StatusComponent",
 "language": "GDScript",
@@ -100,6 +110,11 @@ _global_script_classes=[ {
 "path": "res://scenes/GameUI/timed_text_label/TimedTextLabel.gd"
 }, {
 "base": "Reference",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://scenes/GameUI/shortcuts/Trigger.gd"
+}, {
+"base": "Reference",
 "class": "WeatherData",
 "language": "GDScript",
 "path": "res://scenes/Game/WeatherData.gd"
@@ -108,6 +123,7 @@ _global_script_class_icons={
 "ChatHoverText": "",
 "Component": "",
 "DayData": "",
+"Entities": "",
 "Entity": "",
 "Interaction": "",
 "InteractionRange": "",
@@ -121,8 +137,10 @@ _global_script_class_icons={
 "PubSub": "",
 "ScreenBottomText": "",
 "SimpleBar": "",
+"SkillTrigger": "",
 "StatusComponent": "",
 "TimedTextLabel": "",
+"Trigger": "",
 "WeatherData": ""
 }
 

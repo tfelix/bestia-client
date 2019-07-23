@@ -6,6 +6,7 @@ extends Node
 
 var PST = load("res://PubSubTopics.gd")
 var NoMovementComponent = load("res://scenes/Game/Entity/Component/NoMovement.gd")
+var UseSkillMessage = preload("res://scenes/GameUI/shortcuts/UseSkillMessage.gd")
 
 func _ready():
 	PubSub.subscribe(PST.SERVER_SEND, self)
@@ -17,10 +18,14 @@ func free():
 func event_published(event_key, payload):
 	match (event_key):
 		PST.SERVER_SEND:
-		# TODO We must detect the different payloads, for now we can only chop
-		# tree via this message system as poc
-			_chop_tree(payload)
+			if payload is UseSkillMessage:
+				_use_skill(payload)
+			else:
+				_chop_tree(payload)
 
+func _use_skill(msg):
+	print_debug("skill was used: ", msg.skill_db_name)
+	pass
 
 func _chop_tree(entity: Entity):
 	var no_movement = NoMovementComponent.new()

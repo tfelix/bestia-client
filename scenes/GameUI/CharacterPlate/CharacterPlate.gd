@@ -35,7 +35,7 @@ func _on_player_component_changed(component):
 	_health_bar.update_values(component.cur_health, component.max_health)
 	_mana_bar.update_values(component.cur_mana, component.max_mana)
 	var mana_txt = "Mana: " + str(component.cur_mana) + " / " + str(component.max_mana)
-	var hp_txt = "Mana: " + str(component.cur_health) + " / " + str(component.max_health)
+	var hp_txt = "HP: " + str(component.cur_health) + " / " + str(component.max_health)
 	_health_label.text = hp_txt
 	_mana_label.text = mana_txt
 

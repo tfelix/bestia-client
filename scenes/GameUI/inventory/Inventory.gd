@@ -7,7 +7,7 @@ class InventoryInfo:
 	var max_items: int
 
 onready var _pickup_msg = $ItemPickupMessage
-onready var _items_container = $PanelContainer/Content/Categories/Items
+onready var _items_container = $PanelContainer/Content/Items
 onready var _weight_label = $PanelContainer/Content/Categories/Weight
 onready var _count_label = $PanelContainer/Content/Categories/ItemCount
 
@@ -19,6 +19,8 @@ func _ready():
 	_info.max_weight = 50
 	_info.max_items = 200
 	_draw_inventory_info()
+	var item_icon = load("res://placeholder.png")
+	_items_container.add_icon_item(item_icon, true)
 
 func update_inventory_info(info: InventoryInfo):
 	_info = info
