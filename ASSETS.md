@@ -7,9 +7,10 @@
 * [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), CC0
 * [Kenney's Audio Pack](https://kenney.nl/assets/ui-audio), CC0
 
-# Icons
+## Icons
 
 * [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), CC BY 3.0
+* [Fireball Icon](https://game-icons.net/1x1/lorc/fireball.html), Lorc, CC BY 3.0
 * [Magnifying Glass Icon](https://game-icons.net/1x1/lorc/magnifying-glass.html), Lorc, CC BY 3.0
 * [Battle gear Icon](https://game-icons.net/1x1/lorc/magnifying-glass.html), Lorc, CC BY 3.0
 * [Swap bag icon](https://game-icons.net/1x1/lorc/swap-bag.html), Lorc, CC BY 3.0
