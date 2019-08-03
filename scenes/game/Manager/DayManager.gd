@@ -4,6 +4,7 @@ var PST = preload("res://PubSubTopics.gd")
 var DayData = preload("res://scenes/Game/DayData.gd");
 
 export(NodePath) var world_environment_path
+export var enable: bool = true
 
 var sunrise_duration = 1.0/24 * 3 # 3hrs
 var current_daytime: DayData
@@ -25,6 +26,10 @@ func process_daytime():
 	# print_debug("Current day progress: ", day_data.progress)
 	current_daytime = day_data
 	PubSub.publish(PST.ENV_DAYTIME_CHANGED, day_data)
+	
+	if !enable:
+		return
+	
 	adjust_sun_position()
 	adjust_sun_energy()
 	adjust_sun_color()

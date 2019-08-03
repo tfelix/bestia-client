@@ -27,6 +27,7 @@
 * [RPG Town Loop #2 by Sirkoto51](https://freesound.org/people/Sirkoto51/sounds/349179/)
 * [chopping_wood_01.wav](https://freesound.org/people/micahlg/sounds/421928/), micahlg
 * [Punch, Hitting in a Face](https://freesound.org/people/florianreichelt/sounds/460509/), florianreichelt, CC0
+* [fireplace.wav](https://freesound.org/people/leosalom/sounds/234288/), by leosalom, CC BY
 
 ## Shader
 

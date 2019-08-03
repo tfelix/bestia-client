@@ -1,8 +1,6 @@
 extends Entity
 class_name Player
 
-var PST = load("res://PubSubTopics.gd")
-
 # Emitted when the player movement has stopped.
 signal movement_stopped()
 signal status_values_changed(changed_values)
