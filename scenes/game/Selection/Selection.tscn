@@ -2,8 +2,6 @@
 
 [ext_resource path="res://scenes/Game/Selection/Selection.gd" type="Script" id=1]
 
-
-
 [sub_resource type="QuadMesh" id=1]
 
 [sub_resource type="Shader" id=2]
@@ -69,4 +67,3 @@ material/0 = SubResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Pulsate"
 anims/Pulsate = SubResource( 4 )
-

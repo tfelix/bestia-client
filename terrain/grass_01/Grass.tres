@@ -11,6 +11,8 @@ uniform vec3 playerPos;
 
 uniform sampler2D normal_map : hint_normal;
 uniform sampler2D specular_map : hint_black;
+uniform sampler2D grass_map: hint_albedo;
+
 uniform float amplitude = 0.1;
 uniform vec2 speed = vec2(2.0, 1.5);
 uniform vec2 scale = vec2(0.1, 0.2);
@@ -73,7 +75,7 @@ void fragment() {
 		discard;
 	}
 	
-	NORMALMAP = texture(normal_map, UV).rgb;
+	// NORMALMAP = texture(normal_map, UV).rgb;
 
 	METALLIC = 0.0;
 	TRANSMISSION = vec3(0.2);

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://terrain/grass_01/Grass.tres" type="Shader" id=1]
-[ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=2]
-[ext_resource path="res://scenes/Game/Terrain/GrassParticlesNear/GrassParticlesNear.gd" type="Script" id=3]
+[ext_resource path="res://terrain/grass_01/grass_map.png" type="Texture" id=2]
+[ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://scenes/Game/Terrain/GrassParticlesNear/GrassParticlesNear.gd" type="Script" id=4]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 
@@ -29,6 +30,7 @@ shader_param/rim = 0.02
 shader_param/rim_tint = 0.7
 shader_param/normal_map = SubResource( 2 )
 shader_param/specular_map = SubResource( 4 )
+shader_param/grass_map = ExtResource( 2 )
 
 [sub_resource type="Shader" id=6]
 code = "shader_type particles;
@@ -100,7 +102,7 @@ shader_param/amplitude = 15.0
 shader_param/heightmapSize = Vector2( 300, 300 )
 shader_param/noisemap = SubResource( 8 )
 
-[node name="GrassParticlesNear" type="Particles"]
+[node name="GrassSystem" type="Particles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.849101, -0.455978, 0 )
 material_override = SubResource( 5 )
 cast_shadow = 2
@@ -108,7 +110,7 @@ amount = 16
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 9 )
-draw_pass_1 = ExtResource( 2 )
-script = ExtResource( 3 )
+draw_pass_1 = ExtResource( 3 )
+script = ExtResource( 4 )
 rows = 200
 spacing = 0.15

@@ -41,6 +41,7 @@ There are some nices resources or Plugins which where used doing this game. Nota
 * [Screen-Space-Decals](https://github.com/Mr-Slurpy/Screen-Space-Decals)
 * [Holo Shader Port](https://github.com/grizeldi/HoloShader)
 * [Grass Shader Tutorial for Uniy](https://roystan.net/articles/grass-shader.html)
+* [Presentation: Just Cause Vast Game Worlds](http://www.humus.name/Articles/Persson_CreatingVastGameWorlds.pdf)
 
 ## Created By
 

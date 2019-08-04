@@ -1,51 +1,48 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Entity.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01Mesh.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/TreeMesh_01.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game/Interactions/ChopTree/ChopTree.tscn" type="PackedScene" id=3]
 
-[sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.00392157, 0.607843, 0.152941, 1 )
+[sub_resource type="CapsuleShape" id=1]
 
 [sub_resource type="CapsuleShape" id=2]
 
-[sub_resource type="CapsuleShape" id=3]
-
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape" id=3]
 
 [node name="Tree01" instance=ExtResource( 1 )]
-entity_kind = 3
+entity_kind = 1
 
-[node name="Tree01Mesh" parent="." index="0" instance=ExtResource( 2 )]
-
-[node name="Tree" parent="Tree01Mesh" index="0"]
-material/0 = SubResource( 1 )
+[node name="TreeMesh" parent="." index="0" instance=ExtResource( 2 )]
 
 [node name="InteractionRange" parent="." index="1"]
 editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionRange" index="0"]
-transform = Transform( 2.5, 0, 0, 0, -1.09278e-007, 3.244, 0, -2.5, -1.418e-007, 0, 4.34091, 0 )
-shape = SubResource( 2 )
+transform = Transform( 1.84118, 0, 0, 0, -8.04802e-008, 2.38912, 0, -1.84118, -1.04432e-007, 0, 2.31503, 0 )
+shape = SubResource( 1 )
 
 [node name="Collidor" parent="." index="2"]
 editor/display_folded = true
 
 [node name="Trunk" type="CollisionShape" parent="Collidor" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -3, 0, 1, -1.31134e-007, 0, 4.11477, 0 )
-shape = SubResource( 3 )
+transform = Transform( 0.565361, 0, 0, 0, -1.04893e-008, -0.719899, 0, 0.565361, -7.4138e-008, 0.0594228, 0.774923, -0.0828447 )
+shape = SubResource( 2 )
 
 [node name="Crown" type="CollisionShape" parent="Collidor" index="1"]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 13.2818, 0 )
-shape = SubResource( 4 )
+transform = Transform( 1.69552, 0, 0, 0, 1.69552, 0, 0, 0, 1.69552, 0.030406, 3.33475, -0.149903 )
+shape = SubResource( 3 )
 
 [node name="Selection" parent="." index="3"]
-selection_mesh_path = NodePath("../Tree01Mesh/Tree")
+selection_mesh_path = NodePath("../TreeMesh/Trunk")
+
+[node name="Interactions" parent="." index="4"]
+editor/display_folded = true
 
 [node name="ChopTree" parent="Interactions" index="0" instance=ExtResource( 3 )]
 interaction_node_name = "ChopTree"
 interaction_range_path = NodePath("../../InteractionRange")
 
-[editable path="Tree01Mesh"]
+[editable path="TreeMesh"]
 
 [editable path="Interactions"]
