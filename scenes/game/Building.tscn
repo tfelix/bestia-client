@@ -4,8 +4,6 @@
 [ext_resource path="res://scenes/Game/BuildingGround.material" type="Material" id=2]
 [ext_resource path="res://scenes/Game/BuildingWallMaterial.material" type="Material" id=3]
 
-
-
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 2, 0.2, 2 )
 
@@ -207,6 +205,5 @@ shape = SubResource( 12 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/roof_fade = SubResource( 13 )
-
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

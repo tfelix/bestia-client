@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://terrain/grass_01/gras_material.tres" type="Shader" id=1]
+[ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://scenes/Game/Terrain/GrassParticlesNear/GrassParticlesNear.gd" type="Script" id=3]
+
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="NoiseTexture" id=2]
+as_normalmap = true
+noise = SubResource( 1 )
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+as_normalmap = true
+noise = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 1 )
+shader_param/grass_top = Color( 0.811765, 0.945098, 0.168627, 1 )
+shader_param/grass_bottom = Color( 0.309804, 0.447059, 0.0901961, 1 )
+shader_param/amplitude = 0.1
+shader_param/speed = Vector2( 2, 1.5 )
+shader_param/scale = Vector2( 0.1, 0.2 )
+shader_param/rim = 0.02
+shader_param/rim_tint = 0.7
+shader_param/normal_map = SubResource( 2 )
+shader_param/specular_map = SubResource( 4 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type particles;
+
+uniform float rows = 4;
+uniform float spacing = 1.0;
+
+uniform sampler2D heightmap;
+uniform float amplitude = 15.0;
+uniform vec2 heightmapSize = vec2(300.0);
+
+uniform sampler2D noisemap;
+
+float getHeight(vec2 pos) {
+	pos -= 0.5 * heightmapSize;
+	pos /= heightmapSize;
+	
+	// return amplitude * texture(heightmap, pos).r;
+	return 0.0;
+}
+
+void vertex() {
+	vec3 pos = vec3(0.0);
+	pos.z = float(INDEX);
+	pos.x = mod(pos.z, rows);
+	pos.z = (pos.z - pos.x) / rows;
+	
+	// Center it
+	pos.x -= rows * 0.5;
+	pos.z -= rows * 0.5;
+	
+	// Apply spacing
+	pos *= spacing;
+	
+	// center on our particle location but withoin our spacing
+	pos.x += EMISSION_TRANSFORM[3][0] - mod(EMISSION_TRANSFORM[3][0], spacing);
+	pos.z += EMISSION_TRANSFORM[3][2] - mod(EMISSION_TRANSFORM[3][2], spacing);
+	
+	// add placement noise based on world position
+	vec3 noise = texture(noisemap, pos.xz).rgb;
+	pos.x += noise.r * spacing;
+	pos.z += noise.g * spacing;
+	
+	// apply height of the terrain
+	pos.y = getHeight(pos.xz);
+	
+	// just some random rotation
+	TRANSFORM[0][0] = cos(noise.z * 3.0);
+	TRANSFORM[0][2] = -sin(noise.z * 3.0);
+	TRANSFORM[2][0] = sin(noise.z * 3.0);
+	TRANSFORM[2][2] = cos(noise.z);
+	
+	TRANSFORM[3][0] = pos.x;
+	TRANSFORM[3][1] = pos.y;
+	TRANSFORM[3][2] = pos.z;
+}"
+
+[sub_resource type="OpenSimplexNoise" id=7]
+
+[sub_resource type="NoiseTexture" id=8]
+seamless = true
+noise = SubResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 6 )
+shader_param/rows = 4.0
+shader_param/spacing = 1.0
+shader_param/amplitude = 15.0
+shader_param/heightmapSize = Vector2( 300, 300 )
+shader_param/noisemap = SubResource( 8 )
+
+[node name="GrassParticlesNear" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.849101, -0.455978, 0 )
+material_override = SubResource( 5 )
+cast_shadow = 2
+amount = 16
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 9 )
+draw_pass_1 = ExtResource( 2 )
+script = ExtResource( 3 )
+rows = 200
+spacing = 0.15

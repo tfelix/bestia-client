@@ -7,8 +7,6 @@ signal player_changed
 # soon as a default interaction was set.
 var default_interactions = {}
 
-var pickup_item_message
-
 var player_camera: Camera
 var player: Node setget player_set
 

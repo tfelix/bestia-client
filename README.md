@@ -34,6 +34,14 @@ open an issue about it.
 Without this free artwork this game would not have been possible. Thanks to all artists! Please
 check out their great work!
 
+## Additions
+
+There are some nices resources or Plugins which where used doing this game. Notable one are:
+
+* [Screen-Space-Decals](https://github.com/Mr-Slurpy/Screen-Space-Decals)
+* [Holo Shader Port](https://github.com/grizeldi/HoloShader)
+* [Grass Shader Tutorial for Uniy](https://roystan.net/articles/grass-shader.html)
+
 ## Created By
 
 Created with :heart: by [Thomas Felix](https://tfelix.de).

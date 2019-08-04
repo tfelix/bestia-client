@@ -65,9 +65,9 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Entity/Mob/Mob.gd"
 }, {
 "base": "Component",
-"class": "NoMovement",
+"class": "NoMovementComponent",
 "language": "GDScript",
-"path": "res://scenes/Game/Entity/Component/NoMovement.gd"
+"path": "res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd"
 }, {
 "base": "Entity",
 "class": "Player",
@@ -131,7 +131,7 @@ _global_script_class_icons={
 "InteractionsUi": "",
 "Item": "",
 "Mob": "",
-"NoMovement": "",
+"NoMovementComponent": "",
 "Player": "",
 "PlayerInfoComponent": "",
 "PubSub": "",
@@ -1325,5 +1325,6 @@ right_click={
 
 [rendering]
 
+quality/shadows/filter_mode=2
 environment/default_clear_color=Color( 0.14902, 0.192157, 0.219608, 1 )
 quality/filters/msaa=2

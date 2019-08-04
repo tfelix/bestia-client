@@ -9,10 +9,6 @@
 [ext_resource path="res://scenes/FadeIn/FadeIn.tscn" type="PackedScene" id=7]
 [ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=8]
 
-
-
-
-
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,7 +25,6 @@ expand = true
 stretch_mode = 7
 
 [node name="Menu" type="VBoxContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 80.0
@@ -79,8 +74,7 @@ margin_right = 1120.0
 margin_bottom = 680.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 6 )
-text = "Bestia Behemoth
-v 0.0.0 - Alpha"
+text = "v 0.0.0"
 valign = 2
 
 [node name="FadeIn" parent="." instance=ExtResource( 7 )]

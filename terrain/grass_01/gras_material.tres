@@ -1,12 +1,75 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="Shader" format=2]
 
-[sub_resource type="Shader" id=1]
+[resource]
 code = "shader_type spatial;
 render_mode cull_disabled;
 
-void fragment() {
-	ALBEDO = vec3(1., 0.0, 0.);
-}"
+uniform vec4 grass_top : hint_color;
+uniform vec4 grass_bottom: hint_color;
 
-[resource]
-shader = SubResource( 1 )
+uniform sampler2D normal_map : hint_normal;
+uniform sampler2D specular_map : hint_black;
+uniform float amplitude = 0.1;
+uniform vec2 speed = vec2(2.0, 1.5);
+uniform vec2 scale = vec2(0.1, 0.2);
+
+uniform float rim: hint_range(0,1);
+uniform float rim_tint : hint_range(0,1);
+
+float random(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+// 2D Noise based on Morgan McGuire @morgan3d
+// https://www.shadertoy.com/view/4dS3Wd
+float noise(vec2 st) {
+    vec2 i = floor(st);
+    vec2 f = fract(st);
+
+    // Four corners in 2D of a tile
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+    // Cubic Hermine Curve.  Same as SmoothStep()
+    vec2 u = f*f*(3.0-2.0*f);
+
+    // Mix 4 coorners percentages
+    return mix(a, b, u.x) +
+            (c - a)* u.y * (1.0 - u.x) +
+            (d - b) * u.x * u.y;
+}
+
+void vertex() {
+	if (VERTEX.y > 0.0) {
+		vec3 worldpos = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+		VERTEX.x += amplitude * sin(worldpos.x * scale.x * 0.75 + TIME * speed.x) * cos(worldpos.z * scale.x + TIME * speed.x * 0.25);
+		VERTEX.z += amplitude * sin(worldpos.x * scale.y + TIME * speed.y * 0.35) * cos(worldpos.z * scale.y * 0.80 + TIME * speed.y);
+		
+		// Apply a random height
+		// float randHeight = noise(VERTEX.xz);
+		// VERTEX.y = randHeight * 1.5;
+	}
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	
+	float smoothedColorRamp = clamp(COLOR.r * 5.0, 0.5, 1.0);
+	ALBEDO = mix(grass_bottom, grass_top, smoothedColorRamp).rgb;
+	
+	if (grass_top.a < 0.3) {
+		discard;
+	}
+	
+	NORMALMAP = texture(normal_map, UV).rgb;
+
+	METALLIC = 0.0;
+	TRANSMISSION = vec3(0.2);
+	SPECULAR = texture(specular_map, UV).r;
+	ROUGHNESS = 1.0 - SPECULAR;
+	RIM = rim;
+	RIM_TINT = rim_tint;
+}
+"

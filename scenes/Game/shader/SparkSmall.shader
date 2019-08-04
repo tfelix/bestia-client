@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode blend_mix, cull_disabled;
 
-uniform vec4 sparkColor: hint_color;
+uniform int seed = 1;
 uniform float emissionIntensity = 1.0;
 
 float random(vec2 coord){
@@ -30,20 +30,21 @@ float noise(vec2 st) {
 }
 
 // Y-Billboard Mode
+/*
 void vertex() {
 	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],WORLD_MATRIX[1],vec4(normalize(cross(CAMERA_MATRIX[0].xyz,WORLD_MATRIX[1].xyz)), 0.0),WORLD_MATRIX[3]);
 	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(vec4(1.0, 0.0, 0.0, 0.0),vec4(0.0, 1.0/length(WORLD_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0),vec4(0.0, 0.0, 0.0 ,1.0));
-}
+}*/
 
 void fragment() {
 	vec2 center = vec2(0.5, 0.5);
 	
 	float radialGradient = 1.0 - 2.01 * length(UV - center);
-	float sparkNoise = noise(UV * 8.0);
+	float sparkNoise = noise(UV * 8.0 + vec2(3.0, 1.0) * float(seed));
 	float clampedSpark = 1.0 - step(sparkNoise * radialGradient, 0.4);
 	
 	ALPHA = clampedSpark;
 	ALPHA_SCISSOR = 0.4;
-	EMISSION = sparkColor.rgb * emissionIntensity;
-	ALBEDO = vec3(clampedSpark);
+	EMISSION = COLOR.rgb * emissionIntensity;
+	ALBEDO = COLOR.rgb;
 }
