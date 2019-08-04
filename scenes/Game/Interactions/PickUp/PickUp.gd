@@ -34,9 +34,10 @@ func _pickup():
 func _displayPickupMessage():
 	var root = get_tree().get_root()
 	
-	if Global.pickup_item_message != null:
-		Global.pickup_item_message.queue_free()
-		Global.pickup_item_message = null
+	var existing_pickup_message = root.find_node("ItemPickupMessage", false)
+	if existing_pickup_message != null:
+		existing_pickup_message.queue_free()
+
 	var item_model = ItemModel.new()
 	var item = get_parent()
 	
@@ -45,6 +46,7 @@ func _displayPickupMessage():
 	item_model.weight = item.item_weight
 	# Amount must be given by the server
 	item_model.amount = 1
+	
 	var pickup_message = ItemPickupMessage.instance()
 	root.add_child(pickup_message)
 	pickup_message.show_message(item_model)

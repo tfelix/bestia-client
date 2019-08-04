@@ -1,4 +1,4 @@
 extends Component
-class_name NoMovement
+class_name NoMovementComponent
 
 var origin: String

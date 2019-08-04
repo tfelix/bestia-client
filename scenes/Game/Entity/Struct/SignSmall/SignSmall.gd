@@ -1,9 +1,9 @@
 extends Spatial
 
 var Actions = load("res://Actions.gd")
-onready var player = Global.player
 var DialogText = load("res://scenes/ui/dialog_text/ScreenBottomText.tscn")
 
+onready var player = Global.player
 export var text = ""
 
 func _ready():

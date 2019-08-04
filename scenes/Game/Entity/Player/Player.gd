@@ -29,7 +29,7 @@ func move_to(destination):
 	
 func can_move() -> bool:
 	for c in $Components.get_children():
-		if c is NoMovement:
+		if c is NoMovementComponent:
 			return false
 	return true
 
