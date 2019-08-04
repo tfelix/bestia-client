@@ -7,6 +7,8 @@ render_mode cull_disabled;
 uniform vec4 grass_top : hint_color;
 uniform vec4 grass_bottom: hint_color;
 
+uniform vec3 playerPos;
+
 uniform sampler2D normal_map : hint_normal;
 uniform sampler2D specular_map : hint_black;
 uniform float amplitude = 0.1;
@@ -42,14 +44,22 @@ float noise(vec2 st) {
 }
 
 void vertex() {
-	if (VERTEX.y > 0.0) {
-		vec3 worldpos = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
-		VERTEX.x += amplitude * sin(worldpos.x * scale.x * 0.75 + TIME * speed.x) * cos(worldpos.z * scale.x + TIME * speed.x * 0.25);
-		VERTEX.z += amplitude * sin(worldpos.x * scale.y + TIME * speed.y * 0.35) * cos(worldpos.z * scale.y * 0.80 + TIME * speed.y);
-		
-		// Apply a random height
-		// float randHeight = noise(VERTEX.xz);
-		// VERTEX.y = randHeight * 1.5;
+	vec3 worldpos = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	
+	// Perform object displacement
+	float dis = distance(playerPos, worldpos);
+	float radius = 2.0;
+	float circle = 1.0 - clamp(dis / radius, 0.0, 1.0);
+	
+	if(circle > 0.0) {
+		vec3 objectDisplacement = worldpos.xyz - playerPos;
+		objectDisplacement *= circle;
+		VERTEX.xz += objectDisplacement.xz;
+		VERTEX.y *= (1.0 - circle);
+	} else {
+		// Wind Displacement will only happen if the grass is not flattened via walking over it
+		VERTEX.x += COLOR.r * amplitude * sin(worldpos.x * scale.x * 0.75 + TIME * speed.x) * cos(worldpos.z * scale.x + TIME * speed.x * 0.25);
+		VERTEX.z += COLOR.r * amplitude * sin(worldpos.x * scale.y + TIME * speed.y * 0.35) * cos(worldpos.z * scale.y * 0.80 + TIME * speed.y);
 	}
 }
 

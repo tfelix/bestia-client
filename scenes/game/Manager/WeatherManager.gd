@@ -13,4 +13,4 @@ func _on_Timer_timeout():
 	counter += 1
 	var period = abs(sin(counter / 25.0))
 	weather_data.rain_intensity = int(100 * period)
-	# PubSub.publish(PST.ENV_WEATHER_CHANGED, weather_data)
+	PubSub.publish(PST.ENV_WEATHER_CHANGED, weather_data)

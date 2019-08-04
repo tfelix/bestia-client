@@ -1,9 +1,8 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://terrain/grass_01/gras_material.tres" type="Shader" id=1]
+[ext_resource path="res://terrain/grass_01/Grass.tres" type="Shader" id=1]
 [ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://scenes/Game/Terrain/GrassParticlesNear/GrassParticlesNear.gd" type="Script" id=3]
-
 
 [sub_resource type="OpenSimplexNoise" id=1]
 
@@ -22,6 +21,7 @@ noise = SubResource( 3 )
 shader = ExtResource( 1 )
 shader_param/grass_top = Color( 0.811765, 0.945098, 0.168627, 1 )
 shader_param/grass_bottom = Color( 0.309804, 0.447059, 0.0901961, 1 )
+shader_param/playerPos = null
 shader_param/amplitude = 0.1
 shader_param/speed = Vector2( 2, 1.5 )
 shader_param/scale = Vector2( 0.1, 0.2 )

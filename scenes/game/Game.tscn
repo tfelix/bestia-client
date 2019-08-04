@@ -87,6 +87,7 @@ subdivide_depth = 10
 environment = SubResource( 2 )
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 
 [node name="Timer" parent="Manager/WeatherManager" index="0"]
 wait_time = 60.0
@@ -98,6 +99,7 @@ enable = false
 
 [node name="Sun" type="DirectionalLight" parent="Manager/DayManager" index="1"]
 transform = Transform( 0.866025, -9.55343e-016, -0.5, 0.5, 1.6547e-015, 0.866025, 0, -1, 1.91069e-015, 0, 5, 0 )
+visible = false
 light_color = Color( 0.905882, 0.545098, 0.12549, 1 )
 shadow_enabled = true
 shadow_contact = 0.05
@@ -110,10 +112,11 @@ directional_shadow_max_distance = 60.0
 [node name="GrassParticlesNear" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.726648 )
 rows = 100
+playerNodePath = NodePath("../Entities/Player")
 
 [node name="Terrain" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0170135, -0.000244141, -50.001 )
-visible = false
 mesh = ExtResource( 3 )
 material/0 = SubResource( 5 )
 script = ExtResource( 4 )
@@ -145,7 +148,6 @@ material/0 = null
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
 
 [node name="Entities" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Tree02" parent="Entities" instance=ExtResource( 8 )]
@@ -172,7 +174,7 @@ text = "Haus von rogget"
 
 [node name="Player" parent="Entities" instance=ExtResource( 13 )]
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0803375, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25566, 0, -0.491733 )
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 14 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 17.6515, -2.20015 )

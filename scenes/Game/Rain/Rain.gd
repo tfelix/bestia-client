@@ -2,7 +2,7 @@ extends Spatial
 
 var PST = preload("res://PubSubTopics.gd")
 var splash_obj = preload("./RainSplash.tscn")
-var WeatherData = preload("res://scenes/Game/WeatherData.gd")
+# var WeatherData = preload("res://scenes/Game/WeatherData.gd")
 
 export var splash_area = 40
 export var max_splashes_per_second = 600
@@ -38,7 +38,7 @@ func event_published(event_key, payload):
     PST.ENV_WEATHER_CHANGED:
       handle_weather_changed(payload)
 
-func handle_weather_changed(data: WeatherData):
+func handle_weather_changed(data):
 	print_debug("Rain intensity: ", data.rain_intensity)
 	var intensity_norm = data.rain_intensity / 100.0
 

@@ -3,6 +3,13 @@ extends Particles
 export var rows = 4 setget set_rows, get_rows
 export var spacing = 1.0 setget set_spacing, get_spacing
 
+# This is for testing only as we must find a way to process more
+# grass displacement. Probably need a texture for this which we must
+# pre calculate
+export var playerNodePath: NodePath
+
+var playerNode: Spatial
+
 func update_aabb():
 	var size = rows * spacing
 	visibility_aabb = AABB(Vector3(-0.5 * size, 0.0, -0.5 * size), Vector3(size, 20.0, size))
@@ -29,11 +36,10 @@ func get_spacing():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_rows(rows)
+	if playerNodePath:
+		playerNode = get_node(playerNodePath) as Spatial
 
 func _process(delta):
-	# var viewport = get_viewport()
-	# var camera = viewport.get_camera()
-	# var pos = camera.global_transform.origin
-	# pos.y = 0.0
-	# global_transform.origin = pos
-	pass
+	if playerNode && material_override:
+		var playerPos = playerNode.global_transform.origin
+		material_override.set_shader_param("playerPos", playerPos)

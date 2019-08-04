@@ -65,11 +65,6 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Entity/Mob/Mob.gd"
 }, {
 "base": "Component",
-"class": "NoMovement",
-"language": "GDScript",
-"path": "res://scenes/Game/Entity/Component/NoMovement.gd"
-}, {
-"base": "Component",
 "class": "NoMovementComponent",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd"
@@ -136,7 +131,6 @@ _global_script_class_icons={
 "InteractionsUi": "",
 "Item": "",
 "Mob": "",
-"NoMovement": "",
 "NoMovementComponent": "",
 "Player": "",
 "PlayerInfoComponent": "",
