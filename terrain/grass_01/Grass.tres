@@ -53,8 +53,9 @@ void vertex() {
 	float radius = 2.0;
 	float circle = 1.0 - clamp(dis / radius, 0.0, 1.0);
 	
+	/*
 	if(circle > 0.0) {
-		vec3 objectDisplacement = worldpos.xyz - playerPos;
+		/*vec3 objectDisplacement = worldpos.xyz - playerPos;
 		objectDisplacement *= circle;
 		VERTEX.xz += objectDisplacement.xz;
 		VERTEX.y *= (1.0 - circle);
@@ -62,7 +63,11 @@ void vertex() {
 		// Wind Displacement will only happen if the grass is not flattened via walking over it
 		VERTEX.x += COLOR.r * amplitude * sin(worldpos.x * scale.x * 0.75 + TIME * speed.x) * cos(worldpos.z * scale.x + TIME * speed.x * 0.25);
 		VERTEX.z += COLOR.r * amplitude * sin(worldpos.x * scale.y + TIME * speed.y * 0.35) * cos(worldpos.z * scale.y * 0.80 + TIME * speed.y);
-	}
+	}*/
+	
+	// Wind Displacement will only happen if the grass is not flattened via walking over it
+	VERTEX.x += COLOR.r * amplitude * sin(worldpos.x * scale.x * 0.75 + TIME * speed.x) * cos(worldpos.z * scale.x + TIME * speed.x * 0.25);
+	VERTEX.z += COLOR.r * amplitude * sin(worldpos.x * scale.y + TIME * speed.y * 0.35) * cos(worldpos.z * scale.y * 0.80 + TIME * speed.y);
 }
 
 void fragment() {
