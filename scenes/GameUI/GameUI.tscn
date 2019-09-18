@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/GameUI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/GameUI/Chat/Chat.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/GameUI/shortcuts/Shortcuts.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GameUI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=6]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -30,5 +31,12 @@ margin_top = -148.0
 
 [node name="Inventory" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="WeatherDebug" parent="." instance=ExtResource( 6 )]
+anchor_left = 1.0
+anchor_bottom = 0.0
+margin_left = -331.0
+margin_right = 0.0
+margin_bottom = 184.0
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
 [connection signal="on_chat_send" from="ChatPanel" to="." method="_on_ChatPanel_on_chat_send"]

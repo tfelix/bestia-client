@@ -10,6 +10,7 @@ func _ready():
 	PubSub.subscribe(PST.PLAYER_MOVE_REQUSTED, self)
 	Global.player = self
 
+
 func free():
   PubSub.unsubscribe(self)
   .free()

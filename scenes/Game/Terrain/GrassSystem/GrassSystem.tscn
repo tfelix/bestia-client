@@ -1,12 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/Game/Terrain/GrassSystem/GrassSystem.gd" type="Script" id=1]
 [ext_resource path="res://terrain/grass_01/Grass.tres" type="Shader" id=2]
 [ext_resource path="res://terrain/grass_01/grass_map.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Game/Terrain/GrassSystem/GrassParticleMaterial.tres" type="Material" id=4]
-[ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=5]
-[ext_resource path="res://scenes/Game/Terrain/GrassSystem/NearGrass.gd" type="Script" id=6]
-[ext_resource path="res://scenes/Game/Terrain/GrassSystem/MediumGrass.gd" type="Script" id=7]
+[ext_resource path="res://terrain/grass_01/Grass.mesh" type="ArrayMesh" id=4]
+[ext_resource path="res://scenes/Game/Terrain/GrassSystem/NearGrass.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Game/Terrain/GrassSystem/FarGrass.gd" type="Script" id=6]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 
@@ -35,13 +34,102 @@ shader_param/normal_map = SubResource( 2 )
 shader_param/specular_map = SubResource( 4 )
 shader_param/grass_map = ExtResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=6]
-flags_unshaded = true
-params_cull_mode = 2
-albedo_color = Color( 0.698039, 0, 0, 1 )
+[sub_resource type="Shader" id=6]
+code = "shader_type particles;
 
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
+uniform float rows = 4;
+uniform float spacing = 1.0;
+
+uniform float minRenderDistance = 0.0;
+uniform float maxRenderDistance = 20.0;
+uniform vec3 cameraPosition = vec3(0.0);
+
+// TODO Replace noisemap with function
+uniform sampler2D noisemap;
+
+float getHeight(vec2 pos) {
+	// Find a clever way to position grass
+	return 0.0;
+}
+
+void vertex() {	
+	vec3 pos = vec3(0.0);
+	pos.z = float(INDEX);
+	pos.x = mod(pos.z, rows);
+	pos.z = (pos.z - pos.x) / rows;
+	
+	// Center it
+	pos.x -= rows * 0.5;
+	pos.z -= rows * 0.5;
+	
+	// Apply spacing
+	pos *= spacing;
+	
+	// center on our particle location but without our spacing
+	pos.x += EMISSION_TRANSFORM[3][0] - mod(EMISSION_TRANSFORM[3][0], spacing);
+	pos.z += EMISSION_TRANSFORM[3][2] - mod(EMISSION_TRANSFORM[3][2], spacing);
+	
+	// add placement noise based on world position
+	vec3 noise = texture(noisemap, pos.xz).rgb;
+	pos.x += noise.r * spacing;
+	pos.z += noise.g * spacing;
+	
+	float dCam = distance(cameraPosition, pos);
+	if(dCam > maxRenderDistance || dCam < minRenderDistance) {
+		pos.y = - 10000.0;
+	} else {
+		pos.y = getHeight(pos.xz);
+	}
+	
+	// just some random rotation
+	TRANSFORM[0][0] = cos(noise.z * 3.0);
+	TRANSFORM[0][2] = -sin(noise.z * 3.0);
+	TRANSFORM[2][0] = sin(noise.z * 3.0);
+	TRANSFORM[2][2] = cos(noise.z);
+	
+	TRANSFORM[3][0] = pos.x;
+	TRANSFORM[3][1] = pos.y;
+	TRANSFORM[3][2] = pos.z;
+}"
+
+[sub_resource type="OpenSimplexNoise" id=7]
+
+[sub_resource type="NoiseTexture" id=8]
+seamless = true
+noise = SubResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 6 )
+shader_param/rows = 4.0
+shader_param/spacing = 1.0
+shader_param/minRenderDistance = 0.0
+shader_param/maxRenderDistance = 12.0
+shader_param/cameraPosition = Vector3( 0, 0, 0 )
+shader_param/noisemap = SubResource( 8 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 6 )
+shader_param/rows = 4.0
+shader_param/spacing = 1.0
+shader_param/minRenderDistance = 12.0
+shader_param/maxRenderDistance = 35.0
+shader_param/cameraPosition = Vector3( 0, 0, 0 )
+shader_param/noisemap = SubResource( 8 )
+
+[sub_resource type="SpatialMaterial" id=11]
+params_cull_mode = 2
+albedo_color = Color( 0.733333, 0.101961, 0.101961, 1 )
+
+[sub_resource type="QuadMesh" id=12]
+material = SubResource( 11 )
+size = Vector2( 0.5, 1 )
+
+[sub_resource type="SphereMesh" id=13]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_unshaded = true
 
 [node name="GrassSystem" type="Spatial"]
 script = ExtResource( 1 )
@@ -51,15 +139,22 @@ material_override = SubResource( 5 )
 cast_shadow = 2
 explosiveness = 1.0
 local_coords = false
-process_material = ExtResource( 4 )
-draw_pass_1 = ExtResource( 5 )
-script = ExtResource( 6 )
-rows = 30
+process_material = SubResource( 9 )
+draw_pass_1 = ExtResource( 4 )
+script = ExtResource( 5 )
+rows = 150
+spacing = 0.18
 
 [node name="MediumGrass" type="Particles" parent="."]
 explosiveness = 1.0
 local_coords = false
-process_material = ExtResource( 4 )
-draw_pass_1 = SubResource( 7 )
-script = ExtResource( 7 )
-rows = 100
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
+script = ExtResource( 6 )
+rows = 90
+spacing = 0.8
+
+[node name="FakeCam" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.18964, 0 )
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )

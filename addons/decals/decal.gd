@@ -13,6 +13,9 @@ func _init():
 	mesh = CubeMesh.new()
 	mesh.material = ShaderMaterial.new()
 	mesh.material.shader = SHADER
+	
+func _process(delta):
+	mesh.material.set_shader_param("decal", decal)
 
 func set_decal(new_decal):
 	decal = new_decal

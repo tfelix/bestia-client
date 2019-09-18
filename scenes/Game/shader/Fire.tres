@@ -73,7 +73,8 @@ float overlay(float base, float top) {
 }
 
 void vertex() {
-	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
+	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],WORLD_MATRIX[1],vec4(normalize(cross(CAMERA_MATRIX[0].xyz,WORLD_MATRIX[1].xyz)), 0.0),WORLD_MATRIX[3]);
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(vec4(length(WORLD_MATRIX[0].xyz), 0.0, 0.0, 0.0),vec4(0.0, 1.0, 0.0, 0.0),vec4(0.0, 0.0, length(WORLD_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
 }
 
 void fragment() {
@@ -110,7 +111,15 @@ void fragment() {
 		ALBEDO = flameColor.rgb;
 	}
 	
-	EMISSION = flameColor.rgb * emissionEnergy;
+	// Alpha out lower button
+	float bottomAlpha = 1.0 - smoothstep(0.7, 1.0, UV.y);
+	ALPHA *= bottomAlpha;
+	
+	if(flameShape > 0.3) {
+		EMISSION = flameColor.rgb * emissionEnergy;
+	} else {
+		EMISSION = flameColor.rgb * emissionEnergy * 0.5;
+	}
 }"
 
 [sub_resource type="Gradient" id=2]

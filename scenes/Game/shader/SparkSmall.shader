@@ -28,12 +28,6 @@ float noise(vec2 st) {
             (d - b) * u.x * u.y;
 }
 
-// Y-Billboard Mode
-/*
-void vertex() {
-	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],WORLD_MATRIX[1],vec4(normalize(cross(CAMERA_MATRIX[0].xyz,WORLD_MATRIX[1].xyz)), 0.0),WORLD_MATRIX[3]);
-	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(vec4(1.0, 0.0, 0.0, 0.0),vec4(0.0, 1.0/length(WORLD_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0),vec4(0.0, 0.0, 0.0 ,1.0));
-}*/
 void vertex() {
 	// A neat little trick to have a constant ID throughout shader invocation so we dont change shape
 	NORMAL.x = float(INSTANCE_ID);
@@ -44,7 +38,8 @@ void fragment() {
 	
 	float radialGradient = 1.0 - 2.01 * length(UV - center);
 	float sparkNoise = noise(UV * 8.0 + vec2(3.0, 1.0) * NORMAL.x);
-	float clampedSpark = 1.0 - step(sparkNoise * radialGradient, 0.4);
+	
+	float clampedSpark = 1.0 - step(sparkNoise * radialGradient, 0.8);
 	
 	ALPHA = clampedSpark;
 	ALPHA_SCISSOR = 0.4;

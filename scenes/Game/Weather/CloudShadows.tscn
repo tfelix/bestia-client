@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=2]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 50, 50 )
+
+[sub_resource type="SpatialMaterial" id=18]
+albedo_color = Color( 0.192157, 0.737255, 0.32549, 1 )
+
+[sub_resource type="Environment" id=3]
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.2
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+void fragment() {
+    if(UV.x > 0.5) {
+		COLOR = vec4(1.0, 1.0, 0.0, 1.0);	
+	} else {
+		COLOR = vec4(1.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+
+[sub_resource type="Shader" id=11]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode unshaded, depth_draw_never, cull_front, depth_test_disable;
+
+uniform sampler2D decal : hint_black;
+uniform vec2 offset;
+uniform vec2 scale;
+uniform bool emulate_lighting;
+uniform float brightness;
+
+varying flat mat4 model_view_matrix;
+
+void vertex(){
+	model_view_matrix = MODELVIEW_MATRIX;
+}
+
+void fragment(){
+	//float zdepth = textureLod(DEPTH_TEXTURE, SCREEN_UV, 0.0).r * 2.0 - 1.0;
+	vec4 pos = inverse(model_view_matrix) * INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, textureLod(DEPTH_TEXTURE, SCREEN_UV, 0.0).r * 2.0 - 1.0, 1.0);
+	
+	pos.xyz /= pos.w;
+	
+	bool inside = all(greaterThanEqual(pos.xyz, vec3(-1.0))) && all(lessThanEqual(pos.xyz, vec3(1.0)));
+	
+	if(inside){
+		vec4 color = texture(decal, (pos.xy * -0.5 - 0.5) * scale + offset);
+		if(emulate_lighting){
+			float lum = dot(textureLod(SCREEN_TEXTURE, SCREEN_UV, 0).rgb, vec3(0.2125, 0.7154, 0.0721));
+			lum += brightness;
+			lum = clamp(lum, 0.0, 1.0);
+			ALBEDO = color.rgb * lum;
+		}else{
+			ALBEDO = color.rgb;
+		}
+		ALPHA = color.a;
+	}else{
+		discard;
+	}
+}"
+
+[sub_resource type="ViewportTexture" id=17]
+viewport_path = NodePath("NearClouds")
+
+[sub_resource type="ShaderMaterial" id=12]
+resource_local_to_scene = true
+shader = SubResource( 11 )
+shader_param/offset = null
+shader_param/scale = Vector2( 1, 1 )
+shader_param/emulate_lighting = true
+shader_param/brightness = 0.0
+shader_param/decal = SubResource( 17 )
+
+[sub_resource type="CubeMesh" id=13]
+resource_local_to_scene = true
+material = SubResource( 12 )
+
+[node name="CloudShadows" type="Spatial"]
+
+[node name="Floor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 3.51755, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 18 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="NearClouds" type="Viewport" parent="."]
+size = Vector2( 1024, 1024 )
+handle_input_locally = false
+hdr = false
+disable_3d = true
+usage = 0
+
+[node name="CloudShadowsTex" type="ColorRect" parent="NearClouds"]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.876161, 0.482019, 0, -0.482019, 0.876161, 0, 6.43858, 17.5125 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 5, 0, 0, 0, -2.18557e-007, -1, 0, 5, -4.37114e-008, 2.5562, 0, 0 )
+mesh = SubResource( 13 )
+material/0 = null

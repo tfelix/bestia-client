@@ -5,6 +5,7 @@ export var mediumGrassRange: float = 10.0
 
 onready var _nearGrass = $NearGrass
 onready var _mediumGrass = $MediumGrass
+onready var _fakeCam = $FakeCam
 
 # Other systems can query the grass height at this position.
 # Usually needed to place something above the grass.
@@ -17,18 +18,13 @@ func _process(delta):
 	var viewport = get_viewport()
 	var camera = viewport.get_camera()
 	# var cameraPos = camera.global_transform.origin
-	var cameraPos = Vector3(0.0, 0.0, 0.0)
+	var cameraPos = _fakeCam.global_transform.origin # Vector3(0.0, 0.0, 0.0)
 	
 	if _nearGrass.process_material:
 		_nearGrass.process_material.set_shader_param("cameraPosition", cameraPos)
-		# _nearGrass.process_material.set_shader_param("minRenderDistance", 5.0)
-		# _nearGrass.process_material.set_shader_param("maxRenderDistance ", 10.0)
 	
-	#if _mediumGrass.process_material:
-	#	pass
-		#_mediumGrass.process_material.set_shader_param("cameraPosition", cameraPos)
-		#_mediumGrass.process_material.set_shader_param("minRenderDistance ", nearGrassRange)
-		#_mediumGrass.process_material.set_shader_param("maxRenderDistance ", mediumGrassRange)
+	if _mediumGrass.process_material:
+		_mediumGrass.process_material.set_shader_param("cameraPosition", cameraPos)
 	# TODO Position the systems
 	# pos.y = 0.0
 	# global_transform.origin = pos

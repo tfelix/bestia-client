@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd"
 }, {
+"base": "Reference",
+"class": "PST",
+"language": "GDScript",
+"path": "res://PubSubTopics.gd"
+}, {
 "base": "Entity",
 "class": "Player",
 "language": "GDScript",
@@ -114,10 +119,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/shortcuts/Trigger.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "WeatherData",
 "language": "GDScript",
-"path": "res://scenes/Game/WeatherData.gd"
+"path": "res://scenes/Game/Weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
 "ChatHoverText": "",
@@ -132,6 +137,7 @@ _global_script_class_icons={
 "Item": "",
 "Mob": "",
 "NoMovementComponent": "",
+"PST": "",
 "Player": "",
 "PlayerInfoComponent": "",
 "PubSub": "",

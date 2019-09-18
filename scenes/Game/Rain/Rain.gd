@@ -1,8 +1,12 @@
 extends Spatial
 
-var PST = preload("res://PubSubTopics.gd")
+# The rain system improvements:
+# - Better visual quality
+# - React to wind direction
+# - Adapt particle count via placement via shader
+
+# var PST = preload("res://PubSubTopics.gd")
 var splash_obj = preload("./RainSplash.tscn")
-# var WeatherData = preload("res://scenes/Game/WeatherData.gd")
 
 export var splash_area = 40
 export var max_splashes_per_second = 600

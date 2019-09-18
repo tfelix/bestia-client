@@ -15,6 +15,9 @@ entity_kind = 1
 
 [node name="TreeMesh" parent="." index="0" instance=ExtResource( 2 )]
 
+[node name="Leaf002" parent="TreeMesh" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00187492, 0.00920725, -0.00286531 )
+
 [node name="InteractionRange" parent="." index="1"]
 editor/display_folded = true
 

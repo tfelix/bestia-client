@@ -4,9 +4,6 @@
 [ext_resource path="res://img/fx/kenney_particle_pack/trace_01.png" type="Texture" id=2]
 [ext_resource path="res://audio/fx/rain.ogg" type="AudioStream" id=3]
 
-
-
-
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 params_blend_mode = 1

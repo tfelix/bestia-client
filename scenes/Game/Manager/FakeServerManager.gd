@@ -4,8 +4,7 @@ extends Node
 # to the server and reacting on the response it will directly manipulate the game
 # with predefined actions.
 
-var PST = load("res://PubSubTopics.gd")
-var NoMovementComponent = load("res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd")
+var NoMovementComponent = preload("res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd")
 var UseSkillMessage = preload("res://scenes/GameUI/shortcuts/UseSkillMessage.gd")
 
 func _ready():
