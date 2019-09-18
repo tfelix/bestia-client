@@ -86,3 +86,4 @@ func _translate_cam():
 	# Must reset delta to 0 to avoid cam movement when zooming
 	delta_rot_x = 0
 	delta_rot_y = 0
+	PubSub.publish(PST.CLIENT_CAM_CHANGED, self)

@@ -1,8 +1,7 @@
 extends Node
 class_name Entity
 
-var Actions = load("res://Actions.gd")
-var PST = load("res://PubSubTopics.gd")
+var Actions = preload("res://Actions.gd")
 
 signal component_changed(component)
 signal component_removed(component)
@@ -42,6 +41,7 @@ func get_component(component_name: String) -> Component:
 	return _components.find_node(component_name, false, false)
 	
 
+
 func update_component(component: Component):
 	var old_comp = null
 	for c in _components.get_children():
@@ -52,6 +52,7 @@ func update_component(component: Component):
 		_components.remove_child(old_comp)
 	_components.add_child(component)
 	emit_signal("component_changed", component)
+
 
 # The clicking should work like so:
 # Select the object and see if there is a default behavior

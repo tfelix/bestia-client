@@ -16,3 +16,5 @@ const ENV_WEATHER_CHANGED = "weather_changed"
 const ENV_DAYTIME_CHANGED = "daytime_changed"
 
 const CHAT_REGISTER_CMD = "chat_register_cmd"
+
+const CLIENT_CAM_CHANGED = "client_cam_changed"  

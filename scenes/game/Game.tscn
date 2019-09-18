@@ -326,7 +326,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, -0.0673933, -4.60115 )
 text = "Haus von rogget"
 
 [node name="Player" parent="Entities" instance=ExtResource( 13 )]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201416, 0 )
 
 [node name="PlayerCamera" type="Camera" parent="Entities/Player"]
