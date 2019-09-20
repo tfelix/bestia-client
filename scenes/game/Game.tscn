@@ -237,8 +237,8 @@ subdivide_width = 10
 subdivide_depth = 10
 
 [node name="Game" type="Spatial" groups=[
-"mob",
 "structures",
+"mob",
 ]]
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
