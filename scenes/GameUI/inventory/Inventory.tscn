@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/GameUI/Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
@@ -6,14 +6,6 @@
 [ext_resource path="res://fonts/OpenSans/OpenSans_NormalText.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/GameUI/Inventory/cancel.svg" type="Texture" id=5]
 [ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.png" type="Texture" id=7]
-[ext_resource path="res://fonts/OpenSans/OpenSans-Regular.ttf" type="DynamicFontData" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 24
-use_filter = true
-extra_spacing_bottom = 3
-font_data = ExtResource( 8 )
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.5
@@ -104,47 +96,46 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
+editor/display_folded = true
 margin_right = 1058.0
-margin_bottom = 24.0
+margin_bottom = 26.0
 
 [node name="SearchEdit" type="LineEdit" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
 margin_right = 400.0
-margin_bottom = 24.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 400, 0 )
 placeholder_text = "Search"
 
 [node name="ClearSearch" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
 margin_left = 404.0
-margin_right = 448.0
-margin_bottom = 24.0
+margin_right = 451.0
+margin_bottom = 26.0
 custom_fonts/font = ExtResource( 4 )
+disabled = true
 text = "Clear"
 
 [node name="Close" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
 margin_left = 1034.0
 margin_right = 1058.0
-margin_bottom = 24.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 24, 0 )
 size_flags_horizontal = 10
 texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-editor/display_folded = true
-margin_top = 28.0
+margin_top = 30.0
 margin_right = 1058.0
 margin_bottom = 558.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
-editor/display_folded = true
-margin_right = 754.0
-margin_bottom = 530.0
+margin_right = 1058.0
+margin_bottom = 528.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Margin" type="MarginContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -155,11 +146,10 @@ custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin"]
-editor/display_folded = true
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 749.0
-margin_bottom = 525.0
+margin_right = 1053.0
+margin_bottom = 523.0
 
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer"]
 margin_right = 40.0
@@ -171,106 +161,11 @@ columns = 5
 [node name="Item" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid" instance=ExtResource( 6 )]
 
 [node name="Module" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
-editor/display_folded = true
+visible = false
 margin_left = 758.0
 margin_right = 1058.0
-margin_bottom = 530.0
+margin_bottom = 528.0
 rect_min_size = Vector2( 300, 0 )
-
-[node name="Margin" type="MarginContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-
-[node name="DescriptionContainer" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 290.0
-margin_bottom = 520.0
-
-[node name="TitleContainer" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-editor/display_folded = true
-margin_right = 280.0
-margin_bottom = 50.0
-custom_constants/separation = 10
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer/TitleContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 50 )
-texture = ExtResource( 7 )
-stretch_mode = 4
-
-[node name="ItemTitle" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer/TitleContainer"]
-margin_left = 60.0
-margin_top = 6.0
-margin_right = 182.0
-margin_bottom = 43.0
-custom_fonts/font = SubResource( 1 )
-text = "Item Name"
-
-[node name="Amount" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 54.0
-margin_right = 280.0
-margin_bottom = 74.0
-custom_fonts/font = ExtResource( 4 )
-text = "Amount: 10"
-
-[node name="Weight" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 78.0
-margin_right = 280.0
-margin_bottom = 98.0
-custom_fonts/font = ExtResource( 4 )
-text = "Weight: 0.4 kg (0.1kg ea)"
-
-[node name="Spacer" type="Control" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 102.0
-margin_right = 280.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 0, 10 )
-
-[node name="ItemDescription" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 116.0
-margin_right = 280.0
-margin_bottom = 251.0
-size_flags_vertical = 2
-custom_fonts/font = ExtResource( 4 )
-text = "This is a description of the item selected. How is the big text doing?
-jsdhf
-dsfhdskjf
-djskfshdf
-"
-autowrap = true
-
-[node name="Drop" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 426.0
-margin_right = 280.0
-margin_bottom = 466.0
-rect_min_size = Vector2( 0, 40 )
-text = "Drop"
-
-[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer"]
-margin_top = 470.0
-margin_right = 280.0
-margin_bottom = 510.0
-
-[node name="Use" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer/ButtonContainer"]
-margin_right = 138.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
-text = "Use"
-
-[node name="Shortcut" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module/Margin/DescriptionContainer/ButtonContainer"]
-margin_left = 142.0
-margin_right = 280.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
-text = "Shortcut"
 
 [node name="ItemCount" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
 margin_top = 562.0

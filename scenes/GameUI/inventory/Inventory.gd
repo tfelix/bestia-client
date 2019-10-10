@@ -1,6 +1,7 @@
 extends Control
 
 const ItemNode = preload("res://scenes/GameUI/Inventory/Item.tscn")
+const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule.tscn")
 
 class InventoryInfo:
 	var max_weight: int
@@ -12,6 +13,7 @@ onready var _weight_label = $MarginContainer/InventoryPanel/HContainer/MainConte
 onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainContent/ItemCount
 onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit
 onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
+onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
 
 var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
@@ -63,8 +65,28 @@ func _show_displayed_items() -> void:
 		item.image = load(imagePath)
 		var item_node = ItemNode.instance()
 		_items_grid.add_child(item_node)
-		item_node.set_amount(item.amount)
-		item_node.set_image(item.image)
+		item_node.item = item
+		item_node.connect("item_selected", self, "_on_item_selected")
+
+
+func _on_item_selected(item_node) -> void:
+	for child in _items_grid.get_children():
+		if child == item_node:
+			child.selected = !child.selected
+		else:
+			child.selected = false
+	
+	var existing_item_desc = _module.get_child(0)
+	if existing_item_desc != null:
+		existing_item_desc.queue_free()
+	
+	if item_node.selected:
+		var item_desc = ItemDescriptionNode.instance()
+		_module.add_child(item_desc)
+		item_desc.show_item_description(item_node.item)
+		_module.visible = true
+	else:
+		_module.visible = false
 
 
 func _draw_inventory_info():
