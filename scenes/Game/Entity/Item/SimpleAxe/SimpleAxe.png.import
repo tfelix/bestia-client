@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/swap-bag.svg-8e43e9e452618769c400e0a2a0a9f430.stex"
+path="res://.import/SimpleAxe.png-c16a298b2d02f2c8f5a646767028e76a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/Inventory/swap-bag.svg"
-dest_files=[ "res://.import/swap-bag.svg-8e43e9e452618769c400e0a2a0a9f430.stex" ]
+source_file="res://scenes/Game/Entity/Item/SimpleAxe/SimpleAxe.png"
+dest_files=[ "res://.import/SimpleAxe.png-c16a298b2d02f2c8f5a646767028e76a.stex" ]
 
 [params]
 
@@ -31,4 +31,4 @@ process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=0.125
+svg/scale=1.0

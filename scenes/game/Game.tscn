@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Terrain/GrassSystem/GrassSystem.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/Game/Entity/Progress/Progress.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/Game/Terrain/GroundFog/GroundFog.tscn" type="PackedScene" id=21]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.178432, 0.262745, 0.42353, 1 )
@@ -242,6 +243,7 @@ subdivide_depth = 10
 ]]
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
 
 [node name="DayManager" parent="Manager" index="2"]
 editor/display_folded = true
@@ -326,6 +328,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, -0.0673933, -4.60115 )
 text = "Haus von rogget"
 
 [node name="Player" parent="Entities" instance=ExtResource( 13 )]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201416, 0 )
 
 [node name="PlayerCamera" type="Camera" parent="Entities/Player"]
@@ -354,6 +357,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.9073 )
 
 [node name="Tree02" parent="Entities" instance=ExtResource( 20 )]
 transform = Transform( 0.849106, 0, -0.528222, 0, 1, 0, 0.528222, 0, 0.849106, 6.18795, 0, -6.12079 )
+
+[node name="GroundFog" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8113, 1.42318, 0 )
+visible = false
+y_offset = 0.5
+movement_speed = Vector2( -1, 1 )
 [connection signal="input_event" from="Terrain/StaticBody" to="Terrain" method="_on_StaticBody_input_event"]
 
 [editable path="Manager"]

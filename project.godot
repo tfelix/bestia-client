@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Item/Item.gd"
 }, {
+"base": "Reference",
+"class": "ItemModel",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemModel.gd"
+}, {
 "base": "Entity",
 "class": "Mob",
 "language": "GDScript",
@@ -135,6 +140,7 @@ _global_script_class_icons={
 "Interactions": "",
 "InteractionsUi": "",
 "Item": "",
+"ItemModel": "",
 "Mob": "",
 "NoMovementComponent": "",
 "PST": "",
@@ -1328,6 +1334,11 @@ right_click={
 3d_physics/layer_3="enemies"
 3d_physics/layer_4="item"
 3d_physics/layer_6="terrain"
+
+[locale]
+
+translations=PoolStringArray( "res://scenes/Game/Entity/Item/ItemTranslations.en.translation" )
+locale_filter=[ 0, [ "en" ] ]
 
 [rendering]
 
