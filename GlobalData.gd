@@ -1,4 +1,5 @@
 extends Node
+class_name GlobalData
 
 signal player_changed
 
@@ -8,7 +9,9 @@ signal player_changed
 var default_interactions = {}
 
 var player_camera: Camera
+var player_data: PlayerData = PlayerData.new()
 var player: Node setget player_set
+
 
 func player_set(value):
 	player = value

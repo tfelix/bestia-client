@@ -105,3 +105,4 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Shortcut"
+[connection signal="pressed" from="DescriptionContainer/Drop" to="." method="_on_Drop_pressed"]

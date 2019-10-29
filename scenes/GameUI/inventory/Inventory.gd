@@ -21,7 +21,6 @@ var _displayed_items = []
 
 # New published items will be added to the inventory
 # Selected items will be displayed in 
-
 func _ready():
 	_info.max_weight = 50
 	_info.max_items = 200
@@ -47,7 +46,22 @@ func _ready():
 	item3.type = ItemModel.ItemType.EQUIP
 	test_items.append(item3)
 	update_inventory_items(test_items)
-	
+	PubSub.subscribe(PST.INVENTORY_UPDATE, self)
+
+
+func free():
+  PubSub.unsubscribe(self)
+  .free()
+
+
+func event_published(event_key, payload):
+	match (event_key):
+		PST.INVENTORY_UPDATE:
+			_info.max_items = payload.max_items
+			_info.max_weight = payload.max_weight
+			update_inventory_items(payload.items)
+
+
 func update_inventory_items(items: Array):
 	_items = items
 	_display_all_items()
@@ -95,24 +109,29 @@ func _draw_inventory_info():
 	var max_weight_kg = stepify(_info.max_weight / 10.0, 0.01)
 	_weight_label.text = str("Weight: ", cur_weight_kg, "kg / ", max_weight_kg, "kg")
 
+
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
 		total_weight += i.weight
 	return total_weight
 
+
 func received_item(item: ItemModel):
 	_pickup_msg.show_message(item)
 	_items.push(item)
 	_draw_inventory_info()
 
+
 func open():
 	$AudioClick.play()
 	visible = true
 
+
 func close():
 	$AudioClick.play()
 	visible = false
+
 
 func _on_Close_pressed():
 	close()

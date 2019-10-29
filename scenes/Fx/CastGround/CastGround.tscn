@@ -1,0 +1,146 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://CastGround.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Fx/CastGround/CastGround.glb" type="PackedScene" id=2]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+params_cull_mode = 2
+
+[sub_resource type="ArrayMesh" id=1]
+resource_name = "Circle"
+surfaces/0 = {
+"aabb": AABB( -1.15344, 0, -1.15344, 2.30687, 0.438796, 2.30687 ),
+"array_data": PoolByteArray( 85, 203, 80, 191, 151, 168, 224, 62, 85, 203, 80, 63, 84, 41, 172, 0, 18, 104, 70, 127, 68, 59, 61, 58, 23, 239, 195, 190, 0, 0, 0, 0, 94, 131, 108, 63, 45, 41, 146, 0, 8, 117, 47, 127, 117, 58, 119, 56, 243, 4, 53, 191, 0, 0, 0, 0, 243, 4, 53, 63, 84, 41, 172, 0, 32, 94, 78, 127, 20, 58, 110, 57, 81, 255, 225, 190, 151, 168, 224, 62, 196, 102, 136, 63, 45, 41, 146, 0, 6, 117, 47, 127, 219, 59, 198, 56, 81, 203, 80, 63, 151, 168, 224, 62, 90, 203, 80, 191, 172, 41, 84, 0, 18, 152, 70, 127, 204, 44, 1, 51, 6, 239, 195, 62, 0, 0, 0, 0, 98, 131, 108, 191, 211, 41, 110, 0, 19, 142, 51, 127, 162, 49, 15, 55, 239, 4, 53, 63, 0, 0, 0, 0, 247, 4, 53, 191, 172, 41, 84, 0, 32, 162, 78, 127, 32, 51, 32, 53, 61, 255, 225, 62, 151, 168, 224, 62, 198, 102, 136, 191, 211, 41, 110, 0, 1, 138, 45, 127, 149, 17, 112, 54, 169, 222, 52, 180, 151, 168, 224, 62, 205, 163, 147, 63, 0, 41, 137, 0, 244, 119, 41, 127, 219, 59, 100, 54, 105, 33, 34, 180, 0, 0, 0, 0, 0, 0, 128, 63, 0, 41, 137, 0, 225, 116, 40, 127, 114, 58, 220, 54, 0, 102, 196, 49, 151, 168, 224, 62, 205, 163, 147, 191, 0, 41, 119, 0, 230, 139, 41, 127, 126, 6, 205, 56, 22, 239, 195, 190, 0, 0, 0, 0, 94, 131, 108, 191, 45, 41, 110, 0, 210, 154, 58, 127, 58, 51, 132, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 191, 0, 41, 119, 0, 244, 137, 41, 127, 167, 49, 145, 56, 79, 255, 225, 190, 151, 168, 224, 62, 196, 102, 136, 191, 45, 41, 110, 0, 206, 156, 58, 127, 191, 44, 68, 58, 70, 255, 225, 62, 151, 168, 224, 62, 197, 102, 136, 63, 211, 41, 146, 0, 209, 102, 58, 127, 68, 59, 241, 50, 14, 239, 195, 62, 0, 0, 0, 0, 96, 131, 108, 63, 211, 41, 146, 0, 200, 96, 59, 127, 13, 58, 245, 52, 243, 4, 53, 191, 0, 0, 0, 0, 243, 4, 53, 191, 84, 41, 84, 0, 199, 189, 90, 127, 14, 53, 60, 58, 85, 203, 80, 191, 151, 168, 224, 62, 85, 203, 80, 191, 84, 41, 84, 0, 201, 187, 90, 127, 205, 50, 100, 59, 240, 4, 53, 63, 0, 0, 0, 0, 247, 4, 53, 63, 172, 41, 172, 0, 201, 69, 90, 127, 87, 57, 8, 51, 82, 203, 80, 63, 151, 168, 224, 62, 90, 203, 80, 63, 172, 41, 172, 0, 204, 73, 88, 127, 44, 58, 231, 44, 94, 131, 108, 191, 0, 0, 0, 0, 21, 239, 195, 190, 110, 41, 45, 0, 216, 233, 118, 127, 239, 54, 157, 58, 195, 102, 136, 191, 151, 168, 224, 62, 78, 255, 225, 190, 110, 41, 45, 0, 217, 231, 118, 127, 79, 54, 255, 59, 197, 102, 136, 63, 151, 168, 224, 62, 84, 255, 225, 62, 146, 41, 211, 0, 217, 24, 118, 127, 186, 56, 127, 6, 94, 131, 108, 63, 0, 0, 0, 0, 26, 239, 195, 62, 146, 41, 211, 0, 214, 18, 118, 127, 105, 56, 131, 49, 0, 0, 128, 191, 0, 0, 0, 0, 46, 189, 59, 51, 119, 41, 0, 0, 249, 21, 124, 127, 121, 56, 153, 58, 204, 163, 147, 191, 151, 168, 224, 62, 240, 232, 95, 51, 119, 41, 0, 0, 247, 25, 124, 127, 186, 56, 254, 59, 0, 0, 128, 63, 0, 0, 0, 0, 46, 222, 76, 178, 137, 41, 0, 0, 248, 231, 124, 127, 208, 54, 152, 49, 205, 163, 147, 63, 151, 168, 224, 62, 160, 215, 78, 178, 137, 41, 0, 0, 247, 230, 123, 127, 79, 54, 246, 13, 94, 131, 108, 191, 0, 0, 0, 0, 24, 239, 195, 62, 110, 41, 211, 0, 21, 62, 108, 127, 100, 57, 47, 58, 195, 102, 136, 191, 151, 168, 224, 62, 82, 255, 225, 62, 110, 41, 211, 0, 15, 72, 102, 127, 44, 58, 95, 59, 196, 102, 136, 63, 151, 168, 224, 62, 85, 255, 225, 190, 146, 41, 45, 0, 17, 187, 104, 127, 208, 50, 245, 44, 93, 131, 108, 63, 0, 0, 0, 0, 27, 239, 195, 190, 146, 41, 45, 0, 22, 196, 109, 127, 246, 52, 66, 51 ),
+"array_index_data": PoolByteArray( 0, 0, 2, 0, 1, 0, 0, 0, 1, 0, 3, 0, 4, 0, 6, 0, 5, 0, 4, 0, 5, 0, 7, 0, 1, 0, 9, 0, 8, 0, 3, 0, 1, 0, 8, 0, 10, 0, 12, 0, 11, 0, 10, 0, 11, 0, 13, 0, 7, 0, 5, 0, 12, 0, 7, 0, 12, 0, 10, 0, 9, 0, 15, 0, 14, 0, 8, 0, 9, 0, 14, 0, 13, 0, 11, 0, 16, 0, 13, 0, 16, 0, 17, 0, 14, 0, 15, 0, 18, 0, 14, 0, 18, 0, 19, 0, 17, 0, 16, 0, 20, 0, 17, 0, 20, 0, 21, 0, 18, 0, 23, 0, 22, 0, 19, 0, 18, 0, 22, 0, 21, 0, 20, 0, 24, 0, 21, 0, 24, 0, 25, 0, 22, 0, 23, 0, 26, 0, 22, 0, 26, 0, 27, 0, 25, 0, 24, 0, 28, 0, 25, 0, 28, 0, 29, 0, 26, 0, 31, 0, 30, 0, 27, 0, 26, 0, 30, 0, 29, 0, 28, 0, 2, 0, 29, 0, 2, 0, 0, 0, 30, 0, 31, 0, 6, 0, 30, 0, 6, 0, 4, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 96,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 32
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "move"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CastRing/Circle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.830023, 0.830023, 0.830023 ), Vector3( 1, 1, 1 ), Vector3( 1.54609, 1, 1.54609 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CastRing/Circle:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.279448, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -0.385847, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CastRing/Circle:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 359.9, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CastRing/Circle:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CastRing2/Circle:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CastRing2/Circle:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.5, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.83, 0.83, 0.83 ), Vector3( 1, 1, 1 ), Vector3( 1.546, 1, 1.546 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CastRing2/Circle:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.5, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.279, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -0.386, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CastRing2/Circle:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 359.9, 0 ) ]
+}
+
+[node name="CastGround" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="CastRing" parent="." instance=ExtResource( 2 )]
+
+[node name="Circle" parent="CastRing" index="0"]
+transform = Transform( 0.614619, 0, 0.72044, 0, 0.94699, 0, -0.72044, 0, 0.614619, 0, -0.08715, 0 )
+material/0 = SubResource( 2 )
+
+[node name="CastRing2" parent="." instance=ExtResource( 2 )]
+
+[node name="Circle" parent="CastRing2" index="0"]
+transform = Transform( -0.706361, 0, 0.829442, 0, 0.891603, 0, -0.829442, 0, -0.706361, 0, -0.317774, 0 )
+visible = false
+mesh = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/move = SubResource( 3 )
+
+[editable path="CastRing"]
+
+[editable path="CastRing2"]

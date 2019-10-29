@@ -49,6 +49,7 @@ size_flags_horizontal = 7
 size_flags_vertical = 7
 
 [node name="HContainer" type="HBoxContainer" parent="MarginContainer/InventoryPanel"]
+editor/display_folded = true
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1173.0
@@ -89,6 +90,7 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="MainContent" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
+editor/display_folded = true
 margin_left = 108.0
 margin_right = 1166.0
 margin_bottom = 606.0

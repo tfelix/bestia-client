@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "ChatCommand",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Chat/ChatCommands/ChatCommand.gd"
+}, {
 "base": "Control",
 "class": "ChatHoverText",
 "language": "GDScript",
-"path": "res://scenes/GameUI/Chat/ChatHoverText.gd"
+"path": "res://scenes/GameUI/Chat/ChatHoverText/ChatHoverText.gd"
+}, {
+"base": "Reference",
+"class": "ChatMessage",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Chat/ChatSend.gd"
+}, {
+"base": "Reference",
+"class": "ChatSend",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Chat/ChatMessage.gd"
 }, {
 "base": "Node",
 "class": "Component",
@@ -24,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/DayData.gd"
 }, {
+"base": "Reference",
+"class": "EffortValues",
+"language": "GDScript",
+"path": "res://globals/EffortValues.gd"
+}, {
 "base": "Node",
 "class": "Entities",
 "language": "GDScript",
@@ -33,6 +53,11 @@ _global_script_classes=[ {
 "class": "Entity",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Entity.gd"
+}, {
+"base": "Node",
+"class": "GlobalData",
+"language": "GDScript",
+"path": "res://GlobalData.gd"
 }, {
 "base": "Node",
 "class": "Interaction",
@@ -54,10 +79,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Interactions/InteractionsUi/InteractionsUi.gd"
 }, {
+"base": "Reference",
+"class": "InventoryUpdateMessage",
+"language": "GDScript",
+"path": "res://messages/InventoryUpdateMessage.gd"
+}, {
 "base": "Spatial",
 "class": "Item",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Item/Item.gd"
+}, {
+"base": "Reference",
+"class": "ItemDropMessage",
+"language": "GDScript",
+"path": "res://messages/ItemDropMessage.gd"
 }, {
 "base": "Reference",
 "class": "ItemModel",
@@ -83,6 +118,11 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Player/Player.gd"
+}, {
+"base": "Reference",
+"class": "PlayerData",
+"language": "GDScript",
+"path": "res://globals/PlayerData.gd"
 }, {
 "base": "Component",
 "class": "PlayerInfoComponent",
@@ -130,21 +170,29 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
+"ChatCommand": "",
 "ChatHoverText": "",
+"ChatMessage": "",
+"ChatSend": "",
 "Component": "",
 "DayData": "",
+"EffortValues": "",
 "Entities": "",
 "Entity": "",
+"GlobalData": "",
 "Interaction": "",
 "InteractionRange": "",
 "Interactions": "",
 "InteractionsUi": "",
+"InventoryUpdateMessage": "",
 "Item": "",
+"ItemDropMessage": "",
 "ItemModel": "",
 "Mob": "",
 "NoMovementComponent": "",
 "PST": "",
 "Player": "",
+"PlayerData": "",
 "PlayerInfoComponent": "",
 "PubSub": "",
 "ScreenBottomText": "",
@@ -166,7 +214,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PubSub="*res://addons/godot-pub-sub/addons/pub-sub/PubSub.gd"
-Global="*res://Global.gd"
+Global="*res://GlobalData.gd"
 
 [display]
 

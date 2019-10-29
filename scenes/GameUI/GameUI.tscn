@@ -39,4 +39,3 @@ margin_left = -331.0
 margin_right = 0.0
 margin_bottom = 184.0
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
-[connection signal="on_chat_send" from="ChatPanel" to="." method="_on_ChatPanel_on_chat_send"]

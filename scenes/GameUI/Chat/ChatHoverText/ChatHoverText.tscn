@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/GameUI/Chat/ChatHoverText.gd" type="Script" id=1]
+[ext_resource path="res://scenes/GameUI/Chat/ChatHoverText/ChatHoverText.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.631373 )
@@ -431,16 +431,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -70.0
+margin_left = -59.5
 margin_top = -7.0
-margin_right = 70.0
+margin_right = 59.5
 margin_bottom = 7.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "jhjhkjhkhgjhgjhg Nice."
+text = "ABC"
+align = 1
 
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 3.0

@@ -1,21 +1,11 @@
 extends PanelContainer
 
-# var PST = preload("res://PubSubTopics.gd")
 # var DayData = preload("res://scenes/Game/DayData.gd")
 
 onready var day = $Rows/DaySlider/DaySlider
 onready var brightness = $Rows/BrigthnessSlider/BrightnessSlider
 onready var weather = $Rows/Weather/WeatherSlider
 
-func _ready():
-	PubSub.publish(PST.CHAT_REGISTER_CMD, self)
-
-func on_chat_send(chatMsg: String) -> bool:
-	if chatMsg == "/debug":
-		visible = !visible
-		return true
-	
-	return false
 
 func _send_weather_data():
 	var env_data = WeatherData.new()

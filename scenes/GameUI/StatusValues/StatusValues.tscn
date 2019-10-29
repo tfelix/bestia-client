@@ -1,0 +1,167 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://fonts/OpenSans/OpenSans_NormalText.tres" type="DynamicFont" id=1]
+
+[node name="StatusValues" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -985.0
+margin_bottom = -468.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelColumn" type="VBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
+margin_right = 255.0
+margin_bottom = 252.0
+rect_min_size = Vector2( 110, 0 )
+size_flags_horizontal = 3
+
+[node name="Strength" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_right = 255.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 1 )
+text = "Strength"
+
+[node name="Vitality" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_top = 24.0
+margin_right = 255.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 1 )
+text = "Vitality"
+
+[node name="Intelligence" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_top = 48.0
+margin_right = 255.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 1 )
+text = "Intelligence"
+
+[node name="Willpower" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_top = 72.0
+margin_right = 255.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 1 )
+text = "Wisdom"
+
+[node name="Dexterity" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_top = 96.0
+margin_right = 255.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 1 )
+text = "Dexterity"
+
+[node name="Agility" type="Label" parent="HBoxContainer/LabelColumn"]
+margin_top = 120.0
+margin_right = 255.0
+margin_bottom = 140.0
+custom_fonts/font = ExtResource( 1 )
+text = "Agility"
+
+[node name="ValueColumn" type="VBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 259.0
+margin_right = 275.0
+margin_bottom = 252.0
+
+[node name="StrValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_right = 16.0
+margin_bottom = 20.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="VitValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_top = 24.0
+margin_right = 16.0
+margin_bottom = 44.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="IntValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_top = 48.0
+margin_right = 16.0
+margin_bottom = 68.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="WisValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_top = 72.0
+margin_right = 16.0
+margin_bottom = 92.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="DexValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_top = 96.0
+margin_right = 16.0
+margin_bottom = 116.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="AgiValue" type="Label" parent="HBoxContainer/ValueColumn"]
+margin_top = 120.0
+margin_right = 16.0
+margin_bottom = 140.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="ModColumn" type="VBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 279.0
+margin_right = 295.0
+margin_bottom = 252.0
+
+[node name="StrMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_right = 16.0
+margin_bottom = 20.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="VitMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_top = 24.0
+margin_right = 16.0
+margin_bottom = 44.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="IntMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_top = 48.0
+margin_right = 16.0
+margin_bottom = 68.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="WisMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_top = 72.0
+margin_right = 16.0
+margin_bottom = 92.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="DexMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_top = 96.0
+margin_right = 16.0
+margin_bottom = 116.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+
+[node name="AgiMod" type="Label" parent="HBoxContainer/ModColumn"]
+margin_top = 120.0
+margin_right = 16.0
+margin_bottom = 140.0
+size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 1 )
+text = "10"

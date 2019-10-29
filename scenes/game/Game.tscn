@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Terrain/GrassSystem/GrassSystem.tscn" type="PackedScene" id=2]
@@ -18,9 +18,10 @@
 [ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Game/Bar/SimpleBar.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/Game/Entity/Progress/Progress.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/Game/Terrain/GroundFog/GroundFog.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Game/Entity/Player/RoofDetector/RoofDetector.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Game/Terrain/GroundFog/GroundFog.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.178432, 0.262745, 0.42353, 1 )
@@ -246,7 +247,6 @@ subdivide_depth = 10
 editor/display_folded = true
 
 [node name="DayManager" parent="Manager" index="2"]
-editor/display_folded = true
 world_environment_path = NodePath("WorldEnvironment")
 
 [node name="Sun" type="DirectionalLight" parent="Manager/DayManager" index="0"]
@@ -328,8 +328,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9237, -0.0673933, -4.60115 )
 text = "Haus von rogget"
 
 [node name="Player" parent="Entities" instance=ExtResource( 13 )]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201416, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7234, 0.0201416, -1.35993 )
 
 [node name="PlayerCamera" type="Camera" parent="Entities/Player"]
 transform = Transform( 1, 0, 0, 0, 0.869308, 0.49427, 0, -0.49427, 0.869308, 0, 10.4301, 16.6005 )
@@ -349,16 +348,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.656738, 0 )
 
 [node name="Progress" parent="Entities/Player" instance=ExtResource( 18 )]
 
-[node name="TestMob" parent="Entities" instance=ExtResource( 19 )]
+[node name="RoofDetector" parent="Entities/Player" instance=ExtResource( 19 )]
+camNode = NodePath("../PlayerCamera")
+
+[node name="TestMob" parent="Entities" instance=ExtResource( 20 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01152, 0, 0 )
 
-[node name="Tree01" parent="Entities" instance=ExtResource( 20 )]
+[node name="Tree01" parent="Entities" instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.9073 )
 
-[node name="Tree02" parent="Entities" instance=ExtResource( 20 )]
+[node name="Tree02" parent="Entities" instance=ExtResource( 21 )]
 transform = Transform( 0.849106, 0, -0.528222, 0, 1, 0, 0.528222, 0, 0.849106, 6.18795, 0, -6.12079 )
 
-[node name="GroundFog" parent="." instance=ExtResource( 21 )]
+[node name="GroundFog" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8113, 1.42318, 0 )
 visible = false
 y_offset = 0.5
