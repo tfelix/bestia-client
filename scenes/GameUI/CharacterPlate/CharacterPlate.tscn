@@ -3,7 +3,9 @@
 [ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
 [ext_resource path="res://placeholder.png" type="Texture" id=2]
 [ext_resource path="res://scenes/GameUI/BarBig/BigBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/GameUI/menu/knapsack.png" type="Texture" id=4]
+[ext_resource path="res://scenes/GameUI/Menu/knapsack.png" type="Texture" id=4]
+
+
 
 [node name="CharacterPlate" type="Control"]
 margin_right = 290.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/knapsack.png-e6d0b8b97673f5476a538060ad72d263.stex"
+path="res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/Menu/knapsack.png"
-dest_files=[ "res://.import/knapsack.png-e6d0b8b97673f5476a538060ad72d263.stex" ]
+source_file="res://scenes/GameUI/close-24px.svg"
+dest_files=[ "res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex" ]
 
 [params]
 

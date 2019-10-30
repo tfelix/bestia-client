@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/GameUI/AttackList/AttackRow/AttackRow.gd" type="Script" id=1]
+[ext_resource path="res://placeholder.png" type="Texture" id=2]
+
+[node name="AttackRow" type="VBoxContainer"]
+margin_top = 53.0
+margin_right = 305.0
+margin_bottom = 105.0
+script = ExtResource( 1 )
+
+[node name="TopSeperator" type="HSeparator" parent="."]
+visible = false
+margin_right = 305.0
+margin_bottom = 4.0
+
+[node name="AttackWrapper" type="HBoxContainer" parent="."]
+margin_right = 305.0
+margin_bottom = 36.0
+
+[node name="IconMargin" type="MarginContainer" parent="AttackWrapper"]
+editor/display_folded = true
+margin_right = 50.0
+margin_bottom = 36.0
+custom_constants/margin_right = 10
+custom_constants/margin_left = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="AttackWrapper/IconMargin"]
+margin_left = 10.0
+margin_right = 40.0
+margin_bottom = 36.0
+
+[node name="Icon" type="TextureRect" parent="AttackWrapper/IconMargin/CenterContainer"]
+margin_top = 3.0
+margin_right = 30.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="AttackText" type="VBoxContainer" parent="AttackWrapper"]
+editor/display_folded = true
+margin_left = 54.0
+margin_right = 233.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="AttackName" type="Label" parent="AttackWrapper/AttackText"]
+margin_right = 179.0
+margin_bottom = 14.0
+text = "Tackle"
+
+[node name="AttackElement" type="Label" parent="AttackWrapper/AttackText"]
+margin_top = 22.0
+margin_right = 179.0
+margin_bottom = 36.0
+text = "Element"
+
+[node name="MarginMana" type="MarginContainer" parent="AttackWrapper"]
+editor/display_folded = true
+margin_left = 237.0
+margin_right = 263.0
+margin_bottom = 36.0
+custom_constants/margin_right = 10
+
+[node name="Mana" type="Label" parent="AttackWrapper/MarginMana"]
+margin_top = 11.0
+margin_right = 16.0
+margin_bottom = 25.0
+text = "10"
+
+[node name="Lv" type="Label" parent="AttackWrapper"]
+margin_left = 267.0
+margin_top = 11.0
+margin_right = 305.0
+margin_bottom = 25.0
+text = "Lv. 10"
+
+[node name="BottomSeperator" type="HSeparator" parent="."]
+margin_top = 40.0
+margin_right = 305.0
+margin_bottom = 44.0

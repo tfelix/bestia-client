@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/GameUI/AttackList/AttackList.gd" type="Script" id=1]
+[ext_resource path="res://fonts/opensans_semibold_headline.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=3]
+[ext_resource path="res://scenes/GameUI/backspace-24px.svg" type="Texture" id=4]
+[ext_resource path="res://scenes/GameUI/AttackList/AttackRow/AttackRow.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GameUI/AttackList/AttackDescription/AttackDescription.tscn" type="PackedScene" id=6]
+
+[node name="AttackList" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -290.0
+margin_top = -232.5
+margin_right = 290.0
+margin_bottom = 232.5
+grow_horizontal = 0
+size_flags_vertical = 0
+
+[node name="AttackPanel" type="Panel" parent="HBoxContainer"]
+editor/display_folded = true
+margin_right = 288.0
+margin_bottom = 465.0
+size_flags_horizontal = 3
+
+[node name="BorderMargin" type="MarginContainer" parent="HBoxContainer/AttackPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="Attacks" type="VBoxContainer" parent="HBoxContainer/AttackPanel/BorderMargin"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 455.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="HBoxContainer" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks"]
+margin_right = 268.0
+margin_bottom = 31.0
+
+[node name="Title" type="Label" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks/Title"]
+margin_right = 244.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Attacks"
+
+[node name="Close" type="TextureButton" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks/Title"]
+margin_left = 248.0
+margin_right = 268.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 20, 20 )
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Search" type="HBoxContainer" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks"]
+editor/display_folded = true
+margin_top = 35.0
+margin_right = 268.0
+margin_bottom = 60.0
+
+[node name="Search" type="LineEdit" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks/Search"]
+margin_right = 233.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="ClearButton" type="Button" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks/Search"]
+margin_left = 237.0
+margin_right = 268.0
+margin_bottom = 25.0
+icon = ExtResource( 4 )
+flat = true
+
+[node name="AttackRow" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks" instance=ExtResource( 5 )]
+margin_top = 64.0
+margin_right = 268.0
+margin_bottom = 108.0
+
+[node name="AttackRow2" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks" instance=ExtResource( 5 )]
+margin_top = 112.0
+margin_right = 268.0
+margin_bottom = 156.0
+
+[node name="AttackRow3" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks" instance=ExtResource( 5 )]
+margin_top = 160.0
+margin_right = 268.0
+margin_bottom = 204.0
+
+[node name="AttackRow4" parent="HBoxContainer/AttackPanel/BorderMargin/Attacks" instance=ExtResource( 5 )]
+margin_top = 208.0
+margin_right = 268.0
+margin_bottom = 252.0
+
+[node name="AttackDescription" parent="HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 292.0
+margin_right = 580.0
+margin_bottom = 465.0
+[connection signal="pressed" from="HBoxContainer/AttackPanel/BorderMargin/Attacks/Title/Close" to="." method="_on_Close_pressed"]
+[connection signal="text_changed" from="HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/Search" to="." method="_on_Search_text_changed"]
+[connection signal="pressed" from="HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/ClearButton" to="." method="_on_ClearButton_pressed"]

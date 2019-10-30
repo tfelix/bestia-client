@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://globals/Attack.gd"
+}, {
 "base": "Node",
 "class": "ChatCommand",
 "language": "GDScript",
@@ -170,6 +175,7 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
+"Attack": "",
 "ChatCommand": "",
 "ChatHoverText": "",
 "ChatMessage": "",
