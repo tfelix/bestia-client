@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/GameUI/CharacterBars/CharacterBars.gd" type="Script" id=1]
+[ext_resource path="res://placeholder.png" type="Texture" id=2]
+
+[node name="CharacterBars" type="VBoxContainer"]
+margin_right = 80.0
+margin_bottom = 10.0
+custom_constants/separation = 0
+script = ExtResource( 1 )
+
+[node name="HealthBar" type="TextureRect" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_right = 80.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 80, 5 )
+texture = ExtResource( 2 )
+expand = true
+
+[node name="ManaBar" type="TextureRect" parent="."]
+modulate = Color( 0, 0.298039, 1, 1 )
+margin_top = 5.0
+margin_right = 80.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 80, 5 )
+texture = ExtResource( 2 )
+expand = true

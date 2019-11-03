@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Title/Title.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Title/landscape-nature-clouds-cloudy.jpg" type="Texture" id=2]
 [ext_resource path="res://img/logo-full-white.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Title/buttons/GameButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Title/buttons/OptionsButton.tscn" type="PackedScene" id=5]
-[ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=6]
-[ext_resource path="res://scenes/FadeIn/FadeIn.tscn" type="PackedScene" id=7]
-[ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=8]
+[ext_resource path="res://scenes/FadeIn/FadeIn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=5]
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -48,43 +45,20 @@ expand = true
 stretch_mode = 6
 
 [node name="Buttons" type="VBoxContainer" parent="Menu"]
-editor/display_folded = true
 margin_top = 304.0
 margin_right = 1120.0
-margin_bottom = 490.0
+margin_bottom = 680.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 6
 
-[node name="GameButton" parent="Menu/Buttons" instance=ExtResource( 4 )]
-margin_right = 1120.0
-margin_bottom = 32.0
-scene_to_load = "res://scenes/intro/Intro.tscn"
-
-[node name="OptionsButton" parent="Menu/Buttons" instance=ExtResource( 5 )]
-visible = false
-margin_top = 38.0
-margin_right = 1120.0
-margin_bottom = 70.0
-scene_to_load = "res://scenes/options/Options.tscn"
-
-[node name="VersionLabel" type="Label" parent="Menu"]
-margin_top = 494.0
-margin_right = 1120.0
-margin_bottom = 680.0
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 6 )
-text = "v 0.0.0"
-valign = 2
-
-[node name="FadeIn" parent="." instance=ExtResource( 7 )]
+[node name="FadeIn" parent="." instance=ExtResource( 4 )]
 visible = false
 fade_duration_ms = 1500
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 5 )
 volume_db = -14.959
 autoplay = true
-[connection signal="on_Button_pressed" from="Menu/Buttons/GameButton" to="." method="_on_GameButton_on_Button_pressed"]
 [connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
 [connection signal="fade_out_finished" from="FadeIn" to="." method="_on_FadeIn_fade_out_finished"]

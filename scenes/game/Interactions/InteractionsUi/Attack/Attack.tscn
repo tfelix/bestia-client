@@ -2,8 +2,6 @@
 
 [ext_resource path="res://scenes/Game/Interactions/InteractionsUi/Attack/sword-clash.svg" type="Texture" id=1]
 
-
-
 [node name="Attack" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0

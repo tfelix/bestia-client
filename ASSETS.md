@@ -22,6 +22,8 @@
 * [Card play icon by Quoting](https://game-icons.net/1x1/quoting/card-play.html),  CC BY 3.0
 * [Cancel icon by sbed](https://game-icons.net/1x1/sbed/cancel.html), CC BY 3.0
 * [logging.svg](https://game-icons.net/1x1/skoll/logging.html), Skoll, CC BY 3.0
+* [Sword wound](https://game-icons.net/1x1/lorc/sword-wound.html), Lorc, CC BY 3.0
+* [thermometer-half-solid](https://fontawesome.com/icons/thermometer-half?style=solid), Font Awesome, Unmodified, [CC BY 4.0](https://fontawesome.com/license)
 
 ## Music / Audio
 

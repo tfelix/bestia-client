@@ -10,9 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "Actions",
+"language": "GDScript",
+"path": "res://Actions.gd"
+}, {
+"base": "Reference",
 "class": "Attack",
 "language": "GDScript",
 "path": "res://globals/Attack.gd"
+}, {
+"base": "VBoxContainer",
+"class": "AttackRow",
+"language": "GDScript",
+"path": "res://scenes/GameUI/AttackList/AttackRow/AttackRow.gd"
+}, {
+"base": "Reference",
+"class": "AttackUseMessage",
+"language": "GDScript",
+"path": "res://messages/AttackUseMessage.gd"
 }, {
 "base": "Node",
 "class": "ChatCommand",
@@ -38,6 +53,11 @@ _global_script_classes=[ {
 "class": "Component",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/Component.gd"
+}, {
+"base": "Reference",
+"class": "DamageMessage",
+"language": "GDScript",
+"path": "res://messages/DamageMessage.gd"
 }, {
 "base": "Reference",
 "class": "DayData",
@@ -139,6 +159,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-pub-sub/addons/pub-sub/PubSub.gd"
 }, {
+"base": "Reference",
+"class": "RequestInventoryMessage",
+"language": "GDScript",
+"path": "res://messages/RequestInventoryMessage.gd"
+}, {
 "base": "Control",
 "class": "ScreenBottomText",
 "language": "GDScript",
@@ -152,7 +177,7 @@ _global_script_classes=[ {
 "base": "Trigger",
 "class": "SkillTrigger",
 "language": "GDScript",
-"path": "res://scenes/GameUI/shortcuts/SkillTrigger.gd"
+"path": "res://scenes/GameUI/Shortcuts/SkillTrigger.gd"
 }, {
 "base": "Component",
 "class": "StatusComponent",
@@ -162,12 +187,12 @@ _global_script_classes=[ {
 "base": "RichTextLabel",
 "class": "TimedTextLabel",
 "language": "GDScript",
-"path": "res://scenes/GameUI/timed_text_label/TimedTextLabel.gd"
+"path": "res://scenes/GameUI/TimedTextLabel/TimedTextLabel.gd"
 }, {
 "base": "Reference",
 "class": "Trigger",
 "language": "GDScript",
-"path": "res://scenes/GameUI/shortcuts/Trigger.gd"
+"path": "res://scenes/GameUI/Shortcuts/Trigger.gd"
 }, {
 "base": "Node",
 "class": "WeatherData",
@@ -175,12 +200,16 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
+"Actions": "",
 "Attack": "",
+"AttackRow": "",
+"AttackUseMessage": "",
 "ChatCommand": "",
 "ChatHoverText": "",
 "ChatMessage": "",
 "ChatSend": "",
 "Component": "",
+"DamageMessage": "",
 "DayData": "",
 "EffortValues": "",
 "Entities": "",
@@ -201,6 +230,7 @@ _global_script_class_icons={
 "PlayerData": "",
 "PlayerInfoComponent": "",
 "PubSub": "",
+"RequestInventoryMessage": "",
 "ScreenBottomText": "",
 "SimpleBar": "",
 "SkillTrigger": "",

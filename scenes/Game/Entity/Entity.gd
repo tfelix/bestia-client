@@ -1,7 +1,7 @@
 extends Node
 class_name Entity
 
-var Actions = preload("res://Actions.gd")
+var Damage3D = preload("res://scenes/Game/Damage/Damage3D.tscn")
 
 signal component_changed(component)
 signal component_removed(component)
@@ -39,8 +39,18 @@ func get_aabb() -> AABB:
 
 func get_component(component_name: String) -> Component:
 	return _components.find_node(component_name, false, false)
-	
 
+
+func handle_message(msg):
+	if msg is DamageMessage:
+		_display_damage(msg)
+
+
+func _display_damage(msg: DamageMessage) -> void:
+	var dmg3d = Damage3D.instance()
+	var source = Global.player
+	dmg3d.init(msg, source)
+	add_child(dmg3d)
 
 func update_component(component: Component):
 	var old_comp = null
@@ -86,4 +96,3 @@ func _handle_secondary_input():
 	else:
 		$Interactions.show_possible_interactions()
 		$Selection.selected()
-

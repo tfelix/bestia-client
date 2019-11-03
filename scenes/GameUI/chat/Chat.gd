@@ -86,8 +86,9 @@ func _insert_chat_text(msg: ChatMessage) -> void:
 
 # Send chat text to signal.
 func _on_Send_pressed():
-	var text = $MarginContainer/VBoxContainer/HBoxContainer/Text.text
+	var text = _text_input.text
 	entered_chat(text)
+
 
 # Send chat text to signal.
 func _on_Enter_pressed(text):

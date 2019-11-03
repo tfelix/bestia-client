@@ -25,6 +25,8 @@ func event_published(event_key, payload):
 				_use_skill(payload)
 			if payload is ItemDropMessage:
 				_send_chat(payload)
+			if payload is RequestInventoryMessage:
+				_send_items()
 			else:
 				pass
 				# _chop_tree(payload)
@@ -39,7 +41,7 @@ func _send_chat(msg: ChatSend) -> void:
 	PubSub.publish(PST.CHAT_RECEIVED, response)
 
 
-func _setup_items() -> void:
+func _send_items() -> void:
 	var item1 = ItemModel.new()
 	item1.database_name = "empty_bottle"
 	item1.weight = 1
@@ -58,6 +60,12 @@ func _setup_items() -> void:
 	item3.amount = 1
 	item3.type = ItemModel.ItemType.EQUIP
 	_player_items.append(item3)
+	var item4 = ItemModel.new()
+	item4.database_name = "small_sign"
+	item4.weight = 10
+	item4.amount = 1
+	item4.type = ItemModel.ItemType.USABLE
+	_player_items.append(item4)
 	
 	var update_msg = InventoryUpdateMessage.new()
 	update_msg.items = _player_items
@@ -82,3 +90,18 @@ func _chop_tree(entity: Entity):
 	# Remove NoMovement Component
 	# Spawn Loot on the Ground
 	pass
+
+func _on_Timer_timeout():
+	
+	pass # Replace with function body.
+
+
+func _on_DamageTimer_timeout():
+	var msg = DamageMessage.new()
+	msg.target_entity = 1
+	msg.total_damage = randi() % 200
+	PubSub.publish(PST.SERVER_SEND, msg)
+
+
+func _on_HealTimer_timeout():
+	pass # Replace with function body.

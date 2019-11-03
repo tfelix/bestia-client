@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GameUI/Inventory/Item.gd" type="Script" id=1]
-[ext_resource path="res://placeholder.png" type="Texture" id=2]
+[ext_resource path="res://scenes/GameUI/Inventory/item_highlight.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.png" type="Texture" id=3]
-[ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/NESCyrillic.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
 
 [node name="Item" type="Control"]
 margin_right = 40.0
@@ -35,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -40.0
 margin_top = -18.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "123"
 align = 2
 [connection signal="gui_input" from="." to="." method="_on_Item_gui_input"]

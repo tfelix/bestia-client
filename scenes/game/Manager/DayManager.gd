@@ -3,7 +3,7 @@ extends Node
 export(NodePath) var world_environment_path
 export var enable: bool = true
 
-onready var sun = $Sun as DirectionalLight
+onready var sun = $WorldEnvironment/Sun as DirectionalLight
 
 const sunrise_duration = 1.0/24 * 3 # 3hrs
 

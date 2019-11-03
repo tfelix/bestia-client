@@ -18,3 +18,13 @@ script = ExtResource( 3 )
 
 [node name="FakeServerManager" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="HealTimer" type="Timer" parent="FakeServerManager"]
+wait_time = 5.0
+autostart = true
+
+[node name="DamageTimer" type="Timer" parent="FakeServerManager"]
+wait_time = 3.0
+autostart = true
+[connection signal="timeout" from="FakeServerManager/HealTimer" to="FakeServerManager" method="_on_HealTimer_timeout"]
+[connection signal="timeout" from="FakeServerManager/DamageTimer" to="FakeServerManager" method="_on_DamageTimer_timeout"]

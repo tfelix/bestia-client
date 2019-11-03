@@ -1,5 +1,7 @@
 extends Control
 
+const highlight_sprite = preload("res://scenes/GameUI/Inventory/item_highlight.png")
+
 var item: ItemModel setget _set_item
 var selected: bool setget _set_selected
 

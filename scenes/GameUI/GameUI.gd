@@ -1,9 +1,9 @@
 extends Control
 
-signal on_chat_send(text)
 
-func _on_ChatPanel_on_chat_send(text):
-	emit_signal("on_chat_send", text)
-
-func _on_CharacterPlate_on_inventory_pressed():
+func _on_MenuButtons_on_inventory_pressed():
 	$Inventory.open()
+
+
+func _on_MenuButtons_on_attacks_pressed():
+	$AttackList.open()

@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/GameUI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://audio/fx/click3.wav" type="AudioStream" id=3]
 [ext_resource path="res://fonts/OpenSans/OpenSans_NormalText.tres" type="DynamicFont" id=4]
-[ext_resource path="res://scenes/GameUI/Inventory/cancel.svg" type="Texture" id=5]
+[ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=5]
 [ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=6]
 
 [node name="Inventory" type="Control"]
@@ -49,7 +49,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 7
 
 [node name="HContainer" type="HBoxContainer" parent="MarginContainer/InventoryPanel"]
-editor/display_folded = true
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1173.0
@@ -90,7 +89,6 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="MainContent" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
-editor/display_folded = true
 margin_left = 108.0
 margin_right = 1166.0
 margin_bottom = 606.0
@@ -98,7 +96,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-editor/display_folded = true
 margin_right = 1058.0
 margin_bottom = 26.0
 

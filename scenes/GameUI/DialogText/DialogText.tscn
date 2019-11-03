@@ -1,10 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/GameUI/DialogText/DialogText.gd" type="Script" id=1]
-[ext_resource path="res://fonts/NES_23.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scenes/GameUI/DialogText/DialogText_RichTextLabel.gd" type="Script" id=3]
-[ext_resource path="res://scenes/GameUI/CloseButton/CloseButton.tscn" type="PackedScene" id=4]
-
+[ext_resource path="res://scenes/GameUI/DialogText/DialogText_RichTextLabel.gd" type="Script" id=2]
 
 [node name="DialogText" type="Control"]
 anchor_right = 1.0
@@ -45,21 +42,13 @@ margin_right = 1166.0
 margin_bottom = 220.0
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-margin_right = 1092.0
+margin_right = 1146.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
-custom_fonts/normal_font = ExtResource( 2 )
-script = ExtResource( 3 )
-
-[node name="CloseButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
-margin_left = 1096.0
-margin_right = 1146.0
-margin_bottom = 200.0
+script = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
 autostart = true
-
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="timeout" from="Timer" to="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Label" method="_on_Timer_timeout"]

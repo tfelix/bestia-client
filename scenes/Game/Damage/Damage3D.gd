@@ -1,24 +1,30 @@
 extends RigidBody
 
-var DamageType = load("res://scenes/Game/Damage/Damage.gd").DamageType
-
-var _damage
+var _damage: DamageMessage
 var _source_entity: Spatial
 
-onready var _label = $Viewport/DamageLabelGUI
+onready var _label = $DamageLabel
 
-func init(damage, entity: Spatial):
+func init(damage: DamageMessage, entity: Spatial):
 	_damage = damage
 	_source_entity = entity
 
+
+func _process(delta):
+	var cam = get_tree().get_root().get_camera()
+	var pos = self.global_transform.origin
+	var viewport_pos = cam.unproject_position(pos)
+	_label.set_position(viewport_pos)
+
+
 func _ready():
-	_label.set_text(str(_damage.amount))
+	_label.set_text(str(_damage.total_damage))
 	match _damage.type:
-		DamageType.DAMAGE, DamageType.MISS:
+		DamageMessage.DamageType.DAMAGE, DamageMessage.DamageType.MISS:
 			_label.show_normal()
-		DamageType.CRIT:
+		DamageMessage.DamageType.CRIT:
 			_label.show_crit()
-		DamageType.HEAL:
+		DamageMessage.DamageType.HEAL:
 			_label.show_heal()
 	_prepare_velocity()
 
@@ -33,12 +39,13 @@ func _prepare_velocity():
 	else:
 		vel_x *= -1
 	
-	if _damage.type == DamageType.HEAL || _damage.type == DamageType.MISS:
+	if _damage.type == DamageMessage.DamageType.HEAL || _damage.type == DamageMessage.DamageType.MISS:
 		vel_x = 0
 		vel_y = 15
 		gravity_scale = 0
 	
 	self.linear_velocity = Vector3(vel_x, vel_y, 0)
+
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	queue_free()

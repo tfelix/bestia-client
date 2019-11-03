@@ -2,6 +2,7 @@ extends Control
 
 const ItemNode = preload("res://scenes/GameUI/Inventory/Item.tscn")
 const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule.tscn")
+const placeholder_img = preload("res://scenes/GameUI/Inventory/item_placeholder.png")
 
 class InventoryInfo:
 	var max_weight: int
@@ -25,28 +26,9 @@ func _ready():
 	_info.max_weight = 50
 	_info.max_items = 200
 	_draw_inventory_info()
-	# This is a test and will display items
-	var test_items = []
-	var item1 = ItemModel.new()
-	item1.database_name = "empty_bottle"
-	item1.weight = 1
-	item1.amount = 1
-	item1.type = ItemModel.ItemType.ETC
-	test_items.append(item1)
-	var item2 = ItemModel.new()
-	item2.database_name = "knife"
-	item2.weight = 5
-	item2.amount = 3
-	item2.type = ItemModel.ItemType.ETC
-	test_items.append(item2)
-	var item3 = ItemModel.new()
-	item3.database_name = "simple_axe"
-	item3.weight = 10
-	item3.amount = 1
-	item3.type = ItemModel.ItemType.EQUIP
-	test_items.append(item3)
-	update_inventory_items(test_items)
 	PubSub.subscribe(PST.INVENTORY_UPDATE, self)
+	var msg = RequestInventoryMessage.new()
+	PubSub.publish(PST.SERVER_SEND, msg)
 
 
 func free():
@@ -77,6 +59,8 @@ func _show_displayed_items() -> void:
 		var description = tr((item.database_name + "_description").to_upper())
 		var imagePath = ItemModel.database_name_to_image_path(item.database_name)
 		item.image = load(imagePath)
+		if item.image == null:
+			item.image = placeholder_img
 		var item_node = ItemNode.instance()
 		_items_grid.add_child(item_node)
 		item_node.item = item
@@ -167,3 +151,7 @@ func _filter_displayed_items(filter_name: String) -> void:
 		if tr(item.database_name).to_upper().begins_with(filter_name_upper):
 			_displayed_items.append(item)
 	_show_displayed_items()
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		close()

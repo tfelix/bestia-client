@@ -2,13 +2,11 @@ extends Control
 
 var CompNames = load("res://scenes/Game/Entity/Component/ComponentNames.gd")
 
-signal on_inventory_pressed
-
-onready var _character_name = $PanelContainer/Rows/InfoMargin/CharacterInfo
-onready var _health_bar = $PanelContainer/Rows/Main/Bars/HealthBar
-onready var _mana_bar = $PanelContainer/Rows/Main/Bars/ManaBar
-onready var _health_label = $PanelContainer/Rows/Main/Bars/HealthLabel
-onready var _mana_label = $PanelContainer/Rows/Main/Bars/ManaLabel
+onready var _character_name = $Rows/InfoMargin/CharacterInfo
+onready var _health_bar = $Rows/Main/Bars/HealthBar
+onready var _mana_bar = $Rows/Main/Bars/ManaBar
+onready var _health_label = $Rows/Main/Bars/HealthLabel
+onready var _mana_label = $Rows/Main/Bars/ManaLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
