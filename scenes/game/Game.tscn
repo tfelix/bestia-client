@@ -287,7 +287,6 @@ mesh = SubResource( 5 )
 material/0 = ExtResource( 6 )
 
 [node name="Entities" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Bottle" parent="Entities" instance=ExtResource( 8 )]

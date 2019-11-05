@@ -18,6 +18,7 @@ func set_attack(atk: Attack) -> void:
 	_atk_element.text = atk.element
 	_mana.text = String(atk.mana)
 	_lv.text = "Lv. " + String(atk.level)
+	attack = atk
 
 
 func _on_AttackRow_gui_input(event):

@@ -24,7 +24,7 @@ func get_aabb() -> AABB:
 func move_to(destination):
 	if !can_move():
 		return
-	# self.destination = destination
+	self.destination = destination
 	$MoveIndicator.translation = destination
 	$MoveIndicator.play()
 

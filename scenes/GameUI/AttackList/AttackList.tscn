@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://bestia_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/GameUI/AttackList/AttackList.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://fonts/opensans_semibold_headline.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=5]
 [ext_resource path="res://scenes/GameUI/backspace-24px.svg" type="Texture" id=6]
-[ext_resource path="res://scenes/GameUI/AttackList/AttackDescription/AttackDescription.tscn" type="PackedScene" id=7]
-[ext_resource path="res://audio/fx/click3.wav" type="AudioStream" id=8]
+[ext_resource path="res://audio/fx/click3.wav" type="AudioStream" id=7]
 
 [node name="AttackList" type="Control"]
 anchor_right = 1.0
@@ -20,9 +19,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-margin_left = 348.0
+margin_left = 495.0
 margin_top = 110.0
-margin_right = 932.0
+margin_right = 785.0
 margin_bottom = 610.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -112,14 +111,8 @@ margin_bottom = 411.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AttackDescription" parent="CenterContainer/HBoxContainer" instance=ExtResource( 7 )]
-margin_left = 294.0
-margin_right = 584.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 290, 500 )
-
 [node name="AudioClick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 7 )
 bus = "Fx"
 [connection signal="pressed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Title/Close" to="." method="_on_Close_pressed"]
 [connection signal="text_changed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/Search" to="." method="_on_Search_text_changed"]

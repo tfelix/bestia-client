@@ -1,7 +1,8 @@
 extends Control
 
 const ItemNode = preload("res://scenes/GameUI/Inventory/Item.tscn")
-const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule.tscn")
+const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
+const ItemEquipModule = preload("res://scenes/GameUI/Inventory/ItemEquipModule/ItemEquipModule.tscn")
 const placeholder_img = preload("res://scenes/GameUI/Inventory/item_placeholder.png")
 
 class InventoryInfo:
@@ -15,6 +16,8 @@ onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainConten
 onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit
 onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
 onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
+onready var _inventory_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode
+onready var _equip_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/EquipMode
 
 var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
@@ -155,3 +158,20 @@ func _filter_displayed_items(filter_name: String) -> void:
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		close()
+
+func _on_EquipMode_pressed():
+	_inventory_mode_btn.disabled = false
+	_equip_mode_btn.disabled = true
+	var active_module = _module.get_child(0)
+	if active_module != null:
+		active_module.queue_free()
+	var equip_module = ItemEquipModule.instance()
+	_module.add_child(equip_module)
+
+
+func _on_InventoryMode_pressed():
+	_inventory_mode_btn.disabled = true
+	_equip_mode_btn.disabled = false
+	var active_module = _module.get_child(0)
+	if active_module != null:
+		active_module.queue_free()

@@ -1,0 +1,20 @@
+[gd_scene format=2]
+
+[node name="ItemEquipModule" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="Label" type="Label" parent="DescriptionContainer"]
+margin_right = 1260.0
+margin_bottom = 14.0
+text = "EQUIPMENT"

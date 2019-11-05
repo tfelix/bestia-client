@@ -2,8 +2,9 @@
 
 [ext_resource path="res://scenes/GameUI/Inventory/ItemDropModal/ItemDropModal.gd" type="Script" id=1]
 [ext_resource path="res://placeholder.png" type="Texture" id=2]
-[ext_resource path="res://scenes/GameUI/Inventory/ItemDescriptionFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/OpenSans/OpenSans_NormalText.tres" type="DynamicFont" id=4]
+
 
 [node name="ItemDropModal" type="PopupDialog"]
 anchor_left = 0.5

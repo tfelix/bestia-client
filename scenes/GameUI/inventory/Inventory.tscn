@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/GameUI/Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://audio/fx/click3.wav" type="AudioStream" id=3]
 [ext_resource path="res://fonts/OpenSans/OpenSans_NormalText.tres" type="DynamicFont" id=4]
-[ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=5]
-[ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GameUI/Inventory/utensils-solid.svg" type="Texture" id=5]
+[ext_resource path="res://scenes/GameUI/Inventory/shield-alt-solid.svg" type="Texture" id=6]
+[ext_resource path="res://scenes/GameUI/Inventory/sketch-brands.svg" type="Texture" id=7]
+[ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=8]
+[ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=9]
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.5
@@ -60,7 +63,6 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="Categories" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
-editor/display_folded = true
 margin_left = 9.0
 margin_right = 95.0
 margin_bottom = 606.0
@@ -71,6 +73,7 @@ margin_right = 86.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 4 )
+disabled = true
 text = "Inventory"
 
 [node name="EquipMode" type="Button" parent="MarginContainer/InventoryPanel/HContainer/Categories"]
@@ -79,7 +82,6 @@ margin_right = 86.0
 margin_bottom = 110.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 4 )
-disabled = true
 text = "Equipment"
 
 [node name="Spacer2" type="Control" parent="MarginContainer/InventoryPanel/HContainer"]
@@ -99,15 +101,47 @@ size_flags_vertical = 3
 margin_right = 1058.0
 margin_bottom = 26.0
 
+[node name="UsableFilter" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
+margin_right = 24.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 24, 24 )
+focus_mode = 1
+enabled_focus_mode = 1
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="EquipFilter" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 24, 24 )
+focus_mode = 1
+enabled_focus_mode = 1
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="EtcFilter" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 56.0
+margin_right = 80.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 24, 24 )
+texture_normal = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
 [node name="SearchEdit" type="LineEdit" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_right = 400.0
+margin_left = 84.0
+margin_right = 484.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 400, 0 )
 placeholder_text = "Search"
 
 [node name="ClearSearch" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 404.0
-margin_right = 451.0
+margin_left = 488.0
+margin_right = 535.0
 margin_bottom = 26.0
 custom_fonts/font = ExtResource( 4 )
 disabled = true
@@ -119,7 +153,7 @@ margin_right = 1058.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 24, 0 )
 size_flags_horizontal = 10
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 8 )
 expand = true
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
@@ -129,12 +163,14 @@ margin_bottom = 558.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
+editor/display_folded = true
 margin_right = 1058.0
 margin_bottom = 528.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Margin" type="MarginContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -157,7 +193,7 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 10
 columns = 5
 
-[node name="Item" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid" instance=ExtResource( 6 )]
+[node name="Item" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid" instance=ExtResource( 9 )]
 
 [node name="Module" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
 visible = false
@@ -179,6 +215,8 @@ margin_right = 1058.0
 margin_bottom = 606.0
 custom_fonts/font = ExtResource( 4 )
 text = "Weight: 12 kg / 45 kg"
+[connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode" to="." method="_on_InventoryMode_pressed"]
+[connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/Categories/EquipMode" to="." method="_on_EquipMode_pressed"]
 [connection signal="text_changed" from="MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit" to="." method="_on_SearchEdit_text_changed"]
 [connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch" to="." method="_on_ClearSearch_pressed"]
 [connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/MainContent/Header/Close" to="." method="_on_Close_pressed"]
