@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/GameUI/GameUI.gd" type="Script" id=1]
-[ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/GameUI/Chat/Chat.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/GameUI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/GameUI/MenuButtons/MenuButtons.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/GameUI/AttackList/AttackList.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/GameUI/WorldClock/WorldClock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GameUI/Chat/Chat.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GameUI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GameUI/MenuButtons/MenuButtons.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/GameUI/AttackList/AttackList.tscn" type="PackedScene" id=9]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -15,23 +16,31 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
 
-[node name="CharacterPlate" parent="." instance=ExtResource( 2 )]
+[node name="WorldClock" parent="." instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -124.047
+margin_top = 20.0476
+margin_right = -20.0474
+margin_bottom = 53.0476
+
+[node name="CharacterPlate" parent="." instance=ExtResource( 3 )]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 298.0
 margin_bottom = 130.0
 
-[node name="ChatPanel" parent="." instance=ExtResource( 3 )]
+[node name="ChatPanel" parent="." instance=ExtResource( 4 )]
 margin_left = 10.0
 margin_bottom = -10.0
 
-[node name="Shortcuts" parent="." instance=ExtResource( 4 )]
+[node name="Shortcuts" parent="." instance=ExtResource( 5 )]
 anchor_left = 1.0
 anchor_top = 1.0
 margin_left = -286.0
 margin_top = -148.0
 
-[node name="WeatherDebug" parent="." instance=ExtResource( 5 )]
+[node name="WeatherDebug" parent="." instance=ExtResource( 6 )]
 visible = false
 anchor_left = 1.0
 anchor_bottom = 0.0
@@ -39,16 +48,16 @@ margin_left = -331.0
 margin_right = 0.0
 margin_bottom = 184.0
 
-[node name="MenuButtons" parent="." instance=ExtResource( 6 )]
+[node name="MenuButtons" parent="." instance=ExtResource( 7 )]
 margin_left = 310.0
 margin_top = 14.0
 margin_right = 432.0
 margin_bottom = 84.0
 
-[node name="Inventory" parent="." instance=ExtResource( 7 )]
+[node name="Inventory" parent="." instance=ExtResource( 8 )]
 visible = false
 
-[node name="AttackList" parent="." instance=ExtResource( 8 )]
+[node name="AttackList" parent="." instance=ExtResource( 9 )]
 visible = false
 [connection signal="on_attacks_pressed" from="MenuButtons" to="." method="_on_MenuButtons_on_attacks_pressed"]
 [connection signal="on_inventory_pressed" from="MenuButtons" to="." method="_on_MenuButtons_on_inventory_pressed"]

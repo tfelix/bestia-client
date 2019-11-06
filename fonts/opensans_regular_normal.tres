@@ -3,5 +3,6 @@
 [ext_resource path="res://fonts/OpenSans/OpenSans-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 14
+resource_local_to_scene = true
+size = 18
 font_data = ExtResource( 1 )
