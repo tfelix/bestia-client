@@ -1,4 +1,3 @@
-extends Node
 class_name WeatherData
 
 var rain_intensity: int # 0: no rain, 10: little rain, 50 moderate rain, 100+ storm, heavy rain

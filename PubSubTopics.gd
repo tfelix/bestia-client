@@ -16,6 +16,7 @@ const PLAYER_MOVE_REQUSTED = "player_move_requested"
 
 const ENV_WEATHER_CHANGED = "weather_changed"
 const ENV_DAYTIME_CHANGED = "daytime_changed"
+const ENV_TEMP_CHANGED = "temp_changed"
 
 const CLIENT_CAM_CHANGED = "client_cam_changed" 
 

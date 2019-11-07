@@ -228,9 +228,10 @@ subdivide_width = 80
 subdivide_depth = 40
 
 [node name="Game" type="Spatial" groups=[
-"mob",
 "structures",
+"mob",
 ]]
+editor/display_folded = true
 
 [node name="Manager" parent="." instance=ExtResource( 1 )]
 
