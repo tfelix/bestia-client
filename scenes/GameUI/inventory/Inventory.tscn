@@ -63,6 +63,7 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="Categories" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
+editor/display_folded = true
 margin_left = 9.0
 margin_right = 95.0
 margin_bottom = 606.0
@@ -91,6 +92,7 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="MainContent" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
+editor/display_folded = true
 margin_left = 108.0
 margin_right = 1166.0
 margin_bottom = 606.0

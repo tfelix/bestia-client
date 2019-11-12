@@ -8,7 +8,7 @@ enum DamageType {
 }
 
 var type = DamageType.DAMAGE
-var target_entity: int
+var entity_id: int
 var total_damage: int
 # Damage can consist out of multiple hits.
 var sub_damages: Array

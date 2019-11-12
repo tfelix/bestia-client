@@ -9,12 +9,6 @@ onready var interactions: Interactions = get_parent().get_node("Interactions")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	assert(!selection_mesh_path.is_empty())
-	
-	var node = get_node(selection_mesh_path)
-	var aabb = node.get_aabb()
-	var longest_axis_size = aabb.get_longest_axis_size()
-	$RingHighlight.transform.scaled(Vector3(longest_axis_size, longest_axis_size, 1))
 	# Export the publish keys at least to a constant
 	PubSub.subscribe(PST.ENTITY_SELECTED, self)
 

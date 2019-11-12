@@ -1,10 +1,5 @@
-extends Node
+extends Spatial
 class_name Entity
-
-var Damage3D = preload("res://scenes/Game/Damage/Damage3D.tscn")
-
-signal component_changed(component)
-signal component_removed(component)
 
 # Base class for all adressable entities in the bestia game.
 # The entity will be managed by the network manager and filled
@@ -17,10 +12,19 @@ enum EntityKind {
 	VEGETATION
 }
 
-var id = 0
-onready var _components = $Components
+const Damage3D = preload("res://scenes/Game/Damage/Damage3D.tscn")
+
+signal component_changed(component)
+signal component_removed(component)
+signal component_added(component)
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
+
+var id = 0
+var _components = []
+
+onready var _selection = $Selection
+onready var _interactions = $Interactions
 
 func _ready():
 	PubSub.publish(PST.ENTITY_ADDED, self)
@@ -37,8 +41,53 @@ func get_aabb() -> AABB:
 	return AABB(Vector3.ZERO, Vector3.ONE)
 
 
+func add_component(component: Component) -> void:
+	var existing_comp = get_component(component.get_name())
+	if existing_comp != null:
+		update_component(component)
+		return
+	
+	_components.append(component)
+	component.on_attach(self)
+	emit_signal("component_added", component)
+
+
 func get_component(component_name: String) -> Component:
-	return _components.find_node(component_name, false, false)
+	for c in _components:
+		if c.get_type() == component_name:
+			return c
+	return null
+
+
+func update_component(component: Component):
+	var old_comp: Component = null
+	var pos = -1
+	for c in _components:
+		if c.get_type() == component.get_type():
+			old_comp = c
+			break
+		pos += 1
+	if old_comp != null:
+		old_comp.on_remove(self)
+		_components.remove(pos)
+		
+	_components.append(component)
+	component.on_attach(self)
+	emit_signal("component_changed", component)
+
+
+func remove_component(componentName: String):
+	var old_comp: Component = null
+	var pos = -1
+	for c in _components:
+		if c.get_type() == componentName:
+			old_comp = c
+			break
+		pos += 1
+	if old_comp != null:
+		old_comp.on_remove(self)
+		_components.remove(pos)
+		emit_signal("component_removed", old_comp)
 
 
 func handle_message(msg):
@@ -47,21 +96,13 @@ func handle_message(msg):
 
 
 func _display_damage(msg: DamageMessage) -> void:
+	var entity = Global.entities.get_entity(msg.entity_id)
+	if entity == null:
+		print_debug("Entity ", msg.entity_id, " for DamageMessage not found")
+		return
 	var dmg3d = Damage3D.instance()
-	var source = Global.player
-	dmg3d.init(msg, source)
+	dmg3d.init(msg, entity)
 	add_child(dmg3d)
-
-func update_component(component: Component):
-	var old_comp = null
-	for c in _components.get_children():
-		if typeof(c) == typeof(component):
-			old_comp = c
-			break
-	if !old_comp == null:
-		_components.remove_child(old_comp)
-	_components.add_child(component)
-	emit_signal("component_changed", component)
 
 
 # The clicking should work like so:
@@ -77,22 +118,22 @@ func _on_Collidor_input_event(camera, event, click_position, click_normal, shape
 		_handle_secondary_input()
 
 
-func _handle_default_input():
-	if $Selection.is_selected:
-		$Selection.unselected()
-		$Interactions.abort_interaction()
+func _handle_default_input() -> void:
+	if _selection.is_selected:
+		_selection.unselected()
+		_interactions.abort_interaction()
 	else:
-		if $Interactions.has_default_interaction(self):
-			$Interactions.trigger_interaction(self)
+		if _interactions.has_default_interaction(self):
+			_interactions.trigger_interaction(self)
 		else:
-			$Interactions.show_possible_interactions()
-			$Selection.selected()
+			_interactions.show_possible_interactions()
+			_selection.selected()
 
 
 func _handle_secondary_input():
-	if $Selection.is_selected:
-		$Selection.unselected()
-		$Interactions.abort_interaction()
+	if _selection.is_selected:
+		_selection.unselected()
+		_interactions.abort_interaction()
 	else:
-		$Interactions.show_possible_interactions()
-		$Selection.selected()
+		_interactions.show_possible_interactions()
+		_selection.selected()

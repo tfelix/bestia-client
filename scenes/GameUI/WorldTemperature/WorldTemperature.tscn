@@ -21,6 +21,7 @@ margin_bottom = 40.0
 texture = ExtResource( 3 )
 
 [node name="TempBar" type="Control" parent="."]
+editor/display_folded = true
 margin_left = 24.0
 margin_right = 124.0
 margin_bottom = 40.0

@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game/Entity/InteractionRange.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Game/Entity/Component/PlayerInfoComponent/PlayerInfoComponent.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Game/Entity/Component/StatusComponent/StatusComponent.gd" type="Script" id=6]
 
 [node name="Player" type="Spatial"]
 script = ExtResource( 1 )
@@ -22,16 +20,6 @@ script = ExtResource( 3 )
 [node name="Interactions" parent="." instance=ExtResource( 4 )]
 
 [node name="Components" type="Node" parent="."]
-
-[node name="PlayerInfoComponent" parent="Components" instance=ExtResource( 5 )]
-player_name = "rocket"
-
-[node name="StatusComponent" type="Node" parent="Components"]
-script = ExtResource( 6 )
-max_health = 120
-cur_health = 70
-max_mana = 112
-cur_mana = 105
 
 [node name="LocalComponents" type="Node" parent="."]
 [connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]

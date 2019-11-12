@@ -19,10 +19,6 @@ visible = false
 
 [node name="Interactions" parent="." instance=ExtResource( 4 )]
 
-[node name="Components" type="Node" parent="."]
-
-[node name="LocalComponents" type="Node" parent="."]
-
 [node name="Fx" type="Node" parent="."]
 [connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]
 

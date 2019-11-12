@@ -1,7 +1,8 @@
 class_name ItemModel
 
 enum ItemType {
-	USABLE,
+	CONSUMEABLE,
+	STRUCTURE,
 	EQUIP,
 	ETC
 }
@@ -12,9 +13,14 @@ var item_id: int = 0
 var database_name: String = ""
 var weight: int = 10
 var amount: int = 1
-var type = ItemType.USABLE
+var type = ItemType.ETC
 
-func totalWeight():
+
+func is_usable() -> bool:
+	return type == ItemType.CONSUMEABLE || type == ItemType.STRUCTURE
+
+
+func totalWeight() -> int:
 	return weight * amount
 
 func tr_database_name() -> String:

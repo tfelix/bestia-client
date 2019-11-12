@@ -7,7 +7,7 @@ const GRAVITY = -9.81
 const SPEED = 200
 
 func _physics_process(delta):
-	if !player.can_move():
+	if !player.can_move:
 		destination = null
 		return
 	if translation != destination and destination != null:

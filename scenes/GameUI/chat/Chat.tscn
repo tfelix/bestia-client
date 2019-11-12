@@ -1,10 +1,43 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GameUI/Chat/Chat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/EnableDebugMode.gd" type="Script" id=2]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
 
+[sub_resource type="Animation" id=1]
+resource_name = "hide"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 3, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "show"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="ChatPanel" type="PanelContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -200.0
@@ -16,6 +49,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 493.0
 margin_bottom = 193.0
+mouse_filter = 1
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -30,6 +64,7 @@ margin_bottom = 181.0
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/ChatContent"]
 margin_right = 476.0
 margin_bottom = 148.0
+mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
@@ -71,5 +106,12 @@ script = ExtResource( 3 )
 cmd_usage = "/a, /p, /g <TEXT>"
 help_text = "Switches the chat mode between public (all), party and guild."
 chat_panel = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 1 )
+anims/show = SubResource( 2 )
+[connection signal="gui_input" from="." to="." method="_on_ChatPanel_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_ChatPanel_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_ChatPanel_mouse_exited"]
 [connection signal="text_entered" from="MarginContainer/ChatContent/InputLine/Text" to="." method="_on_Text_text_entered"]
 [connection signal="pressed" from="MarginContainer/ChatContent/InputLine/Send" to="." method="_on_Send_pressed"]

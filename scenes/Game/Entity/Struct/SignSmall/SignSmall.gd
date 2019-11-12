@@ -1,28 +1,112 @@
-extends Spatial
+extends Entity
 
-var Actions = load("res://Actions.gd")
-var DialogText = load("res://scenes/ui/dialog_text/ScreenBottomText.tscn")
-
-onready var player = Global.player
 export var text = ""
+export(ItemModel.ItemType) var type = ItemModel.ItemType.ETC
 
-func _ready():
-	pass # Replace with function body.
+var _is_constructing = false
+
+onready var _mesh = $SignMesh
+onready var _building_mesh = $SignMeshBuilding
+onready var _collidor = $Collidor
+
+
+func _physics_process(delta):
+	if !_is_constructing:
+		return
+	var cam = get_tree().get_root().get_camera()
+	var mouse_pos = get_viewport().get_mouse_position()
+	var from = cam.project_ray_origin(mouse_pos)
+	var ray_length = 300
+	var to = from + cam.project_ray_normal(mouse_pos) * ray_length
+	var space_state = get_world().direct_space_state
+	var result = space_state.intersect_ray(from, to, [], 32)
+	
+	if result.size() == 0:
+		_building_mesh.visible = false
+	else:
+		_building_mesh.visible = true
+		self.global_transform.origin = result.position
+
+
+func use_item() -> void:
+	if type == ItemModel.ItemType.CONSUMEABLE:
+		# If its a consumable item, just consume it and send message to the server
+		return
+	if type == ItemModel.ItemType.STRUCTURE:
+		start_construct()
+	pass
+
+
+"""
+If its a structure item start the construction mode this means:
+close inventory if opened, 
+go into ctor mouse pointer, 
+dont move the player
+"""
+func start_construct() -> void:
+	PubSub.publish(PST.STRUCTURE_CONSTRUCT, true)
+	var cursor_change = CursorRequest.new()
+	cursor_change.identifier = "struct_construct"
+	cursor_change.type = Cursor.Type.HIDDEN
+	PubSub.publish(PST.CURSOR_CHANGE, cursor_change)
+	_is_constructing = true
+	var player = Global.entities.get_player_entity()
+	if player != null:
+		player.can_move = false
+	# No enable the building mesh
+	_mesh.hide()
+	_building_mesh.show()
+
+
+func stop_construct() -> void:
+	PubSub.publish(PST.STRUCTURE_CONSTRUCT, false)
+	_is_constructing = false
+	PubSub.publish(PST.CURSOR_RESET, "struct_construct")
+	var player = Global.entities.get_player_entity()
+	if player != null:
+		player.can_move = true
+	queue_free()
+
 
 func _on_col_mouse_entered():
 	print_debug("on mouse over")
 
+
 func _on_col_mouse_exited():
 	print_debug("on mouse exit")
+
 
 func _on_col_input_event(camera, event, click_position, click_normal, shape_idx):
 	if !event.is_action(Actions.ACTION_LEFT_CLICK):
 		return
 	get_tree().set_input_as_handled()
 	print_debug("sign was clicked")
-	var is_player_in_range = $UseRange.overlaps_body(player)
+	# var is_player_in_range = $UseRange.overlaps_body(player)
 	
-	if is_player_in_range:
-		var dialog = DialogText.instance()
-		dialog.set_text(text)
-		get_tree().root.add_child(dialog)
+	# if is_player_in_range:
+		# var dialog = DialogText.instance()
+		# dialog.set_text(text)
+		# get_tree().root.add_child(dialog)
+
+
+func _handle_default_input() -> void:
+	if _is_constructing:
+		pass
+	._handle_default_input()
+
+
+func _handle_secondary_input() -> void:
+	if _is_constructing:
+		pass
+	._handle_secondary_input()
+
+
+func _unhandled_key_input(event):
+	if _is_constructing && event.is_action_pressed("ui_cancel"):
+		stop_construct()
+
+
+func _unhandled_input(event):
+	if event.is_action("left_click") && _is_constructing:
+		print_debug("Place Building")
+		stop_construct()

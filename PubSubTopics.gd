@@ -11,6 +11,8 @@ const ENTITY_ADDED = "entity_added"
 const ENTITY_REMOVED = "entity_removed"
 
 const TERRAIN_CLICKED = "terrain_clicked"
+const CURSOR_CHANGE = "cursor_change"
+const CURSOR_RESET = "cursor_reset"
 
 const PLAYER_MOVE_REQUSTED = "player_move_requested"
 
@@ -21,3 +23,6 @@ const ENV_TEMP_CHANGED = "temp_changed"
 const CLIENT_CAM_CHANGED = "client_cam_changed" 
 
 const INVENTORY_UPDATE = "inv_update"
+const INVENTORY_ITEM_USE_RESPONSE = "inv_item_use_response"
+
+const STRUCTURE_CONSTRUCT = "item_struct_const"

@@ -79,24 +79,25 @@ djskfshdf
 "
 autowrap = true
 
-[node name="Drop" type="Button" parent="DescriptionContainer"]
+[node name="Use" type="Button" parent="DescriptionContainer"]
 margin_top = 616.0
 margin_right = 1260.0
 margin_bottom = 656.0
 rect_min_size = Vector2( 0, 40 )
-text = "Drop"
+size_flags_horizontal = 3
+text = "Use"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="DescriptionContainer"]
 margin_top = 660.0
 margin_right = 1260.0
 margin_bottom = 700.0
 
-[node name="Use" type="Button" parent="DescriptionContainer/ButtonContainer"]
+[node name="Drop" type="Button" parent="DescriptionContainer/ButtonContainer"]
 margin_right = 628.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
-text = "Use"
+text = "Drop"
 
 [node name="Shortcut" type="Button" parent="DescriptionContainer/ButtonContainer"]
 margin_left = 632.0
@@ -105,4 +106,6 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Shortcut"
-[connection signal="pressed" from="DescriptionContainer/Drop" to="." method="_on_Drop_pressed"]
+[connection signal="pressed" from="DescriptionContainer/Use" to="." method="_on_Use_pressed"]
+[connection signal="pressed" from="DescriptionContainer/ButtonContainer/Drop" to="." method="_on_Drop_pressed"]
+[connection signal="pressed" from="DescriptionContainer/ButtonContainer/Shortcut" to="." method="_on_Shortcut_pressed"]

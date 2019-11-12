@@ -8,11 +8,9 @@ signal player_changed
 # soon as a default interaction was set.
 var default_interactions = {}
 
+# Set to the local account which is logged in
+var client_account: int = 1
+
 var player_camera: Camera
+var entities # this is of type Entities, but because of https://github.com/godotengine/godot/issues/27136 can not be typed
 var player_data: PlayerData = PlayerData.new()
-var player: Node setget player_set
-
-
-func player_set(value):
-	player = value
-	emit_signal("player_changed", player)

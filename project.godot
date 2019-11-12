@@ -49,10 +49,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/Chat/ChatMessage.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "Component",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/Component.gd"
+}, {
+"base": "Reference",
+"class": "Cursor",
+"language": "GDScript",
+"path": "res://scenes/Game/Manager/Cursor.gd"
+}, {
+"base": "Reference",
+"class": "CursorRequest",
+"language": "GDScript",
+"path": "res://scenes/Game/Manager/CursorRequest.gd"
 }, {
 "base": "Reference",
 "class": "DamageMessage",
@@ -74,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entities.gd"
 }, {
-"base": "Node",
+"base": "Spatial",
 "class": "Entity",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Entity.gd"
@@ -114,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Item/Item.gd"
 }, {
+"base": "MarginContainer",
+"class": "ItemDescriptionModule",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.gd"
+}, {
 "base": "Reference",
 "class": "ItemDropMessage",
 "language": "GDScript",
@@ -124,6 +139,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/Inventory/ItemModel.gd"
 }, {
+"base": "Reference",
+"class": "ItemUseMessage",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemUseMessage.gd"
+}, {
+"base": "Reference",
+"class": "ItemUseRequestMessage",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemUseRequestMessage.gd"
+}, {
+"base": "Reference",
+"class": "ItemUseResponseMessage",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemUseResponseMessage.gd"
+}, {
 "base": "Entity",
 "class": "Mob",
 "language": "GDScript",
@@ -132,7 +162,7 @@ _global_script_classes=[ {
 "base": "Component",
 "class": "NoMovementComponent",
 "language": "GDScript",
-"path": "res://scenes/Game/Entity/Component/NoMovementComponent/NoMovementComponent.gd"
+"path": "res://scenes/Game/Entity/Component/NoMovementComponent.gd"
 }, {
 "base": "Reference",
 "class": "PST",
@@ -152,7 +182,7 @@ _global_script_classes=[ {
 "base": "Component",
 "class": "PlayerInfoComponent",
 "language": "GDScript",
-"path": "res://scenes/Game/Entity/Component/PlayerInfoComponent/PlayerInfoComponent.gd"
+"path": "res://scenes/Game/Entity/Component/PlayerInfoComponent.gd"
 }, {
 "base": "Node",
 "class": "PubSub",
@@ -182,7 +212,7 @@ _global_script_classes=[ {
 "base": "Component",
 "class": "StatusComponent",
 "language": "GDScript",
-"path": "res://scenes/Game/Entity/Component/StatusComponent/StatusComponent.gd"
+"path": "res://scenes/Game/Entity/Component/StatusComponent.gd"
 }, {
 "base": "Reference",
 "class": "TemperatureData",
@@ -200,6 +230,11 @@ _global_script_classes=[ {
 "path": "res://scenes/GameUI/Shortcuts/Trigger.gd"
 }, {
 "base": "Reference",
+"class": "UUID",
+"language": "GDScript",
+"path": "res://scenes/Game/UUID.gd"
+}, {
+"base": "Reference",
 "class": "WeatherData",
 "language": "GDScript",
 "path": "res://scenes/Game/Weather/WeatherData.gd"
@@ -214,6 +249,8 @@ _global_script_class_icons={
 "ChatMessage": "",
 "ChatSend": "",
 "Component": "",
+"Cursor": "",
+"CursorRequest": "",
 "DamageMessage": "",
 "DayData": "",
 "EffortValues": "",
@@ -226,8 +263,12 @@ _global_script_class_icons={
 "InteractionsUi": "",
 "InventoryUpdateMessage": "",
 "Item": "",
+"ItemDescriptionModule": "",
 "ItemDropMessage": "",
 "ItemModel": "",
+"ItemUseMessage": "",
+"ItemUseRequestMessage": "",
+"ItemUseResponseMessage": "",
 "Mob": "",
 "NoMovementComponent": "",
 "PST": "",
@@ -243,6 +284,7 @@ _global_script_class_icons={
 "TemperatureData": "",
 "TimedTextLabel": "",
 "Trigger": "",
+"UUID": "",
 "WeatherData": ""
 }
 
@@ -1414,6 +1456,15 @@ shortcut_10={
 right_click={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+inve={
+"deadzone": 0.5,
+"events": [  ]
+}
+inventory_open={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":66,"unicode":0,"echo":false,"script":null)
  ]
 }
 

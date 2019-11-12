@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/Game/shader/BuildingMaterial.tres" type="Material" id=1]
+[ext_resource path="res://scenes/Game/Entity/Struct/BuildingMaterial.tres" type="Material" id=1]
+
 
 [sub_resource type="CapsuleMesh" id=1]
 

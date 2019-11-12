@@ -22,6 +22,7 @@ onready var _equip_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categor
 var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
 var _displayed_items = []
+var _inventory_open_pre_construction = false
 
 # New published items will be added to the inventory
 # Selected items will be displayed in 
@@ -30,6 +31,7 @@ func _ready():
 	_info.max_items = 200
 	_draw_inventory_info()
 	PubSub.subscribe(PST.INVENTORY_UPDATE, self)
+	PubSub.subscribe(PST.STRUCTURE_CONSTRUCT, self)
 	var msg = RequestInventoryMessage.new()
 	PubSub.publish(PST.SERVER_SEND, msg)
 
@@ -45,12 +47,41 @@ func event_published(event_key, payload):
 			_info.max_items = payload.max_items
 			_info.max_weight = payload.max_weight
 			update_inventory_items(payload.items)
+		PST.STRUCTURE_CONSTRUCT:
+			_check_construction_mode_state(payload)
 
 
-func update_inventory_items(items: Array):
+"""
+Checks if the player goes into item construction mode with opened inventory
+if this is the case after the end of construction mode the inventory will re-open
+again
+"""
+func _check_construction_mode_state(is_constructing: bool) -> void:
+	if is_constructing:
+		_inventory_open_pre_construction = self.visible
+		close()
+	else:
+		if _inventory_open_pre_construction:
+			open()
+	
+
+
+func update_inventory_items(items: Array) -> void:
 	_items = items
 	_display_all_items()
 	_draw_inventory_info()
+
+
+func _check_item_still_selected() -> void:
+	var existing_item_desc = _module.get_child(0)
+	if existing_item_desc != null && existing_item_desc is ItemDescriptionModule:
+		var selected_item = existing_item_desc.item as ItemModel
+		for item in _items:
+			if selected_item.player_item_id == item.player_item_id:
+				return
+		# It seems the selected item is not in the inventory anymore. So 
+		# we de-select it.
+		_remove_module()
 
 
 func _show_displayed_items() -> void:
@@ -77,9 +108,7 @@ func _on_item_selected(item_node) -> void:
 		else:
 			child.selected = false
 	
-	var existing_item_desc = _module.get_child(0)
-	if existing_item_desc != null:
-		existing_item_desc.queue_free()
+	_remove_module()
 	
 	if item_node.selected:
 		var item_desc = ItemDescriptionNode.instance()
@@ -88,6 +117,12 @@ func _on_item_selected(item_node) -> void:
 		_module.visible = true
 	else:
 		_module.visible = false
+
+
+func _remove_module() -> void:
+	var existing_item_desc = _module.get_child(0)
+	if existing_item_desc != null:
+		existing_item_desc.queue_free()
 
 
 func _draw_inventory_info():
@@ -175,3 +210,11 @@ func _on_InventoryMode_pressed():
 	var active_module = _module.get_child(0)
 	if active_module != null:
 		active_module.queue_free()
+
+
+func _unhandled_key_input(event) -> void:
+	if event.is_action_pressed("inventory_open"):
+		if self.visible:
+			self.close()
+		else:
+			self.open()
