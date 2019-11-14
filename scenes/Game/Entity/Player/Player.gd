@@ -5,7 +5,7 @@ class_name Player
 signal movement_stopped()
 signal status_values_changed(changed_values)
 
-var can_move:  bool = true
+var can_move: bool = true
 
 func _ready():
 	PubSub.subscribe(PST.TERRAIN_CLICKED, self)
@@ -25,7 +25,6 @@ func get_aabb() -> AABB:
 func move_to(destination):
 	if !can_move:
 		return
-	self.destination = destination
 	$MoveIndicator.translation = destination
 	$MoveIndicator.play()
 

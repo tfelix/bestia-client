@@ -26,3 +26,6 @@ const INVENTORY_UPDATE = "inv_update"
 const INVENTORY_ITEM_USE_RESPONSE = "inv_item_use_response"
 
 const STRUCTURE_CONSTRUCT = "item_struct_const"
+
+const SHORTCUT_ITEM_USED = "sc_item_used"
+const SHORTCUT_SKILL_ISED = "sc_skill_used"

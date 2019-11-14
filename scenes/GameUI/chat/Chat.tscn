@@ -84,15 +84,9 @@ text = "Public"
 
 [node name="Text" type="LineEdit" parent="MarginContainer/ChatContent/InputLine"]
 margin_left = 84.0
-margin_right = 429.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-
-[node name="Send" type="Button" parent="MarginContainer/ChatContent/InputLine"]
-margin_left = 433.0
 margin_right = 476.0
 margin_bottom = 24.0
-text = "Send"
+size_flags_horizontal = 3
 
 [node name="ChatCommands" type="Node" parent="."]
 
@@ -114,4 +108,3 @@ anims/show = SubResource( 2 )
 [connection signal="mouse_entered" from="." to="." method="_on_ChatPanel_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_ChatPanel_mouse_exited"]
 [connection signal="text_entered" from="MarginContainer/ChatContent/InputLine/Text" to="." method="_on_Text_text_entered"]
-[connection signal="pressed" from="MarginContainer/ChatContent/InputLine/Send" to="." method="_on_Send_pressed"]

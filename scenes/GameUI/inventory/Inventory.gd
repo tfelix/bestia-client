@@ -32,6 +32,7 @@ func _ready():
 	_draw_inventory_info()
 	PubSub.subscribe(PST.INVENTORY_UPDATE, self)
 	PubSub.subscribe(PST.STRUCTURE_CONSTRUCT, self)
+	PubSub.subscribe(PST.SHORTCUT_ITEM_USED, self)
 	var msg = RequestInventoryMessage.new()
 	PubSub.publish(PST.SERVER_SEND, msg)
 
@@ -49,6 +50,26 @@ func event_published(event_key, payload):
 			update_inventory_items(payload.items)
 		PST.STRUCTURE_CONSTRUCT:
 			_check_construction_mode_state(payload)
+		PST.SHORTCUT_ITEM_USED:
+			_use_shortcut_item(payload)
+
+
+"""
+Tries to use a certain item
+"""
+func _use_shortcut_item(player_item_id)-> void:
+	print_debug("use_shortcut_item with pid ", player_item_id)
+	# Make a sanity check if we have items left
+	var pi = _get_item(player_item_id)
+	if pi == null:
+		print_debug("use_shortcut_item with pid ", player_item_id, " not found")
+		return
+	if pi.is_usable() != true || pi.amount < 1:
+		print_debug("use_shortcut_item with pid ", player_item_id, " not usable")
+		return
+	var use_msg = ItemUseMessage.new()
+	use_msg.player_item_id = player_item_id
+	PubSub.publish(PST.SERVER_SEND, use_msg)
 
 
 """
@@ -63,7 +84,13 @@ func _check_construction_mode_state(is_constructing: bool) -> void:
 	else:
 		if _inventory_open_pre_construction:
 			open()
-	
+
+
+func _get_item(pid: int) -> ItemModel:
+	for item in _items:
+		if pid == item.player_item_id:
+			return item
+	return null
 
 
 func update_inventory_items(items: Array) -> void:

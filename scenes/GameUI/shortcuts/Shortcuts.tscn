@@ -3,8 +3,6 @@
 [ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Shortcut/Shortcut.tscn" type="PackedScene" id=2]
 
-
-
 [node name="Shortcuts" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -41,7 +39,6 @@ margin_right = 286.0
 shortcut_action_name = "shortcut_5"
 
 [node name="Row2" type="HBoxContainer" parent="Rows"]
-editor/display_folded = true
 margin_top = 76.0
 margin_right = 286.0
 margin_bottom = 148.0

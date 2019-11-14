@@ -16,8 +16,7 @@ func _ready():
 	test.current_temp = -26
 	test.max_tolerable_temp = 50
 	test.min_tolerable_temp = -10
-	_update_temp(test)
-	
+	update_temp(test)
 	PubSub.subscribe(PST.ENV_TEMP_CHANGED, self)
 
 
@@ -29,10 +28,10 @@ func free():
 func event_published(event_key, payload):
 	match (event_key):
 		PST.ENV_TEMP_CHANGED:
-			_update_temp(payload)
+			update_temp(payload)
 
 
-func _update_temp(data: TemperatureData) -> void:
+func update_temp(data: TemperatureData) -> void:
 	_temp_label.text = "%d °C" % data.current_temp
 	var px_per_kelvin = _wheel.rect_min_size.x / (abs(min_display_temp) + max_display_temp)
 	

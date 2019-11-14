@@ -1,5 +1,7 @@
 extends Entity
 
+# TODO Make a own category for structures with all the needed logic
+
 export var text = ""
 export(ItemModel.ItemType) var type = ItemModel.ItemType.ETC
 
@@ -8,6 +10,7 @@ var _is_constructing = false
 onready var _mesh = $SignMesh
 onready var _building_mesh = $SignMeshBuilding
 onready var _collidor = $Collidor
+onready var _user_input = $SignContentInput
 
 
 func _physics_process(delta):
@@ -108,5 +111,15 @@ func _unhandled_key_input(event):
 
 func _unhandled_input(event):
 	if event.is_action("left_click") && _is_constructing:
-		print_debug("Place Building")
-		stop_construct()
+		if _pre_construct() == true:
+			stop_construct()
+
+
+func _pre_construct() -> bool:
+	_user_input.show()
+	return false
+
+
+func _on_SignContentInput_text_entered():
+	print_debug("Send to server: Input, Position etc.")
+	pass # Replace with function body.

@@ -54,7 +54,7 @@ func add_component(component: Component) -> void:
 
 func get_component(component_name: String) -> Component:
 	for c in _components:
-		if c.get_type() == component_name:
+		if c.get_name() == component_name:
 			return c
 	return null
 
@@ -63,16 +63,16 @@ func update_component(component: Component):
 	var old_comp: Component = null
 	var pos = -1
 	for c in _components:
-		if c.get_type() == component.get_type():
+		pos += 1
+		if c.get_name() == component.get_name():
 			old_comp = c
 			break
-		pos += 1
-	if old_comp != null:
-		old_comp.on_remove(self)
-		_components.remove(pos)
 		
-	_components.append(component)
-	component.on_attach(self)
+	if old_comp != null:
+		old_comp.on_update(self, component)
+	else:
+		_components.append(component)
+		component.on_attach(self)
 	emit_signal("component_changed", component)
 
 
@@ -80,7 +80,7 @@ func remove_component(componentName: String):
 	var old_comp: Component = null
 	var pos = -1
 	for c in _components:
-		if c.get_type() == componentName:
+		if c.get_name() == componentName:
 			old_comp = c
 			break
 		pos += 1
@@ -93,6 +93,10 @@ func remove_component(componentName: String):
 func handle_message(msg):
 	if msg is DamageMessage:
 		_display_damage(msg)
+	if msg is Component:
+		update_component(msg)
+	if msg is ComponentRemoveMessage:
+		remove_component(msg.component_name)
 
 
 func _display_damage(msg: DamageMessage) -> void:

@@ -11,7 +11,7 @@ func _ready():
 	Global.entities = self
 	PubSub.subscribe(PST.ENTITY_ADDED, self)
 	PubSub.subscribe(PST.ENTITY_REMOVED, self)
-	PubSub.subscribe(PST.SERVER_SEND, self)
+	PubSub.subscribe(PST.SERVER_RECEIVE, self)
 
 
 func free():
@@ -34,16 +34,18 @@ func event_published(event_key, payload) -> void:
 			_add_entity(payload)
 		PST.ENTITY_REMOVED:
 			_remove_entity(payload)
-		PST.SERVER_SEND:
-			_server_send(payload)
+		PST.SERVER_RECEIVE:
+			_server_received(payload)
 
 
-func _server_send(msg) -> void:
+func _server_received(msg) -> void:
 	if msg is DamageMessage:
 		_send_to_entity(msg)
 	if msg is Component:
 		_send_to_entity(msg)
 		_check_component_selects_player(msg)
+	if msg is ComponentRemoveMessage:
+		_send_to_entity(msg)
 	else:
 		pass
 
@@ -70,10 +72,13 @@ func get_entity(id: int) -> Entity:
 func _send_to_entity(msg) -> void:
 	if msg.entity_id == 1:
 		_player.handle_message(msg)
+		return
 	if msg.entity_id == 2:
 		_entity_2.handle_message(msg)
+		return
 	# var e = _entities[msg.target_entity]
 	# if e != null:
+	print_debug("Server send message for unknown entity: ", msg.entity_id)
 
 
 func _add_entity(entity: Entity) -> void:

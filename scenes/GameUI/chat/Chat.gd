@@ -15,8 +15,8 @@ func _ready():
 	_chat_type.add_item("Public")
 	_chat_type.add_item("Party")
 	_chat_type.add_item("Guild")
-
 	PubSub.subscribe(PST.CHAT_RECEIVED, self)
+
 
 func free():
   PubSub.unsubscribe(self)
@@ -84,17 +84,6 @@ func _insert_chat_text(msg: ChatMessage) -> void:
 	new_row.set_message(msg)
 	_truncate_chat_lines()
 	_display_hover_chat(msg)
-
-
-# Send chat text to signal.
-func _on_Send_pressed():
-	var text = _text_input.text
-	entered_chat(text)
-
-
-# Send chat text to signal.
-func _on_Enter_pressed(text):
-	entered_chat(text)
 
 
 func _display_hover_chat(msg: ChatMessage) -> void:

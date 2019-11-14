@@ -12,7 +12,14 @@ var local_only: bool = false
 # Called if the component is attached to an Entity
 func on_attach(entity) -> void:
 	pass
-	
+
+
+"""
+Called if the server sends an component update to the entity.
+"""
+func on_update(entity, new_component) -> void:
+	pass
+
 
 # Called if the component is removed from an Entity
 func on_remove(entity) -> void:

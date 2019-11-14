@@ -6,11 +6,26 @@ extends Node
 
 const NoMovementComponent = preload("res://scenes/Game/Entity/Component/NoMovementComponent.gd")
 const UseSkillMessage = preload("res://scenes/GameUI/shortcuts/UseSkillMessage.gd")
+const ConstructionComponent = preload("res://scenes/Game/Entity/Component/PerformConstructionComponent.gd")
 
 var _player_items = []
 
+var _env_comp: EnvironmentComponent
+
 func _ready():
 	PubSub.subscribe(PST.SERVER_SEND, self)
+	
+	_env_comp = EnvironmentComponent.new()
+	_env_comp.entity_id = 1
+	_env_comp.rain_intensity = 0 # 0: no rain, 10: little rain, 50 moderate rain, 100+ storm, heavy rain
+	_env_comp.light_intensity = 70 # 0: total darkness, 20: moonshine, 70-80: normal day, 100+ bright summer day
+	_env_comp.wind = Vector2(3, 1)
+	_env_comp.max_tolerable_temp = 46
+	_env_comp.min_tolerable_temp = -10
+	_env_comp.current_temp = 15
+	_env_comp.sunrise = 0.20 # The usual sunrise is at 0.2
+	_env_comp.sunset = 0.70 # The usual sunset is at 0.7
+	_env_comp.day_progress = 1 # 0 Start of Day (00:00), 1 End of Day (23:59)
 
 func free():
   PubSub.unsubscribe(self)
@@ -52,11 +67,15 @@ func _use_item(msg: ItemUseMessage) -> void:
 	if player_item == null:
 		return
 		
-	player_item.amount = player_item.amount - 1
+	player_item.amount -= 1
 	if player_item.amount <= 0:
 		# Remove the item from the array
 		pass
-	# 
+	
+	if msg.player_item_id == 5:
+		# Heal the player
+		print_debug("server: player used apple")
+
 	_send_items()
 
 
@@ -99,6 +118,13 @@ func _send_items() -> void:
 	item4.amount = 1
 	item4.type = ItemModel.ItemType.STRUCTURE
 	_player_items.append(item4)
+	var item5 = ItemModel.new()
+	item5.database_name = "apple"
+	item5.player_item_id = 5
+	item5.weight = 1
+	item5.amount = 5
+	item5.type = ItemModel.ItemType.CONSUMEABLE
+	_player_items.append(item5)
 	
 	var update_msg = InventoryUpdateMessage.new()
 	update_msg.items = _player_items
@@ -136,5 +162,22 @@ func _on_DamageTimer_timeout():
 	PubSub.publish(PST.SERVER_SEND, msg)
 
 
-func _on_HealTimer_timeout():
-	pass # Replace with function body.
+func _on_OneShot_timeout():
+	var msg = ConstructionComponent.new()
+	msg.label = "Sign Small"
+	msg.duration_ms = 3000
+	msg.progress_ms = 0
+	msg.entity_id = 1
+	PubSub.publish(PST.SERVER_RECEIVE, msg)
+
+
+func _on_OneShot2_timeout():
+	var msg = ComponentRemoveMessage.new()
+	msg.component_name = ConstructionComponent.NAME
+	msg.entity_id = 1
+	PubSub.publish(PST.SERVER_RECEIVE, msg)
+
+
+func _on_EnvironmentUpdate_timeout():
+	_env_comp.current_temp = randi() % 30 - 10
+	PubSub.publish(PST.SERVER_RECEIVE, _env_comp)

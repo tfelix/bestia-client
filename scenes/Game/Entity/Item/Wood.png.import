@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/progress-foreground.png-6d81e93d4d024305caf2e2fdb20a1dc7.stex"
+path="res://.import/Wood.png-1611dd354b454507ac18c14c28d6fe8e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Game/Entity/Progress/progress-foreground.png"
-dest_files=[ "res://.import/progress-foreground.png-6d81e93d4d024305caf2e2fdb20a1dc7.stex" ]
+source_file="res://scenes/Game/Entity/Item/Wood.png"
+dest_files=[ "res://.import/Wood.png-1611dd354b454507ac18c14c28d6fe8e.stex" ]
 
 [params]
 
