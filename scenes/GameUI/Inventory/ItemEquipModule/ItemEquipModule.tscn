@@ -1,20 +1,148 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://bestia_theme.tres" type="Theme" id=1]
+[ext_resource path="res://placeholder.png" type="Texture" id=2]
+[ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=3]
 
 [node name="ItemEquipModule" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 1 )
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
-[node name="DescriptionContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 1270.0
 margin_bottom = 710.0
 
-[node name="Label" type="Label" parent="DescriptionContainer"]
+[node name="DescriptionContainer1" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 476.0
+margin_bottom = 700.0
+size_flags_horizontal = 3
+
+[node name="SlotLabel" type="Label" parent="HBoxContainer/DescriptionContainer1"]
+margin_right = 476.0
+margin_bottom = 20.0
+text = "Head"
+
+[node name="SlotContainer" type="HBoxContainer" parent="HBoxContainer/DescriptionContainer1"]
+margin_top = 24.0
+margin_right = 476.0
+margin_bottom = 70.0
+
+[node name="SlotImage" type="TextureRect" parent="HBoxContainer/DescriptionContainer1/SlotContainer"]
+margin_right = 40.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="ItemContainer" type="PanelContainer" parent="HBoxContainer/DescriptionContainer1/SlotContainer"]
+editor/display_folded = true
+margin_left = 44.0
+margin_right = 476.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+
+[node name="ItemSlot" type="HBoxContainer" parent="HBoxContainer/DescriptionContainer1/SlotContainer/ItemContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 425.0
+margin_bottom = 39.0
+
+[node name="ItemImage" type="TextureRect" parent="HBoxContainer/DescriptionContainer1/SlotContainer/ItemContainer/ItemSlot"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="UpgradeLv" type="Label" parent="HBoxContainer/DescriptionContainer1/SlotContainer/ItemContainer/ItemSlot"]
+margin_left = 36.0
+margin_top = 6.0
+margin_right = 52.0
+margin_bottom = 26.0
+text = "+2"
+
+[node name="ItemName" type="Label" parent="HBoxContainer/DescriptionContainer1/SlotContainer/ItemContainer/ItemSlot"]
+margin_left = 56.0
+margin_top = 6.0
+margin_right = 129.0
+margin_bottom = 26.0
+size_flags_horizontal = 2
+text = "Longsword"
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/DescriptionContainer1/SlotContainer/ItemContainer/ItemSlot"]
+margin_left = 386.0
+margin_right = 418.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 3
+
+[node name="Separator" type="HSeparator" parent="HBoxContainer/DescriptionContainer1"]
+margin_top = 74.0
+margin_right = 476.0
+margin_bottom = 78.0
+
+[node name="PlayerPortrait" type="TextureRect" parent="HBoxContainer"]
+margin_left = 480.0
+margin_right = 780.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 300, 300 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="DescriptionContainer2" type="VBoxContainer" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 784.0
 margin_right = 1260.0
-margin_bottom = 14.0
-text = "EQUIPMENT"
+margin_bottom = 700.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/DescriptionContainer2"]
+margin_right = 476.0
+margin_bottom = 20.0
+text = "Head"
+
+[node name="ItemContainer" type="PanelContainer" parent="HBoxContainer/DescriptionContainer2"]
+margin_top = 24.0
+margin_right = 476.0
+margin_bottom = 70.0
+
+[node name="ItemSlot" type="HBoxContainer" parent="HBoxContainer/DescriptionContainer2/ItemContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 469.0
+margin_bottom = 39.0
+
+[node name="ItemImage" type="TextureRect" parent="HBoxContainer/DescriptionContainer2/ItemContainer/ItemSlot"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="UpgradeLv" type="Label" parent="HBoxContainer/DescriptionContainer2/ItemContainer/ItemSlot"]
+margin_left = 36.0
+margin_top = 6.0
+margin_right = 52.0
+margin_bottom = 26.0
+text = "+2"
+
+[node name="ItemName" type="Label" parent="HBoxContainer/DescriptionContainer2/ItemContainer/ItemSlot"]
+margin_left = 56.0
+margin_top = 6.0
+margin_right = 129.0
+margin_bottom = 26.0
+text = "Longsword"

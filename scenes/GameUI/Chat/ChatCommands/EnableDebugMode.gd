@@ -13,8 +13,8 @@ func handle_input(text: String) -> bool:
 	var result = _matcher.search(text)
 	if !result:
 		return false
-	
 	var mode = bool(result.get_string(1))
+	print_debug("Chat CMD: debug ", mode)
 	
 	# TODO Publish via pubsub
 	

@@ -3,13 +3,16 @@ extends PanelContainer
 const HoverChatText = preload("res://scenes/GameUI/chat/ChatHoverText/ChatHoverText.tscn")
 const ChatRow = preload("res://scenes/GameUI/Chat/ChatRow/ChatRow.tscn")
 
-const MAX_CHAT_COUNT = 30
+const MAX_CHAT_COUNT = 50
 
 onready var _chat_cmds = $ChatCommands
 onready var _chat_type = $MarginContainer/ChatContent/InputLine/ChatType
 onready var _chat_line_container = $MarginContainer/ChatContent/ScrollContainer/Lines
 onready var _text_input = $MarginContainer/ChatContent/InputLine/Text
 onready var _animation = $AnimationPlayer as AnimationPlayer
+
+var _has_mouse_over = false
+var _has_input_focus = false
 
 func _ready():
 	_chat_type.add_item("Public")
@@ -103,6 +106,7 @@ func _on_Text_text_entered(new_text):
 	# react on control inputs again
 	_text_input.focus_mode = FOCUS_NONE
 	_text_input.focus_mode = FOCUS_CLICK
+	_try_play_hide()
 
 
 func _on_ChatPanel_mouse_entered():
@@ -110,12 +114,14 @@ func _on_ChatPanel_mouse_entered():
 	request.identifier = "chat"
 	request.type = Cursor.Type.DEFAULT
 	PubSub.publish(PST.CURSOR_CHANGE, request)
-	_animation.play("show")
+	_has_mouse_over = true
+	_show()
 
 
 func _on_ChatPanel_mouse_exited():
+	_has_mouse_over = false
 	PubSub.publish(PST.CURSOR_RESET, "chat")
-	_animation.play("hide")
+	_try_play_hide()
 
 
 # Strange it seems this is only triggered if we are in "focus" of some control element.
@@ -124,3 +130,23 @@ func _on_ChatPanel_gui_input(event):
 	if event is InputEventKey:
 		if event.pressed && event.scancode == KEY_ENTER:
 			_text_input.grab_focus()
+
+
+func _on_Text_focus_entered():
+	_has_input_focus = true
+	_show()
+
+
+func _on_Text_focus_exited():
+	_has_input_focus = false
+
+
+func _show() -> void:
+	if _animation.current_animation == "hide":
+		_animation.stop()
+	self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+
+func _try_play_hide() -> void:
+	if not _has_input_focus && not _has_mouse_over:
+		_animation.play("hide")
