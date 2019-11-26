@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bar-top.png-1ac25991695469644d8c96edc7e1ac0a.stex"
+path="res://.import/bar-background.png-38ba5a591e79efe15ed302a7e866c483.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/BarBig/bar-top.png"
-dest_files=[ "res://.import/bar-top.png-1ac25991695469644d8c96edc7e1ac0a.stex" ]
+source_file="res://scenes/GameUI/BestiaPortrait/bar-background.png"
+dest_files=[ "res://.import/bar-background.png-38ba5a591e79efe15ed302a7e866c483.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

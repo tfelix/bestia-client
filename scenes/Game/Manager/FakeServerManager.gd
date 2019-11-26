@@ -179,5 +179,15 @@ func _on_OneShot2_timeout():
 
 
 func _on_EnvironmentUpdate_timeout():
+	# Maybe sent it somewhere better
+	var info_comp = PlayerComponent.new()
+	info_comp.entity_id = 1
+	info_comp.account_id = 1
+	PubSub.publish(PST.SERVER_RECEIVE, info_comp)
+	
+	var active_comp = ActivePlayerBestiaComponent.new()
+	active_comp.entity_id = 1
+	PubSub.publish(PST.SERVER_RECEIVE, active_comp)
+	
 	_env_comp.current_temp = randi() % 30 - 10
 	PubSub.publish(PST.SERVER_RECEIVE, _env_comp)

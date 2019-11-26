@@ -51,7 +51,7 @@ func _server_received(msg) -> void:
 
 
 func _check_component_selects_player(msg: Component):
-	if msg is PlayerInfoComponent && GlobalData.client_account == msg.account_id:
+	if msg is ActivePlayerBestiaComponent && Global.client_account == msg.account_id:
 		var new_player = get_entity(msg.entity_id)
 		_player = new_player
 
@@ -76,8 +76,10 @@ func _send_to_entity(msg) -> void:
 	if msg.entity_id == 2:
 		_entity_2.handle_message(msg)
 		return
-	# var e = _entities[msg.target_entity]
-	# if e != null:
+	var e = _entities[msg.target_entity]
+	if e != null:
+		e.handle_message(msg)
+		return
 	print_debug("Server send message for unknown entity: ", msg.entity_id)
 
 

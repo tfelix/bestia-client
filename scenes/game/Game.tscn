@@ -261,7 +261,6 @@ anims/day = SubResource( 3 )
 editor/display_folded = true
 
 [node name="GrassSystem" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="Terrain" type="MeshInstance" parent="."]
 editor/display_folded = true

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/GameUI/BestiaPortraits/BestiaPortraits.gd" type="Script" id=1]
+[ext_resource path="res://scenes/GameUI/BestiaPortraits/BestiaPortrait/BestiaPortrait.tscn" type="PackedScene" id=2]
+
+[node name="BestiaPortraits" type="VBoxContainer"]
+margin_top = 150.0
+margin_right = 210.0
+margin_bottom = 353.0
+script = ExtResource( 1 )
+
+[node name="BestiaPortrait" parent="." instance=ExtResource( 2 )]
+margin_bottom = 50.0
+
+[node name="BestiaPortrait2" parent="." instance=ExtResource( 2 )]
+margin_top = 54.0
+margin_bottom = 104.0
+
+[node name="BestiaPortrait3" parent="." instance=ExtResource( 2 )]
+margin_top = 108.0
+margin_bottom = 158.0

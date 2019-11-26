@@ -19,8 +19,31 @@ func get_name() -> String:
 
 
 func on_update(entity, new_component) -> void:
-	var temp_payload = TemperatureData.new()
-	temp_payload.current_temp = new_component.current_temp
-	temp_payload.max_tolerable_temp = new_component.max_tolerable_temp
-	temp_payload.min_tolerable_temp = new_component.min_tolerable_temp
-	PubSub.publish(PST.ENV_TEMP_CHANGED, temp_payload)
+	# We must only update the client display if this component matches the current
+	# active player.
+	var player_info_comp = entity.get_component(PlayerComponent.NAME)
+	var active_comp = entity.get_component(ActivePlayerBestiaComponent.NAME)
+	
+	if player_info_comp == null || active_comp == null:
+		return
+	
+	if player_info_comp.account_id != Global.client_account_id:
+		return
+	
+	var temp_data = TemperatureData.new()
+	temp_data.current_temp = new_component.current_temp
+	temp_data.max_tolerable_temp = new_component.max_tolerable_temp
+	temp_data.min_tolerable_temp = new_component.min_tolerable_temp
+	PubSub.publish(PST.ENV_TEMP_CHANGED, temp_data)
+	
+	var weather_data = WeatherData.new()
+	weather_data.rain_intensity = new_component.rain_intensity
+	weather_data.light_intensity = new_component.light_intensity
+	weather_data.wind = new_component.wind
+	PubSub.publish(PST.ENV_WEATHER_CHANGED, weather_data)
+	
+	var time_data = DayData.new()
+	time_data.sunrise = sunrise
+	time_data.sunset = sunset
+	time_data.progress = day_progress
+	PubSub.publish(PST.ENV_DAYTIME_CHANGED, time_data)

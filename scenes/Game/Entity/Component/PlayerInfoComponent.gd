@@ -1,10 +1,10 @@
 extends Component
-class_name PlayerInfoComponent
+class_name PlayerComponent
 
-const NAME = "PlayerInfoComponent"
+const NAME = "PlayerComponent"
 
-var player_name: String = ""
 var account_id: int = 0
+var player_bestia_id: int = 0
 
 func get_name() -> String:
 	return NAME

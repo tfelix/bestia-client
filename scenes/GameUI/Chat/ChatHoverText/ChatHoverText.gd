@@ -37,17 +37,15 @@ func set_text(text):
 
 
 func _update_position():
-	# TODO Maybe cache this
 	var aabb = _entity.get_aabb()
+	var entity_pos = _entity.global_transform.origin
 	var camera = get_tree().get_root().get_camera()
 	
 	var offset = Vector2(label.get_size().x / 2, 0)
 	var node_height = aabb.size.y
-	var pos = camera.unproject_position(aabb.position + Vector3(0.0, node_height, 0.0)) - offset
+	var pos = camera.unproject_position(entity_pos + Vector3(0.0, node_height, 0.0)) - offset
 	label.set_position(pos)
 
 
 func _on_DestroyTimer_timeout():
-	# We must remove ourselfe here or we crash because of PubSub
-	# PubSub.unsubscribe(self)
 	queue_free()

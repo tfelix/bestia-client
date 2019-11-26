@@ -19,16 +19,35 @@ func _ready():
 	var firstAction = actions[0]
 	_label.text = firstAction.as_text()
 
+
+func to_json_dict():
+	if _saved_trigger == null:
+		return null
+	else:
+		return _saved_trigger.to_json_dict()
+
+
 func add_trigger(trigger: Trigger):
-	_icon.texture = trigger.icon
+	_icon.texture = load(trigger.icon)
 	_saved_trigger = trigger
 
-func _unhandled_key_input(event):
+
+func _trigger_shortcut():
+	if _saved_trigger != null:
+		_saved_trigger.trigger_action()
+		_color_player.seek(0)
+		_color_player.play("flash")
+
+
+func _unhandled_key_input(event) -> void:
 	if !enabled:
 		return
 	if !event.is_action_pressed(shortcut_action_name):
 		return
-	_color_player.seek(0)
-	_color_player.play("flash")
-	if _saved_trigger != null:
-		_saved_trigger.triggerAction()
+	_trigger_shortcut()
+
+
+func _on_Shortcut_gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.is_action_pressed("left_click"):
+			_trigger_shortcut()

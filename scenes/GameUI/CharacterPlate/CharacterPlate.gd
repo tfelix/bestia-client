@@ -12,7 +12,7 @@ func _ready():
 	pass
 
 func update_player(player: Player):
-	var info = player.get_component(PlayerInfoComponent.NAME) as PlayerInfoComponent
+	var info = player.get_component(PlayerComponent.NAME) as PlayerComponent
 	if info == null:
 		printerr("No PlayerInfo component on player node")
 		return
