@@ -3,7 +3,9 @@ extends VBoxContainer
 var _camera: Camera
 
 func _ready():
+	# TODO Update with player bestia status values
 	_camera = get_tree().get_root().get_camera()
+
 
 func _process(delta):
 	var d_pos = Vector2(-self.rect_size.x / 2, 0)

@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cast_circle.obj-5fbe3a8901653ae174237bc2b2482d69.mesh"
+
+[deps]
+
+files=[ "res://.import/cast_circle.obj-5fbe3a8901653ae174237bc2b2482d69.mesh" ]
+
+source_file="res://scenes/Fx/CastingFx/cast_circle.obj"
+dest_files=[ "res://.import/cast_circle.obj-5fbe3a8901653ae174237bc2b2482d69.mesh", "res://.import/cast_circle.obj-5fbe3a8901653ae174237bc2b2482d69.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

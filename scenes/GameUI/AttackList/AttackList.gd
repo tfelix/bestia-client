@@ -11,35 +11,36 @@ onready var _click_audio = $AudioClick
 var _attack_description = null
 var _attacks = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	var atk1 = Attack.new()
-	atk1.attack_entity_id = 1
-	atk1.attack_id = 1
-	atk1.db_name = "tackle"
-	atk1.element = "NORMAL"
-	atk1.mana = 2
-	atk1.level = 1
-	
-	var atk2 = Attack.new()
-	atk2.attack_entity_id = 1
-	atk2.attack_id = 2
-	atk2.db_name = "fireball"
-	atk2.element = "FIRE"
-	atk2.mana = 5
-	atk2.level = 2
-	
-	var attacks = [atk1, atk2]
-	_display_attacks(attacks)
+	PubSub.subscribe(PST.SERVER_SEND, self)
 	_render_filtered_attacks()
 
 
-func _display_attacks(attacks) -> void:	
+func free():
+  PubSub.unsubscribe(self)
+  .free()
+
+
+func event_published(event_key, payload) -> void:
+	match (event_key):
+		PST.SERVER_SEND:
+			if payload is ResponseAttackListMessage:
+				_display_attacks(payload.attacks)
+
+
+func _request_attack_list() -> void:
+	print_debug("Requesting attacks from server")
+	var msg = RequestAttackListMessage.new()
+	PubSub.publish(PST.SERVER_SEND, msg)
+
+
+func _display_attacks(attacks) -> void:
 	_attacks = attacks
 
 	for atk in _attacks:
 		atk.name = tr(atk.db_name)
 		atk.description = tr(atk.db_name + "_desc")
+
 
 func _render_filtered_attacks() -> void:
 	for c in _attacks_container.get_children():
@@ -94,6 +95,12 @@ func _on_ClearButton_pressed():
 func _on_Search_text_changed(new_text):
 	_render_filtered_attacks()
 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		close()
+
+
+func _on_AttackList_visibility_changed():
+	if visible == true:
+		_request_attack_list();

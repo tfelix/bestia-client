@@ -5,6 +5,7 @@ var _source_entity: Spatial
 
 onready var _label = $DamageLabel
 
+
 func init(damage: DamageMessage, entity: Spatial):
 	_damage = damage
 	_source_entity = entity
@@ -44,7 +45,7 @@ func _prepare_velocity():
 		vel_y = 15
 		gravity_scale = 0
 	
-	self.linear_velocity = Vector3(vel_x, vel_y, 0)
+	self.linear_velocity = Vector3(-5, vel_y, 0)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

@@ -1,6 +1,6 @@
 extends PanelContainer
 
-signal pressed
+signal shortcut_clicked
 
 export(bool) var enabled = true
 export(String) var shortcut_action_name = "shortcut_1"
@@ -33,15 +33,15 @@ func add_trigger(trigger: Trigger):
 
 
 func _trigger_shortcut():
+	if !enabled:
+		return
 	if _saved_trigger != null:
-		_saved_trigger.trigger_action()
+		_saved_trigger.trigger_action(shortcut_action_name)
 		_color_player.seek(0)
 		_color_player.play("flash")
 
 
 func _unhandled_key_input(event) -> void:
-	if !enabled:
-		return
 	if !event.is_action_pressed(shortcut_action_name):
 		return
 	_trigger_shortcut()
@@ -50,4 +50,5 @@ func _unhandled_key_input(event) -> void:
 func _on_Shortcut_gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("left_click"):
+			emit_signal("shortcut_clicked", shortcut_action_name)
 			_trigger_shortcut()

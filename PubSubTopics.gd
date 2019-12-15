@@ -6,9 +6,14 @@ const SERVER_RECEIVE = "srv_receive"
 
 const CHAT_RECEIVED = "chat_received"
 
+const ENTITY_CLICKED_HANDLER = "entity_clicked_handler"
+const ENTITY_CLICKED = "entity_clicked"
 const ENTITY_SELECTED = "entity_selected"
 const ENTITY_ADDED = "entity_added"
 const ENTITY_REMOVED = "entity_removed"
+# This is emitted if a player bestia entity which is owned by the player is
+# updated.
+const ENTITY_PLAYER_UPDATED = "pb_entity_updated"
 
 const TERRAIN_CLICKED = "terrain_clicked"
 const CURSOR_CHANGE = "cursor_change"

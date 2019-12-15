@@ -1,18 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game/Entity/InteractionRange.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
 
-[node name="Player" type="Spatial"]
+[sub_resource type="CapsuleShape" id=1]
+
+[node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 entity_kind = 2
 
-[node name="PlayerMesh" parent="." instance=ExtResource( 2 )]
-input_ray_pickable = false
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 0.933055, 0 )
+shape = SubResource( 1 )
 
-[node name="Collidor" type="StaticBody" parent="."]
+[node name="PlayerMesh" parent="." instance=ExtResource( 2 )]
 
 [node name="InteractionRange" type="Area" parent="."]
 script = ExtResource( 3 )
@@ -22,6 +25,5 @@ script = ExtResource( 3 )
 [node name="Components" type="Node" parent="."]
 
 [node name="LocalComponents" type="Node" parent="."]
-[connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]
 
 [editable path="Interactions"]

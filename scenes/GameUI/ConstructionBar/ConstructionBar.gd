@@ -13,6 +13,7 @@ func _ready():
 	_parent = get_parent()
 	_cam = get_tree().get_root().get_camera()
 
+
 func set_progress(current: int, total: int) -> void:
 	_current = current
 	_total = total

@@ -1,6 +1,5 @@
 extends Control
 
-var _player_data: PlayerData = PlayerData.new()
 var _effort_values = EffortValues.new()
 var _delta_effort_values = EffortValues.new()
 

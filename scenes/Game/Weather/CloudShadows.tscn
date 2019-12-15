@@ -3,18 +3,18 @@
 [sub_resource type="QuadMesh" id=1]
 size = Vector2( 50, 50 )
 
-[sub_resource type="ViewportTexture" id=10]
+[sub_resource type="ViewportTexture" id=2]
 viewport_path = NodePath("NearClouds")
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=3]
 resource_local_to_scene = true
-albedo_texture = SubResource( 10 )
+albedo_texture = SubResource( 2 )
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=4]
 ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 0.2
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -25,11 +25,11 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=6]
 resource_local_to_scene = true
-shader = SubResource( 4 )
+shader = SubResource( 5 )
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=7]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode unshaded, depth_draw_never, cull_front, depth_test_disable;
@@ -74,26 +74,26 @@ void fragment(){
 [sub_resource type="ViewportTexture" id=8]
 viewport_path = NodePath("NearClouds")
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=9]
 resource_local_to_scene = true
-shader = SubResource( 6 )
+shader = SubResource( 7 )
 shader_param/offset = null
 shader_param/scale = Vector2( 1, 1 )
 shader_param/emulate_lighting = true
 shader_param/brightness = null
 shader_param/decal = SubResource( 8 )
 
-[sub_resource type="CubeMesh" id=9]
+[sub_resource type="CubeMesh" id=10]
 
 [node name="CloudShadows" type="Spatial"]
 
 [node name="Floor" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 3.51755, 0, 0 )
 mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 3 )
+environment = SubResource( 4 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.876161, 0.482019, 0, -0.482019, 0.876161, 0, 4.72907, 8.47512 )
@@ -106,12 +106,12 @@ usage = 0
 render_target_update_mode = 3
 
 [node name="CloudShadowsTex" type="ColorRect" parent="NearClouds"]
-material = SubResource( 5 )
+material = SubResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -4.99561, 0.0418733, -0.00333416, -0.208296, -0.992136, 0.590153, 0.0214037, 0.117955, 4.96505, 0.711214, 0.574024, 17.0393 )
-material_override = SubResource( 7 )
-mesh = SubResource( 9 )
+material_override = SubResource( 9 )
+mesh = SubResource( 10 )
 material/0 = null

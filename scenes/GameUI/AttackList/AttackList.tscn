@@ -27,7 +27,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AttackPanel" type="Panel" parent="CenterContainer/HBoxContainer"]
-editor/display_folded = true
 margin_right = 290.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 290, 500 )
@@ -51,7 +50,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="HBoxContainer" parent="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks"]
-editor/display_folded = true
 margin_right = 270.0
 margin_bottom = 31.0
 
@@ -114,6 +112,7 @@ size_flags_vertical = 3
 [node name="AudioClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "Fx"
+[connection signal="visibility_changed" from="." to="." method="_on_AttackList_visibility_changed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Title/Close" to="." method="_on_Close_pressed"]
 [connection signal="text_changed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/Search" to="." method="_on_Search_text_changed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/ClearButton" to="." method="_on_ClearButton_pressed"]

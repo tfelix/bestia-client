@@ -23,8 +23,14 @@ func is_usable() -> bool:
 func totalWeight() -> int:
 	return weight * amount
 
+
 func tr_database_name() -> String:
 	return tr(database_name.to_upper())
+
+
+func image_path() -> String:
+	return database_name_to_image_path(database_name)
+
 
 static func database_name_to_path(database_name: String) -> String:
 	var base_path = "res://scenes/Game/Entity/Item/"

@@ -2,84 +2,76 @@
 
 [ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
 [ext_resource path="res://placeholder.png" type="Texture" id=2]
-[ext_resource path="res://scenes/GameUI/BarBig/BigBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GameUI/Bar/Bar.tscn" type="PackedScene" id=3]
 
 [node name="CharacterPlate" type="PanelContainer"]
-margin_right = 288.0
-margin_bottom = 120.0
+margin_right = 258.0
+margin_bottom = 92.0
 script = ExtResource( 1 )
 
 [node name="Rows" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 281.0
-margin_bottom = 113.0
+margin_right = 251.0
+margin_bottom = 85.0
 
 [node name="InfoMargin" type="MarginContainer" parent="Rows"]
-margin_right = 274.0
+margin_right = 244.0
 margin_bottom = 22.0
 custom_constants/margin_top = 4
 
 [node name="CharacterInfo" type="Label" parent="Rows/InfoMargin"]
 margin_top = 4.0
-margin_right = 274.0
+margin_right = 244.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 0, 18 )
 text = "CharacterName"
 
 [node name="Main" type="HBoxContainer" parent="Rows"]
 margin_top = 26.0
-margin_right = 274.0
-margin_bottom = 106.0
+margin_right = 244.0
+margin_bottom = 78.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Rows/Main"]
-editor/display_folded = true
-margin_right = 70.0
-margin_bottom = 80.0
+margin_right = 60.0
+margin_bottom = 52.0
 custom_constants/margin_right = 5
-custom_constants/margin_top = 8
 custom_constants/margin_left = 5
 
 [node name="CharacterImage" type="TextureRect" parent="Rows/Main/MarginContainer"]
 margin_left = 5.0
-margin_top = 8.0
-margin_right = 65.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 60, 60 )
+margin_right = 55.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
 [node name="Bars" type="VBoxContainer" parent="Rows/Main"]
-margin_left = 74.0
-margin_right = 274.0
-margin_bottom = 80.0
+margin_left = 64.0
+margin_right = 244.0
+margin_bottom = 52.0
 
-[node name="HealthBar" parent="Rows/Main/Bars" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 200.0
-margin_bottom = 20.0
-bar_color = Color( 0.698039, 0, 0.211765, 1 )
-update_bar_color = Color( 1, 0.803922, 0.803922, 1 )
+[node name="HpBar" parent="Rows/Main/Bars" instance=ExtResource( 3 )]
+margin_right = 180.0
+margin_bottom = 6.0
+rect_min_size = Vector2( 180, 6 )
 
 [node name="HealthLabel" type="Label" parent="Rows/Main/Bars"]
-margin_top = 24.0
-margin_right = 200.0
-margin_bottom = 38.0
+margin_top = 10.0
+margin_right = 180.0
+margin_bottom = 24.0
 text = "HP: 124 / 234"
 
 [node name="ManaBar" parent="Rows/Main/Bars" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 42.0
-margin_right = 200.0
-margin_bottom = 62.0
-bar_color = Color( 0, 0.282353, 0.611765, 1 )
-update_bar_color = Color( 0.447059, 0.635294, 1, 1 )
+margin_top = 28.0
+margin_right = 180.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 180, 6 )
+primary_color = Color( 0, 0.372549, 1, 1 )
 
 [node name="ManaLabel" type="Label" parent="Rows/Main/Bars"]
-margin_top = 66.0
-margin_right = 200.0
-margin_bottom = 80.0
+margin_top = 38.0
+margin_right = 180.0
+margin_bottom = 52.0
 text = "Mana: 0 / 0"

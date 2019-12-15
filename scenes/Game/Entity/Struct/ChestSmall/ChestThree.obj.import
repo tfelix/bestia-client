@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ChestThree.obj-61b069a4d7c093d63c857bd907f68979.mesh"
+
+[deps]
+
+files=[ "res://.import/ChestThree.obj-61b069a4d7c093d63c857bd907f68979.mesh" ]
+
+source_file="res://scenes/Game/Entity/Struct/ChestSmall/ChestThree.obj"
+dest_files=[ "res://.import/ChestThree.obj-61b069a4d7c093d63c857bd907f68979.mesh", "res://.import/ChestThree.obj-61b069a4d7c093d63c857bd907f68979.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

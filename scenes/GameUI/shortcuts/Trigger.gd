@@ -2,7 +2,7 @@ class_name Trigger
 
 var icon: String
 
-func trigger_action():
+func trigger_action(shortcut_action_name: String) -> void:
 	pass
 
 

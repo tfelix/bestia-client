@@ -4,7 +4,7 @@ class_name Interactions
 # Interactions have two puposes. On the one hand they should show up
 # as an icon when being selected and upon click they should register
 # themselve as default interaction for this kind of entity.
-var InteractionUi = load("res://scenes/Game/Interactions/InteractionsUi/InteractionsUi.tscn")
+var InteractionUi = preload("res://scenes/GameUI/InteractionsUi/InteractionsUi.tscn")
 
 onready var parent_entity = get_parent()
 var ui = null

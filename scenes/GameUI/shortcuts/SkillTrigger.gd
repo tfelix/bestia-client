@@ -1,15 +1,14 @@
 extends Trigger
 class_name SkillTrigger
 
-var skill_db_name: String
-var skill_level: int
+var player_attack_id: int
 
-func trigger_action():
-	# Change Pointer Mode
+func trigger_action(shortcut_action_name: String):
+	print_debug("Attack ", player_attack_id, " triggered")
 	# Promote as Pointer Receiver
+	var click_handler = SkillCastEntityClickedHandler.new(player_attack_id)
+	PubSub.publish(PST.ENTITY_CLICKED_HANDLER, click_handler)
 	# Wait for receiving call
-	print_debug("Skill ", skill_db_name, " triggered")
-	pass
 
 
 func clicked_target():
@@ -19,7 +18,6 @@ func clicked_target():
 func to_json_dict():
 	return {
 		"clazz": "SkillTrigger",
-		"skill_db_name": skill_db_name,
-		"skill_level": skill_level,
+		"player_attack_id": player_attack_id,
 		"icon": icon
 	}

@@ -1,5 +1,16 @@
 # Contributor List
 
+## Meshes
+
+* Low Poly Storage Assets by TheTeaGuns, [TheTeaGuns](https://twitter.com/TheTeaGuns) [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+* Tileable Bricks Ground Textures - Set 1, [Cethiel](https://opengameart.org/content/tileable-bricks-ground-textures-set-1) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Tileable Grass Textures - Set 1, [Cethiel](https://opengameart.org/content/tileable-grass-textures-set-1) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Tileable Grass Textures - Set 2, [Cethiel](https://opengameart.org/content/tileable-grass-textures-set-2) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Tileable Dirt Textures, [Cethiel](https://opengameart.org/content/tileable-dirt-textures) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Hand Painted Mountainside 2 - Stone and Dirt, [The Chayed](https://opengameart.org/content/hand-painted-mountainside-2-stone-and-dirt) [OGA-BY 3.0](http://opengameart.org/content/oga-by-30-faq)
+* handpainted-style-textures-3, [rubberduck](https://opengameart.org/content/2k-handpainted-style-textures) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+
+
 ## Images, Particles, Textures
 
 * Title Screen by nicole-mason, Unsplash
@@ -23,6 +34,7 @@
 * [Cancel icon by sbed](https://game-icons.net/1x1/sbed/cancel.html), CC BY 3.0
 * [logging.svg](https://game-icons.net/1x1/skoll/logging.html), Skoll, CC BY 3.0
 * [Sword wound](https://game-icons.net/1x1/lorc/sword-wound.html), Lorc, CC BY 3.0
+* [Hamburger menu icon](https://game-icons.net/1x1/delapouite/hamburger-menu.html), Delapouite, [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * [thermometer-half-solid](https://fontawesome.com/icons/thermometer-half?style=solid), Font Awesome, Unmodified, [CC BY 4.0](https://fontawesome.com/license)
 
 ## Music / Audio
@@ -31,6 +43,7 @@
 * [chopping_wood_01.wav](https://freesound.org/people/micahlg/sounds/421928/), micahlg
 * [Punch, Hitting in a Face](https://freesound.org/people/florianreichelt/sounds/460509/), florianreichelt, CC0
 * [fireplace.wav](https://freesound.org/people/leosalom/sounds/234288/), by leosalom, CC BY
+* [Space Swoosh - brighter](https://freesound.org/people/GameAudio/sounds/220191/), GameAudio, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Shader
 

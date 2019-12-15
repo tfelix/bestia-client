@@ -18,7 +18,7 @@ func event_published(event_key, payload) -> void:
 				_adapt_fire_to_weather(payload)
 
 func _adapt_fire_to_weather(weatherData: WeatherData) -> void:
-	# Improve fire scaling with weather
+	# TODO Improve fire scaling with weather
 	if weatherData.rain_intensity < 10:
 		_flame.visible = true
 		_flame.scale = Vector3(2.0, 2.0, 1.0)

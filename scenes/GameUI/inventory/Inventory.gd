@@ -147,9 +147,9 @@ func _on_item_selected(item_node) -> void:
 
 
 func _remove_module() -> void:
-	var existing_item_desc = _module.get_child(0)
-	if existing_item_desc != null:
-		existing_item_desc.queue_free()
+	var existing_module = _module.get_child(0)
+	if existing_module != null:
+		existing_module.queue_free()
 
 
 func _draw_inventory_info():
@@ -217,26 +217,25 @@ func _filter_displayed_items(filter_name: String) -> void:
 			_displayed_items.append(item)
 	_show_displayed_items()
 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		close()
 
+
 func _on_EquipMode_pressed():
 	_inventory_mode_btn.disabled = false
 	_equip_mode_btn.disabled = true
-	var active_module = _module.get_child(0)
-	if active_module != null:
-		active_module.queue_free()
+	_remove_module()
 	var equip_module = ItemEquipModule.instance()
 	_module.add_child(equip_module)
+	_module.visible = true
 
 
 func _on_InventoryMode_pressed():
 	_inventory_mode_btn.disabled = true
 	_equip_mode_btn.disabled = false
-	var active_module = _module.get_child(0)
-	if active_module != null:
-		active_module.queue_free()
+	_remove_module()
 
 
 func _unhandled_key_input(event) -> void:

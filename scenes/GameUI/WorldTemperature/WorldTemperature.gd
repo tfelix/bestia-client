@@ -12,11 +12,6 @@ onready var _temp_label = $TempLabel
 
 
 func _ready():
-	var test = TemperatureData.new()
-	test.current_temp = -26
-	test.max_tolerable_temp = 50
-	test.min_tolerable_temp = -10
-	update_temp(test)
 	PubSub.subscribe(PST.ENV_TEMP_CHANGED, self)
 
 

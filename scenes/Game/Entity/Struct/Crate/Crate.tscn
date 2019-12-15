@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Game/Entity/Struct/Crate/Crate.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://scenes/Game/Entity/Struct/ChestSmall/ChestMaterial.tres" type="Material" id=2]
+
+[node name="Crate" type="Spatial"]
+
+[node name="Crate" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )

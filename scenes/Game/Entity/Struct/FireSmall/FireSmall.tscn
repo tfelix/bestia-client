@@ -2,9 +2,10 @@
 
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/Fireplace.gltf" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Game/shader/SparkSmall.shader" type="Shader" id=3]
-[ext_resource path="res://scenes/Game/shader/Fire.tres" type="Material" id=4]
+[ext_resource path="res://shader/SparkSmall.shader" type="Shader" id=3]
+[ext_resource path="res://shader/Fire.tres" type="Material" id=4]
 [ext_resource path="res://audio/fx/fireplace_01.wav" type="AudioStream" id=5]
+
 
 [sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0, 0.102222, 0.368889, 0.844444 )

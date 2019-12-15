@@ -41,19 +41,25 @@ func event_published(event_key, payload) -> void:
 func _server_received(msg) -> void:
 	if msg is DamageMessage:
 		_send_to_entity(msg)
-	if msg is Component:
+	if msg is FxMessage:
 		_send_to_entity(msg)
-		_check_component_selects_player(msg)
+	if msg is Component:
+		var e = _send_to_entity(msg)
+		_check_send_player_bestia_update(msg, e)
 	if msg is ComponentRemoveMessage:
 		_send_to_entity(msg)
 	else:
 		pass
 
 
-func _check_component_selects_player(msg: Component):
-	if msg is ActivePlayerBestiaComponent && Global.client_account == msg.account_id:
+func _check_send_player_bestia_update(msg: Component, entity: Entity) -> void:
+	if entity == null:
+		return
+	if msg is ActivePlayerBestiaComponent:
 		var new_player = get_entity(msg.entity_id)
 		_player = new_player
+	if msg is PlayerComponent && Global.client_account == msg.account_id:
+		PubSub.publish(PST.ENTITY_PLAYER_UPDATED, entity)
 
 
 func get_entity(id: int) -> Entity:
@@ -63,24 +69,22 @@ func get_entity(id: int) -> Entity:
 	if id == 2:
 		return _entity_2
 	
-	for e in _entities:
-		if e.id == id:
-			return e
-	return null
+	return _entities[id]
 
 
-func _send_to_entity(msg) -> void:
+func _send_to_entity(msg) -> Entity:
 	if msg.entity_id == 1:
 		_player.handle_message(msg)
-		return
+		return _player
 	if msg.entity_id == 2:
 		_entity_2.handle_message(msg)
-		return
-	var e = _entities[msg.target_entity]
+		return _entity_2
+	var e = _entities[msg.entity_id]
 	if e != null:
 		e.handle_message(msg)
-		return
+		return e
 	print_debug("Server send message for unknown entity: ", msg.entity_id)
+	return null
 
 
 func _add_entity(entity: Entity) -> void:

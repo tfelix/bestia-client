@@ -11,6 +11,7 @@ onready var _amount = $DescriptionContainer/Amount
 onready var _weight = $DescriptionContainer/Weight
 onready var _item_img = $DescriptionContainer/TitleContainer/ItemImg
 onready var _use_btn = $DescriptionContainer/Use
+onready var _shortcuts = $DescriptionContainer/CenterShortcuts/Shortcuts
 
 
 # New published items will be added to the inventory
@@ -59,8 +60,16 @@ func show_item_description(new_item: ItemModel) -> void:
 	_item_img.texture = item.image
 	_amount.text = "Amount: %s" % item.amount
 	_weight.text = "Weight: %skg (%skg ea)" % [item.totalWeight() / 10.0, item.weight / 10.0]
-	
 	_use_btn.disabled = !new_item.is_usable()
+	
+	# Prepare the shortcut trigger
+	var item_trigger = ItemTrigger.new()
+	item_trigger.icon = item.image_path()
+	item_trigger.player_item_id = item.player_item_id
+	var set_trigger = SetTriggerShortcutCallback.new()
+	set_trigger.trigger = item_trigger
+	set_trigger.shortcuts = _shortcuts
+	_shortcuts.on_shortcut_clicked = set_trigger
 
 
 func _on_Drop_pressed():

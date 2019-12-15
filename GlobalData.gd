@@ -13,4 +13,3 @@ var client_account_id: int = 1
 
 var player_camera: Camera
 var entities # this is of type Entities, but because of https://github.com/godotengine/godot/issues/27136 can not be typed
-var player_data: PlayerData = PlayerData.new()

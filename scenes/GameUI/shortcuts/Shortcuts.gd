@@ -1,13 +1,28 @@
-extends Control
+extends VBoxContainer
 
-onready var _row_1 = $Rows/Row1
-onready var _row_2 = $Rows/Row2
+onready var _row_1 = $Row1
+onready var _row_2 = $Row2
 
 var _shortcuts
 
+var on_shortcut_clicked: SetTriggerShortcutCallback setget on_shortcut_clicked_set
+
 func _ready():
 	_shortcuts = _row_1.get_children() + _row_2.get_children()
-	_load_data()
+	_connect_shortcut_singals()
+	load_data()
+	# TODO Also request the data from the server
+
+
+func on_shortcut_clicked_set(new_value):
+	on_shortcut_clicked = new_value
+	for sc in _shortcuts:
+		sc.enabled = false
+
+
+func _connect_shortcut_singals() -> void:
+	for sc in _shortcuts:
+		sc.connect("shortcut_clicked", self, "_on_shortcut_clicked")
 
 
 func save_shortcut(action_name: String, trigger: Trigger) -> void:
@@ -36,7 +51,7 @@ func _persist_online() -> void:
 	pass
 
 
-func _load_data() -> void:
+func load_data() -> void:
 	var shortcut_file = File.new()
 	if not shortcut_file.file_exists("user://shortcuts.save"):
 		return
@@ -58,10 +73,13 @@ func _load_data() -> void:
 		elif scd.clazz == "SkillTrigger":
 			var trigger = SkillTrigger.new()
 			trigger.icon = scd.icon
-			trigger.skill_db_name = scd.skill_db_name
-			trigger.skill_level = int(scd.skill_level)
+			trigger.player_attack_id = int(scd.player_attack_id)
 			_shortcuts[slot].add_trigger(trigger)
 		else:
 			print_debug("Unknown Trigger Class: ", scd.clazz)
 		slot += 1
-	# TODO Also request the data from the server
+
+
+func _on_shortcut_clicked(shortcut_action) -> void:
+	if on_shortcut_clicked != null:
+		on_shortcut_clicked.triggered(shortcut_action)

@@ -13,9 +13,8 @@ func _ready() -> void:
 	_update_position()
 
 
-func free() -> void:
-  PubSub.unsubscribe(self)
-  .free()
+func get_class() -> String:
+	return "ChatHoverText"
 
 
 func _process(delta) -> void:
@@ -26,9 +25,7 @@ func _process(delta) -> void:
 func _remove_other_chat_nodes() -> void:
 	for node in _entity.get_children():
 		# see https://github.com/godotengine/godot/issues/25252
-		if node != self && get_class().casecmp_to(node.get_class()) == 0:
-			# We must remove ourselfe here or we crash because of PubSub
-			PubSub.unsubscribe(node)
+		if node != self && get_class() == "ChatHoverText":
 			node.queue_free()
 
 

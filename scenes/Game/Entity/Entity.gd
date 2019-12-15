@@ -26,8 +26,10 @@ var _components = []
 onready var _selection = $Selection
 onready var _interactions = $Interactions
 
+
 func _ready():
 	PubSub.publish(PST.ENTITY_ADDED, self)
+
 
 func free():
   PubSub.publish(PST.ENTITY_REMOVED, self)
@@ -78,7 +80,7 @@ func update_component(component: Component):
 
 func remove_component(componentName: String):
 	var old_comp: Component = null
-	var pos = -1
+	var pos = 0
 	for c in _components:
 		if c.get_name() == componentName:
 			old_comp = c
@@ -93,10 +95,19 @@ func remove_component(componentName: String):
 func handle_message(msg):
 	if msg is DamageMessage:
 		_display_damage(msg)
+	if msg is FxMessage:
+		_display_fx(msg)
 	if msg is Component:
 		update_component(msg)
 	if msg is ComponentRemoveMessage:
 		remove_component(msg.component_name)
+
+
+func _display_fx(msg: FxMessage) -> void:
+	var path = "res://scenes/Attack/%s/%s.tscn" % ["Fireball", "Fireball"]
+	var fx = load(path)
+	print_debug("Calls FX ", msg.fx)
+	pass
 
 
 func _display_damage(msg: DamageMessage) -> void:
