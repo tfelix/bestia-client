@@ -6,6 +6,7 @@ func _ready():
 	pass
 
 func play():
+	$Timer.stop()
 	$MoveCursorArrow1.play()
 	$MoveCursorArrow2.play()
 	$MoveCursorArrow3.play()

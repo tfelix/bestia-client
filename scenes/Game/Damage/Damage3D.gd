@@ -11,7 +11,7 @@ func init(damage: DamageMessage, entity: Spatial):
 	_source_entity = entity
 
 
-func _process(delta):
+func _process(_delta):
 	var cam = get_tree().get_root().get_camera()
 	var pos = self.global_transform.origin
 	var viewport_pos = cam.unproject_position(pos)

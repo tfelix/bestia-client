@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cursor-attack.png-397fa4f71bbe05594beea7ed7cec5027.stex"
+path="res://.import/cursor-attack.png-82ad85e4cb6ed714cf356b27550a56b9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/GameUI/cursor/cursor-attack.png"
-dest_files=[ "res://.import/cursor-attack.png-397fa4f71bbe05594beea7ed7cec5027.stex" ]
+source_file="res://scenes/GameUI/Cursor/cursor-attack.png"
+dest_files=[ "res://.import/cursor-attack.png-82ad85e4cb6ed714cf356b27550a56b9.stex" ]
 
 [params]
 

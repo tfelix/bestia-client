@@ -2,21 +2,21 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/move_cursor_arrow.gltf-9fc4ea89aebedd65cd0ac56a2a6ffe4c.scn"
+path="res://.import/move_cursor_arrow.gltf-c9805c28ac31e1d7b8658e0d9f8411b1.scn"
 
 [deps]
 
-source_file="res://scenes/GameUI/cursor/MoveCursor/move_cursor_arrow.gltf"
-dest_files=[ "res://.import/move_cursor_arrow.gltf-9fc4ea89aebedd65cd0ac56a2a6ffe4c.scn" ]
+source_file="res://scenes/GameUI/Cursor/MoveCursor/move_cursor_arrow.gltf"
+dest_files=[ "res://.import/move_cursor_arrow.gltf-c9805c28ac31e1d7b8658e0d9f8411b1.scn" ]
 
 [params]
 
 nodes/root_type="Spatial"
-nodes/root_name="Scene Root"
+nodes/root_name="ItemMesh"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
-materials/location=1
+materials/location=0
 materials/storage=1
 materials/keep_on_reimport=true
 meshes/compress=true
@@ -25,7 +25,7 @@ meshes/storage=0
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
 external_files/store_in_subdir=false
-animation/import=true
+animation/import=false
 animation/fps=15
 animation/filter_script=""
 animation/storage=false

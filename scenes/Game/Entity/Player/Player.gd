@@ -1,17 +1,12 @@
-extends Entity
+extends KinematicBody
 class_name Player
 
-# Emitted when the player movement has stopped.
-# TODO Is this used? Can it be removed?
-signal movement_stopped()
-signal status_values_changed(changed_values)
+export(float) var speed = 5.0
 
-var target: Vector3 = Vector3.INF
-var can_move: bool = true
+var _target: Vector3 = Vector3.INF
+var _can_move: bool = true
 
-var destination = null
-const GRAVITY = -9.81
-const SPEED = 200
+onready var _move_cursor = $MoveCursor
 
 func _ready():
 	PubSub.subscribe(PST.TERRAIN_CLICKED, self)
@@ -19,28 +14,20 @@ func _ready():
 
 
 func _physics_process(delta):
-	if !can_move:
-		destination = null
+	if !_can_move || _target == Vector3.INF:
+		_target = Vector3.INF
 		return
-	if translation != destination and destination != null:
-		var gap = destination - translation
-		# gap.y = 0
-		gap = gap.normalized()
+	
+	var global_pos = global_transform.origin
+	
+	if (_target - global_pos).length() < 0.01:
+		pass
 
-		var velocity = gap * SPEED * delta
-		# velocity.y += delta * GRAVITY
-
-		# move_and_slide(velocity, Vector3.UP)
-
-		var angle = atan2(velocity.x, velocity.z)
-		var player_rot = rotation
-		player_rot.y = angle
-
-		# Snap to target if we are close to destination
-		if gap.length()  < 0.1:
-			translation = Vector3(destination.x, translation.y, destination.z)
-			destination = null
-			emit_signal("movement_stopped")
+	if _target == global_pos:
+		return
+	
+	var velocity = (_target - global_pos).normalized() * speed
+	move_and_slide (velocity, Vector3.UP)
 
 
 func free():
@@ -53,15 +40,22 @@ func get_aabb() -> AABB:
 	return AABB(Vector3.ZERO, Vector3(1, 2.2, 1))
 
 
-func move_to(destination):
-	if !can_move:
-		return
-	$MoveIndicator.translation = destination
-	$MoveIndicator.play()
-	target = destination
-
-
 func event_published(event_key, payload) -> void:
-  match (event_key):
-    PST.TERRAIN_CLICKED, PST.PLAYER_MOVE_REQUSTED:
-      move_to(payload)
+	match (event_key):
+		PST.TERRAIN_CLICKED, PST.PLAYER_MOVE_REQUSTED:
+			if !_can_move:
+				return
+			_move_player_to(payload)
+
+
+func _move_player_to(global_pos: Vector3) -> void:
+	look_at(global_pos, Vector3.UP)
+	#var player_pos_2d = Vector2(global_transform.origin.x, global_transform.origin.z)
+	#var target_pos_2d = Vector2(global_pos.x, global_pos.z)
+	#var angle = player_pos_2d.angle_to(target_pos_2d)
+	#print_debug(angle)
+	# transform = transform.rotated(Vector3.UP, angle)
+	
+	_move_cursor.global_transform.origin = global_pos
+	_move_cursor.play()
+	_target = global_pos

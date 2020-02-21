@@ -3,9 +3,6 @@
 [ext_resource path="res://scenes/Game/Entity/Mob/Blob/Blob.material" type="Material" id=1]
 [ext_resource path="res://scenes/Game/Entity/Mob/Blob/blob.png" type="Texture" id=2]
 
-
-
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sphere"
 surfaces/0 = {
@@ -22,7 +19,7 @@ surfaces/0 = {
 "vertex_count": 95
 }
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 2 )
 metallic = 0.1
 roughness = 0.05
@@ -32,8 +29,7 @@ refraction_enabled = true
 refraction_scale = 0.05
 refraction_texture_channel = 0
 
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
+[sub_resource type="Animation" id=3]
 length = 1.08333
 loop = true
 tracks/0/type = "transform"
@@ -42,42 +38,40 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = true
 tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 2.57229e-017, 0, 1, 1, 1, 1, 1.04167, 1, 0, 0, 0, 0, 2.57229e-017, 0, 1, 1, 1, 1 )
+tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 2.57229e-17, 0, 1, 1, 1, 1, 1.04167, 1, 0, 0, 0, 0, 2.57229e-17, 0, 1, 1, 1, 1 )
 tracks/1/type = "transform"
 tracks/1/path = NodePath("Armature/Skeleton:Bone.001")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = true
 tracks/1/enabled = true
-tracks/1/keys = PoolRealArray( 0, 1, 0, 0, 0, 4.44089e-016, -1.62034e-030, -3.64867e-015, 1, 1, 1, 1, 0.0416667, 1, 0, 0, 0, 4.27017e-016, 0.00414321, -3.92575e-015, 0.999991, 1, 1, 1, 0.0833333, 1, 0, 0, 0, 3.95333e-016, 0.0166773, -2.72008e-015, 0.999861, 1, 1, 1, 0.125, 1, 0, 0, 0, 3.14886e-016, 0.0374195, -3.23369e-015, 0.9993, 1, 1, 1, 0.333333, 1, 0, 0, 0, -1.88173e-016, 0.205726, -2.68322e-015, 0.97861, 1, 1, 1, 0.375, 1, 0, 0, 0, -2.78743e-016, 0.233178, -2.67323e-015, 0.972434, 1, 1, 1, 0.416667, 1, 0, 0, 0, -7.39673e-016, 0.253305, -4.1674e-015, 0.967387, 1, 1, 1, 0.458333, 1, 0, 0, 0, -1.8044e-016, 0.265411, -1.90792e-015, 0.964135, 1, 1, 1, 0.5, 1, 0, 0, 0, -2.42138e-008, 0.269403, 3.03966e-008, 0.963028, 1, 1, 1, 0.541667, 1, 0, 0, 0, -2.42254e-008, 0.266004, 3.04111e-008, 0.963972, 1, 1, 1, 0.583333, 1, 0, 0, 0, -2.42586e-008, 0.255697, 3.04528e-008, 0.966757, 1, 1, 1, 0.625, 1, 0, 0, 0, -2.43076e-008, 0.238511, 3.05143e-008, 0.97114, 1, 1, 1, 0.666667, 1, 0, 0, 0, -2.43622e-008, 0.214879, 3.05829e-008, 0.976641, 1, 1, 1, 0.916667, 1, 0, 0, 0, -2.43076e-008, 0.0319356, 3.05143e-008, 0.99949, 1, 1, 1, 0.958333, 1, 0, 0, 0, -2.42586e-008, 0.0142038, 3.04528e-008, 0.999899, 1, 1, 1, 1, 1, 0, 0, 0, -2.42254e-008, 0.00352759, 3.04111e-008, 0.999994, 1, 1, 1, 1.04167, 1, 0, 0, 0, 4.44089e-016, -1.62034e-030, -3.64867e-015, 1, 1, 1, 1 )
+tracks/1/keys = PoolRealArray( 0, 1, 0, 0, 0, 4.44089e-16, -1.62034e-30, -3.64867e-15, 1, 1, 1, 1, 0.0416667, 1, 0, 0, 0, 4.27017e-16, 0.00414321, -3.92575e-15, 0.999991, 1, 1, 1, 0.0833333, 1, 0, 0, 0, 3.95333e-16, 0.0166773, -2.72008e-15, 0.999861, 1, 1, 1, 0.125, 1, 0, 0, 0, 3.14886e-16, 0.0374195, -3.23369e-15, 0.9993, 1, 1, 1, 0.333333, 1, 0, 0, 0, -1.88173e-16, 0.205726, -2.68322e-15, 0.97861, 1, 1, 1, 0.375, 1, 0, 0, 0, -2.78743e-16, 0.233178, -2.67323e-15, 0.972434, 1, 1, 1, 0.416667, 1, 0, 0, 0, -7.39673e-16, 0.253305, -4.1674e-15, 0.967387, 1, 1, 1, 0.458333, 1, 0, 0, 0, -1.8044e-16, 0.265411, -1.90792e-15, 0.964135, 1, 1, 1, 0.5, 1, 0, 0, 0, -2.42138e-08, 0.269403, 3.03966e-08, 0.963028, 1, 1, 1, 0.541667, 1, 0, 0, 0, -2.42254e-08, 0.266004, 3.04111e-08, 0.963972, 1, 1, 1, 0.583333, 1, 0, 0, 0, -2.42586e-08, 0.255697, 3.04528e-08, 0.966757, 1, 1, 1, 0.625, 1, 0, 0, 0, -2.43076e-08, 0.238511, 3.05143e-08, 0.97114, 1, 1, 1, 0.666667, 1, 0, 0, 0, -2.43622e-08, 0.214879, 3.05829e-08, 0.976641, 1, 1, 1, 0.916667, 1, 0, 0, 0, -2.43076e-08, 0.0319356, 3.05143e-08, 0.99949, 1, 1, 1, 0.958333, 1, 0, 0, 0, -2.42586e-08, 0.0142038, 3.04528e-08, 0.999899, 1, 1, 1, 1, 1, 0, 0, 0, -2.42254e-08, 0.00352759, 3.04111e-08, 0.999994, 1, 1, 1, 1.04167, 1, 0, 0, 0, 4.44089e-16, -1.62034e-30, -3.64867e-15, 1, 1, 1, 1 )
 
 [node name="Blob" type="Spatial"]
 
 [node name="Armature" type="Spatial" parent="."]
 
 [node name="Skeleton" type="Skeleton" parent="Armature"]
-bones_in_world_transform = true
 bones/0/name = "Bone"
 bones/0/parent = -1
-bones/0/rest = Transform( 0.967262, 2.1595e-008, 0.253782, 0.253782, 7.45058e-009, -0.967262, -2.98023e-008, 1, -2.23517e-008, 0, 0, 0 )
+bones/0/rest = Transform( 0.967262, 2.1595e-08, 0.253782, 0.253782, 7.45058e-09, -0.967262, -2.98023e-08, 1, -2.23517e-08, 0, 0, 0 )
 bones/0/enabled = true
 bones/0/bound_children = [  ]
 bones/1/name = "Bone.001"
 bones/1/parent = 0
-bones/1/rest = Transform( 1, 3.07175e-008, 2.98023e-008, -3.07175e-008, 1, -6.43978e-009, -2.98023e-008, 6.43978e-009, 1, -3.40556e-016, 0, -0.668875 )
+bones/1/rest = Transform( 1, 3.07175e-08, 2.98023e-08, -3.07175e-08, 1, -6.43978e-09, -2.98023e-08, 6.43978e-09, 1, -3.40556e-16, 0, -0.668875 )
 bones/1/enabled = true
 bones/1/bound_children = [  ]
 
 [node name="Blob" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = SubResource( 1 )
-material/0 = SubResource( 3 )
+material/0 = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 playback_speed = 0.8
-anims/Idle = SubResource( 2 )
+anims/Idle = SubResource( 3 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 autoplay = true
 max_distance = 10.0
-

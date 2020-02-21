@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tests/Grass2.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://tests/grass_test_material.tres" type="Material" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Gras2" type="MeshInstance" parent="."]
+cast_shadow = 2
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )

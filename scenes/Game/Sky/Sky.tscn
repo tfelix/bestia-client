@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/Game/Sky/Sky.shader" type="Shader" id=1]
+[ext_resource path="res://scenes/Game/Sky/noise.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Game/Sky/Sky.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Game/Sky/default_env.tres" type="Environment" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/COVERAGE = 0.5
+shader_param/THICKNESS = 25.0
+shader_param/ABSORPTION = 1.031
+shader_param/STEPS = 25
+shader_param/noiseTexture = ExtResource( 2 )
+
+[sub_resource type="ImageTexture" id=2]
+size = Vector2( 1280, 720 )
+
+[sub_resource type="ViewportTexture" id=3]
+flags = 12
+viewport_path = NodePath("Sky")
+
+[sub_resource type="PanoramaSky" id=4]
+resource_local_to_scene = true
+panorama = SubResource( 3 )
+
+[sub_resource type="Environment" id=5]
+resource_local_to_scene = true
+background_mode = 2
+background_sky = SubResource( 4 )
+ambient_light_color = Color( 0.2, 0.835294, 1, 1 )
+ambient_light_sky_contribution = 0.0
+fog_enabled = true
+glow_intensity = 1.46
+glow_strength = 0.71
+glow_bloom = 0.11
+glow_blend_mode = 0
+
+[node name="Sky" type="Spatial"]
+
+[node name="Sky" type="Viewport" parent="."]
+size = Vector2( 1280, 768 )
+render_target_update_mode = 3
+
+[node name="Sprite" type="Sprite" parent="Sky"]
+material = SubResource( 1 )
+texture = SubResource( 2 )
+centered = false
+script = ExtResource( 3 )
+
+[node name="scene_cam" type="Camera" parent="."]
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 6.36598, 2.33312, -0.261921 )
+environment = ExtResource( 4 )
+current = true
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label3" type="Label" parent="Control"]
+editor/display_folded = true
+margin_left = 5.0
+margin_top = 215.469
+margin_right = 73.0
+margin_bottom = 229.469
+text = "COVERAGE"
+
+[node name="HScrollBar" type="HScrollBar" parent="Control/Label3"]
+margin_left = 5.0
+margin_top = 17.2915
+margin_right = 145.0
+margin_bottom = 30.2915
+value = 50.0
+
+[node name="Label4" type="Label" parent="Control"]
+editor/display_folded = true
+margin_left = 5.0
+margin_top = 250.052
+margin_right = 90.0
+margin_bottom = 264.052
+text = "ABSORPTION"
+
+[node name="HScrollBar" type="HScrollBar" parent="Control/Label4"]
+margin_left = 5.0
+margin_top = 17.2916
+margin_right = 145.0
+margin_bottom = 29.2916
+value = 10.0
+
+[node name="Label5" type="Label" parent="Control"]
+editor/display_folded = true
+margin_left = 5.0
+margin_top = 291.66
+margin_right = 105.0
+margin_bottom = 305.66
+text = "THICKNESS"
+
+[node name="HScrollBar" type="HScrollBar" parent="Control/Label5"]
+margin_left = 5.0
+margin_top = 16.2108
+margin_right = 145.0
+margin_bottom = 28.2108
+value = 25.0
+
+[node name="Label6" type="Label" parent="Control"]
+editor/display_folded = true
+margin_left = 5.0
+margin_top = 326.14
+margin_right = 82.0
+margin_bottom = 340.14
+text = "STEPS (1-100)"
+
+[node name="HScrollBar" type="HScrollBar" parent="Control/Label6"]
+margin_left = 5.0
+margin_top = 16.2108
+margin_right = 145.0
+margin_bottom = 28.2108
+value = 25.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+[connection signal="gui_input" from="Control/Label3/HScrollBar" to="scene_cam" method="set_ui_input"]
+[connection signal="value_changed" from="Control/Label3/HScrollBar" to="Sky/Sprite" method="cov_scb"]
+[connection signal="gui_input" from="Control/Label4/HScrollBar" to="scene_cam" method="set_ui_input"]
+[connection signal="value_changed" from="Control/Label4/HScrollBar" to="Sky/Sprite" method="absb_scb"]
+[connection signal="gui_input" from="Control/Label5/HScrollBar" to="scene_cam" method="set_ui_input"]
+[connection signal="value_changed" from="Control/Label5/HScrollBar" to="Sky/Sprite" method="thick_scb"]
+[connection signal="gui_input" from="Control/Label6/HScrollBar" to="scene_cam" method="set_ui_input"]
+[connection signal="value_changed" from="Control/Label6/HScrollBar" to="Sky/Sprite" method="step_scb"]
