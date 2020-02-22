@@ -3,19 +3,22 @@ extends Camera
 export var min_distance = 7
 export var max_distance = 28
 
-export var min_theta = 25
-export var max_theta = 70
-
-export var min_phi = -45
-export var max_phi = 45
+export var max_theta_delta = 30
+export var max_phi_delta = 55
 
 export var camera_move_distance = 0.3 # how many % of the viewport you must travel
 
 var _is_cam_controlled = false
 var _r = 15
 var _start_theta = 0
+
 var _current_theta = 0
 var _current_phi = 0
+
+# These are here to avoid "jumps" when the user starts to
+# move the camera again.
+var _last_theta = 0
+var _last_phi = 0
 
 var _current_distance = (min_distance + max_distance) / 2
 var _start_cam_move = Vector2()
@@ -29,6 +32,7 @@ func _ready():
 	_cam_dir = transform.origin.normalized()
 	_current_theta = rad2deg(acos(_cam_dir.y)) # length is 1 unit vector
 	_start_theta = _current_theta
+	_last_theta = _start_theta
 	set_as_toplevel(true)
 
 
@@ -55,37 +59,43 @@ func _unhandled_input(event):
 				_start_cam_move = event.position
 				_is_cam_controlled = true
 		else:
-			_is_cam_controlled = false
+			_stop_cam_motion()
 	elif event is InputEventMouseMotion:
 		if !_is_cam_controlled:
 			return
-		_prepare_rotation_cam(event)
+		_rotate_cam(event)
 
-func _prepare_rotation_cam(event):
+
+func _stop_cam_motion() -> void:
+	_last_phi = _current_phi
+	_last_theta = _current_theta
+	_is_cam_controlled = false
+
+
+func _rotate_cam(event) -> void:
 	var size = get_viewport().get_visible_rect().size
-	var d = min(size.x, size.y) * camera_move_distance
+	var move_distance = min(size.x, size.y) * camera_move_distance
 	var move_delta = (_start_cam_move - event.position)
 	
-	var rel_x = move_delta / d
-	_current_theta -= move_delta.y
-	_current_theta = clamp(_current_theta, min_theta, max_theta)
+	var rel_y = move_delta.y / move_distance
+	_current_theta = clamp(_last_theta + rel_y * max_theta_delta, _start_theta - max_theta_delta, _start_theta + max_theta_delta)
 	
-	_current_phi -= move_delta.x
-	_current_phi = clamp(_current_phi, min_phi, max_phi)
+	var rel_x = move_delta.x / move_distance
+	_current_phi = clamp(_last_phi + rel_x * max_phi_delta, -max_phi_delta, max_phi_delta)
 
 
-func _reset():
+func _reset() -> void:
 	_current_phi = 0
 	_current_theta = _start_theta
 
 
-func _zoom_in():
+func _zoom_in() -> void:
 	_current_distance -= 1
 	if _current_distance < min_distance:
 		_current_distance = min_distance
 
 
-func _zoom_out():
+func _zoom_out() -> void:
 	_current_distance += 1
 	if _current_distance > max_distance:
 		_current_distance = max_distance

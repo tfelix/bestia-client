@@ -1,8 +1,8 @@
 extends Node
 
-var cursor_hand = preload("res://scenes/GameUI/cursor/cursor-hand.png")
-var cursor_attack = preload("res://scenes/GameUI/cursor/cursor-attack.png")
-var cursor_skill = preload("res://scenes/GameUI/cursor/cursor-skill.png")
+export(Resource) var cursor_skill
+export(Resource) var cursor_attack
+export(Resource) var cursor_hand
 
 var _cursor_stack = []
 

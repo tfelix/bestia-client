@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Mob/Mob.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Game/Entity/Component/NameComponent.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -17,7 +18,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.88
 shape = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Collidor" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.885986, 0 )
+transform = Transform( 0.591571, 0, 0, 0, -3.07118e-08, 0.702604, 0, -0.588029, -2.57036e-08, 0, 0.885986, 0 )
 shape = SubResource( 1 )
 
 [node name="Selection" parent="." index="2"]
@@ -27,5 +28,9 @@ selection_mesh_path = NodePath("../MeshInstance")
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.890747, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
+
+[node name="NameComponent" type="Node" parent="Components" index="0"]
+script = ExtResource( 2 )
+entity_name = "Test Mob"
 
 [editable path="Interactions"]

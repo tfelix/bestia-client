@@ -2,10 +2,15 @@ extends Control
 
 var _camera: Camera
 
-onready var _container = $Character as VBoxContainer
+export var character_name: String = "Player"
+
+onready var _container = $Container
+onready var _name_label = $Container/Rows/Name
 
 func _ready():
 	_camera = get_tree().get_root().get_camera()
+	_name_label.text = character_name
+
 
 func _process(delta):
 	if _container == null:

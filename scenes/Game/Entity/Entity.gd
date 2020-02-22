@@ -152,3 +152,16 @@ func _handle_secondary_input():
 	else:
 		_interactions.show_possible_interactions()
 		_selection.selected()
+
+
+func _on_Collidor_mouse_entered():
+	print_debug("geht")
+	for c in _components:
+		c.on_mouse_entered(self)
+	GlobalEvents.emit_signal("onEntityMouseEntered", self)
+
+
+func _on_Collidor_mouse_exited():
+	for c in _components:
+		c.on_mouse_exited(self)
+	GlobalEvents.emit_signal("onEntityMouseExited", self)

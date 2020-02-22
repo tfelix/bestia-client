@@ -21,5 +21,7 @@ visible = false
 
 [node name="Fx" type="Node" parent="."]
 [connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]
+[connection signal="mouse_entered" from="Collidor" to="." method="_on_Collidor_mouse_entered"]
+[connection signal="mouse_exited" from="Collidor" to="." method="_on_Collidor_mouse_exited"]
 
 [editable path="Interactions"]

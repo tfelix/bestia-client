@@ -199,6 +199,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Mob/Mob.gd"
 }, {
+"base": "Node",
+"class": "NameComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/NameComponent.gd"
+}, {
 "base": "Component",
 "class": "NoMovementComponent",
 "language": "GDScript",
@@ -338,6 +343,7 @@ _global_script_class_icons={
 "ItemUseRequestMessage": "",
 "ItemUseResponseMessage": "",
 "Mob": "",
+"NameComponent": "",
 "NoMovementComponent": "",
 "PST": "",
 "PerformConstructionComponent": "",
@@ -363,13 +369,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Bestia Behemoth"
-run/main_scene="res://scenes/Game/Game.tscn"
+run/main_scene="res://tests/WalkTest/WalkTest.tscn"
 boot_splash/image="res://img/splash.png"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://GlobalData.gd"
+GlobalEvents="*res://GlobalEvents.gd"
 
 [display]
 

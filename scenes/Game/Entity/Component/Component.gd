@@ -26,6 +26,14 @@ func on_remove(entity) -> void:
 	pass
 
 
+func on_mouse_entered(entity) -> void:
+	pass
+
+
+func on_mouse_exited(entity) -> void:
+	pass
+
+
 func get_name() -> String:
 	printerr("get_name() was not overwritten in Component")
 	return ""

@@ -39,7 +39,7 @@ shape = SubResource( 3 )
 [node name="Selection" parent="." index="3"]
 selection_mesh_path = NodePath("../ItemMesh/small_flask")
 
-[node name="ItemGlimmer" parent="." index="7"]
+[node name="ItemGlimmer" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06092, 0 )
 
 [editable path="ItemMesh"]

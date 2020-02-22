@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=2]
@@ -9,13 +9,16 @@
 [ext_resource path="res://scenes/Game/Water/Water.material" type="Material" id=7]
 [ext_resource path="res://scenes/Game/Entities.gd" type="Script" id=8]
 [ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/GameUI/Cursor/cursor-attack.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=13]
 [ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/GameUI/Cursor/cursor-skill.png" type="Texture" id=16]
 [ext_resource path="res://scenes/GameUI/CharacterBars/CharacterBars.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/GameUI/CharacterLabel/CharacterLabel.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/GameUI/Cursor/cursor-hand.png" type="Texture" id=19]
 [ext_resource path="res://scenes/Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/SignSmall.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/Game/Entity/Struct/ChestSmall/ChestSmall.tscn" type="PackedScene" id=22]
@@ -232,6 +235,11 @@ subdivide_depth = 40
 script = ExtResource( 1 )
 
 [node name="Manager" parent="." instance=ExtResource( 2 )]
+
+[node name="CursorManager" parent="Manager" index="0"]
+cursor_skill = ExtResource( 16 )
+cursor_attack = ExtResource( 10 )
+cursor_hand = ExtResource( 19 )
 
 [node name="DayManager" parent="Manager" index="2"]
 world_environment_path = NodePath("WorldEnvironment")

@@ -30,5 +30,5 @@ func unselected():
 
 
 func event_published(event_key, payload):
-  if event_key == PST.ENTITY_SELECTED && payload != self:
-    unselected()
+	if event_key == PST.ENTITY_SELECTED && payload != self:
+		unselected()
