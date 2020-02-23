@@ -14,17 +14,13 @@ enum EntityKind {
 
 const Damage3D = preload("res://scenes/Game/Damage/Damage3D.tscn")
 
-signal component_changed(component)
-signal component_removed(component)
-signal component_added(component)
-
 export (EntityKind) var entity_kind = EntityKind.ITEM
 
 var id = 0
-var _components = []
 
 onready var _selection = $Selection
 onready var _interactions = $Interactions
+onready var _components = $Components
 
 
 func _ready():
@@ -43,64 +39,15 @@ func get_aabb() -> AABB:
 	return AABB(Vector3.ZERO, Vector3.ONE)
 
 
-func add_component(component: Component) -> void:
-	var existing_comp = get_component(component.get_name())
-	if existing_comp != null:
-		update_component(component)
-		return
-	
-	_components.append(component)
-	component.on_attach(self)
-	emit_signal("component_added", component)
-
-
-func get_component(component_name: String) -> Component:
-	for c in _components:
-		if c.get_name() == component_name:
-			return c
-	return null
-
-
-func update_component(component: Component):
-	var old_comp: Component = null
-	var pos = -1
-	for c in _components:
-		pos += 1
-		if c.get_name() == component.get_name():
-			old_comp = c
-			break
-		
-	if old_comp != null:
-		old_comp.on_update(self, component)
-	else:
-		_components.append(component)
-		component.on_attach(self)
-	emit_signal("component_changed", component)
-
-
-func remove_component(componentName: String):
-	var old_comp: Component = null
-	var pos = 0
-	for c in _components:
-		if c.get_name() == componentName:
-			old_comp = c
-			break
-		pos += 1
-	if old_comp != null:
-		old_comp.on_remove(self)
-		_components.remove(pos)
-		emit_signal("component_removed", old_comp)
-
-
 func handle_message(msg):
 	if msg is DamageMessage:
 		_display_damage(msg)
 	if msg is FxMessage:
 		_display_fx(msg)
 	if msg is Component:
-		update_component(msg)
+		_components.add_component(msg)
 	if msg is ComponentRemoveMessage:
-		remove_component(msg.component_name)
+		_components.remove_component(msg.component_name)
 
 
 func _display_fx(msg: FxMessage) -> void:
@@ -129,6 +76,7 @@ func _display_damage(msg: DamageMessage) -> void:
 func _on_Collidor_input_event(camera, event, click_position, click_normal, shape_idx):
 	if event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
 		_handle_default_input()
+		GlobalEvents.emit_signal("onEntityClicked", self, event)
 	if event.is_action_pressed(Actions.ACTION_RIGHT_CLICK):
 		_handle_secondary_input()
 
@@ -155,13 +103,10 @@ func _handle_secondary_input():
 
 
 func _on_Collidor_mouse_entered():
-	print_debug("geht")
-	for c in _components:
-		c.on_mouse_entered(self)
+	_components.on_mouse_entered(self)
 	GlobalEvents.emit_signal("onEntityMouseEntered", self)
 
 
 func _on_Collidor_mouse_exited():
-	for c in _components:
-		c.on_mouse_exited(self)
+	_components.on_mouse_exited(self)
 	GlobalEvents.emit_signal("onEntityMouseExited", self)

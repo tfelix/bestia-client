@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/Chat/ChatMessage.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "Component",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/Component.gd"
@@ -73,6 +73,11 @@ _global_script_classes=[ {
 "class": "ComponentRemoveMessage",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/ComponentRemoveMessage.gd"
+}, {
+"base": "Node",
+"class": "Components",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/Components.gd"
 }, {
 "base": "Component",
 "class": "ConditionComponent",
@@ -199,7 +204,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Mob/Mob.gd"
 }, {
-"base": "Node",
+"base": "Component",
 "class": "NameComponent",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/NameComponent.gd"
@@ -318,6 +323,7 @@ _global_script_class_icons={
 "ChatSend": "",
 "Component": "",
 "ComponentRemoveMessage": "",
+"Components": "",
 "ConditionComponent": "",
 "Cursor": "",
 "CursorRequest": "",

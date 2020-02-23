@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
-[ext_resource path="res://tests/MoveTestCamera.gd" type="Script" id=3]
+[ext_resource path="res://tests/WalkTest/MoveTestCamera.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Selection/Selection2.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/GameUI/CharacterLabel/CharacterLabel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tests/WalkTest/ClickManager.gd" type="Script" id=7]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -38,17 +37,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35534, 3.60102 )
 input_ray_pickable = false
 
 [node name="Camera" type="Camera" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 11.3287, 11.9969 )
+transform = Transform( 1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 16.3632, 20.9094 )
 fov = 50.0
 script = ExtResource( 3 )
 
-[node name="CharacterLabel" parent="Player" instance=ExtResource( 6 )]
-
 [node name="TestMob" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50759, 0, -6.97882 )
-
-[node name="TestMob2" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3055, 0, -0.80915 )
+visible = false
 
 [node name="Selection" parent="." instance=ExtResource( 5 )]
 visible = false

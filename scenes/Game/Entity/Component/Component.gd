@@ -1,6 +1,7 @@
 # We must NOT reference entity in here as this would lead to a cyclic dep problem.
 # GDScript is sadly very weak in here. Until https://github.com/godotengine/godot/issues/27136
 # is solved we must avoid references to Entity in this class (as Entity relies on Component as well)
+extends Node
 class_name Component
 
 var id

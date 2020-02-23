@@ -1,4 +1,4 @@
-extends Node
+extends Component
 class_name NameComponent
 
 var MobLabel = preload("res://scenes/GameUI/MobLabel/MobLabel.tscn")
@@ -8,6 +8,7 @@ export(String) var entity_name
 var _mob_label = null
 
 func on_attach(entity) -> void:
+	entity_id = entity.id
 	_mob_label = MobLabel.instance()
 	entity.add_child(_mob_label)
 	_mob_label.visible = false

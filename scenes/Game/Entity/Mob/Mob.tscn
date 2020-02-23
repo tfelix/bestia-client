@@ -5,8 +5,5 @@
 
 [node name="Mob" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-entity_kind = 3
-
-[node name="Components" type="Node" parent="." index="5"]
 
 [editable path="Interactions"]

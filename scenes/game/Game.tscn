@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://scenes/GameUI/Cursor/cursor-attack.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Game/PlayerCamera.gd" type="Script" id=13]
 [ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/GameUI/Cursor/cursor-skill.png" type="Texture" id=16]
@@ -290,21 +289,17 @@ script = ExtResource( 8 )
 
 [node name="Bottle" parent="Entities" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22542, 0, 0.160558 )
+entity_kind = 0
 
 [node name="Bottle2" parent="Entities" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.34783, 0, 0.160558 )
+entity_kind = 0
 
 [node name="SmallFire" parent="Entities" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7823, 0, -2.94866 )
 
 [node name="Player" parent="Entities" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7234, 0.0201416, -1.35993 )
-
-[node name="PlayerCamera" type="Camera" parent="Entities/Player"]
-transform = Transform( 1, 0, 0, 0, 0.869308, 0.49427, 0, -0.49427, 0.869308, 0, 10.4301, 16.6005 )
-current = true
-fov = 50.0
-script = ExtResource( 13 )
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 14 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 17.6515, -2.20015 )
@@ -326,6 +321,7 @@ transform = Transform( 0.849106, 0, -0.528222, 0, 1, 0, 0.528222, 0, 0.849106, 6
 
 [node name="Entity" parent="Entities" instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3088, 0, -2.17858 )
+entity_kind = 0
 
 [node name="ChestSmall" parent="Entities" instance=ExtResource( 22 )]
 transform = Transform( 0.972651, 0, -0.232271, 0, 1, 0, 0.232271, 0, 0.972651, 15.7814, 0, 0 )

@@ -13,7 +13,7 @@ var ui = null
 func _process(delta):
 	if ui != null:
 		var global_pos = parent_entity.to_global(Vector3.ZERO)
-		var screen_pos = Global.player_camera.unproject_position(global_pos)
+		var screen_pos = get_tree().get_root().get_camera().unproject_position(global_pos)
 		ui.margin_left = screen_pos.x
 		ui.margin_top = screen_pos.y
 

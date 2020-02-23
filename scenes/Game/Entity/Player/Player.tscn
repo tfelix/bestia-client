@@ -1,29 +1,24 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/GameUI/Cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
-
-[sub_resource type="CylinderShape" id=1]
+[ext_resource path="res://scenes/Game/Entity/Component/Components.gd" type="Script" id=4]
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0.933055, 0 )
-shape = SubResource( 1 )
 
 [node name="PlayerMesh" parent="." instance=ExtResource( 2 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Interactions" parent="." instance=ExtResource( 4 )]
-
-[node name="Components" type="Node" parent="."]
-
-[node name="LocalComponents" type="Node" parent="."]
-
 [node name="MoveCursor" parent="." instance=ExtResource( 3 )]
 visible = false
 
-[editable path="Interactions"]
+[node name="Components" type="Node" parent="."]
+script = ExtResource( 4 )
+[connection signal="input_event" from="." to="." method="_on_Player_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_Player_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Player_mouse_exited"]
