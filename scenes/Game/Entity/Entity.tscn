@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Entity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/InteractionRange.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Game/Selection/Selection.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Entity/Component/Components.gd" type="Script" id=5]
 
@@ -15,9 +14,6 @@ input_ray_pickable = false
 script = ExtResource( 2 )
 
 [node name="Collidor" type="StaticBody" parent="."]
-
-[node name="Selection" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="Interactions" parent="." instance=ExtResource( 4 )]
 

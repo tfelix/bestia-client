@@ -24,8 +24,6 @@ var _current_distance = (min_distance + max_distance) / 2
 var _start_cam_move = Vector2()
 var _cam_dir = Vector3()
 
-var config_file = "user://bestia.cfg"
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_r = transform.origin.length()
@@ -36,25 +34,9 @@ func _ready():
 	_last_theta = _start_theta
 	set_as_toplevel(true)
 	
-	var config = ConfigFile.new()
-	var err = config.load(config_file)
-	if err == OK: 
-		# If not, something went wrong with the file loading
-		# Look for the display/width pair, and default to 1024 if missing
-		_current_phi = config.get_value("camera", "current_phi", 0)
-		_current_theta = config.get_value("camera", "current_theta", 0)
-		_current_distance = config.get_value("camera", "current_distance", _current_distance)
-
-
-func free():
-	var config = ConfigFile.new()
-	var err = config.load(config_file)
-	if err == OK: 
-		config.set_value("camera", "current_phi", _current_phi)
-		config.set_value("camera", "current_theta", _current_theta)
-		config.set_value("camera", "current_distance", _current_distance)
-		config.save(config_file)
-	.free()
+	_current_phi = GlobalConfig.get_value("camera", "current_phi", 0)
+	_current_theta = GlobalConfig.get_value("camera", "current_theta", _current_theta)
+	_current_distance = GlobalConfig.get_value("camera", "current_distance", _current_distance)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

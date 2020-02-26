@@ -22,7 +22,7 @@ func has_default_interaction(node: Entity) -> bool:
 	if node == null:
 		return false
 	var kind = node.entity_kind
-	return Global.default_interactions.has(kind)
+	return GlobalData.default_interactions.has(kind)
 
 
 func trigger_interaction(node: Entity) -> void:
@@ -31,11 +31,11 @@ func trigger_interaction(node: Entity) -> void:
 		return
 	
 	var kind = node.entity_kind
-	if !Global.default_interactions.has(kind):
+	if !GlobalData.default_interactions.has(kind):
 		printerr("No default interaction set for kind: ", kind)
 		return
 	
-	var default_interaction = Global.default_interactions[kind]
+	var default_interaction = GlobalData.default_interactions[kind]
 	var interaction_node = get_node(default_interaction)
 	if interaction_node == null:
 		print("No interaction of type '", default_interaction, "' found")

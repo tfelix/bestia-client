@@ -5,7 +5,6 @@ extends Spatial
 # - React to wind direction
 # - Adapt particle count via placement via shader
 
-# var PST = preload("res://PubSubTopics.gd")
 var splash_obj = preload("./RainSplash.tscn")
 
 export var splash_area = 40
@@ -29,9 +28,9 @@ func _ready():
 	PubSub.subscribe(PST.ENV_WEATHER_CHANGED, self)
 
 	for i in range(splash_pool_size):
-	    var s = splash_obj.instance()
-	    add_child(s)
-	    splashes.append(s)
+		var s = splash_obj.instance()
+		add_child(s)
+		splashes.append(s)
 
 func free():
 	PubSub.unsubscribe(self)
@@ -39,8 +38,8 @@ func free():
 
 func event_published(event_key, payload):
   match (event_key):
-    PST.ENV_WEATHER_CHANGED:
-      handle_weather_changed(payload)
+	PST.ENV_WEATHER_CHANGED:
+	  handle_weather_changed(payload)
 
 func handle_weather_changed(data):
 	print_debug("Rain intensity: ", data.rain_intensity)
@@ -85,21 +84,21 @@ func change_rain_amount(intensity: float):
 
 
 func _physics_process(delta):
-    time_since_splash += delta
-    while time_since_splash >= splash_rate:
-        make_splash()
-        cur_splash_ind += 1
-        cur_splash_ind %= splashes.size()
-        time_since_splash -= splash_rate
+	time_since_splash += delta
+	while time_since_splash >= splash_rate:
+		make_splash()
+		cur_splash_ind += 1
+		cur_splash_ind %= splashes.size()
+		time_since_splash -= splash_rate
 
 
 func make_splash():
-    var x_pos = rand_range(-splash_area, splash_area)
-    var z_pos = rand_range(-splash_area, splash_area)
-    var start_pos = global_transform.origin + Vector3(x_pos, 0, z_pos)
+	var x_pos = rand_range(-splash_area, splash_area)
+	var z_pos = rand_range(-splash_area, splash_area)
+	var start_pos = global_transform.origin + Vector3(x_pos, 0, z_pos)
 
-    var space_state = get_world().direct_space_state
-    var result = space_state.intersect_ray(start_pos, start_pos - Vector3(0, 100, 0))
-    if result.size() > 0:
-        splashes[cur_splash_ind].global_transform.origin = result.position + Vector3(0, 0.2, 0)
-        splashes[cur_splash_ind].play()
+	var space_state = get_world().direct_space_state
+	var result = space_state.intersect_ray(start_pos, start_pos - Vector3(0, 100, 0))
+	if result.size() > 0:
+		splashes[cur_splash_ind].global_transform.origin = result.position + Vector3(0, 0.2, 0)
+		splashes[cur_splash_ind].play()

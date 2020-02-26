@@ -36,7 +36,7 @@ shader = SubResource( 3 )
 
 [sub_resource type="QuadMesh" id=5]
 material = SubResource( 4 )
-size = Vector2( 2, 2 )
+size = Vector2( 14, 10 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -66,9 +66,10 @@ material/0 = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 0.948705, 0.316162, 0, -0.316162, 0.948705, 0, 5.5035, 15.7491 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 300.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 300, 300 )
+stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -80,10 +81,12 @@ hdr = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.577558, 23.2451, 5.5604 )
+transform = Transform( 1, 0, 0, 0, -6.02246e-09, 1, 0, -1, -6.02246e-09, 0.577558, 23.2451, 5.5604 )
+projection = 1
+size = 10.0
 
 [node name="DepthScreen" type="MeshInstance" parent="ViewportContainer/Viewport/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.72442 )
 extra_cull_margin = 10000.0
 mesh = SubResource( 5 )
 material/0 = null

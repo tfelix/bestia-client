@@ -47,27 +47,14 @@ go into ctor mouse pointer,
 dont move the player
 """
 func start_construct() -> void:
-	PubSub.publish(PST.STRUCTURE_CONSTRUCT, true)
-	var cursor_change = CursorRequest.new()
-	cursor_change.identifier = "struct_construct"
-	cursor_change.type = Cursor.Type.HIDDEN
-	PubSub.publish(PST.CURSOR_CHANGE, cursor_change)
+	GlobalEvents.emit_signal("onStructureConstructionStarted", self)
 	_is_constructing = true
-	var player = Global.entities.get_player_entity()
-	if player != null:
-		player.can_move = false
-	# No enable the building mesh
 	_mesh.hide()
 	_building_mesh.show()
 
 
 func stop_construct() -> void:
-	PubSub.publish(PST.STRUCTURE_CONSTRUCT, false)
-	_is_constructing = false
-	PubSub.publish(PST.CURSOR_RESET, "struct_construct")
-	var player = Global.entities.get_player_entity()
-	if player != null:
-		player.can_move = true
+	GlobalEvents.emit_signal("onStructureConstructionEnded", self)
 	queue_free()
 
 
@@ -117,9 +104,10 @@ func _unhandled_input(event):
 
 func _pre_construct() -> bool:
 	_user_input.show()
+	_is_constructing = false
 	return false
 
 
-func _on_SignContentInput_text_entered():
-	print_debug("Send to server: Input, Position etc.")
-	pass # Replace with function body.
+func _on_SignContentInput_text_entered(arg):
+	print_debug("Send to server: Input, Position, Text: ", arg)
+	stop_construct()

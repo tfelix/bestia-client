@@ -30,10 +30,3 @@ func _on_PickUpCollidor_mouse_exited():
 func _on_PickUpCollidor_clicked(camera, event, click_position, click_normal, shape_idx):
 	if !event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
 		return
-	
-	if $Selection.is_selected:
-		$Selection.unselected()
-		$Interactions.abort_interaction()
-	else:
-		$Selection.selected()
-		$Interactions.trigger_interaction(self)

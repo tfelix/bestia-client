@@ -24,16 +24,6 @@ func on_mouse_exited(entity) -> void:
 		c.on_mouse_exited(self)
 
 
-func add_component(component: Component) -> void:
-	var existing_comp = get_component(component.get_name())
-	if existing_comp != null:
-		update_component(component)
-		return
-	
-	add_child(component)
-	component.on_attach(_parent_entity)
-
-
 func get_component(component_name: String) -> Component:
 	for c in get_children():
 		if c.get_name() == component_name:

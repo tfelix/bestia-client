@@ -2,40 +2,24 @@ extends Node
 class_name Entities
 
 var _entities = { }
-
-# This is for testing
-onready var _entity_2 = $TestMob
-onready var _player = $Player
+var _player_entity: Entity = null
 
 func _ready():
-	Global.entities = self
-	PubSub.subscribe(PST.ENTITY_ADDED, self)
-	PubSub.subscribe(PST.ENTITY_REMOVED, self)
-	PubSub.subscribe(PST.SERVER_RECEIVE, self)
+	GlobalData.entities = self
+	GlobalEvents.connect("onEntityAdded", self, "_add_entity")
+	GlobalEvents.connect("onEntityRemoved", self, "_add_entity")
+	GlobalEvents.connect("onReceiveFromServer", self, "_server_received")
 
 
 func free():
-	if Global.entities == self:
-		Global.entities = null
-	PubSub.unsubscribe(self)
+	if GlobalData.entities == self:
+		GlobalData.entities = null
 	.free()
 
 
 # Returns the current player entity
 func get_player_entity() -> Entity:
-	# In the future it will have to detect incoming component messages
-	# in order to setup the player entity correctly.
-	return _player
-
-
-func event_published(event_key, payload) -> void:
-	match (event_key):
-		PST.ENTITY_ADDED:
-			_add_entity(payload)
-		PST.ENTITY_REMOVED:
-			_remove_entity(payload)
-		PST.SERVER_RECEIVE:
-			_server_received(payload)
+	return _player_entity
 
 
 func _server_received(msg) -> void:
@@ -57,41 +41,33 @@ func _check_send_player_bestia_update(msg: Component, entity: Entity) -> void:
 		return
 	if msg is ActivePlayerBestiaComponent:
 		var new_player = get_entity(msg.entity_id)
-		_player = new_player
-	if msg is PlayerComponent && Global.client_account == msg.account_id:
+		_player_entity = new_player
+	if msg is PlayerComponent && GlobalData.client_account_id == msg.account_id:
 		PubSub.publish(PST.ENTITY_PLAYER_UPDATED, entity)
 
 
 func get_entity(id: int) -> Entity:
-	# Remove if testing is finished
-	if id == 1:
-		return _player
-	if id == 2:
-		return _entity_2
-	
+	if not _entities.has(id):
+		printerr("Entity ", id, " was not found")
+		return null
 	return _entities[id]
 
 
 func _send_to_entity(msg) -> Entity:
-	if msg.entity_id == 1:
-		_player.handle_message(msg)
-		return _player
-	if msg.entity_id == 2:
-		_entity_2.handle_message(msg)
-		return _entity_2
+	if not _entities.has(msg.entity_id):
+		printerr("Entity ", msg.entity_id, " was not found")
+		return null
 	var e = _entities[msg.entity_id]
-	if e != null:
-		e.handle_message(msg)
-		return e
-	print_debug("Server send message for unknown entity: ", msg.entity_id)
-	return null
+	e.handle_message(msg)
+	return e
 
 
 func _add_entity(entity: Entity) -> void:
+	print_debug("Added entity ", entity.id)
 	_entities[entity.id] = entity
 
 
 func _remove_entity(entity: Entity) -> void:
-	if entity == _player:
-		_player = null
+	if entity == _player_entity:
+		_player_entity = null
 	_entities.erase(entity.id)

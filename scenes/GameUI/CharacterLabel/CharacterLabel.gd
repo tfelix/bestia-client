@@ -2,14 +2,26 @@ extends Control
 
 var _camera: Camera
 
-export var character_name: String = "Player"
+var _guild_name = "Guild"
+var _player_name = "Player"
+var _emblem = ""
 
 onready var _container = $Container
 onready var _name_label = $Container/Rows/Name
+onready var _guild_label = $Container/Rows/Guild
 
 func _ready():
 	_camera = get_tree().get_root().get_camera()
-	_name_label.text = character_name
+	_name_label.text = _player_name
+	if _guild_name == null:
+		_guild_label.visible = false
+	else:
+		_guild_label.text = _guild_name
+
+
+func init(player_name, guild_name):
+	_player_name = player_name
+	_guild_name = guild_name
 
 
 func _process(delta):

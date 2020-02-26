@@ -1,69 +1,51 @@
 extends Node
+class_name CursorManager
 
 export(Resource) var cursor_skill
 export(Resource) var cursor_attack
 export(Resource) var cursor_hand
 
-var _cursor_stack = []
+var _is_contructing = false
 
 func _ready():
-	_adapt_mouse_icon(Cursor.Type.NORMAL)
-	PubSub.subscribe(PST.CURSOR_CHANGE, self)
-	PubSub.subscribe(PST.CURSOR_RESET, self)
+	_adapt_mouse_icon(cursor_hand)
+	GlobalEvents.connect("onEntityMouseEntered", self, "_check_cursor")
+	GlobalEvents.connect("onEntityMouseExited", self, "_reset_cursor")
+	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
+	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 
 
-func free():
-  PubSub.unsubscribe(self)
-  .free()
+func _started_construction(entity) -> void:
+	_is_contructing = true
+	_hide_mouse_icon()
 
 
-func event_published(event_key, payload) -> void:
-	match (event_key):
-		PST.CURSOR_CHANGE:
-			change_cursor(payload)
-		PST.CURSOR_RESET:
-			reset_cursor(payload)
+func _ended_construction(entity) -> void:
+	_is_contructing = false
+	_adapt_mouse_icon(cursor_hand)
 
 
-func _find_cursor_by_identifier(identifier) -> int:
-	var idx = 0
-	for c in _cursor_stack:
-		if c.identifier == identifier:
-			return idx
-		idx += 1
-	return -1
+func _check_cursor(entity: Entity) -> void:
+	if entity == null:
+		return
+	if _is_contructing:
+		return
+	# Ask the default behavior for this kind of entity.
+	if entity.entity_kind == Entity.EntityKind.MOB:
+		_adapt_mouse_icon(cursor_attack)
 
 
-func reset_cursor(identifier: String) -> void:
-	var pos = _find_cursor_by_identifier(identifier)
-	if pos != -1:
-		_cursor_stack.remove(pos)
-		if _cursor_stack.empty():
-			_adapt_mouse_icon(Cursor.Type.NORMAL)
-		else:
-			var type = _cursor_stack[0].type
-			_adapt_mouse_icon(type)
+func _reset_cursor(entity: Entity) -> void:
+	if _is_contructing:
+		return
+	_adapt_mouse_icon(cursor_hand)
 
 
-func change_cursor(request: CursorRequest) -> void:
-	_cursor_stack.push_front(request)
-	_adapt_mouse_icon(request.type)
-
-
-func _adapt_mouse_icon(cursorType: int) -> void:
+func _hide_mouse_icon() -> void:
+	Input.set_custom_mouse_cursor(null)
 	Input.set_mouse_mode(0)
-	match cursorType:
-		Cursor.Type.NORMAL:
-			Input.set_custom_mouse_cursor(cursor_hand)
-		Cursor.Type.ATTACK:
-			Input.set_custom_mouse_cursor(cursor_attack)
-		Cursor.Type.SKILL:
-			Input.set_custom_mouse_cursor(cursor_skill)
-		Cursor.Type.HIDDEN:
-			Input.set_mouse_mode(1)
-		Cursor.Type.DEFAULT:
-			Input.set_custom_mouse_cursor(null)
-			Input.set_mouse_mode(0)
-			
-		_:
-			printerr("Unknown cursortype send")
+
+
+func _adapt_mouse_icon(cursorType) -> void:
+	Input.set_mouse_mode(0)
+	Input.set_custom_mouse_cursor(cursorType)

@@ -36,5 +36,5 @@ func on_mouse_exited(entity) -> void:
 
 
 func get_name() -> String:
-	printerr("get_name() was not overwritten in Component")
+	printerr("get_name() was not overwritten in Component: ", name)
 	return ""

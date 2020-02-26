@@ -28,9 +28,9 @@ surfaces/0 = {
 
 [node name="SignSmall" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+entity_kind = 1
 
 [node name="SignMesh" type="Spatial" parent="." index="0"]
-editor/display_folded = true
 
 [node name="sign_small" type="MeshInstance" parent="SignMesh" index="0"]
 transform = Transform( 0.999764, -0.0217313, 0, 0.0217313, 0.999764, 0, 0, 0, 1, 0, 0.0716785, -0.00198586 )
@@ -38,7 +38,6 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="SignMeshBuilding" type="Spatial" parent="." index="1"]
-editor/display_folded = true
 visible = false
 
 [node name="sign_small" type="MeshInstance" parent="SignMeshBuilding" index="0"]
@@ -47,62 +46,62 @@ material_override = ExtResource( 4 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="InteractionRange" parent="." index="2"]
-editor/display_folded = true
-
 [node name="CollisionShape" type="CollisionShape" parent="InteractionRange" index="0"]
-transform = Transform( 1.43621, 0, 0, 0, -3.24517e-008, 0.742408, 0, -1.43621, -6.27789e-008, 0, 0.855606, 0 )
+transform = Transform( 1.43621, 0, 0, 0, -3.24517e-08, 0.742408, 0, -1.43621, -6.27789e-08, 0, 0.855606, 0 )
 shape = SubResource( 2 )
-
-[node name="Collidor" parent="." index="3"]
-editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Collidor" index="0"]
 transform = Transform( 0.488328, 0, 0, 0, 0.885221, 0, 0, 0, 0.146197, -0.0206053, 0.791032, 0.0576462 )
 shape = SubResource( 3 )
 
-[node name="Selection" parent="." index="4"]
-transform = Transform( 1.7259, 0, 0, 0, 1, 0, 0, 0, 1.7259, 0, 0, 0 )
-visible = true
-
 [node name="SignContentInput" type="Control" parent="." index="7"]
-editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
+placeholder = "Sign Text"
 
 [node name="CenterContainer" type="CenterContainer" parent="SignContentInput" index="0"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SignContentInput/CenterContainer" index="0"]
-margin_left = 548.0
-margin_top = 339.0
-margin_right = 732.0
-margin_bottom = 381.0
+[node name="PanelContainer" type="PanelContainer" parent="SignContentInput/CenterContainer" index="0"]
+margin_left = 633.0
+margin_top = 353.0
+margin_right = 647.0
+margin_bottom = 367.0
 
-[node name="Description" type="Label" parent="SignContentInput/CenterContainer/VBoxContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SignContentInput/CenterContainer/PanelContainer" index="0"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 191.0
+margin_bottom = 31.0
+
+[node name="Description" type="Label" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer" index="0"]
+visible = false
 margin_right = 184.0
 margin_bottom = 14.0
 text = "Enter Sign Text"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SignContentInput/CenterContainer/VBoxContainer" index="1"]
-margin_top = 18.0
+[node name="HBoxContainer" type="HBoxContainer" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer" index="1"]
 margin_right = 184.0
-margin_bottom = 42.0
+margin_bottom = 24.0
 
-[node name="LineEdit" type="LineEdit" parent="SignContentInput/CenterContainer/VBoxContainer/HBoxContainer" index="0"]
+[node name="LineEdit" type="LineEdit" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" index="0"]
 margin_right = 150.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 150, 0 )
 
-[node name="SendButton" type="Button" parent="SignContentInput/CenterContainer/VBoxContainer/HBoxContainer" index="1"]
+[node name="SendButton" type="Button" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" index="1"]
 margin_left = 154.0
 margin_right = 184.0
 margin_bottom = 24.0
 text = "Ok"
 [connection signal="text_entered" from="SignContentInput" to="." method="_on_SignContentInput_text_entered"]
-[connection signal="pressed" from="SignContentInput/CenterContainer/VBoxContainer/HBoxContainer/SendButton" to="SignContentInput" method="_on_SendButton_pressed"]
+[connection signal="text_entered" from="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/LineEdit" to="SignContentInput" method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/SendButton" to="SignContentInput" method="_on_SendButton_pressed"]
 
 [editable path="Interactions"]

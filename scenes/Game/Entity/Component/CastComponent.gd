@@ -21,7 +21,7 @@ func get_name() -> String:
 
 
 func on_attach(entity) -> void:
-	var player = Global.entities.get_player_entity()
+	var player = GlobalData.player_entity
 	_cast_fx = CastingFx.instance()
 	player.add_child(_cast_fx)
 	
@@ -29,7 +29,7 @@ func on_attach(entity) -> void:
 	_cast_bar.init("Fireball", 400, player)
 	
 	
-	var target_entity = Global.entities.get_entity(target_entity_id)
+	var target_entity = GlobalData.entities.get_entity(target_entity_id)
 	# Cast marker is able to delete itself so we must keep a weakref to
 	# avoid double free calls.
 	_cast_marker = weakref(CastTargetMarker.instance())

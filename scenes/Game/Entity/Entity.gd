@@ -9,27 +9,37 @@ enum EntityKind {
 	STRUCTURE, 
 	NPC,
 	MOB,
-	VEGETATION
+	VEGETATION,
+	PLAYER
 }
 
 const Damage3D = preload("res://scenes/Game/Damage/Damage3D.tscn")
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
+export var id = 0
 
-var id = 0
 
-onready var _selection = $Selection
 onready var _interactions = $Interactions
 onready var _components = $Components
 
+var _is_selected = false
+
 
 func _ready():
-	PubSub.publish(PST.ENTITY_ADDED, self)
+	# As we might be already attached under the Entities node it might not
+	# be subscribed to the entity signal. To give it a chance to subscribe
+	# we need to call announce entity deferred.
+	call_deferred("_announce_entity")
 
 
 func free():
-  PubSub.publish(PST.ENTITY_REMOVED, self)
-  .free()
+	GlobalEvents.emit_signal("onEntityRemoved", self)
+	.free()
+
+
+func _announce_entity():
+	GlobalEvents.emit_signal("onEntityAdded", self)
+
 
 """
 Returns the bounding box of the mesh of this entity. Then a unit sized
@@ -45,7 +55,7 @@ func handle_message(msg):
 	if msg is FxMessage:
 		_display_fx(msg)
 	if msg is Component:
-		_components.add_component(msg)
+		_components.update_component(msg)
 	if msg is ComponentRemoveMessage:
 		_components.remove_component(msg.component_name)
 
@@ -54,17 +64,27 @@ func _display_fx(msg: FxMessage) -> void:
 	var path = "res://scenes/Attack/%s/%s.tscn" % ["Fireball", "Fireball"]
 	var fx = load(path)
 	print_debug("Calls FX ", msg.fx)
-	pass
 
 
 func _display_damage(msg: DamageMessage) -> void:
-	var entity = Global.entities.get_entity(msg.entity_id)
+	var entity = GlobalData.entities.get_entity(msg.entity_id)
 	if entity == null:
 		print_debug("Entity ", msg.entity_id, " for DamageMessage not found")
 		return
 	var dmg3d = Damage3D.instance()
 	dmg3d.init(msg, entity)
 	add_child(dmg3d)
+
+
+func get_component(component_name: String) -> Component:
+	return _components.get_component(component_name)
+
+
+func update_component(component: Component):
+	return _components.update_component(component)
+
+func remove_component(component_name: String):
+	_components.remove_component(component_name)
 
 
 # The clicking should work like so:
@@ -82,24 +102,20 @@ func _on_Collidor_input_event(camera, event, click_position, click_normal, shape
 
 
 func _handle_default_input() -> void:
-	if _selection.is_selected:
-		_selection.unselected()
+	if _is_selected:
 		_interactions.abort_interaction()
 	else:
 		if _interactions.has_default_interaction(self):
 			_interactions.trigger_interaction(self)
 		else:
 			_interactions.show_possible_interactions()
-			_selection.selected()
 
 
 func _handle_secondary_input():
-	if _selection.is_selected:
-		_selection.unselected()
+	if _is_selected:
 		_interactions.abort_interaction()
 	else:
 		_interactions.show_possible_interactions()
-		_selection.selected()
 
 
 func _on_Collidor_mouse_entered():

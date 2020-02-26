@@ -265,7 +265,7 @@ anims/day = SubResource( 3 )
 visible = false
 
 [node name="Terrain" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0170135, -0.000244141, -50.001 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0186824, 0.215683, -50.0371 )
 mesh = ExtResource( 4 )
 material/0 = ExtResource( 5 )
 script = ExtResource( 6 )

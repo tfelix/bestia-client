@@ -31,7 +31,7 @@ stretch_mode = 1
 
 [node name="Rows" type="VBoxContainer" parent="Container"]
 margin_left = 34.0
-margin_right = 184.0
+margin_right = 73.0
 margin_bottom = 34.0
 custom_constants/separation = 6
 __meta__ = {
@@ -39,15 +39,15 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="Container/Rows"]
-margin_right = 150.0
+margin_right = 39.0
 margin_bottom = 14.0
 text = "Player"
 
 [node name="Guild" type="Label" parent="Container/Rows"]
 margin_top = 20.0
-margin_right = 150.0
+margin_right = 39.0
 margin_bottom = 34.0
-text = "GermanDragonWarriors"
+text = "Guild"
 __meta__ = {
 "_edit_use_anchors_": false
 }

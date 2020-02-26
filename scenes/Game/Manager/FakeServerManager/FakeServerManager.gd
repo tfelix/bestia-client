@@ -15,7 +15,7 @@ var _env_comp: EnvironmentComponent
 var _casted_entity_id: int = 0
 
 func _ready():
-	PubSub.subscribe(PST.SERVER_SEND, self)
+	GlobalEvents.connect("onSendToServer", self, "_on_message")
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1
@@ -33,24 +33,22 @@ func free():
   PubSub.unsubscribe(self)
   .free()
 
-func event_published(event_key, payload):
-	match (event_key):
-		PST.SERVER_SEND:
-			if payload is ChatSend:
-				_send_chat(payload)
-			if payload is UseAttackMessage:
-				_use_skill(payload)
-			if payload is ItemDropMessage:
-				_send_chat(payload)
-			if payload is RequestInventoryMessage:
-				_send_items()
-			if payload is ItemUseRequestMessage:
-				_respond_item_use(payload)
-			if payload is ItemUseMessage:
-				_use_item(payload)
-			else:
-				pass
-				# _chop_tree(payload)
+func _on_message(payload):
+	if payload is ChatSend:
+		_send_chat(payload)
+	elif payload is UseAttackMessage:
+		_use_skill(payload)
+	elif payload is ItemDropMessage:
+		_send_chat(payload)
+	elif payload is RequestInventoryMessage:
+		_send_items()
+	elif payload is ItemUseRequestMessage:
+		_respond_item_use(payload)
+	elif payload is ItemUseMessage:
+		_use_item(payload)
+	else:
+		print_debug("Unknown message: ", payload)
+		pass
 
 
 func _respond_item_use(msg: ItemUseRequestMessage):
@@ -84,7 +82,7 @@ func _use_item(msg: ItemUseMessage) -> void:
 func _send_chat(msg: ChatSend) -> void:
 	print_debug("Received chat msg: ", msg)
 	var response = ChatMessage.new()
-	response.entity_id = Global.client_account
+	response.entity_id = GlobalData.client_account_id
 	response.username = "rocket"
 	response.text = msg.text
 	response.type = msg.type
@@ -155,7 +153,7 @@ func _send_attacks() -> void:
 	var response = ResponseAttackListMessage.new()
 	response.attacks = [atk1, atk2]
 
-	PubSub.publish(PST.SERVER_RECEIVE, response)
+	GlobalEvents.emit_signal("onReceiveFromServer", response)
 
 
 func _drop_item(msg: ItemDropMessage) -> void:
@@ -165,42 +163,53 @@ func _drop_item(msg: ItemDropMessage) -> void:
 
 func _use_skill(msg: UseAttackMessage):
 	print_debug("skill was used: ", msg.player_attack_id)
-	var cast_comp = CastComponent.new()
-	cast_comp.cast_time = 400
-	cast_comp.cast_db_name = "skill_fireball"
-	cast_comp.entity_id = 1
-	cast_comp.target_entity_id = 2
-	PubSub.publish(PST.SERVER_RECEIVE, cast_comp)
-
-	_casted_entity_id = msg.target_entity
-
-	cast_timer.start(cast_comp.cast_time / 1000.0)
+	
+	if msg.player_attack_id == UseAttackMessage.RANGE_ATTACK_ID:
+		var dmg_msg = DamageMessage.new()
+		dmg_msg.entity_id = msg.target_entity
+		dmg_msg.total_damage = randi() % 100 + 1
+		GlobalEvents.emit_signal("onReceiveFromServer", dmg_msg)
+	elif msg.player_attack_id == UseAttackMessage.MELEE_ATTACK_ID:
+		# check if distance is ok and then let the attack be made
+		print_debug("melee")
+	else:
+		# Cast the skill
+		var cast_comp = CastComponent.new()
+		cast_comp.cast_time = 400
+		cast_comp.cast_db_name = "skill_fireball"
+		cast_comp.entity_id = 1
+		cast_comp.target_entity_id = 2
+		GlobalEvents.emit_signal("onReceiveFromServer", cast_comp)
+	
+		_casted_entity_id = msg.target_entity
+	
+		cast_timer.start(cast_comp.cast_time / 1000.0)
 
 
 func _on_CastTimer_timeout():
 	var cast_remove = ComponentRemoveMessage.new()
 	cast_remove.component_name = CastComponent.NAME
 	cast_remove.entity_id = 1
-	PubSub.publish(PST.SERVER_RECEIVE, cast_remove)
+	GlobalEvents.emit_signal("onReceiveFromServer", cast_remove)
 
 	var dmg_msg = DamageMessage.new()
 	# TODO Fix entity ids.
 	dmg_msg.entity_id = 2 #_casted_entity_id
 	dmg_msg.total_damage = randi() % 100 + 1
-	PubSub.publish(PST.SERVER_RECEIVE, dmg_msg)
+	GlobalEvents.emit_signal("onReceiveFromServer", dmg_msg)
 
 	var fx_msg = FxMessage.new()
 	# TODO Fix entity ids.
 	fx_msg.entity_id = 2 # _casted_entity_id
 	fx_msg.fx = "fireball"
 	fx_msg.latency_ms = 10
-	PubSub.publish(PST.SERVER_RECEIVE, fx_msg)
+	GlobalEvents.emit_signal("onReceiveFromServer", fx_msg)
 
 
 func _chop_tree(entity: Entity):
 	var no_movement = NoMovementComponent.new()
 	# Some components have a visual clue, others dont
-	Global.player.push_back(no_movement)
+	GlobalData.player.push_back(no_movement)
 	# Add Progress Component to player entity
 	# After progress is finished despawn tree
 	# Remove NoMovement Component
@@ -212,19 +221,13 @@ func _on_OneShot2_timeout():
 	var msg = ComponentRemoveMessage.new()
 	msg.component_name = ConstructionComponent.NAME
 	msg.entity_id = 1
-	PubSub.publish(PST.SERVER_RECEIVE, msg)
+	GlobalEvents.emit_signal("onReceiveFromServer", msg)
 
 
 func _on_EnvironmentUpdate_timeout():
-	# Maybe sent it somewhere better
-	var info_comp = PlayerComponent.new()
-	info_comp.entity_id = 1
-	info_comp.account_id = 1
-	PubSub.publish(PST.SERVER_RECEIVE, info_comp)
-
 	var active_comp = ActivePlayerBestiaComponent.new()
 	active_comp.entity_id = 1
-	PubSub.publish(PST.SERVER_RECEIVE, active_comp)
+	GlobalEvents.emit_signal("onReceiveFromServer", active_comp)
 
 	_env_comp.current_temp = randi() % 30 - 10
-	PubSub.publish(PST.SERVER_RECEIVE, _env_comp)
+	GlobalEvents.emit_signal("onReceiveFromServer", _env_comp)

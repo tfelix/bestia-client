@@ -1,0 +1,83 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+float rand(float seed){
+    return fract(sin(seed*4124213.)*37523.);
+}
+
+float randVec2(vec2 co)
+{
+    float a = 12.9898;
+    float b = 78.233;
+    float c = 43758.5453;
+    float dt= dot(co.xy ,vec2(a,b));
+    float sn= mod(dt,3.14);
+    return fract(sin(sn) * c);
+}
+
+float randInRange(float id, vec2 range)
+{
+    id = rand(id);
+    return range.x + id * (range.y-range.x);
+}
+
+void AddPannedGrid(
+	inout vec4 fragCol,
+	vec2 uv, 
+	vec4 gridColor,
+	vec2 panningSpeedRange, 
+	float gridSize, 
+	float seedDiff,
+	float time
+)
+{
+    float verticalStretch = 14.0;
+    vec2 st = uv;
+    
+    // This value tells you the index of the columns and rows. You might have 
+    // to recalculate it if you pan something
+    vec2 gridID = floor (vec2(uv.x * rand(seedDiff) * gridSize, uv.y * verticalStretch));
+    
+    // Paning the texture
+    uv.y+= rand(gridID.x + seedDiff) + randInRange(gridID.x + seedDiff, panningSpeedRange) * time;
+    
+    // divide the uv so that it creates the grid
+    uv = fract (vec2(uv.x * rand(cos(3.14)) * gridSize , uv.y * verticalStretch));
+   
+    // Shading the grids
+    float diagonal = smoothstep(0., 0.08, uv.y - uv.x*.1*st.y);
+
+    vec3 temp = vec3((1. - uv.x) * pow((1.0-uv.y) * 1.1,4.)) * diagonal;
+    
+    // Applying the alpha and the fin color addtiv on top
+	int idx = int(gridID.x);
+    if(idx % 3 == 0) {
+		fragCol.xyz += gridColor.a * gridColor.xyz * temp;
+		fragCol.a += gridColor.a;
+	}
+	
+}
+
+void fragment() {
+	// Normalized pixel coordinates (from 0 to 1)
+    // vec2 uv = fragCoord/iResolution.xy;
+	vec2 uv = UV;
+
+    // Compensating for aspect ration
+    uv.x *= VIEWPORT_SIZE.x / VIEWPORT_SIZE.y;
+    
+    vec4 finalColor = vec4(0.);
+    
+    // Adding the efect Additiv
+	AddPannedGrid(finalColor, uv, vec4(0.1,0.7,1.,0.7), vec2(1.1,.4), 250., 3., TIME / 4.);
+    // AddPannedGrid(finalColor, uv, vec4(0.5,0.7,1.,0.5), vec2(.5,.9), 90.,1.50, TIME / 4.);
+    
+    // Output to screen
+	ALBEDO = finalColor.xyz;
+}"
+
+[resource]
+shader = SubResource( 1 )

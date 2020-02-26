@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/BestiaPortraits/BestiaPortraitData.gd"
 }, {
+"base": "Entity",
+"class": "Building",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Building/Building.gd"
+}, {
 "base": "Component",
 "class": "CastComponent",
 "language": "GDScript",
@@ -84,15 +89,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/ConditionComponent.gd"
 }, {
-"base": "Reference",
-"class": "Cursor",
+"base": "Node",
+"class": "CursorManager",
 "language": "GDScript",
-"path": "res://scenes/Game/Manager/Cursor.gd"
-}, {
-"base": "Reference",
-"class": "CursorRequest",
-"language": "GDScript",
-"path": "res://scenes/Game/Manager/CursorRequest.gd"
+"path": "res://scenes/Game/Manager/CursorManager.gd"
 }, {
 "base": "Reference",
 "class": "DamageMessage",
@@ -128,11 +128,6 @@ _global_script_classes=[ {
 "class": "FxMessage",
 "language": "GDScript",
 "path": "res://messages/FxMessage.gd"
-}, {
-"base": "Node",
-"class": "GlobalData",
-"language": "GDScript",
-"path": "res://GlobalData.gd"
 }, {
 "base": "Node",
 "class": "Interaction",
@@ -315,6 +310,7 @@ _global_script_class_icons={
 "Attack": "",
 "AttackRow": "",
 "BestiaPortraitData": "",
+"Building": "",
 "CastComponent": "",
 "CastTargetMarker": "",
 "ChatCommand": "",
@@ -325,8 +321,7 @@ _global_script_class_icons={
 "ComponentRemoveMessage": "",
 "Components": "",
 "ConditionComponent": "",
-"Cursor": "",
-"CursorRequest": "",
+"CursorManager": "",
 "DamageMessage": "",
 "DayData": "",
 "EffortValues": "",
@@ -334,7 +329,6 @@ _global_script_class_icons={
 "Entity": "",
 "EnvironmentComponent": "",
 "FxMessage": "",
-"GlobalData": "",
 "Interaction": "",
 "InteractionRange": "",
 "Interactions": "",
@@ -377,12 +371,14 @@ _global_script_class_icons={
 config/name="Bestia Behemoth"
 run/main_scene="res://tests/WalkTest/WalkTest.tscn"
 boot_splash/image="res://img/splash.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://GlobalData.gd"
+GlobalData="*res://GlobalData.gd"
 GlobalEvents="*res://GlobalEvents.gd"
+GlobalConfig="*res://GlobalConfig.gd"
 
 [display]
 

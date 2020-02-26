@@ -1,34 +1,21 @@
 extends Spatial
 
-var PST = load("res://PubSubTopics.gd")
+var _selected_entity: Entity = null
 
-export(NodePath) var selection_mesh_path = ""
+# We dont know if we are at an entity. consider another mechanism for interactions
+# onready var interactions: Interactions = get_parent().get_node("Interactions")
 
-var is_selected: bool = false
-onready var interactions: Interactions = get_parent().get_node("Interactions")
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	# Export the publish keys at least to a constant
-	PubSub.subscribe(PST.ENTITY_SELECTED, self)
-
-func free():
-	PubSub.unsubscribe(self)
-	.free()
-
-func selected():
-	visible = true
-	is_selected = true
-	PubSub.publish(PST.ENTITY_SELECTED, self)
+	GlobalEvents.connect("onEntitySelected", self, "_select_entity")
 
 
-func unselected():
-	visible = false
-	is_selected = false
-	if interactions != null:
-		interactions.abort_interaction()
+func _select_entity(entity: Entity) -> void:
+	if entity == null:
+		visible = false
+		# if interactions != null:
+		#	interactions.abort_interaction()
+	else:
+		_selected_entity = entity
+		global_transform.origin = entity.global_transform.origin
 
 
-func event_published(event_key, payload):
-	if event_key == PST.ENTITY_SELECTED && payload != self:
-		unselected()

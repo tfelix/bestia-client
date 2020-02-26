@@ -1,11 +1,17 @@
 extends Component
 class_name NameComponent
 
-var MobLabel = preload("res://scenes/GameUI/MobLabel/MobLabel.tscn")
+const MobLabel = preload("res://scenes/GameUI/MobLabel/MobLabel.tscn")
+const NAME = "NameComponent"
 
 export(String) var entity_name
 
 var _mob_label = null
+
+
+func get_name() -> String:
+	return NAME
+
 
 func on_attach(entity) -> void:
 	entity_id = entity.id

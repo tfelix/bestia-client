@@ -27,7 +27,7 @@ func on_update(entity, new_component) -> void:
 	if player_info_comp == null || active_comp == null:
 		return
 	
-	if player_info_comp.account_id != Global.client_account_id:
+	if player_info_comp.account_id != GlobalData.client_account_id:
 		return
 	
 	var temp_data = TemperatureData.new()
