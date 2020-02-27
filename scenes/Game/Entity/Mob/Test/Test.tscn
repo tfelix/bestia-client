@@ -21,14 +21,11 @@ shape = SubResource( 1 )
 transform = Transform( 0.591571, 0, 0, 0, -3.07118e-08, 0.702604, 0, -0.588029, -2.57036e-08, 0, 0.885986, 0 )
 shape = SubResource( 1 )
 
-[node name="Selection" parent="." index="2"]
-selection_mesh_path = NodePath("../MeshInstance")
-
 [node name="NameComponent" type="Node" parent="Components" index="0"]
 script = ExtResource( 2 )
 entity_name = "Mob"
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="6"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.890747, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )

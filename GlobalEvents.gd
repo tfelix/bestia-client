@@ -8,6 +8,9 @@ signal onEntityMouseExited(entity)
 signal onEntityAdded(entity)
 signal onEntityRemoved(entity)
 
+# Player Signals
+signal onPlayerInteract(entity, interaction)
+
 # Structure Signals
 signal onStructureConstructionStarted(entity)
 signal onStructureConstructionEnded(entity)

@@ -63,6 +63,9 @@ bus = "Fx"
 [node name="DamageLabel" type="Control" parent="."]
 mouse_filter = 1
 script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DamageLabel" type="Label" parent="DamageLabel"]
 modulate = Color( 1, 1, 1, 0.8 )

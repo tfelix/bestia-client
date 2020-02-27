@@ -300,6 +300,16 @@ _global_script_classes=[ {
 "path": "res://scenes/Attack/UseAttackMessage.gd"
 }, {
 "base": "Reference",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://tests/WalkTest/Weapon.gd"
+}, {
+"base": "Component",
+"class": "WeaponComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/WeaponComponent.gd"
+}, {
+"base": "Reference",
 "class": "WeatherData",
 "language": "GDScript",
 "path": "res://scenes/Game/Weather/WeatherData.gd"
@@ -363,6 +373,8 @@ _global_script_class_icons={
 "Trigger": "",
 "UUID": "",
 "UseAttackMessage": "",
+"Weapon": "",
+"WeaponComponent": "",
 "WeatherData": ""
 }
 

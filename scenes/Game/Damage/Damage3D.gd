@@ -2,6 +2,7 @@ extends RigidBody
 
 var _damage: DamageMessage
 var _source_entity: Spatial
+var _random_offset: Vector2
 
 onready var _label = $DamageLabel
 
@@ -9,6 +10,7 @@ onready var _label = $DamageLabel
 func init(damage: DamageMessage, entity: Spatial):
 	_damage = damage
 	_source_entity = entity
+	_random_offset = Vector2(randi() % 20 - 10, randi() % 50 - 25)
 
 
 func _process(_delta):
@@ -19,7 +21,7 @@ func _position_label():
 	var cam = get_tree().get_root().get_camera()
 	var pos = self.global_transform.origin
 	var viewport_pos = cam.unproject_position(pos)
-	_label.set_position(viewport_pos)
+	_label.set_position(viewport_pos + _random_offset)
 
 
 func _ready():

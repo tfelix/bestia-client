@@ -6,4 +6,8 @@
 [node name="Mob" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="Collidor" parent="." index="1"]
+collision_layer = 4
+collision_mask = 39
+
 [editable path="Interactions"]

@@ -83,10 +83,12 @@ script = ExtResource( 3 )
 
 [node name="TestMob" parent="Entities" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50759, 0.92261, -6.97882 )
+entity_kind = 3
 id = 55
 
 [node name="TestMob2" parent="Entities" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1228, 0.92261, 2.25211 )
+entity_kind = 3
 id = 2
 
 [node name="Building" parent="Entities" instance=ExtResource( 8 )]
