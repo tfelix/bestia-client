@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rpg_town_loop_2.ogg-8a1b415a7fb49b2dfd039bc410d3885c.oggstr"
+
+[deps]
+
+source_file="res://shared/audio/bgm/rpg_town_loop_2.ogg"
+dest_files=[ "res://.import/rpg_town_loop_2.ogg-8a1b415a7fb49b2dfd039bc410d3885c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

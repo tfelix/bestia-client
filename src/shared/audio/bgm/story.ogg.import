@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/story.ogg-659ad91b014b72db43d1cf6c722cb139.oggstr"
+
+[deps]
+
+source_file="res://shared/audio/bgm/story.ogg"
+dest_files=[ "res://.import/story.ogg-659ad91b014b72db43d1cf6c722cb139.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

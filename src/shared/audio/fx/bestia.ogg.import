@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bestia.ogg-3cfdc3a163a30503e4032d722dc00fb1.oggstr"
+
+[deps]
+
+source_file="res://shared/audio/fx/bestia.ogg"
+dest_files=[ "res://.import/bestia.ogg-3cfdc3a163a30503e4032d722dc00fb1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

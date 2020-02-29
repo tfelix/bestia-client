@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.png" type="Texture" id=2]
+[ext_resource path="res://shared/fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=5]
+
+
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_filter = true
+extra_spacing_bottom = 3
+font_data = ExtResource( 3 )
+
+[node name="ItemDescriptionModule" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 1 )
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="TitleContainer" type="HBoxContainer" parent="DescriptionContainer"]
+editor/display_folded = true
+margin_right = 1260.0
+margin_bottom = 50.0
+custom_constants/separation = 10
+
+[node name="ItemImg" type="TextureRect" parent="DescriptionContainer/TitleContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="ItemTitle" type="Label" parent="DescriptionContainer/TitleContainer"]
+margin_left = 60.0
+margin_top = 6.0
+margin_right = 182.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 1 )
+text = "Item Name"
+
+[node name="Amount" type="Label" parent="DescriptionContainer"]
+margin_top = 54.0
+margin_right = 1260.0
+margin_bottom = 74.0
+custom_fonts/font = ExtResource( 4 )
+text = "Amount: 10"
+
+[node name="Weight" type="Label" parent="DescriptionContainer"]
+margin_top = 78.0
+margin_right = 1260.0
+margin_bottom = 98.0
+custom_fonts/font = ExtResource( 4 )
+text = "Weight: 0.4 kg (0.1kg ea)"
+
+[node name="Spacer" type="Control" parent="DescriptionContainer"]
+margin_top = 102.0
+margin_right = 1260.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="ItemDescription" type="Label" parent="DescriptionContainer"]
+margin_top = 116.0
+margin_right = 1260.0
+margin_bottom = 228.0
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 4 )
+text = "This is a description of the item selected. How is the big text doing?
+jsdhf
+dsfhdskjf
+djskfshdf
+"
+autowrap = true
+
+[node name="CenterShortcuts" type="CenterContainer" parent="DescriptionContainer"]
+margin_top = 464.0
+margin_right = 1260.0
+margin_bottom = 612.0
+
+[node name="Shortcuts" parent="DescriptionContainer/CenterShortcuts" instance=ExtResource( 5 )]
+margin_left = 487.0
+margin_right = 773.0
+
+[node name="Use" type="Button" parent="DescriptionContainer"]
+margin_top = 616.0
+margin_right = 1260.0
+margin_bottom = 656.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Use"
+
+[node name="Drop" type="Button" parent="DescriptionContainer"]
+margin_top = 660.0
+margin_right = 1260.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+text = "Drop"
+[connection signal="pressed" from="DescriptionContainer/Use" to="." method="_on_Use_pressed"]
+[connection signal="pressed" from="DescriptionContainer/Drop" to="." method="_on_Drop_pressed"]

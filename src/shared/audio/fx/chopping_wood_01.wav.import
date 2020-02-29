@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/chopping_wood_01.wav-a654d028f9227caa1654ff53d61f503e.sample"
+
+[deps]
+
+source_file="res://shared/audio/fx/chopping_wood_01.wav"
+dest_files=[ "res://.import/chopping_wood_01.wav-a654d028f9227caa1654ff53d61f503e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -2,7 +2,7 @@
 
 ## Meshes
 
-* Low Poly Storage Assets by TheTeaGuns, [TheTeaGuns](https://twitter.com/TheTeaGuns) [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+* Low Poly Storage Assets, by [TheTeaGuns](https://twitter.com/TheTeaGuns) [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 * Tileable Bricks Ground Textures - Set 1, [Cethiel](https://opengameart.org/content/tileable-bricks-ground-textures-set-1) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * Tileable Grass Textures - Set 1, [Cethiel](https://opengameart.org/content/tileable-grass-textures-set-1) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * Tileable Grass Textures - Set 2, [Cethiel](https://opengameart.org/content/tileable-grass-textures-set-2) [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
@@ -14,9 +14,9 @@
 ## Images, Particles, Textures
 
 * Title Screen by nicole-mason, Unsplash
-* [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), CC0
-* [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), CC0
-* [Kenney's Audio Pack](https://kenney.nl/assets/ui-audio), CC0
+* [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [Kenney's Audio Pack](https://kenney.nl/assets/ui-audio), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Icons
 
@@ -51,8 +51,8 @@
 
 ## Fonts
 
-* [NES Cyrillic by xbost](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=234), Public Domain
-* [OpenSans](https://fonts.google.com/specimen/Open+Sans), Steve Matteson, Apache License, Version 2.0
+* [NES Cyrillic](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=234), xbost, Public Domain
+* [OpenSans](https://fonts.google.com/specimen/Open+Sans), Steve Matteson, [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Possible Includes
 
