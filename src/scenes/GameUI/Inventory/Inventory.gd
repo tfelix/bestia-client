@@ -3,6 +3,7 @@ extends Control
 const ItemNode = preload("res://scenes/GameUI/Inventory/Item.tscn")
 const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
 const ItemEquipModule = preload("res://scenes/GameUI/Inventory/ItemEquipModule/ItemEquipModule.tscn")
+
 const placeholder_img = preload("res://scenes/GameUI/Inventory/item_placeholder.png")
 
 class InventoryInfo:
@@ -11,8 +12,8 @@ class InventoryInfo:
 
 onready var _pickup_msg = $ItemPickupMessage
 onready var _items_grid = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid
-onready var _weight_label = $MarginContainer/InventoryPanel/HContainer/MainContent/Weight
-onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainContent/ItemCount
+onready var _weight_label = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/Weight
+onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/MarginItemCount/ItemCount
 onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit
 onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
 onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
@@ -235,3 +236,11 @@ func _unhandled_key_input(event) -> void:
 			self.close()
 		else:
 			self.open()
+
+
+func _on_Inventory_mouse_entered():
+	GlobalEvents.emit_signal("onUiEntered")
+
+
+func _on_Inventory_mouse_exited():
+	GlobalEvents.emit_signal("onUiExited")

@@ -34,12 +34,18 @@ func _ready():
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 	GlobalEvents.connect("onPlayerInteract", self, "_on_player_interact")
-	GlobalData.player_entity = self
 	
 	# This seems to be a bug in godot. in order to get mouse over events
 	# we must disable and enable raycasting detection.
 	input_ray_pickable = false
 	input_ray_pickable = true
+	# As we might be already attached under the Entities node it might not
+	# be subscribed to the entity signal. To give it a chance to subscribe
+	# we need to call announce entity deferred.
+	call_deferred("_announce_entity")
+
+
+func _announce_entity():
 	GlobalEvents.emit_signal("onEntityAdded", self)
 
 
@@ -109,7 +115,7 @@ func _player_attacks(target_entity) -> void:
 	var atk_msg = UseAttackMessage.new()
 	atk_msg.player_attack_id = UseAttackMessage.RANGE_ATTACK_ID
 	atk_msg.target_entity = target_entity.id
-	GlobalEvents.emit_signal("onSendToServer", atk_msg)
+	GlobalEvents.emit_signal("onMessageSend", atk_msg)
 
 	_attack_delay.wait_time = weapon_comp.attack_delay
 	_attack_delay.start()
@@ -141,6 +147,6 @@ func _on_AttackDelay_timeout():
 	
 	if _current_state == PlayerState.ATTACKING:
 		if _target_entity == null:
-			_current_state == PlayerState.IDLE
+			_current_state = PlayerState.IDLE
 			return
 		_player_attacks(_target_entity)

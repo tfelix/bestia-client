@@ -8,6 +8,7 @@ var _target: Spatial
 func start(projectile_speed: float, target: Spatial) -> void:
 	_projectile_speed = projectile_speed
 	_target = target
+	look_at(_target.global_transform.origin, Vector3.UP)
 
 
 func _process(delta):

@@ -1,4 +1,4 @@
-extends PanelContainer
+extends VBoxContainer
 
 const HoverChatText = preload("res://scenes/GameUI/chat/ChatHoverText/ChatHoverText.tscn")
 const ChatRow = preload("res://scenes/GameUI/Chat/ChatRow/ChatRow.tscn")
@@ -6,13 +6,12 @@ const ChatRow = preload("res://scenes/GameUI/Chat/ChatRow/ChatRow.tscn")
 const MAX_CHAT_COUNT = 50
 
 onready var _chat_cmds = $ChatCommands
-onready var _chat_type = $MarginContainer/ChatContent/InputLine/ChatType
-onready var _chat_line_container = $MarginContainer/ChatContent/ScrollContainer/Lines
-onready var _text_input = $MarginContainer/ChatContent/InputLine/Text
+onready var _chat_type = $InputMargin/InputPanel/InputLine/ChatType
+onready var _chat_line_container = $ChatPanel/MarginContainer/ChatContent/ScrollContainer/Lines
+onready var _text_input = $InputMargin/InputPanel/InputLine/Text
 onready var _animation = $AnimationPlayer as AnimationPlayer
 
 var _has_mouse_over = false
-var _has_input_focus = false
 
 func _ready():
 	_chat_type.add_item("Public")
@@ -50,6 +49,14 @@ func entered_chat(text: String) -> void:
 	chat_send.text = text
 	chat_send.type = _chat_type.selected
 	GlobalEvents.emit_signal("onMessageSend", chat_send)
+	
+	# Small trick to remove the focus from the control so the game can 
+	# react on control inputs again
+	# TODO This unfocus is currently broken.
+	#_text_input.focus_mode = FOCUS_NONE
+	_text_input.hide()
+	_text_input.show()
+	# _text_input.focus_mode = FOCUS_CLICK
 
 
 func print_text(text) -> void:
@@ -79,40 +86,12 @@ func _insert_chat_text(msg: ChatMessage) -> void:
 
 func _on_Text_text_entered(new_text):
 	entered_chat(new_text)
-	# Small trick to remove the focus from the control so the game can 
-	# react on control inputs again
-	_text_input.focus_mode = FOCUS_NONE
-	_text_input.focus_mode = FOCUS_CLICK
 	_try_play_hide()
 
 
-func _on_ChatPanel_mouse_entered():
-	GlobalEvents.emit_signal("onUiEntered")
-	_has_mouse_over = true
-	_show()
-
-
-func _on_ChatPanel_mouse_exited():
-	_has_mouse_over = false
-	GlobalEvents.emit_signal("onUiExited")
-	_try_play_hide()
-
-
-# Strange it seems this is only triggered if we are in "focus" of some control element.
-# we might need to capture globally events here to get it.
-func _on_ChatPanel_gui_input(event):
-	if event is InputEventKey:
-		if event.pressed && event.scancode == KEY_ENTER:
-			_text_input.grab_focus()
-
-
-func _on_Text_focus_entered():
-	_has_input_focus = true
-	_show()
-
-
-func _on_Text_focus_exited():
-	_has_input_focus = false
+func _unhandled_key_input(event):
+	if Input.is_key_pressed(KEY_ENTER) && !_text_input.has_focus():
+		_text_input.grab_focus()
 
 
 func _show() -> void:
@@ -122,5 +101,17 @@ func _show() -> void:
 
 
 func _try_play_hide() -> void:
-	if not _has_input_focus && not _has_mouse_over:
+	if not _text_input.has_focus() && not _has_mouse_over:
 		_animation.play("hide")
+
+
+func _on_Chat_mouse_entered():
+	GlobalEvents.emit_signal("onUiEntered")
+	_has_mouse_over = true
+	_show()
+
+
+func _on_Chat_mouse_exited():
+	_has_mouse_over = false
+	GlobalEvents.emit_signal("onUiExited")
+	_try_play_hide()

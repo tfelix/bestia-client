@@ -13,6 +13,11 @@ onready var _item_img = $DescriptionContainer/TitleContainer/ItemImg
 onready var _use_btn = $DescriptionContainer/Use
 onready var _shortcuts = $DescriptionContainer/CenterShortcuts/Shortcuts
 
+var _current_item_trigger = null
+
+func _ready():
+	_shortcuts.connect("shortcut_triggered", self, "_save_item_to_shortcut")
+
 
 func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 	if !msg.can_use:
@@ -26,7 +31,7 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 		return
 	
 	var item_name = item.database_name.capitalize().replace(" ", "")
-	var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name]
+	var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name.to_lower()]
 	var item_scene = load(item_path)
 	var item_instance = item_scene.instance()
 	get_tree().root.add_child(item_instance)
@@ -48,10 +53,13 @@ func show_item_description(new_item: ItemModel) -> void:
 	var item_trigger = ItemTrigger.new()
 	item_trigger.icon = item.image_path()
 	item_trigger.player_item_id = item.player_item_id
-	var set_trigger = SetTriggerShortcutCallback.new()
-	set_trigger.trigger = item_trigger
-	set_trigger.shortcuts = _shortcuts
-	_shortcuts.on_shortcut_clicked = set_trigger
+	_current_item_trigger = item_trigger
+
+
+func _save_item_to_shortcut(shortcut) -> void:
+	if _current_item_trigger == null:
+		return
+	shortcut.on_shortcut_clicked = _current_item_trigger
 
 
 func _on_Drop_pressed():
@@ -66,8 +74,3 @@ func _on_Use_pressed():
 	msg.player_item_id = item.player_item_id
 	msg.request_id = UUID.create()
 	GlobalEvents.emit_signal("onMessageSend", msg)
-
-
-func _on_Shortcut_pressed():
-	# open 
-	pass # Replace with function body.

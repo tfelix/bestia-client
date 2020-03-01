@@ -15,7 +15,7 @@ var _env_comp: EnvironmentComponent
 var _casted_entity_id: int = 0
 
 func _ready():
-	GlobalEvents.connect("onSendToServer", self, "_on_message")
+	GlobalEvents.connect("onMessageSend", self, "_on_message")
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1
@@ -39,6 +39,8 @@ func _on_message(payload):
 		_send_chat(payload)
 	elif payload is RequestInventoryMessage:
 		_send_items()
+	elif payload is RequestAttackListMessage:
+		_send_attacks()
 	elif payload is ItemUseRequestMessage:
 		_respond_item_use(payload)
 	elif payload is ItemUseMessage:
@@ -77,13 +79,12 @@ func _use_item(msg: ItemUseMessage) -> void:
 
 
 func _send_chat(msg: ChatSend) -> void:
-	print_debug("Received chat msg: ", msg)
 	var response = ChatMessage.new()
-	response.entity_id = GlobalData.client_account_id
+	response.entity_id = 1000 #GlobalData.client_account_id
 	response.username = "rocket"
 	response.text = msg.text
 	response.type = msg.type
-	GlobalEvents.emit_signal("onMessageSend", response)
+	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
 func _send_items() -> void:
@@ -150,7 +151,7 @@ func _send_attacks() -> void:
 	var response = ResponseAttackListMessage.new()
 	response.attacks = [atk1, atk2]
 
-	GlobalEvents.emit_signal("onReceiveFromServer", response)
+	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
 func _drop_item(msg: ItemDropMessage) -> void:
@@ -165,7 +166,7 @@ func _use_skill(msg: UseAttackMessage):
 		var dmg_msg = DamageMessage.new()
 		dmg_msg.entity_id = msg.target_entity
 		dmg_msg.total_damage = randi() % 100 + 1
-		GlobalEvents.emit_signal("onReceiveFromServer", dmg_msg)
+		GlobalEvents.emit_signal("onMessageReceived", dmg_msg)
 	elif msg.player_attack_id == UseAttackMessage.MELEE_ATTACK_ID:
 		# check if distance is ok and then let the attack be made
 		print_debug("melee")
@@ -176,7 +177,7 @@ func _use_skill(msg: UseAttackMessage):
 		cast_comp.cast_db_name = "skill_fireball"
 		cast_comp.entity_id = 1
 		cast_comp.target_entity_id = 2
-		GlobalEvents.emit_signal("onReceiveFromServer", cast_comp)
+		GlobalEvents.emit_signal("onMessageReceived", cast_comp)
 	
 		_casted_entity_id = msg.target_entity
 	
@@ -187,20 +188,20 @@ func _on_CastTimer_timeout():
 	var cast_remove = ComponentRemoveMessage.new()
 	cast_remove.component_name = CastComponent.NAME
 	cast_remove.entity_id = 1
-	GlobalEvents.emit_signal("onReceiveFromServer", cast_remove)
+	GlobalEvents.emit_signal("onMessageReceived", cast_remove)
 
 	var dmg_msg = DamageMessage.new()
 	# TODO Fix entity ids.
 	dmg_msg.entity_id = 2 #_casted_entity_id
 	dmg_msg.total_damage = randi() % 100 + 1
-	GlobalEvents.emit_signal("onReceiveFromServer", dmg_msg)
+	GlobalEvents.emit_signal("onMessageReceived", dmg_msg)
 
 	var fx_msg = FxMessage.new()
 	# TODO Fix entity ids.
 	fx_msg.entity_id = 2 # _casted_entity_id
 	fx_msg.fx = "fireball"
 	fx_msg.latency_ms = 10
-	GlobalEvents.emit_signal("onReceiveFromServer", fx_msg)
+	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
 
 
 func _chop_tree(entity: Entity):
@@ -218,13 +219,13 @@ func _on_OneShot2_timeout():
 	var msg = ComponentRemoveMessage.new()
 	msg.component_name = ConstructionComponent.NAME
 	msg.entity_id = 1
-	GlobalEvents.emit_signal("onReceiveFromServer", msg)
+	GlobalEvents.emit_signal("onMessageReceived", msg)
 
 
 func _on_EnvironmentUpdate_timeout():
 	var active_comp = ActivePlayerBestiaComponent.new()
 	active_comp.entity_id = 1
-	GlobalEvents.emit_signal("onReceiveFromServer", active_comp)
+	GlobalEvents.emit_signal("onMessageReceived", active_comp)
 
 	_env_comp.current_temp = randi() % 30 - 10
-	GlobalEvents.emit_signal("onReceiveFromServer", _env_comp)
+	GlobalEvents.emit_signal("onMessageReceived", _env_comp)

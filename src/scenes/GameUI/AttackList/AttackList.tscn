@@ -8,14 +8,14 @@
 [ext_resource path="res://scenes/GameUI/backspace-24px.svg" type="Texture" id=6]
 [ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=7]
 
-
-
-
 [node name="AttackList" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -83,7 +83,6 @@ expand = true
 stretch_mode = 5
 
 [node name="Search" type="HBoxContainer" parent="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks"]
-editor/display_folded = true
 margin_top = 35.0
 margin_right = 270.0
 margin_bottom = 65.0
@@ -115,6 +114,8 @@ size_flags_vertical = 3
 [node name="AudioClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "Fx"
+[connection signal="mouse_entered" from="." to="." method="_on_AttackList_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_AttackList_mouse_exited"]
 [connection signal="visibility_changed" from="." to="." method="_on_AttackList_visibility_changed"]
 [connection signal="pressed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Title/Close" to="." method="_on_Close_pressed"]
 [connection signal="text_changed" from="CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/Search" to="." method="_on_Search_text_changed"]

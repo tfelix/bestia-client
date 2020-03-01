@@ -38,10 +38,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -18.0
+margin_left = -25.5094
+margin_top = -15.9433
+margin_right = -2.50941
+margin_bottom = -3.94334
+grow_horizontal = 0
 custom_fonts/font = SubResource( 1 )
-text = "123"
+text = "1"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false

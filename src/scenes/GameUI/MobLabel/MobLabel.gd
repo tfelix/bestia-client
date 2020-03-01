@@ -7,8 +7,8 @@ export var mob_name: String = "Mob"
 onready var _name_label = $Name
 
 func _ready():
-	_camera = get_tree().get_root().get_camera()
 	_name_label.text = mob_name
+	_camera = get_tree().get_root().get_camera()
 
 
 func _process(delta):

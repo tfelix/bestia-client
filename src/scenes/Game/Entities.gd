@@ -1,6 +1,8 @@
 extends Node
 class_name Entities
 
+const ChatHoverText = preload("res://scenes/GameUI/Chat/ChatHoverText/ChatHoverText.tscn")
+
 var _entities = { }
 var _player_entity: Entity = null
 
@@ -8,7 +10,7 @@ func _ready():
 	GlobalData.entities = self
 	GlobalEvents.connect("onEntityAdded", self, "_add_entity")
 	GlobalEvents.connect("onEntityRemoved", self, "_add_entity")
-	GlobalEvents.connect("onReceiveFromServer", self, "_server_received")
+	GlobalEvents.connect("onMessageReceived", self, "_server_received")
 
 
 func free():
@@ -39,12 +41,13 @@ func _server_received(msg) -> void:
 
 
 func _display_hover_chat(msg: ChatMessage) -> void:
-	if entity != null:
-		var chat_text = HoverChatText.instance()
-		entity.add_child(chat_text)
-		chat_text.set_text(msg.text)
-	else:
+	var entity = get_entity(msg.entity_id)
+	if entity == null:
 		print_debug("_display_hover_chat: Entity with id ", msg.entity_id, " not found")
+		return
+	var chat_text = ChatHoverText.instance()
+	entity.add_child(chat_text)
+	chat_text.set_text(msg.text)
 
 
 func _check_send_player_bestia_update(msg: Component, entity: Entity) -> void:
@@ -73,7 +76,7 @@ func _send_to_entity(msg) -> Entity:
 	return e
 
 
-func _add_entity(entity: Entity) -> void:
+func _add_entity(entity) -> void:
 	print_debug("Added entity ", entity.id)
 	_entities[entity.id] = entity
 

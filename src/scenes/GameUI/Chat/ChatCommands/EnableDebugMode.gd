@@ -1,8 +1,5 @@
 extends ChatCommand
 
-export(NodePath) var chat_panel
-
-onready var _chat = get_node(chat_panel)
 var _matcher: RegEx
 
 func _ready():

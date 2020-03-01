@@ -39,7 +39,7 @@ func _ready():
 
 func _prepare_velocity():
 	var vel_x = randf() * 1.5 + 2
-	var vel_y = 18
+	var vel_y = randi() % 3 + 16
 	if _source_entity != null:
 		var own_pos = get_parent().global_transform.origin
 		var delta_x = own_pos.x - _source_entity.global_transform.origin.x

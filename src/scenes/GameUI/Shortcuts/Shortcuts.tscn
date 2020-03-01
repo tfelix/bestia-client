@@ -7,9 +7,11 @@
 margin_right = 286.0
 margin_bottom = 148.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Row1" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_right = 286.0
 margin_bottom = 72.0
 
@@ -36,7 +38,6 @@ margin_right = 286.0
 shortcut_action_name = "shortcut_5"
 
 [node name="Row2" type="HBoxContainer" parent="."]
-editor/display_folded = true
 margin_top = 76.0
 margin_right = 286.0
 margin_bottom = 148.0

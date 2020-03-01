@@ -1,6 +1,8 @@
 extends PanelContainer
 
-signal shortcut_clicked
+const placeholder_img = preload("res://scenes/GameUI/Inventory/item_placeholder.png")
+
+signal shortcut_clicked(shortcut, action_name)
 
 export(bool) var enabled = true
 export(String) var shortcut_action_name = "shortcut_1"
@@ -29,6 +31,8 @@ func to_json_dict():
 
 func add_trigger(trigger: Trigger):
 	_icon.texture = load(trigger.icon)
+	if _icon.texture == null:
+		_icon.texture = placeholder_img
 	_saved_trigger = trigger
 
 
@@ -50,5 +54,5 @@ func _unhandled_key_input(event) -> void:
 func _on_Shortcut_gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("left_click"):
-			emit_signal("shortcut_clicked", shortcut_action_name)
+			emit_signal("shortcut_clicked", shortcut_action_name, self)
 			_trigger_shortcut()

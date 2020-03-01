@@ -4,32 +4,19 @@ extends Spatial
 # - Better visual quality
 # - React to wind direction
 # - Adapt particle count via placement via shader
+# For more info see https://seblagarde.wordpress.com/2012/12/27/water-drop-2a-dynamic-rain-and-its-effects/
 
-var splash_obj = preload("./RainSplash.tscn")
+onready var _rain = $RainDrops
+onready var _rain_fx = $RainAudio
 
-export var splash_area = 40
-export var max_splashes_per_second = 600
-export var splash_pool_size = 600
-
-var splashes = []
-
-var splashes_per_second = 0
-var time_since_splash = 0
-var splash_rate = INF
-var cur_splash_ind = 0
-
-var rain_drops: Particles
-var maximum_raindrop_count = 0
+export var max_rain_particles = 3000
 
 func _ready():
-	rain_drops = $RainDrops
-	maximum_raindrop_count = rain_drops.amount
+	_rain.amount = max_rain_particles
+	_rain.process_material.set_shader_param("max_number_particles", max_rain_particles)
+	_rain.process_material.set_shader_param("number_particles_shown", 0)
 	GlobalEvents.connect("onWeatherChanged", self, "handle_weather_changed")
 
-	for i in range(splash_pool_size):
-		var s = splash_obj.instance()
-		add_child(s)
-		splashes.append(s)
 
 func handle_weather_changed(data):
 	print_debug("Rain intensity: ", data.rain_intensity)
@@ -41,54 +28,22 @@ func handle_weather_changed(data):
 
 func change_loudness(intensity: float):
 	if intensity > 0:
-		if !$RainForrest.playing:
-			$RainForrest.play()
-		var loudness = lerp(-35, 0, clamp(intensity, 0, 1.0))
-		$RainForrest.volume_db = loudness
+		if !_rain_fx.playing:
+			_rain_fx.play()
+		var loudness = lerp(-35, 8, clamp(intensity, 0, 1.0))
+		_rain_fx.volume_db = loudness
+		print_debug("Rain Loudness to ", loudness)
 	else:
-		$RainForrest.playing = false
+		_rain_fx.playing = false
 
 
 func change_rain_amount(intensity: float):
-	if intensity > 0 && !rain_drops.emitting:
-		# This is here so we dont call it again after and thus would reset
-		# the emission.
-		if !rain_drops.emitting:
-			rain_drops.emitting = true
-
-	if intensity <= 0:
-		splashes_per_second = 0
-		rain_drops.emitting = false
-
-	splashes_per_second = lerp(0, max_splashes_per_second, clamp(intensity, 0, 1.0))
-	if splashes_per_second == 0:
-		splash_rate = INF
-	else:
-		splash_rate = 1.0 / splashes_per_second
-
-	# https://github.com/godotengine/godot/issues/16352
-	# For now this is disabled as its effectively restarting the
-	# simulation. maybe we need a workaround for this as I am not sure it will get fixed
-	# soon.
-	# rain_drops.amount = int(maximum_raindrop_count * intensity)
-
-
-func _physics_process(delta):
-	time_since_splash += delta
-	while time_since_splash >= splash_rate:
-		make_splash()
-		cur_splash_ind += 1
-		cur_splash_ind %= splashes.size()
-		time_since_splash -= splash_rate
-
-
-func make_splash():
-	var x_pos = rand_range(-splash_area, splash_area)
-	var z_pos = rand_range(-splash_area, splash_area)
-	var start_pos = global_transform.origin + Vector3(x_pos, 0, z_pos)
-
-	var space_state = get_world().direct_space_state
-	var result = space_state.intersect_ray(start_pos, start_pos - Vector3(0, 100, 0))
-	if result.size() > 0:
-		splashes[cur_splash_ind].global_transform.origin = result.position + Vector3(0, 0.2, 0)
-		splashes[cur_splash_ind].play()
+	if intensity == 0:
+		# Do this in a slower animation to avoid rough cutoff.
+		_rain.emitting = false
+	# Only activate if its not active, otherwise it restarts.
+	if intensity > 0 && !_rain.emitting:
+		_rain.emitting = true
+	
+	var num_particles = lerp(0, max_rain_particles, clamp(intensity, 0, 1.0))
+	_rain.process_material.set_shader_param("number_particles_shown", num_particles)

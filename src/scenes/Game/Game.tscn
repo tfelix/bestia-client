@@ -1,6 +1,5 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://scenes/environment/WorldEnvironment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Manager/Manager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game/Terrain/GrassSystem/GrassSystem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://terrain/demo.obj" type="ArrayMesh" id=4]
@@ -12,7 +11,6 @@
 [ext_resource path="res://scenes/GameUI/Cursor/cursor-attack.png" type="Texture" id=10]
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/GameUI/cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/GameUI/Cursor/cursor-skill.png" type="Texture" id=16]
 [ext_resource path="res://scenes/GameUI/CharacterBars/CharacterBars.tscn" type="PackedScene" id=17]
@@ -45,11 +43,6 @@ subdivide_depth = 40
 cursor_skill = ExtResource( 16 )
 cursor_attack = ExtResource( 10 )
 cursor_hand = ExtResource( 19 )
-
-[node name="DayManager" parent="Manager" index="1"]
-world_environment_path = NodePath("WorldEnvironment")
-
-[node name="WorldEnvironment" parent="Manager/DayManager" index="0" instance=ExtResource( 1 )]
 
 [node name="GrassSystem" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -90,10 +83,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7823, 0, -2.94866 )
 
 [node name="Player" parent="Entities" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7234, 0.0201416, -1.35993 )
-
-[node name="Rain" parent="Entities/Player" instance=ExtResource( 14 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5.53895, 17.6515, -2.20015 )
-splash_pool_size = 250
 
 [node name="MoveIndicator" parent="Entities/Player" instance=ExtResource( 15 )]
 transform = Transform( 0.91, 0, 0, 0, 0.91, 0, 0, 0, 0.91, 7.75301, 0, -2.20015 )

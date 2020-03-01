@@ -32,14 +32,14 @@ func image_path() -> String:
 	return database_name_to_image_path(database_name)
 
 
-static func database_name_to_path(database_name: String) -> String:
+static func database_name_to_path(_database_name: String) -> String:
 	var base_path = "res://scenes/Game/Entity/Item/"
-	var cleaned_db_name = database_name.capitalize().replace(" ", "")
+	var cleaned_db_name = _database_name.capitalize().replace(" ", "")
 	
 	return base_path + cleaned_db_name
 
-static func database_name_to_image_path(database_name: String) -> String:
-	var item_path = database_name_to_path(database_name)
-	var cleaned_db_name = database_name.capitalize().replace(" ", "")
+static func database_name_to_image_path(_database_name: String) -> String:
+	var item_path = database_name_to_path(_database_name)
+	var cleaned_db_name = _database_name.capitalize().replace(" ", "")
 	
 	return item_path + "/" + cleaned_db_name + ".png"

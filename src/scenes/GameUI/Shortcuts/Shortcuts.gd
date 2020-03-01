@@ -1,11 +1,13 @@
 extends VBoxContainer
 
+signal shortcut_triggered(shortcut)
+
 onready var _row_1 = $Row1
 onready var _row_2 = $Row2
 
-var _shortcuts
+export var shortcuts_enabled = false setget shortcuts_enabled_set
 
-var on_shortcut_clicked: SetTriggerShortcutCallback setget on_shortcut_clicked_set
+var _shortcuts
 
 func _ready():
 	_shortcuts = _row_1.get_children() + _row_2.get_children()
@@ -14,10 +16,10 @@ func _ready():
 	# TODO Also request the data from the server
 
 
-func on_shortcut_clicked_set(new_value):
-	on_shortcut_clicked = new_value
+func shortcuts_enabled_set(new_value):
+	shortcuts_enabled = new_value
 	for sc in _shortcuts:
-		sc.enabled = false
+		sc.enabled = shortcuts_enabled
 
 
 func _connect_shortcut_singals() -> void:
@@ -80,6 +82,5 @@ func load_data() -> void:
 		slot += 1
 
 
-func _on_shortcut_clicked(shortcut_action) -> void:
-	if on_shortcut_clicked != null:
-		on_shortcut_clicked.triggered(shortcut_action)
+func _on_shortcut_clicked(shortcut, action_name) -> void:
+	emit_signal("shortcut_triggered", shortcut)

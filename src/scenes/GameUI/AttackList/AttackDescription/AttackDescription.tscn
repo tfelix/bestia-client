@@ -5,9 +5,6 @@
 [ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=3]
 [ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=4]
 
-
-
-
 [node name="AttackDescription" type="Panel"]
 margin_right = 190.0
 margin_bottom = 300.0

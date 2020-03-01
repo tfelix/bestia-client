@@ -13,6 +13,7 @@ var _attacks = []
 
 func _ready():
 	GlobalEvents.connect("onMessageReceived", self, "_server_reveiced")
+	_request_attack_list();
 	_render_filtered_attacks()
 
 
@@ -97,3 +98,11 @@ func _input(event):
 func _on_AttackList_visibility_changed():
 	if visible == true:
 		_request_attack_list();
+
+
+func _on_AttackList_mouse_entered():
+	GlobalEvents.emit_signal("onUiEntered")
+
+
+func _on_AttackList_mouse_exited():
+	GlobalEvents.emit_signal("onUiExited")

@@ -244,15 +244,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/DialogText/DialogText.gd"
 }, {
-"base": "Reference",
-"class": "SetTriggerShortcutCallback",
+"base": "Node",
+"class": "ServerConnector",
 "language": "GDScript",
-"path": "res://scenes/GameUI/Shortcuts/ShortcutCallback.gd"
-}, {
-"base": "Reference",
-"class": "SkillCastEntityClickedHandler",
-"language": "GDScript",
-"path": "res://scenes/Game/SkillCastEntityClickedHandler.gd"
+"path": "res://scenes/ServerConnector.gd"
 }, {
 "base": "Trigger",
 "class": "SkillTrigger",
@@ -352,8 +347,7 @@ _global_script_class_icons={
 "RequestInventoryMessage": "",
 "ResponseAttackListMessage": "",
 "ScreenBottomText": "",
-"SetTriggerShortcutCallback": "",
-"SkillCastEntityClickedHandler": "",
+"ServerConnector": "",
 "SkillTrigger": "",
 "StatusComponent": "",
 "TemperatureData": "",
@@ -380,6 +374,13 @@ GlobalData="*res://GlobalData.gd"
 GlobalEvents="*res://GlobalEvents.gd"
 GlobalConfig="*res://GlobalConfig.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1280
@@ -389,6 +390,10 @@ window/stretch/aspect="keep_width"
 [editor_plugins]
 
 enabled=PoolStringArray( "decals" )
+
+[global]
+
+sig=false
 
 [importer_defaults]
 
@@ -1566,3 +1571,8 @@ locale_filter=[ 0, [ "en" ] ]
 quality/shadows/filter_mode=2
 environment/default_clear_color=Color( 0.14902, 0.192157, 0.219608, 1 )
 quality/filters/msaa=2
+
+[sig]
+
+sign=false
+sig=false

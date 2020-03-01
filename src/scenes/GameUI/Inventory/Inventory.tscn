@@ -10,9 +10,6 @@
 [ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=8]
 [ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=9]
 
-
-
-
 [node name="Inventory" type="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -35,7 +32,6 @@ margin_bottom = 94.0
 stream = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -2.58472
@@ -46,6 +42,9 @@ custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InventoryPanel" type="PanelContainer" parent="MarginContainer"]
 margin_left = 50.0
@@ -67,7 +66,6 @@ margin_bottom = 606.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="Categories" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
-editor/display_folded = true
 margin_left = 9.0
 margin_right = 95.0
 margin_bottom = 606.0
@@ -103,7 +101,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-editor/display_folded = true
 margin_right = 1058.0
 margin_bottom = 26.0
 
@@ -153,6 +150,33 @@ custom_fonts/font = ExtResource( 4 )
 disabled = true
 text = "Clear"
 
+[node name="MarginItemCount" type="MarginContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 539.0
+margin_right = 677.0
+margin_bottom = 26.0
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemCount" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header/MarginItemCount"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 118.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Items: 12 / 300"
+
+[node name="Weight" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 681.0
+margin_top = 3.0
+margin_right = 819.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 4 )
+text = "Weight: 12 kg / 45 kg"
+
 [node name="Close" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
 margin_left = 1034.0
 margin_right = 1058.0
@@ -165,12 +189,12 @@ expand = true
 [node name="Content" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
 margin_top = 30.0
 margin_right = 1058.0
-margin_bottom = 558.0
+margin_bottom = 606.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
 margin_right = 1058.0
-margin_bottom = 528.0
+margin_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -188,7 +212,7 @@ custom_constants/margin_bottom = 5
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 1053.0
-margin_bottom = 523.0
+margin_bottom = 571.0
 scroll_horizontal_enabled = false
 
 [node name="ItemGrid" type="GridContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer"]
@@ -204,22 +228,10 @@ columns = 15
 visible = false
 margin_left = 758.0
 margin_right = 1058.0
-margin_bottom = 528.0
+margin_bottom = 576.0
 rect_min_size = Vector2( 300, 0 )
-
-[node name="ItemCount" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-margin_top = 562.0
-margin_right = 1058.0
-margin_bottom = 582.0
-custom_fonts/font = ExtResource( 4 )
-text = "Items: 12 / 300"
-
-[node name="Weight" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-margin_top = 586.0
-margin_right = 1058.0
-margin_bottom = 606.0
-custom_fonts/font = ExtResource( 4 )
-text = "Weight: 12 kg / 45 kg"
+[connection signal="mouse_entered" from="." to="." method="_on_Inventory_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Inventory_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode" to="." method="_on_InventoryMode_pressed"]
 [connection signal="pressed" from="MarginContainer/InventoryPanel/HContainer/Categories/EquipMode" to="." method="_on_EquipMode_pressed"]
 [connection signal="text_changed" from="MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit" to="." method="_on_SearchEdit_text_changed"]

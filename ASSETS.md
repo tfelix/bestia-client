@@ -44,6 +44,7 @@
 * [Punch, Hitting in a Face](https://freesound.org/people/florianreichelt/sounds/460509/), florianreichelt, CC0
 * [fireplace.wav](https://freesound.org/people/leosalom/sounds/234288/), by leosalom, CC BY
 * [Space Swoosh - brighter](https://freesound.org/people/GameAudio/sounds/220191/), GameAudio, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [Bow.wav](https://freesound.org/people/Hanbaal/sounds/178872/), Hanbaal [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Shader
 

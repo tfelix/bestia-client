@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hanbaal_bow.wav-4e950d8a6db0ec5f6dac4b29a4595155.sample"
+
+[deps]
+
+source_file="res://scenes/Game/Projectile/hanbaal_bow.wav"
+dest_files=[ "res://.import/hanbaal_bow.wav-4e950d8a6db0ec5f6dac4b29a4595155.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

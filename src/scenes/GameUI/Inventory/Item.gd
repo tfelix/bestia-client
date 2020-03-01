@@ -1,7 +1,5 @@
 extends Control
 
-const highlight_sprite = preload("res://scenes/GameUI/Inventory/item_highlight.png")
-
 var item: ItemModel setget _set_item
 var selected: bool setget _set_selected
 
@@ -27,6 +25,8 @@ func _set_image(image: Texture) -> void:
 
 
 func _set_amount(amount: int) -> void:
+	if amount > 9999:
+		amount = 9999
 	_amount.text = String(amount)
 
 

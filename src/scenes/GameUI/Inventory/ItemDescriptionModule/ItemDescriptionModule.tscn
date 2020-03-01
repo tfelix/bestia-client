@@ -6,8 +6,6 @@
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=5]
 
-
-
 [sub_resource type="DynamicFont" id=1]
 size = 24
 use_filter = true
@@ -22,6 +20,9 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DescriptionContainer" type="VBoxContainer" parent="."]
 margin_left = 10.0
@@ -30,7 +31,6 @@ margin_right = 1270.0
 margin_bottom = 710.0
 
 [node name="TitleContainer" type="HBoxContainer" parent="DescriptionContainer"]
-editor/display_folded = true
 margin_right = 1260.0
 margin_bottom = 50.0
 custom_constants/separation = 10
