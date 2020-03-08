@@ -1,28 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Entity.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Game/Entity/InteractionRange.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Game/Entity/Component/Components.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Game/Interactions/Interactions.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Game/Entity/Component/Components.gd" type="Script" id=3]
 
 [node name="Entity" type="Spatial"]
 script = ExtResource( 1 )
-entity_kind = 3
-
-[node name="InteractionRange" type="Area" parent="."]
-input_ray_pickable = false
-script = ExtResource( 2 )
-
-[node name="Collidor" type="StaticBody" parent="."]
-
-[node name="Interactions" parent="." instance=ExtResource( 4 )]
-
-[node name="Fx" type="Node" parent="."]
 
 [node name="Components" type="Node" parent="."]
-script = ExtResource( 5 )
-[connection signal="input_event" from="Collidor" to="." method="_on_Collidor_input_event"]
-[connection signal="mouse_entered" from="Collidor" to="." method="_on_Collidor_mouse_entered"]
-[connection signal="mouse_exited" from="Collidor" to="." method="_on_Collidor_mouse_exited"]
+script = ExtResource( 3 )
 
-[editable path="Interactions"]
+[node name="Interactions" parent="." instance=ExtResource( 2 )]
+
+[node name="ClickBody" type="StaticBody" parent="."]
+collision_layer = 0
+collision_mask = 0
+[connection signal="input_event" from="ClickBody" to="." method="_on_ClickBody_input_event"]
+[connection signal="mouse_entered" from="ClickBody" to="." method="_on_ClickBody_mouse_entered"]
+[connection signal="mouse_exited" from="ClickBody" to="." method="_on_ClickBody_mouse_exited"]

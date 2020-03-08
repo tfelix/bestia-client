@@ -67,6 +67,7 @@ func load_data() -> void:
 		if scd == null:
 			# This is an empty slot
 			pass
+		# Das hier wird dann nicht mehr nötig sein.
 		elif scd.clazz == "ItemTrigger":
 			var trigger = ItemTrigger.new()
 			trigger.icon = scd.icon

@@ -34,11 +34,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/BestiaPortraits/BestiaPortraitData.gd"
 }, {
-"base": "Entity",
-"class": "Building",
-"language": "GDScript",
-"path": "res://scenes/Game/Entity/Building/Building.gd"
-}, {
 "base": "Component",
 "class": "CastComponent",
 "language": "GDScript",
@@ -112,7 +107,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Entities",
 "language": "GDScript",
-"path": "res://scenes/Game/Entities.gd"
+"path": "res://scenes/Game/Entity/Entities.gd"
 }, {
 "base": "Spatial",
 "class": "Entity",
@@ -194,11 +189,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/Inventory/ItemUseResponseMessage.gd"
 }, {
-"base": "Entity",
-"class": "Mob",
-"language": "GDScript",
-"path": "res://scenes/Game/Entity/Mob/Mob.gd"
-}, {
 "base": "Component",
 "class": "NameComponent",
 "language": "GDScript",
@@ -223,6 +213,11 @@ _global_script_classes=[ {
 "class": "PlayerComponent",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/PlayerComponent.gd"
+}, {
+"base": "Reference",
+"class": "RangedAttackMessage",
+"language": "GDScript",
+"path": "res://shared/messages/RangedAttackMessage.gd"
 }, {
 "base": "Reference",
 "class": "RequestAttackListMessage",
@@ -305,7 +300,6 @@ _global_script_class_icons={
 "Attack": "",
 "AttackRow": "",
 "BestiaPortraitData": "",
-"Building": "",
 "CastComponent": "",
 "CastTargetMarker": "",
 "ChatCommand": "",
@@ -337,12 +331,12 @@ _global_script_class_icons={
 "ItemUseMessage": "",
 "ItemUseRequestMessage": "",
 "ItemUseResponseMessage": "",
-"Mob": "",
 "NameComponent": "",
 "NoMovementComponent": "",
 "PerformConstructionComponent": "",
 "Player": "",
 "PlayerComponent": "",
+"RangedAttackMessage": "",
 "RequestAttackListMessage": "",
 "RequestInventoryMessage": "",
 "ResponseAttackListMessage": "",

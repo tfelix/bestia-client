@@ -7,6 +7,7 @@ signal onEntityMouseEntered(entity)
 signal onEntityMouseExited(entity)
 signal onEntityAdded(entity)
 signal onEntityRemoved(entity)
+signal onDamageReceived(damage_message)
 
 # Player Signals
 signal onPlayerInteract(entity, interaction)
@@ -35,6 +36,7 @@ signal onMessageReceived(message)
 # UI Signals
 signal onUiEntered()
 signal onUiExited()
+signal onShortcutPressed(shortcut, payload)
 
 # Environment
 signal onTemperatureChanged(temperature)

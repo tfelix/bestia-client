@@ -4,7 +4,7 @@ onready var _perc_tween = $TweenCastPerc
 onready var _text = $VBox/Text
 onready var _bar = $VBox/CenterContainer/Bar
 
-var _entity: Entity
+var _entity
 var _progress = 0.0
 
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	_perc_tween.interpolate_property(self, "_progress", 0.0, 1.0, duration / 1000, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	_perc_tween.start()
 
-func init(cast_text: String, cast_duration_ms: int, parent: Entity) -> void:
+func init(cast_text: String, cast_duration_ms: int, parent: Spatial) -> void:
 	_entity = parent
 	parent.add_child(self)
 	_update_position()

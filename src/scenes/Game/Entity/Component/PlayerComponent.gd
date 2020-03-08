@@ -21,7 +21,7 @@ func on_attach(entity) -> void:
 	entity_id = entity.id
 	_char_label = CharacterLabel.instance()
 	_char_label.init(player_name, guild_name)
-	entity.add_child(_char_label)
+	entity.get_spatial().add_child(_char_label)
 	_char_label.visible = false
 
 

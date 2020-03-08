@@ -45,6 +45,11 @@
 * [fireplace.wav](https://freesound.org/people/leosalom/sounds/234288/), by leosalom, CC BY
 * [Space Swoosh - brighter](https://freesound.org/people/GameAudio/sounds/220191/), GameAudio, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [Bow.wav](https://freesound.org/people/Hanbaal/sounds/178872/), Hanbaal [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [juskiddink_dry-thunder.wav](https://freesound.org/people/juskiddink/sounds/101933/), juskiddink, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [193170__netaj__thunder.wav](https://freesound.org/people/netaj/sounds/193170/), netaj, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [dave-welsh_thunder-clap.wav](https://freesound.org/people/Dave%20Welsh/sounds/194364), Dave Welsh, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [nimlos_rain-thunder.wav](https://freesound.org/people/Nimlos/sounds/359151/), Nimlos, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [josh74000mc_thunder3.wav](https://freesound.org/people/Josh74000MC/sounds/475094/), Josh74000MC, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Shader
 

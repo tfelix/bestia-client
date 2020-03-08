@@ -2,13 +2,14 @@ extends Control
 
 var _camera: Camera
 
-export var mob_name: String = "Mob"
-
 onready var _name_label = $Name
 
 func _ready():
-	_name_label.text = mob_name
 	_camera = get_tree().get_root().get_camera()
+
+
+func set_mob_name(mob_name) -> void:
+	_name_label.text = mob_name
 
 
 func _process(delta):

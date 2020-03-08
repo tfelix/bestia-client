@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
 [ext_resource path="res://scenes/GameUI/Chat/FlatPanelStyle.tres" type="StyleBox" id=4]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 6.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:self_modulate")
@@ -107,11 +107,11 @@ help_text = "Enables or disables the debug mode"
 script = ExtResource( 3 )
 cmd_usage = "/a, /p, /g <TEXT>"
 help_text = "Switches the chat mode between public (all), party and guild."
-chat_panel = NodePath("../../../../ChatPanel/ChatPanel")
+chat_panel = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "hide"
-anims/hide = SubResource( 2 )
+anims/hide = SubResource( 1 )
 [connection signal="mouse_entered" from="." to="." method="_on_Chat_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Chat_mouse_exited"]
 [connection signal="text_entered" from="InputMargin/InputPanel/InputLine/Text" to="ChatPanel" method="_on_Text_text_entered"]

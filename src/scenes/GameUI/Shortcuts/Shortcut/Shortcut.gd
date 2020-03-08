@@ -41,6 +41,7 @@ func _trigger_shortcut():
 		return
 	if _saved_trigger != null:
 		_saved_trigger.trigger_action(shortcut_action_name)
+		GlobalEvents.emit_signal("onShortcutPressed", shortcut_action_name, "attack-1")
 		_color_player.seek(0)
 		_color_player.play("flash")
 

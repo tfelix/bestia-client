@@ -16,7 +16,8 @@ func get_name() -> String:
 func on_attach(entity) -> void:
 	entity_id = entity.id
 	_mob_label = MobLabel.instance()
-	entity.add_child(_mob_label)
+	entity.get_spatial().add_child(_mob_label)
+	_mob_label.set_mob_name(entity_name)
 	_mob_label.visible = false
 
 

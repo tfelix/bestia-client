@@ -18,7 +18,7 @@ func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
 
 	_env_comp = EnvironmentComponent.new()
-	_env_comp.entity_id = 1
+	_env_comp.entity_id = 1000
 	_env_comp.rain_intensity = 0 # 0: no rain, 10: little rain, 50 moderate rain, 100+ storm, heavy rain
 	_env_comp.light_intensity = 70 # 0: total darkness, 20: moonshine, 70-80: normal day, 100+ bright summer day
 	_env_comp.wind = Vector2(3, 1)
@@ -175,8 +175,8 @@ func _use_skill(msg: UseAttackMessage):
 		var cast_comp = CastComponent.new()
 		cast_comp.cast_time = 400
 		cast_comp.cast_db_name = "skill_fireball"
-		cast_comp.entity_id = 1
-		cast_comp.target_entity_id = 2
+		cast_comp.entity_id = 1000
+		cast_comp.target_entity_id = msg.target_entity
 		GlobalEvents.emit_signal("onMessageReceived", cast_comp)
 	
 		_casted_entity_id = msg.target_entity
@@ -187,7 +187,7 @@ func _use_skill(msg: UseAttackMessage):
 func _on_CastTimer_timeout():
 	var cast_remove = ComponentRemoveMessage.new()
 	cast_remove.component_name = CastComponent.NAME
-	cast_remove.entity_id = 1
+	cast_remove.entity_id = 1000
 	GlobalEvents.emit_signal("onMessageReceived", cast_remove)
 
 	var dmg_msg = DamageMessage.new()
@@ -224,7 +224,7 @@ func _on_OneShot2_timeout():
 
 func _on_EnvironmentUpdate_timeout():
 	var active_comp = ActivePlayerBestiaComponent.new()
-	active_comp.entity_id = 1
+	active_comp.entity_id = 1000
 	GlobalEvents.emit_signal("onMessageReceived", active_comp)
 
 	_env_comp.current_temp = randi() % 30 - 10

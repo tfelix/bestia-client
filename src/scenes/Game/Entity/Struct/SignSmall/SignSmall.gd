@@ -1,4 +1,4 @@
-extends Entity
+extends Spatial
 
 # TODO Make a own category for structures with all the needed logic
 

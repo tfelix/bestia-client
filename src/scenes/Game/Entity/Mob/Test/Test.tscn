@@ -1,33 +1,39 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Mob/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game/Entity/Component/NameComponent.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Game/Entity/Entity.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CapsuleShape" id=1]
-
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.0431373, 0.423529, 0.870588, 1 )
 
+[sub_resource type="CapsuleShape" id=3]
+
 [node name="TestMob" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="InteractionRange" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.885986, 0 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Collidor" index="0"]
-transform = Transform( 0.591571, 0, 0, 0, -3.07118e-08, 0.702604, 0, -0.588029, -2.57036e-08, 0, 0.885986, 0 )
-shape = SubResource( 1 )
-
-[node name="NameComponent" type="Node" parent="Components" index="0"]
-script = ExtResource( 2 )
-entity_name = "Mob"
-
-[node name="MeshInstance" type="MeshInstance" parent="." index="5"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.890747, 0 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
 
-[editable path="Interactions"]
+[node name="Entity" parent="." index="1" instance=ExtResource( 4 )]
+entity_kind = 3
+aabb_visual_instance_path = NodePath("../MeshInstance")
+
+[node name="NameComponent" type="Node" parent="Entity/Components" index="0"]
+script = ExtResource( 2 )
+entity_name = "Test Mob"
+
+[node name="ClickBody" parent="Entity" index="2"]
+collision_layer = 524288
+
+[node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.807013, 0 )
+shape = SubResource( 3 )
+
+[editable path="Entity"]

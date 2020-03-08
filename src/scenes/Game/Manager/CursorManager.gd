@@ -14,6 +14,8 @@ func _ready():
 	_adapt_mouse_icon(cursor_hand)
 	GlobalEvents.connect("onEntityMouseEntered", self, "_entity_entered")
 	GlobalEvents.connect("onEntityMouseExited", self, "_entity_exited")
+	GlobalEvents.connect("onCastStarted", self, "_cast_started")
+	GlobalEvents.connect("onCastEnded", self, "_cast_ended")
 	GlobalEvents.connect("onUiEntered", self, "_ui_entered")
 	GlobalEvents.connect("onUiExited", self, "_ui_exited")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
@@ -30,27 +32,32 @@ func _ended_construction(entity) -> void:
 	_check_cursor()
 
 
+func _cast_started() -> void:
+	_is_casting = true
+	_check_cursor()
+
+
+func _cast_ended() -> void:
+	_is_casting = false
+	_check_cursor()
+
+
 func _ui_entered() -> void:
-	print_debug("UI entered")
 	_is_over_ui = true
 	_check_cursor()
 
 
 func _ui_exited() -> void:
-	print_debug("UI exited")
 	_is_over_ui = false
 	_check_cursor()
 
 
 func _entity_entered(entity) -> void:
-	print_debug("entity entered")
 	_is_over_entity = true
 	_check_cursor()
-	pass
-	
+
 
 func _entity_exited(entity) -> void:
-	print_debug("entity exited")
 	_is_over_entity = false
 	_check_cursor()
 
@@ -62,6 +69,10 @@ func _check_cursor() -> void:
 
 	if _is_contructing:
 		_hide_mouse_icon()
+		return
+	
+	if _is_casting:
+		_adapt_mouse_icon(cursor_skill)
 		return
 
 	if _is_over_entity:

@@ -4,7 +4,6 @@ class_name Entities
 const ChatHoverText = preload("res://scenes/GameUI/Chat/ChatHoverText/ChatHoverText.tscn")
 
 var _entities = { }
-var _player_entity: Entity = null
 
 func _ready():
 	GlobalData.entities = self
@@ -19,14 +18,7 @@ func free():
 	.free()
 
 
-# Returns the current player entity
-func get_player_entity() -> Entity:
-	return _player_entity
-
-
 func _server_received(msg) -> void:
-	if msg is DamageMessage:
-		_send_to_entity(msg)
 	if msg is FxMessage:
 		_send_to_entity(msg)
 	if msg is Component:
@@ -53,9 +45,6 @@ func _display_hover_chat(msg: ChatMessage) -> void:
 func _check_send_player_bestia_update(msg: Component, entity: Entity) -> void:
 	if entity == null:
 		return
-	if msg is ActivePlayerBestiaComponent:
-		var new_player = get_entity(msg.entity_id)
-		_player_entity = new_player
 	if msg is PlayerComponent && GlobalData.client_account_id == msg.account_id:
 		GlobalEvents.emit_signal("onPlayerEntityUpdated", entity)
 
@@ -82,6 +71,4 @@ func _add_entity(entity) -> void:
 
 
 func _remove_entity(entity: Entity) -> void:
-	if entity == _player_entity:
-		_player_entity = null
 	_entities.erase(entity.id)

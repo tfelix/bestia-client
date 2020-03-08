@@ -1,16 +1,18 @@
 extends RigidBody
 
 var _damage: DamageMessage
-var _source_entity: Spatial
+var _source_entity
 var _random_offset: Vector2
 
 onready var _label = $DamageLabel
 
 
-func init(damage: DamageMessage, entity: Spatial):
+func init(damage: DamageMessage, entity):
 	_damage = damage
 	_source_entity = entity
-	_random_offset = Vector2(randi() % 20 - 10, randi() % 50 - 25)
+	var aabb = entity.get_aabb() as AABB
+	var size_offset = aabb.size.z / 2
+	_random_offset = Vector2(randi() % 20 - 10, randi() % 50 - 25 - size_offset)
 
 
 func _process(_delta):

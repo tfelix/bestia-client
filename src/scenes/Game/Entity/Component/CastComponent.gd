@@ -21,13 +21,11 @@ func get_name() -> String:
 
 
 func on_attach(entity) -> void:
-	var player = GlobalData.player_entity
 	_cast_fx = CastingFx.instance()
-	player.add_child(_cast_fx)
+	entity.add_child(_cast_fx)
 	
 	_cast_bar = CastBar.instance()
-	_cast_bar.init("Fireball", 400, player)
-	
+	_cast_bar.init("Fireball!", 400, entity)
 	
 	var target_entity = GlobalData.entities.get_entity(target_entity_id)
 	# Cast marker is able to delete itself so we must keep a weakref to
@@ -46,3 +44,4 @@ func on_remove(entity) -> void:
 			marker_ref.queue_free()
 	if _cast_bar != null:
 		_cast_bar.queue_free()
+		_cast_bar = null

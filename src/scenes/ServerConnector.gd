@@ -15,5 +15,3 @@ func _on_message_received(message) -> void:
 		GlobalEvents.emit_signal("onChatReceived", message)
 	elif message is InventoryUpdateMessage:
 		GlobalEvents.emit_signal("onInventoryUpdate", message)
-	else:
-		printerr("Server send unknown message: ", message)
