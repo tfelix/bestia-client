@@ -13,7 +13,7 @@ script = ExtResource( 3 )
 [node name="Interactions" parent="." instance=ExtResource( 2 )]
 
 [node name="ClickBody" type="StaticBody" parent="."]
-collision_layer = 0
+collision_layer = 524288
 collision_mask = 0
 [connection signal="input_event" from="ClickBody" to="." method="_on_ClickBody_input_event"]
 [connection signal="mouse_entered" from="ClickBody" to="." method="_on_ClickBody_mouse_entered"]

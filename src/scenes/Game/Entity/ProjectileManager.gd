@@ -17,10 +17,11 @@ func _server_received(msg) -> void:
 		pass
 
 
-func handle_message(msg: RangedAttackMessage) -> void:
+func handle_message(msg) -> void:
 	var target_entity = _entities.get_entity(msg.target_id)
 	var origin_entity = _entities.get_entity(msg.entity_id)
 	var arrow = Arrow.instance()
 	target_entity.get_spatial().add_child(arrow)
 	arrow.global_transform.origin = origin_entity.get_spatial().global_transform.origin
-	arrow.start(target_entity)
+	arrow.start(target_entity, msg.damage)
+

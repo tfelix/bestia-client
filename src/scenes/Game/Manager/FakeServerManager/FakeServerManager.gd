@@ -9,6 +9,8 @@ const ConstructionComponent = preload("res://scenes/Game/Entity/Component/Perfor
 
 onready var cast_timer = $CastTimer
 
+export var player_entity_id = 1000
+
 var _player_items = []
 
 var _env_comp: EnvironmentComponent
@@ -16,6 +18,7 @@ var _casted_entity_id: int = 0
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
+	_setup_items()
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1000
@@ -36,7 +39,7 @@ func _on_message(payload):
 	elif payload is UseAttackMessage:
 		_use_skill(payload)
 	elif payload is ItemDropMessage:
-		_send_chat(payload)
+		_drop_item(payload)
 	elif payload is RequestInventoryMessage:
 		_send_items()
 	elif payload is RequestAttackListMessage:
@@ -58,11 +61,20 @@ func _respond_item_use(msg: ItemUseRequestMessage):
 	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
-func _use_item(msg: ItemUseMessage) -> void:
-	var player_item = null
+func _get_player_item(player_item_id) -> ItemModel:
 	for item in _player_items:
-		if item.player_item_id  == msg.player_item_id:
-			player_item = item
+		if item.player_item_id  == player_item_id:
+			return item
+	return null
+
+
+func _remove_player_item(player_item: ItemModel) -> void:
+	_player_items.erase(player_item)
+	_send_items()
+
+
+func _use_item(msg: ItemUseMessage) -> void:
+	var player_item = _get_player_item(msg.player_item_id)
 	if player_item == null:
 		return
 
@@ -78,16 +90,7 @@ func _use_item(msg: ItemUseMessage) -> void:
 	_send_items()
 
 
-func _send_chat(msg: ChatSend) -> void:
-	var response = ChatMessage.new()
-	response.entity_id = 1000 #GlobalData.client_account_id
-	response.username = "rocket"
-	response.text = msg.text
-	response.type = msg.type
-	GlobalEvents.emit_signal("onMessageReceived", response)
-
-
-func _send_items() -> void:
+func _setup_items() -> void:
 	var item1 = ItemModel.new()
 	item1.database_name = "empty_bottle"
 	item1.player_item_id = 1
@@ -124,12 +127,31 @@ func _send_items() -> void:
 	item5.type = ItemModel.ItemType.CONSUMEABLE
 	_player_items.append(item5)
 
+
+func _send_items() -> void:
 	var update_msg = InventoryUpdateMessage.new()
 	update_msg.items = _player_items
 	update_msg.max_items = 200
 	update_msg.max_weight = 500
 	GlobalEvents.emit_signal("onMessageReceived", update_msg)
 
+
+func _drop_item(msg: ItemDropMessage) -> void:
+	if msg.item.player_item_id == 5:
+		var item = _get_player_item(msg.item.player_item_id)
+		if item == null:
+			return
+		item.amount -= msg.amount
+		if item.amount <= 0:
+			_remove_player_item(item)
+		_send_items()
+		var visual_comp = VisualComponent.new()
+		visual_comp.entity_id = 8888
+		visual_comp.entity_id = 8888
+		visual_comp.visual = "apple"
+		visual_comp.type = "item"
+		visual_comp.animation = "spawn"
+		GlobalEvents.emit_signal("onMessageReceived", visual_comp)
 
 func _send_attacks() -> void:
 	var atk1 = Attack.new()
@@ -154,19 +176,31 @@ func _send_attacks() -> void:
 	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
-func _drop_item(msg: ItemDropMessage) -> void:
-	print_debug("item drop: ", msg.item.database_name, " amount: ", msg.item.amount)
-	pass
+
+func _send_chat(msg: ChatSend) -> void:
+	var response = ChatMessage.new()
+	response.entity_id = 1000 #GlobalData.client_account_id
+	response.username = "rocket"
+	response.text = msg.text
+	response.type = msg.type
+	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
 func _use_skill(msg: UseAttackMessage):
-	print_debug("skill was used: ", msg.player_attack_id)
-	
 	if msg.player_attack_id == UseAttackMessage.RANGE_ATTACK_ID:
 		var dmg_msg = DamageMessage.new()
 		dmg_msg.entity_id = msg.target_entity
 		dmg_msg.total_damage = randi() % 100 + 1
-		GlobalEvents.emit_signal("onMessageReceived", dmg_msg)
+		
+		var ranged_msg = RangedAttackMessage.new()
+		ranged_msg.entity_id = player_entity_id
+		ranged_msg.target_id = msg.target_entity
+		ranged_msg.projectile = "arrow"
+		ranged_msg.damage = dmg_msg
+		ranged_msg.latency_ms = 10
+		
+		GlobalEvents.emit_signal("onMessageReceived", ranged_msg)
+		
 	elif msg.player_attack_id == UseAttackMessage.MELEE_ATTACK_ID:
 		# check if distance is ok and then let the attack be made
 		print_debug("melee")

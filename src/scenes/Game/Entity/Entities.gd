@@ -57,10 +57,19 @@ func get_entity(id: int) -> Entity:
 
 
 func _send_to_entity(msg) -> Entity:
+	var e = null
+	
 	if not _entities.has(msg.entity_id):
-		printerr("Entity ", msg.entity_id, " was not found")
-		return null
-	var e = _entities[msg.entity_id]
+		# Check if this is a visual component message so we can create entity.
+		if msg is VisualComponent:
+			e = _spawn_entity(msg)
+		else:
+			# Probably we sadly need some kind of caching for some time if
+			# a visual component arrives later...
+			printerr("Entity ", msg.entity_id, " was not found")
+			return null
+	else:
+		e = _entities[msg.entity_id]
 	e.handle_message(msg)
 	return e
 
@@ -72,3 +81,11 @@ func _add_entity(entity) -> void:
 
 func _remove_entity(entity: Entity) -> void:
 	_entities.erase(entity.id)
+
+
+func _spawn_entity(visual: VisualComponent) -> Entity:
+	var apple = load("res://scenes/Game/Entity/Item/Apple/Apple.tscn")
+	var new_entity = apple.instance()
+	add_child(new_entity)
+	return new_entity
+	

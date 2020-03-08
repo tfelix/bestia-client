@@ -21,7 +21,7 @@ func _on_Ok_pressed() -> void:
 	var drop_msg = ItemDropMessage.new()
 	drop_msg.amount = _item_spinner.value
 	drop_msg.item = _item
-	GlobalEvents.emit_signal("onSendToServer", drop_msg)
+	GlobalEvents.emit_signal("onMessageSend", drop_msg)
 	queue_free()
 
 

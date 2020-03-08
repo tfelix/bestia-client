@@ -61,7 +61,7 @@ autoplay = true
 bus = "Fx"
 
 [node name="DamageLabel" type="Control" parent="."]
-mouse_filter = 1
+mouse_filter = 2
 script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

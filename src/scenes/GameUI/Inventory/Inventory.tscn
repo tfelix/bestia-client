@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/GameUI/Inventory/shield-alt-solid.svg" type="Texture" id=6]
 [ext_resource path="res://scenes/GameUI/Inventory/sketch-brands.svg" type="Texture" id=7]
 [ext_resource path="res://scenes/GameUI/close-24px.svg" type="Texture" id=8]
-[ext_resource path="res://scenes/GameUI/Inventory/Item.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/GameUI/Inventory/InventoryItem.tscn" type="PackedScene" id=9]
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.5

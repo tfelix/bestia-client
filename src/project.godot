@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Entity.gd"
 }, {
+"base": "Reference",
+"class": "EntityCreateMessage",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/EntityCreateMessage.gd"
+}, {
 "base": "Component",
 "class": "EnvironmentComponent",
 "language": "GDScript",
@@ -147,7 +152,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "InventoryUpdateMessage",
 "language": "GDScript",
-"path": "res://shared/messages/InventoryUpdateMessage.gd"
+"path": "res://scenes/GameUI/Inventory/InventoryUpdateMessage.gd"
 }, {
 "base": "Spatial",
 "class": "Item",
@@ -162,7 +167,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ItemDropMessage",
 "language": "GDScript",
-"path": "res://shared/messages/ItemDropMessage.gd"
+"path": "res://scenes/GameUI/Inventory/ItemDropMessage.gd"
 }, {
 "base": "Reference",
 "class": "ItemModel",
@@ -217,7 +222,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "RangedAttackMessage",
 "language": "GDScript",
-"path": "res://shared/messages/RangedAttackMessage.gd"
+"path": "res://scenes/Game/Entity/RangedAttackMessage.gd"
 }, {
 "base": "Reference",
 "class": "RequestAttackListMessage",
@@ -227,7 +232,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "RequestInventoryMessage",
 "language": "GDScript",
-"path": "res://shared/messages/RequestInventoryMessage.gd"
+"path": "res://scenes/GameUI/Inventory/RequestInventoryMessage.gd"
 }, {
 "base": "Reference",
 "class": "ResponseAttackListMessage",
@@ -279,6 +284,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Attack/UseAttackMessage.gd"
 }, {
+"base": "Component",
+"class": "VisualComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/VisualComponent.gd"
+}, {
 "base": "Reference",
 "class": "Weapon",
 "language": "GDScript",
@@ -316,6 +326,7 @@ _global_script_class_icons={
 "EffortValues": "",
 "Entities": "",
 "Entity": "",
+"EntityCreateMessage": "",
 "EnvironmentComponent": "",
 "FxMessage": "",
 "Interaction": "",
@@ -349,6 +360,7 @@ _global_script_class_icons={
 "Trigger": "",
 "UUID": "",
 "UseAttackMessage": "",
+"VisualComponent": "",
 "Weapon": "",
 "WeaponComponent": "",
 "WeatherData": ""
@@ -1549,10 +1561,11 @@ inventory_open={
 
 [layer_names]
 
-3d_physics/layer_1="structures"
+3d_physics/layer_1="structure"
 3d_physics/layer_2="player"
-3d_physics/layer_3="enemies"
+3d_physics/layer_3="enemy"
 3d_physics/layer_4="item"
+3d_physics/layer_5="projectile"
 3d_physics/layer_6="terrain"
 
 [locale]

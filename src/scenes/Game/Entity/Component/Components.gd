@@ -41,10 +41,10 @@ func update_component(component: Component):
 			break
 
 	if old_comp != null:
-		print_debug("on_update: ", component.get_name())
+		# print_debug("on_update: ", component.get_name())
 		old_comp.on_update(_parent_entity, component)
 	else:
-		print_debug("on_attach: ", component.get_name())
+		# print_debug("on_attach: ", component.get_name())
 		add_child(component)
 		component.on_attach(_parent_entity)
 

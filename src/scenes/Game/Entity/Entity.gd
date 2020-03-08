@@ -15,6 +15,8 @@ enum EntityKind {
 
 const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
 
+signal component_updated(component)
+
 export (EntityKind) var entity_kind = EntityKind.ITEM
 """
 You can set a path to a VisualInstance (e.g. a MeshInstance) which then will
@@ -78,7 +80,8 @@ func get_component(component_name: String) -> Component:
 
 
 func update_component(component: Component):
-	return _components.update_component(component)
+	_components.update_component(component)
+	emit_signal("component_updated", component)
 
 
 func remove_component(component_name: String):

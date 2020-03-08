@@ -12,6 +12,7 @@ radius = 1.1
 height = 1.8
 
 [node name="Player" type="KinematicBody"]
+input_ray_pickable = false
 collision_layer = 2
 collision_mask = 33
 script = ExtResource( 1 )
@@ -46,7 +47,6 @@ projectile_speed = 45.0
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.933055, 0 )
 shape = SubResource( 1 )
-disabled = true
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
 
 [editable path="Entity"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GameUI/Inventory/ItemDropDialog/ItemDropDialog.gd" type="Script" id=1]
-[ext_resource path="res://placeholder.png" type="Texture" id=2]
+[ext_resource path="res://scenes/GameUI/Inventory/item_placeholder.png" type="Texture" id=2]
 [ext_resource path="res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
 
@@ -32,35 +32,34 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 290.0
-margin_bottom = 152.0
+margin_bottom = 202.0
 
 [node name="HBoxHeader" type="HBoxContainer" parent="MarginContainer/VBox"]
 margin_right = 280.0
-margin_bottom = 50.0
+margin_bottom = 40.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="ItemImg" type="TextureRect" parent="MarginContainer/VBox/HBoxHeader"]
-margin_left = 44.0
-margin_right = 94.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 50 )
+margin_left = 49.0
+margin_right = 89.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 32, 32 )
 texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+stretch_mode = 4
 
 [node name="ItemName" type="Label" parent="MarginContainer/VBox/HBoxHeader"]
-margin_left = 114.0
-margin_top = 6.0
-margin_right = 236.0
-margin_bottom = 43.0
+margin_left = 109.0
+margin_top = 1.0
+margin_right = 231.0
+margin_bottom = 38.0
 custom_fonts/font = ExtResource( 3 )
 text = "Item Name"
 
 [node name="InputMargin" type="MarginContainer" parent="MarginContainer/VBox"]
-margin_top = 54.0
+margin_top = 44.0
 margin_right = 280.0
-margin_bottom = 98.0
+margin_bottom = 88.0
 custom_constants/margin_top = 10
 custom_constants/margin_bottom = 10
 
@@ -87,9 +86,9 @@ margin_bottom = 24.0
 text = "All"
 
 [node name="HBoxButtons" type="HBoxContainer" parent="MarginContainer/VBox"]
-margin_top = 102.0
+margin_top = 92.0
 margin_right = 280.0
-margin_bottom = 142.0
+margin_bottom = 132.0
 custom_constants/separation = 10
 alignment = 1
 

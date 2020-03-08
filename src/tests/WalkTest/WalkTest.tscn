@@ -75,7 +75,6 @@ script = ExtResource( 11 )
 
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
-input_ray_pickable = false
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 15 )]
 
@@ -85,15 +84,15 @@ fov = 50.0
 script = ExtResource( 3 )
 
 [node name="TestMob" parent="Entities" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50759, 0.92261, -6.97882 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50759, 0.122936, -6.97882 )
 entity_id = 1
 
 [node name="TestMob2" parent="Entities" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.79868, 0.92261, 3.89831 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.79868, 0.186096, 3.89831 )
 entity_id = 2
 
 [node name="Building" parent="Entities" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, 0.92261, 8.54126 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, -0.00772339, 8.54126 )
 
 [node name="SignSmall" parent="Entities" instance=ExtResource( 16 )]
 transform = Transform( 0.868917, 0, -0.494958, 0, 1, 0, 0.494958, 0, 0.868917, 6.19306, 0.0199342, 0 )

@@ -1,6 +1,6 @@
 extends Control
 
-const ItemNode = preload("res://scenes/GameUI/Inventory/Item.tscn")
+const ItemNode = preload("res://scenes/GameUI/Inventory/InventoryItem.tscn")
 const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
 const ItemEquipModule = preload("res://scenes/GameUI/Inventory/ItemEquipModule/ItemEquipModule.tscn")
 
@@ -58,6 +58,8 @@ func _use_shortcut_item(player_item_id)-> void:
 	if pi.is_usable() != true || pi.amount < 1:
 		print_debug("use_shortcut_item with pid ", player_item_id, " not usable")
 		return
+	# TODO We need to check by the server if the player is actually allowed to
+	# use the item
 	var use_msg = ItemUseMessage.new()
 	use_msg.player_item_id = player_item_id
 	GlobalEvents.emit_signal("onMessageSend", use_msg)
