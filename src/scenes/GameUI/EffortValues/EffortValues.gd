@@ -3,28 +3,28 @@ extends Control
 var _effort_values = EffortValues.new()
 var _delta_effort_values = EffortValues.new()
 
-onready var _str = $Rows/StatColoumns/ValueColumn/StrValue
-onready var _vit = $Rows/StatColoumns/ValueColumn/VitValue
-onready var _int = $Rows/StatColoumns/ValueColumn/IntValue
-onready var _wis = $Rows/StatColoumns/ValueColumn/WisValue
-onready var _dex = $Rows/StatColoumns/ValueColumn/DexValue
-onready var _agi = $Rows/StatColoumns/ValueColumn/AgiValue
+onready var _str = $PanelContainer/Rows/StatColoumns/ValueColumn/StrValue
+onready var _vit = $PanelContainer/Rows/StatColoumns/ValueColumn/VitValue
+onready var _int = $PanelContainer/Rows/StatColoumns/ValueColumn/IntValue
+onready var _wis = $PanelContainer/Rows/StatColoumns/ValueColumn/WisValue
+onready var _dex = $PanelContainer/Rows/StatColoumns/ValueColumn/DexValue
+onready var _agi = $PanelContainer/Rows/StatColoumns/ValueColumn/AgiValue
 
-onready var _str_needed = $Rows/StatColoumns/NeededColumn/StrNeeded
-onready var _vit_needed = $Rows/StatColoumns/NeededColumn/VitNeeded
-onready var _int_needed = $Rows/StatColoumns/NeededColumn/IntNeeded
-onready var _wis_needed = $Rows/StatColoumns/NeededColumn/WisNeeded
-onready var _dex_needed = $Rows/StatColoumns/NeededColumn/DexNeeded
-onready var _agi_needed = $Rows/StatColoumns/NeededColumn/AgiNeeded
+onready var _str_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/StrNeeded
+onready var _vit_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/VitNeeded
+onready var _int_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/IntNeeded
+onready var _wis_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/WisNeeded
+onready var _dex_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/DexNeeded
+onready var _agi_needed = $PanelContainer/Rows/StatColoumns/NeededColumn/AgiNeeded
 
-onready var _str_btn = $Rows/StatColoumns/ButtonColumn/StrUp
-onready var _vit_btn = $Rows/StatColoumns/ButtonColumn/VitUp
-onready var _int_btn = $Rows/StatColoumns/ButtonColumn/IntUp
-onready var _wis_btn = $Rows/StatColoumns/ButtonColumn/WisUp
-onready var _dex_btn = $Rows/StatColoumns/ButtonColumn/DexUp
-onready var _agi_btn = $Rows/StatColoumns/ButtonColumn/AgiUp
+onready var _str_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/StrUp
+onready var _vit_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/VitUp
+onready var _int_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/IntUp
+onready var _wis_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/WisUp
+onready var _dex_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/DexUp
+onready var _agi_btn = $PanelContainer/Rows/StatColoumns/ButtonColumn/AgiUp
 
-onready var _available = $Rows/AvailableGain
+onready var _available = $PanelContainer/Rows/AvailableGain
 
 var _original_gain = 13
 var _available_gain = 13

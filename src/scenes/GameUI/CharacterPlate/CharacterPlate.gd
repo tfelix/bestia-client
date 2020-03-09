@@ -1,5 +1,9 @@
 extends Control
 
+signal on_inventory_pressed
+signal on_attacks_pressed
+signal status_values_pressed
+
 onready var _character_name = $Rows/InfoMargin/CharacterInfo
 onready var _health_bar = $Rows/Main/Bars/HpBar
 onready var _mana_bar = $Rows/Main/Bars/ManaBar
@@ -35,3 +39,15 @@ func _on_player_component_changed(component):
 	_health_label.text = hp_txt
 	_mana_label.text = mana_txt
 
+
+
+func _on_Inventory_pressed():
+	emit_signal("on_inventory_pressed")
+
+
+func _on_Attacks_pressed():
+	emit_signal("on_attacks_pressed")
+
+
+func _on_StatusValues_pressed():
+	emit_signal("status_values_pressed")

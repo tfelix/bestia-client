@@ -39,7 +39,7 @@ func _display_hover_chat(msg: ChatMessage) -> void:
 		return
 	var chat_text = ChatHoverText.instance()
 	entity.add_child(chat_text)
-	chat_text.set_text(msg.text)
+	chat_text.set_text("%s: %s" % [msg.username, msg.text])
 
 
 func _check_send_player_bestia_update(msg: Component, entity: Entity) -> void:

@@ -85,20 +85,27 @@ func _rotate_cam(event) -> void:
 	
 	var rel_x = move_delta.x / move_distance
 	_current_phi = clamp(_last_phi + rel_x * max_phi_delta, -max_phi_delta, max_phi_delta)
+	
+	GlobalConfig.set_value("camera", "current_phi", _current_phi)
+	GlobalConfig.set_value("camera", "current_theta", _current_theta)
 
 
 func _reset() -> void:
 	_current_phi = 0
 	_current_theta = _start_theta
+	GlobalConfig.set_value("camera", "current_phi", _current_phi)
+	GlobalConfig.set_value("camera", "current_theta", _current_theta)
 
 
 func _zoom_in() -> void:
 	_current_distance -= 1
 	if _current_distance < min_distance:
 		_current_distance = min_distance
+	GlobalConfig.set_value("camera", "current_distance", _current_distance)
 
 
 func _zoom_out() -> void:
 	_current_distance += 1
 	if _current_distance > max_distance:
 		_current_distance = max_distance
+	GlobalConfig.set_value("camera", "current_distance", _current_distance)

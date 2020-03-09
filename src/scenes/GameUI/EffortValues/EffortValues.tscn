@@ -3,92 +3,99 @@
 [ext_resource path="res://scenes/GameUI/EffortValues/EffortValues.gd" type="Script" id=1]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=2]
 
-
-
 [node name="EffortValues" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1280.0
 margin_bottom = -720.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Rows" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -134.0
-margin_bottom = -30.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 14.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="StatColoumns" type="HBoxContainer" parent="Rows"]
+[node name="Rows" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 226.0
+margin_bottom = 229.0
+
+[node name="StatColoumns" type="HBoxContainer" parent="PanelContainer/Rows"]
 margin_right = 219.0
 margin_bottom = 164.0
 
-[node name="LabelColumn" type="VBoxContainer" parent="Rows/StatColoumns"]
-editor/display_folded = true
+[node name="LabelColumn" type="VBoxContainer" parent="PanelContainer/Rows/StatColoumns"]
 margin_right = 110.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 110, 0 )
 size_flags_horizontal = 3
 
-[node name="Placeholder" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Placeholder" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_right = 110.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Strength2" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Strength2" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 24.0
 margin_right = 110.0
 margin_bottom = 44.0
 custom_fonts/font = ExtResource( 2 )
 text = "Strength"
 
-[node name="Vitality" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Vitality" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 48.0
 margin_right = 110.0
 margin_bottom = 68.0
 custom_fonts/font = ExtResource( 2 )
 text = "Vitality"
 
-[node name="Intelligence" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Intelligence" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 72.0
 margin_right = 110.0
 margin_bottom = 92.0
 custom_fonts/font = ExtResource( 2 )
 text = "Intelligence"
 
-[node name="Willpower" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Willpower" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 96.0
 margin_right = 110.0
 margin_bottom = 116.0
 custom_fonts/font = ExtResource( 2 )
 text = "Wisdom"
 
-[node name="Dexterity" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Dexterity" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 120.0
 margin_right = 110.0
 margin_bottom = 140.0
 custom_fonts/font = ExtResource( 2 )
 text = "Dexterity"
 
-[node name="Agility" type="Label" parent="Rows/StatColoumns/LabelColumn"]
+[node name="Agility" type="Label" parent="PanelContainer/Rows/StatColoumns/LabelColumn"]
 margin_top = 144.0
 margin_right = 110.0
 margin_bottom = 164.0
 custom_fonts/font = ExtResource( 2 )
 text = "Agility"
 
-[node name="ValueColumn" type="VBoxContainer" parent="Rows/StatColoumns"]
+[node name="ValueColumn" type="VBoxContainer" parent="PanelContainer/Rows/StatColoumns"]
 margin_left = 114.0
 margin_right = 166.0
 margin_bottom = 164.0
 
-[node name="Current" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="Current" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_right = 52.0
 margin_bottom = 20.0
 size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "Current"
 
-[node name="StrValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="StrValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 24.0
 margin_right = 52.0
@@ -97,7 +104,7 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="VitValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="VitValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 48.0
 margin_right = 52.0
@@ -106,7 +113,7 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="IntValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="IntValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 72.0
 margin_right = 52.0
@@ -115,7 +122,7 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="WisValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="WisValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 96.0
 margin_right = 52.0
@@ -124,7 +131,7 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="DexValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="DexValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 120.0
 margin_right = 52.0
@@ -133,7 +140,7 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="AgiValue" type="Label" parent="Rows/StatColoumns/ValueColumn"]
+[node name="AgiValue" type="Label" parent="PanelContainer/Rows/StatColoumns/ValueColumn"]
 margin_left = 44.0
 margin_top = 144.0
 margin_right = 52.0
@@ -142,13 +149,13 @@ size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 text = "1"
 
-[node name="NeededColumn" type="VBoxContainer" parent="Rows/StatColoumns"]
+[node name="NeededColumn" type="VBoxContainer" parent="PanelContainer/Rows/StatColoumns"]
 margin_left = 170.0
 margin_right = 195.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="+" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="+" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_right = 25.0
 margin_bottom = 20.0
 size_flags_horizontal = 11
@@ -156,7 +163,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "+"
 align = 1
 
-[node name="StrNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="StrNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 24.0
 margin_right = 25.0
 margin_bottom = 44.0
@@ -165,7 +172,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="VitNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="VitNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 48.0
 margin_right = 25.0
 margin_bottom = 68.0
@@ -174,7 +181,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="IntNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="IntNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 72.0
 margin_right = 25.0
 margin_bottom = 92.0
@@ -183,7 +190,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="WisNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="WisNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 96.0
 margin_right = 25.0
 margin_bottom = 116.0
@@ -192,7 +199,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="DexNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="DexNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 120.0
 margin_right = 25.0
 margin_bottom = 140.0
@@ -201,7 +208,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="AgiNeeded" type="Label" parent="Rows/StatColoumns/NeededColumn"]
+[node name="AgiNeeded" type="Label" parent="PanelContainer/Rows/StatColoumns/NeededColumn"]
 margin_top = 144.0
 margin_right = 25.0
 margin_bottom = 164.0
@@ -210,55 +217,55 @@ custom_fonts/font = ExtResource( 2 )
 text = "10"
 align = 1
 
-[node name="ButtonColumn" type="VBoxContainer" parent="Rows/StatColoumns"]
+[node name="ButtonColumn" type="VBoxContainer" parent="PanelContainer/Rows/StatColoumns"]
 margin_left = 199.0
 margin_right = 219.0
 margin_bottom = 164.0
 
-[node name="Placeholder" type="Label" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="Placeholder" type="Label" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_left = 20.0
 margin_right = 20.0
 margin_bottom = 20.0
 size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 
-[node name="StrUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="StrUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 24.0
 margin_right = 20.0
 margin_bottom = 44.0
 text = "+"
 
-[node name="VitUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="VitUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 48.0
 margin_right = 20.0
 margin_bottom = 68.0
 text = "+"
 
-[node name="IntUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="IntUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 72.0
 margin_right = 20.0
 margin_bottom = 92.0
 text = "+"
 
-[node name="WisUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="WisUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 96.0
 margin_right = 20.0
 margin_bottom = 116.0
 text = "+"
 
-[node name="DexUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="DexUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 120.0
 margin_right = 20.0
 margin_bottom = 140.0
 text = "+"
 
-[node name="AgiUp" type="Button" parent="Rows/StatColoumns/ButtonColumn"]
+[node name="AgiUp" type="Button" parent="PanelContainer/Rows/StatColoumns/ButtonColumn"]
 margin_top = 144.0
 margin_right = 20.0
 margin_bottom = 164.0
 text = "+"
 
-[node name="AvailableGain" type="Label" parent="Rows"]
+[node name="AvailableGain" type="Label" parent="PanelContainer/Rows"]
 margin_top = 168.0
 margin_right = 219.0
 margin_bottom = 188.0
@@ -266,29 +273,29 @@ custom_fonts/font = ExtResource( 2 )
 text = "Available Points"
 align = 2
 
-[node name="Buttons" type="HBoxContainer" parent="Rows"]
+[node name="Buttons" type="HBoxContainer" parent="PanelContainer/Rows"]
 margin_top = 192.0
 margin_right = 219.0
 margin_bottom = 222.0
 alignment = 2
 
-[node name="OkBtn" type="Button" parent="Rows/Buttons"]
+[node name="OkBtn" type="Button" parent="PanelContainer/Rows/Buttons"]
 margin_left = 95.0
 margin_right = 155.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 60, 30 )
 text = "Ok"
 
-[node name="CancelBtn" type="Button" parent="Rows/Buttons"]
+[node name="CancelBtn" type="Button" parent="PanelContainer/Rows/Buttons"]
 margin_left = 159.0
 margin_right = 219.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 60, 0 )
 text = "Cancel"
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/StrUp" to="." method="_on_StrUp_pressed"]
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/VitUp" to="." method="_on_VitUp_pressed"]
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/IntUp" to="." method="_on_IntUp_pressed"]
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/WisUp" to="." method="_on_WisUp_pressed"]
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/DexUp" to="." method="_on_DexUp_pressed"]
-[connection signal="pressed" from="Rows/StatColoumns/ButtonColumn/AgiUp" to="." method="_on_AgiUp_pressed"]
-[connection signal="pressed" from="Rows/Buttons/CancelBtn" to="." method="_on_CancelBtn_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/StrUp" to="." method="_on_StrUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/VitUp" to="." method="_on_VitUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/IntUp" to="." method="_on_IntUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/WisUp" to="." method="_on_WisUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/DexUp" to="." method="_on_DexUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/StatColoumns/ButtonColumn/AgiUp" to="." method="_on_AgiUp_pressed"]
+[connection signal="pressed" from="PanelContainer/Rows/Buttons/CancelBtn" to="." method="_on_CancelBtn_pressed"]

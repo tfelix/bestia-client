@@ -7,7 +7,7 @@ var _matcher: RegEx
 
 func _ready():
 	_matcher = RegEx.new()
-	_matcher.compile("([\/a|\/p|\/g]) (.*)")
+	_matcher.compile("([\/s|\/p|\/g]) (.*)")
 
 func handle_input(text: String) -> bool:
 	var result = _matcher.search(text)
@@ -18,7 +18,7 @@ func handle_input(text: String) -> bool:
 	var chat_text = result.get_string(2)
 	
 	match mode:
-		"a":
+		"s":
 			_chat.set_chat_mode(ChatMessage.ChatType.PUBLIC)
 		"p":
 			_chat.set_chat_mode(ChatMessage.ChatType.PARTY)
