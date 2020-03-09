@@ -114,4 +114,4 @@ autoplay = "hide"
 anims/hide = SubResource( 1 )
 [connection signal="mouse_entered" from="." to="." method="_on_Chat_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Chat_mouse_exited"]
-[connection signal="text_entered" from="InputMargin/InputPanel/InputLine/Text" to="ChatPanel" method="_on_Text_text_entered"]
+[connection signal="text_entered" from="InputMargin/InputPanel/InputLine/Text" to="." method="_on_Text_text_entered"]

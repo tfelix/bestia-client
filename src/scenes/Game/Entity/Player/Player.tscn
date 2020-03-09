@@ -32,6 +32,7 @@ one_shot = true
 
 [node name="Entity" parent="." instance=ExtResource( 4 )]
 entity_kind = 5
+aabb_visual_instance_path = NodePath("../PlayerMesh/PlayerMesh")
 id = 1000
 
 [node name="PlayerComponent" type="Node" parent="Entity/Components" index="0"]
@@ -48,5 +49,7 @@ projectile_speed = 45.0
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.933055, 0 )
 shape = SubResource( 1 )
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
+
+[editable path="PlayerMesh"]
 
 [editable path="Entity"]

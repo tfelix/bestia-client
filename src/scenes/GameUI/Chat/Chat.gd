@@ -49,14 +49,14 @@ func entered_chat(text: String) -> void:
 	chat_send.text = text
 	chat_send.type = _chat_type.selected
 	GlobalEvents.emit_signal("onMessageSend", chat_send)
-	
-	# Small trick to remove the focus from the control so the game can 
-	# react on control inputs again
-	# TODO This unfocus is currently broken.
-	#_text_input.focus_mode = FOCUS_NONE
-	_text_input.hide()
-	_text_input.show()
-	# _text_input.focus_mode = FOCUS_CLICK
+	call_deferred("_release_focus")
+
+"""
+Must be called deffered in order to avoid that the enter event
+does grab focus again right away.
+"""
+func _release_focus():
+	_text_input.release_focus()
 
 
 func print_text(text) -> void:

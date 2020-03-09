@@ -21,12 +21,14 @@ var _has_attack_delay = false
 var _target_entity: Entity
 var _casted_attack = null
 
+var _queued_attack_entity: Entity = null
+
 onready var _move_cursor = $MoveCursor
 onready var _attack_delay = $AttackDelay
 onready var _entity = $Entity
 
 func _ready():
-	GlobalEvents.connect("onTerrainClicked", self, "_move_to")
+	GlobalEvents.connect("onTerrainClicked", self, "_terrain_clicked")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 	GlobalEvents.connect("onPlayerInteract", self, "_on_player_interact")
@@ -59,6 +61,8 @@ func _physics_process(delta):
 	var target_delta = (_move_target - global_pos).length()
 	
 	if target_delta < 0.1:
+		_current_state = PlayerState.IDLE
+		_check_queued_actions()
 		return
 
 	if _move_target == global_pos:
@@ -68,9 +72,23 @@ func _physics_process(delta):
 	move_and_slide_with_snap(velocity, Vector3.UP)
 
 
+func _check_queued_actions() -> void:
+	if _queued_attack_entity:
+		_player_attacks(_queued_attack_entity)
+
+
+func _clear_queued_actions() -> void:
+	_queued_attack_entity = null
+
+
 # TODO Later access the real mesh of the player
 func get_aabb() -> AABB:
 	return AABB(Vector3.ZERO, Vector3(1, 2.2, 1))
+
+
+func _terrain_clicked(global_pos: Vector3) -> void:
+	_play_move_marker(global_pos)
+	_move_to(global_pos)
 
 
 func _move_to(global_pos: Vector3) -> void:
@@ -80,12 +98,15 @@ func _move_to(global_pos: Vector3) -> void:
 	# We cancel casts on hold
 	_casted_attack = null
 	GlobalEvents.emit_signal("onCastEnded")
-	
 	look_at(global_pos, Vector3.UP)
-	_move_cursor.global_transform.origin = global_pos
-	_move_cursor.play()
 	_move_target = global_pos
 	_current_state = PlayerState.MOVING
+	_clear_queued_actions()
+
+
+func _play_move_marker(position: Vector3) -> void:
+	_move_cursor.global_transform.origin = position
+	_move_cursor.play()
 
 
 func _on_player_interact(target_entity: Entity, type: String) -> void:
@@ -140,7 +161,8 @@ func _player_attacks(target_entity: Entity) -> void:
 	var target_distance = target_origin.distance_to(global_transform.origin)
 	if  weapon_comp.attack_range < target_distance:
 		# distance is too short we need to move first.
-		print_debug("out of range: ", weapon_comp.attack_range, " < ", target_distance)
+		_move_to_distance_from_entity(weapon_comp.attack_range, target_entity)
+		_queued_attack_entity = target_entity
 		return
 	
 	_current_state = PlayerState.ATTACKING
@@ -157,15 +179,13 @@ func _player_attacks(target_entity: Entity) -> void:
 	_attack_delay.start()
 
 
-func _on_Player_input_event(camera, event, click_position, click_normal, shape_idx):
-	if event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
-		#_handle_default_input()
-		# This is not in the hierarchy of an entity and thus this self value
-		# is often not recognized at the receiving site.
-		GlobalEvents.emit_signal("onEntityClicked", self, event)
-	if event.is_action_pressed(Actions.ACTION_RIGHT_CLICK):
-		#_handle_secondary_input()
-		pass
+func _move_to_distance_from_entity(distance: float, target_entity: Entity) -> void:
+	# We want to keep some safety margin for rounding errors.
+	distance -= 0.5
+	var target_origin = target_entity.get_spatial().global_transform.origin
+	var offset_vec = (target_origin - global_transform.origin).normalized() * distance
+	var target = target_origin - offset_vec
+	_move_to(target)
 
 
 func _on_AttackDelay_timeout():
