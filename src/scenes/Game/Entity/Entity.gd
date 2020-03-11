@@ -13,11 +13,22 @@ enum EntityKind {
 	PLAYER
 }
 
+enum BehaviorGroup {
+	RESOURCE,
+	ITEM,
+	MOB,
+	NPC,
+	STRUCTURE,
+	PLAYER
+}
+
 const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
 
 signal component_updated(component)
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
+export (BehaviorGroup) var behavior_group = BehaviorGroup.RESOURCE
+
 """
 You can set a path to a VisualInstance (e.g. a MeshInstance) which then will
 get used to determine the AABB.

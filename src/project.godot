@@ -260,6 +260,16 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Entity/Component/StatusComponent.gd"
 }, {
 "base": "Reference",
+"class": "StatusValues",
+"language": "GDScript",
+"path": "res://shared/scripts/StatusValues.gd"
+}, {
+"base": "Spatial",
+"class": "Struct",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Struct/Struct.gd"
+}, {
+"base": "Reference",
 "class": "TemperatureData",
 "language": "GDScript",
 "path": "res://scenes/Game/Weather/TemperatureData.gd"
@@ -355,6 +365,8 @@ _global_script_class_icons={
 "ServerConnector": "",
 "SkillTrigger": "",
 "StatusComponent": "",
+"StatusValues": "",
+"Struct": "",
 "TemperatureData": "",
 "TimedTextLabel": "",
 "Trigger": "",

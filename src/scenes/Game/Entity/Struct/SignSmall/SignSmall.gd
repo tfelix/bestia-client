@@ -1,8 +1,5 @@
-extends Spatial
+extends Struct
 
-# TODO Make a own category for structures with all the needed logic
-
-export var text = ""
 export(ItemModel.ItemType) var type = ItemModel.ItemType.ETC
 
 var _is_constructing = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/GameUI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GameUI/Chat/Chat.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GameUI/StatusValues/StatusValues.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/GameUI/BestiaPortraits/BestiaPortraits.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/GameUI/Inventory/Inventory.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/GameUI/AttackList/AttackList.tscn" type="PackedScene" id=10]
@@ -69,5 +70,10 @@ visible = false
 
 [node name="AttackList" parent="." instance=ExtResource( 10 )]
 visible = false
+
+[node name="StatusValues" parent="." instance=ExtResource( 7 )]
+margin_left = 282.549
+margin_top = 10.0
+margin_right = 810.549
 [connection signal="on_attacks_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_attacks_pressed"]
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]

@@ -10,6 +10,8 @@ var _is_over_ui = false
 var _is_casting = false
 var _is_contructing = false
 
+var _current_entity: Entity = null
+
 func _ready():
 	_adapt_mouse_icon(cursor_hand)
 	GlobalEvents.connect("onEntityMouseEntered", self, "_entity_entered")
@@ -54,11 +56,13 @@ func _ui_exited() -> void:
 
 func _entity_entered(entity) -> void:
 	_is_over_entity = true
+	_current_entity = entity
 	_check_cursor()
 
 
 func _entity_exited(entity) -> void:
 	_is_over_entity = false
+	_current_entity = null
 	_check_cursor()
 
 
@@ -76,11 +80,17 @@ func _check_cursor() -> void:
 		return
 
 	if _is_over_entity:
-		# Ask the default behavior for this kind of entity.
-		_adapt_mouse_icon(cursor_attack)
+		_on_over_entity_cursor()
 		return
 	
 	_adapt_mouse_icon(cursor_hand)
+
+"""
+Adapts the cursor to the current entity type which is under the pointer
+and depending on the setup behavior it will change the cursor type.
+"""
+func _on_over_entity_cursor() -> void:
+	_adapt_mouse_icon(cursor_attack)
 
 
 func _reset_cursor(entity: Entity) -> void:
