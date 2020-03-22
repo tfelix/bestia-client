@@ -28,6 +28,16 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
 
+[node name="HoverHighlight" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0.929412, 0.756863, 0.160784, 0.666667 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
 [node name="ItemImage" type="TextureRect" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -57,3 +67,4 @@ __meta__ = {
 }
 [connection signal="gui_input" from="." to="." method="_on_Item_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_Item_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_InventoryItem_mouse_exited"]

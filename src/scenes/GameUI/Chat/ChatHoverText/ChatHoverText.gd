@@ -4,11 +4,12 @@ class_name ChatHoverText
 export(int) var display_time = 10
 export(Vector2) var offset = Vector2(0, -60)
 
-onready var label = $Text
+onready var _label = $Text
+onready var _timer = $DestroyTimer
 var _entity: Entity
 
 func _ready() -> void:
-	$DestroyTimer.wait_time = display_time
+	_timer.wait_time = display_time
 	_entity = get_parent() as Entity
 	_remove_other_chat_nodes()
 
@@ -30,7 +31,7 @@ func _remove_other_chat_nodes() -> void:
 
 
 func set_text(text):
-	label.text = text
+	_label.text = text
 
 
 func _update_position():
@@ -44,8 +45,8 @@ func _update_position():
 	var node_height = aabb.size.z
 	entity_pos.y += node_height
 	var cam_pos = camera.unproject_position(entity_pos)
-	var new_pos = Vector2(cam_pos.x - label.get_size().x / 2 + offset.x, cam_pos.y + offset.y)
-	label.set_position(new_pos)
+	var new_pos = Vector2(cam_pos.x - _label.get_size().x / 2 + offset.x, cam_pos.y + offset.y)
+	_label.set_position(new_pos)
 
 
 func _on_DestroyTimer_timeout():

@@ -1,12 +1,11 @@
 shader_type canvas_item;
 
 // USING https://www.shadertoy.com/view/XtBXDw (base on it)
-
 uniform sampler2D noiseTexture;
 uniform float COVERAGE: hint_range(0,1); //0.5
 uniform float THICKNESS: hint_range(0,100); //25.
 uniform float ABSORPTION: hint_range(0,10); //1.030725
-uniform int STEPS: hint_range(0,100); //25
+uniform int STEPS: hint_range(0,100); // 50
 
 float noise(in vec3 x) {
 	x*=0.01;
@@ -38,10 +37,9 @@ vec3 render_sky_color(vec3 rd){
 	float sun_amount = max(dot(rd, SUN_DIR), 0.0);
 
 	vec3  sky = mix(vec3(.0, .1, .4), vec3(.3, .6, .8), 1.0 - rd.y);
-	sky = sky + sun_color * min(pow(sun_amount, 1500.0) * 5.0, 1.0);
-	sky = sky + sun_color * min(pow(sun_amount, 10.0) * .6, 1.0);
+	sky = sky + sun_color * min(pow(sun_amount, 1500.0) * 5.0, 1.0); // inner sun
+	sky = sky + sun_color * min(pow(sun_amount, 10.0) * .6, 1.0); // outer glow
 	
-	//return vec3(1.0, 0.0, .0);
 	return sky;
 }
 
@@ -78,7 +76,7 @@ float density(vec3 pos,vec3 offset,float t){
 	
 	float cov = 1. - COVERAGE;
 	dens *= smoothstep (cov, cov + .05, dens);
-	return clamp(dens, 0., 1.);	
+	return clamp(dens, 0., 1.);
 }
 
 
@@ -178,10 +176,9 @@ void fragment(){
 		cld.rgb = cube_bot(rd,vec3(1.5,1.49,1.71), vec3(1.1,1.15,1.5), TIME);
 		cld*=cld;
 		cld.a=1.;
-		cld*=clamp((  1.0 - exp(-1.3 * pow(max((0.0), horizonPow), (2.6)))),0.,1.);
-		// cld = vec4(0.0, 1.0, 0.0, 1.0);
+		cld *= clamp((  1.0 - exp(-1.3 * pow(max((0.0), horizonPow), (2.6)))),0.,1.);
 		discard;
 	}
 	col = mix(sky, cld.rgb / (0.0001+cld.a), cld.a);
-	COLOR = vec4(col,1.0);
+	COLOR = vec4(col, 1.0);
 }

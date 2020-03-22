@@ -2,7 +2,5 @@
 
 [ext_resource path="res://shared/fonts/OpenSans_RegularNormal.tres" type="DynamicFont" id=1]
 
-
-
 [resource]
 default_font = ExtResource( 1 )

@@ -4,7 +4,7 @@ signal on_inventory_pressed
 signal on_attacks_pressed
 signal status_values_pressed
 
-onready var _character_name = $Rows/InfoMargin/CharacterInfo
+onready var _character_name = $Rows/Top/InfoMargin/CharacterInfo
 onready var _health_bar = $Rows/Main/Bars/HpBar
 onready var _mana_bar = $Rows/Main/Bars/ManaBar
 onready var _health_label = $Rows/Main/Bars/HealthLabel
@@ -22,17 +22,17 @@ func _on_player_changed(player: Entity):
 	
 	_character_name.text = info.player_name
 	
-	var status = player.get_component(StatusComponent.NAME) as StatusComponent
-	if status == null:
-		printerr("No Status component on player node")
+	var condition = player.get_component(ConditionComponent.NAME) as ConditionComponent
+	if condition == null:
+		printerr("No ConditionComponent on player node")
 		return
 	
-	_on_player_component_changed(status)
+	_on_player_component_changed(condition)
 
 
-func _on_player_component_changed(component: StatusComponent):
-	_health_bar.set_value(component.cur_health / component.max_health)
-	_mana_bar.set_value(component.cur_mana / component.max_mana)
+func _on_player_component_changed(component: ConditionComponent):
+	_health_bar.set_value(component.get_health_perc())
+	_mana_bar.set_value(component.get_mana_perc())
 	var mana_txt = "Mana: %d / %d" % [component.cur_mana, component.max_mana] 
 	var hp_txt = "HP: " + str(component.cur_health) + " / " + str(component.max_health)
 	_health_label.text = hp_txt

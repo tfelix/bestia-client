@@ -12,4 +12,3 @@ var client_account_id: int = 1
 # can not be typed
 var entities 
 
-var player_entity = null

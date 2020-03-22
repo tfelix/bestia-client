@@ -20,6 +20,11 @@ onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Con
 onready var _inventory_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode
 onready var _equip_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/EquipMode
 
+# Maybe do this by convention
+var _item_paths = {
+	5: "res://scenes/Game/Entity/Item/Apple/AppleInventory.tscn"
+}
+
 var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
 var _displayed_items = []
@@ -51,7 +56,7 @@ Tries to use a certain item
 func _use_shortcut_item(player_item_id)-> void:
 	print_debug("use_shortcut_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
-	var pi = _get_item(player_item_id)
+	var pi = _get_item_node(player_item_id)
 	if pi == null:
 		print_debug("use_shortcut_item with pid ", player_item_id, " not found")
 		return
@@ -86,6 +91,15 @@ func _get_item(pid: int) -> ItemModel:
 			return item
 	return null
 
+"""
+Returns the inventory node item.
+"""
+func _get_item_node(pid: int) -> InventoryItem:
+	for item in _items_grid.get_children():
+		if item.player_item_id == pid:
+			return item
+	return null
+
 
 func update_inventory_items(items: Array) -> void:
 	_items = items
@@ -110,15 +124,21 @@ func _show_displayed_items() -> void:
 		child.queue_free()
 	
 	for item in _displayed_items:
-		var name = tr(item.database_name.to_upper())
-		var description = tr((item.database_name + "_description").to_upper())
-		var imagePath = ItemModel.database_name_to_image_path(item.database_name)
-		item.image = load(imagePath)
-		if item.image == null:
-			item.image = placeholder_img
-		var item_node = ItemNode.instance()
+		if not _item_paths.has(item.item_id):
+			continue
+		
+		var path = _item_paths[item.item_id]
+		var item_node = load(path).instance()
+		
+		item_node.player_item_id = item.player_item_id
+		# var name = tr(item.database_name.to_upper())
+		# var description = tr((item.database_name + "_description").to_upper())
+		# var imagePath = ItemModel.database_name_to_image_path(item.database_name)
+		# item.image = load(imagePath)
+		# if item.image == null:
+		#	item.image = placeholder_img
+		
 		_items_grid.add_child(item_node)
-		item_node.item = item
 		item_node.connect("item_selected", self, "_on_item_selected")
 
 
@@ -134,7 +154,7 @@ func _on_item_selected(item_node) -> void:
 	if item_node.selected:
 		var item_desc = ItemDescriptionNode.instance()
 		_module.add_child(item_desc)
-		item_desc.show_item_description(item_node.item)
+		item_desc.show_item_description(item_node)
 		_module.visible = true
 	else:
 		_module.visible = false
@@ -156,7 +176,9 @@ func _draw_inventory_info():
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
-		total_weight += i.weight
+		pass
+		# TODO fix
+		# total_weight += i.weight
 	return total_weight
 
 
@@ -233,11 +255,11 @@ func _on_InventoryMode_pressed():
 
 
 func _unhandled_key_input(event) -> void:
-	if event.is_action_pressed("inventory_open"):
-		if self.visible:
-			self.close()
+	if event.is_action_pressed("ui_inventory_open"):
+		if visible:
+			close()
 		else:
-			self.open()
+			open()
 
 
 func _on_Inventory_mouse_entered():

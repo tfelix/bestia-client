@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scenes/Game/Entity/Entity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Entity/Component/PlayerComponent.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Game/Entity/Component/WeaponComponent.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Game/Entity/Component/StatusComponent.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Game/Entity/Component/ConditionComponent.gd" type="Script" id=8]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.1
@@ -45,9 +47,25 @@ script = ExtResource( 6 )
 attack_delay = 0.5
 projectile_speed = 45.0
 
+[node name="StatusComponent" type="Node" parent="Entity/Components" index="2"]
+script = ExtResource( 7 )
+
+[node name="ConditionComponent" type="Node" parent="Entity/Components" index="3"]
+script = ExtResource( 8 )
+max_health = 100
+cur_health = 90
+max_mana = 120
+cur_mana = 100
+max_stamina = 100
+cur_stamina = 100
+
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.933055, 0 )
 shape = SubResource( 1 )
+
+[node name="Listener" type="Listener" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66973, 0 )
+current = true
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
 
 [editable path="PlayerMesh"]

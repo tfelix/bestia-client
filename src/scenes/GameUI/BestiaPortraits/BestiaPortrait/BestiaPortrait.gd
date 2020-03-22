@@ -11,8 +11,8 @@ var _data: BestiaPortraitData
 
 func set_portrait_data(data: BestiaPortraitData) -> void:
 	_bestia_name.text = data.name
-	_hp.set_value(data.hp_percentage / 100.0)
-	_mana.set_value(data.Mana_percentage / 100.0)
+	_hp.set_value(data.hp_percentage)
+	_mana.set_value(data.mana_percentage)
 	_data = data
 
 

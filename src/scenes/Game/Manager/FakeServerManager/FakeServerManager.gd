@@ -18,7 +18,10 @@ var _casted_entity_id: int = 0
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
-	_setup_items()
+	
+	# We must wait until the scene is setup in order to call this.
+	call_deferred("_setup_account")
+	call_deferred("_setup_items")
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1000
@@ -90,41 +93,44 @@ func _use_item(msg: ItemUseMessage) -> void:
 	_send_items()
 
 
+func _setup_account() -> void:
+	var info = AccountInfoMessage.new()
+	info.account_id = 1
+	GlobalEvents.emit_signal("onMessageReceived", info)
+	
+	var player = PlayerComponent.new()
+	player.entity_id = 1000
+	player.id = 1
+	player.player_bestia_id = 1
+	player.player_name = "rocket"
+	GlobalEvents.emit_signal("onMessageReceived", player)
+
+
 func _setup_items() -> void:
 	var item1 = ItemModel.new()
-	item1.database_name = "empty_bottle"
+	item1.item_id = 1
 	item1.player_item_id = 1
-	item1.weight = 1
 	item1.amount = 1
-	item1.type = ItemModel.ItemType.ETC
 	_player_items.append(item1)
 	var item2 = ItemModel.new()
-	item2.database_name = "knife"
+	item2.item_id = 2
 	item2.player_item_id = 2
-	item2.weight = 5
 	item2.amount = 3
-	item2.type = ItemModel.ItemType.ETC
 	_player_items.append(item2)
 	var item3 = ItemModel.new()
-	item3.database_name = "simple_axe"
+	item3.item_id = 3
 	item3.player_item_id = 3
-	item3.weight = 10
 	item3.amount = 1
-	item3.type = ItemModel.ItemType.EQUIP
 	_player_items.append(item3)
 	var item4 = ItemModel.new()
-	item4.database_name = "sign_small"
+	item4.item_id = 4
 	item4.player_item_id = 4
-	item4.weight = 10
 	item4.amount = 1
-	item4.type = ItemModel.ItemType.STRUCTURE
 	_player_items.append(item4)
 	var item5 = ItemModel.new()
-	item5.database_name = "apple"
+	item5.item_id = 5
 	item5.player_item_id = 5
-	item5.weight = 1
 	item5.amount = 5
-	item5.type = ItemModel.ItemType.CONSUMEABLE
 	_player_items.append(item5)
 
 

@@ -23,7 +23,6 @@ func _server_reveiced(payload) -> void:
 
 
 func _request_attack_list() -> void:
-	print_debug("Requesting attacks from server")
 	var msg = RequestAttackListMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
 
@@ -73,12 +72,17 @@ func _attack_selected(attack_row: AttackRow):
 	for atk in _attacks_container.get_children():
 		atk.selected = false
 	attack_row.selected = true
+	
 	if _attack_description != null:
-		_attack_description.queue_free()
-	_attack_description = AttackDescription.instance()
-	_box_container.add_child(_attack_description)
+		var _attack_description_ref = _attack_description.get_ref()
+		if _attack_description_ref:
+			_attack_description_ref.queue_free()
+	
+	_attack_description = weakref(AttackDescription.instance())
+	_box_container.add_child(_attack_description.get_ref())
+	
 	var atk = attack_row.attack
-	_attack_description.set_attack(atk)
+	_attack_description.get_ref().set_attack(atk)
 
 
 func _on_ClearButton_pressed():

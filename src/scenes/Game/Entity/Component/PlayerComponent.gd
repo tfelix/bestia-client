@@ -4,8 +4,8 @@ class_name PlayerComponent
 const NAME = "PlayerComponent"
 const CharacterLabel = preload("res://scenes/GameUI/CharacterLabel/CharacterLabel.tscn")
 
-var account_id: int = 0
-var player_bestia_id: int = 0
+export var account_id: int = 0
+export var player_bestia_id: int = 0
 
 export(String) var player_name = "Player"
 export(String) var guild_name = "Guild"

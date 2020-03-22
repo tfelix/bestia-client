@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/GameUI/MobLabel/MobLabel.gd" type="Script" id=1]
+[ext_resource path="res://scenes/GameUI/MobLabel/MobLabelFont.tres" type="DynamicFont" id=2]
 
 [node name="MobLabel" type="Control"]
 mouse_filter = 2
@@ -14,6 +15,7 @@ __meta__ = {
 [node name="Name" type="Label" parent="."]
 anchor_right = 1.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
 text = "Mob"
 align = 1
 __meta__ = {

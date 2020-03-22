@@ -19,8 +19,8 @@ var _current_state = PlayerState.IDLE
 
 var _has_attack_delay = false
 var _target_entity: Entity
-var _casted_attack = null
 
+var _queued_casted_attack = null
 var _queued_attack_entity: Entity = null
 
 onready var _move_cursor = $MoveCursor
@@ -96,7 +96,7 @@ func _move_to(global_pos: Vector3) -> void:
 		return
 	
 	# We cancel casts on hold
-	_casted_attack = null
+	_queued_casted_attack = null
 	GlobalEvents.emit_signal("onCastEnded")
 	look_at(global_pos, Vector3.UP)
 	_move_target = global_pos
@@ -114,7 +114,8 @@ func _on_player_interact(target_entity: Entity, type: String) -> void:
 		_player_attacks(target_entity)
 
 
-# TODO React opun which attack was pressed
+# TODO Maybe better place this inside shortcut object?
+# TODO React upon which attack was pressed
 func _shortcut_pressed(action: String, payload: String) -> void:
 	if payload.begins_with("attack-"):
 		var data = payload.split("-")
@@ -124,7 +125,7 @@ func _shortcut_pressed(action: String, payload: String) -> void:
 		# Brauchen wir ein Ziel? Ja?
 		# - Ggf Cursor austauschen
 		# - Marker austauschen?
-		_casted_attack = 5
+		_queued_casted_attack = 5
 		GlobalEvents.emit_signal("onCastStarted")
 
 
@@ -142,7 +143,7 @@ func _cast_attack_on_entity(entity) -> void:
 
 
 func _player_attacks(target_entity: Entity) -> void:
-	if _casted_attack:
+	if _queued_casted_attack:
 		_cast_attack_on_entity(target_entity)
 		return
 	

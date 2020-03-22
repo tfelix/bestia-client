@@ -36,7 +36,6 @@ get used to determine the AABB.
 export (NodePath) var aabb_visual_instance_path
 export var id = 0
 
-onready var _interactions = $Interactions
 onready var _components = $Components
 
 var _aabb
@@ -100,13 +99,7 @@ func remove_component(component_name: String):
 
 
 func _handle_default_input() -> void:
-	if _is_selected:
-		_interactions.abort_interaction()
-	else:
-		if _interactions.has_default_interaction(self):
-			_interactions.trigger_interaction(self)
-		else:
-			_interactions.show_possible_interactions()
+	pass
 	
 
 # The clicking should work like so:

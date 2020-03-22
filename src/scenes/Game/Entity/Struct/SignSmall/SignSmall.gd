@@ -1,7 +1,5 @@
 extends Struct
 
-export(ItemModel.ItemType) var type = ItemModel.ItemType.ETC
-
 var _is_constructing = false
 
 onready var _mesh = $SignMesh
@@ -29,12 +27,7 @@ func _physics_process(delta):
 
 
 func use_item() -> void:
-	if type == ItemModel.ItemType.CONSUMEABLE:
-		# If its a consumable item, just consume it and send message to the server
-		return
-	if type == ItemModel.ItemType.STRUCTURE:
-		start_construct()
-	pass
+	start_construct()
 
 
 """

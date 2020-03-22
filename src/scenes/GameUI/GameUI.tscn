@@ -60,10 +60,8 @@ margin_right = 0.0
 margin_bottom = 0.0
 
 [node name="BestiaPortraits" parent="." instance=ExtResource( 8 )]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -154.0
-margin_bottom = 154.0
+margin_top = 110.0
+margin_bottom = 529.0
 
 [node name="Inventory" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -72,8 +70,10 @@ visible = false
 visible = false
 
 [node name="StatusValues" parent="." instance=ExtResource( 7 )]
+visible = false
 margin_left = 282.549
 margin_top = 10.0
 margin_right = 810.549
 [connection signal="on_attacks_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_attacks_pressed"]
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
+[connection signal="status_values_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_status_values_pressed"]

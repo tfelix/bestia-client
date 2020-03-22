@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/GameUI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
 [ext_resource path="res://placeholder.png" type="Texture" id=2]
@@ -6,17 +6,13 @@
 [ext_resource path="res://scenes/GameUI/CharacterPlate/sword-wound.svg" type="Texture" id=4]
 [ext_resource path="res://scenes/GameUI/CharacterPlate/knapsack.svg" type="Texture" id=5]
 [ext_resource path="res://scenes/GameUI/CharacterPlate/skills.svg" type="Texture" id=6]
-[ext_resource path="res://shared/fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://scenes/GameUI/CharacterPlate/HealthManaFont.tres" type="DynamicFont" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 14
-use_filter = true
-font_data = ExtResource( 7 )
 
 [node name="CharacterPlate" type="PanelContainer"]
 margin_right = 258.0
-margin_bottom = 92.0
+margin_bottom = 100.0
+theme = ExtResource( 7 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -26,7 +22,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 251.0
-margin_bottom = 101.0
+margin_bottom = 93.0
 
 [node name="Top" type="HBoxContainer" parent="Rows"]
 margin_right = 244.0
@@ -42,7 +38,6 @@ margin_top = 8.0
 margin_right = 106.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 18 )
-custom_fonts/font = SubResource( 1 )
 text = "CharacterName"
 
 [node name="Placeholder" type="Control" parent="Rows/Top"]
@@ -81,16 +76,16 @@ expand_icon = true
 [node name="Main" type="HBoxContainer" parent="Rows"]
 margin_top = 36.0
 margin_right = 244.0
-margin_bottom = 94.0
+margin_bottom = 86.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Rows/Main"]
 margin_right = 55.0
-margin_bottom = 58.0
+margin_bottom = 50.0
 custom_constants/margin_right = 5
 
 [node name="CharacterImage" type="TextureRect" parent="Rows/Main/MarginContainer"]
 margin_right = 50.0
-margin_bottom = 58.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 texture = ExtResource( 2 )
 expand = true
@@ -99,7 +94,7 @@ stretch_mode = 5
 [node name="Bars" type="VBoxContainer" parent="Rows/Main"]
 margin_left = 59.0
 margin_right = 239.0
-margin_bottom = 58.0
+margin_bottom = 50.0
 
 [node name="HpBar" parent="Rows/Main/Bars" instance=ExtResource( 3 )]
 margin_right = 180.0
@@ -109,22 +104,24 @@ rect_min_size = Vector2( 180, 6 )
 [node name="HealthLabel" type="Label" parent="Rows/Main/Bars"]
 margin_top = 10.0
 margin_right = 180.0
-margin_bottom = 27.0
+margin_bottom = 23.0
 custom_fonts/font = ExtResource( 8 )
-text = "HP: 124 / 234"
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "HP: 0 / 0"
 
 [node name="ManaBar" parent="Rows/Main/Bars" instance=ExtResource( 3 )]
-margin_top = 31.0
+margin_top = 27.0
 margin_right = 180.0
-margin_bottom = 37.0
+margin_bottom = 33.0
 rect_min_size = Vector2( 180, 6 )
 primary_color = Color( 0, 0.372549, 1, 1 )
 
 [node name="ManaLabel" type="Label" parent="Rows/Main/Bars"]
-margin_top = 41.0
+margin_top = 37.0
 margin_right = 180.0
-margin_bottom = 58.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Mana: 0 / 0"
 [connection signal="pressed" from="Rows/Top/Inventory" to="." method="_on_Inventory_pressed"]
 [connection signal="pressed" from="Rows/Top/Attacks" to="." method="_on_Attacks_pressed"]

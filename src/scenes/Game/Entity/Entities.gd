@@ -10,12 +10,28 @@ func _ready():
 	GlobalEvents.connect("onEntityAdded", self, "_add_entity")
 	GlobalEvents.connect("onEntityRemoved", self, "_add_entity")
 	GlobalEvents.connect("onMessageReceived", self, "_server_received")
+	call_deferred("setup_existing_entities")
 
 
 func free():
 	if GlobalData.entities == self:
 		GlobalData.entities = null
 	.free()
+
+
+"""
+There might be entities pre-setup already. We need to notify other systems
+about the existence of these entities. E.g. the player entity.
+"""
+func setup_existing_entities() -> void:
+	for node in get_children():
+		var entity_node = node.find_node("Entity")
+		if entity_node == null:
+			continue
+		var pc = entity_node.get_component(PlayerComponent.NAME) as PlayerComponent
+		if pc == null:
+			continue
+		GlobalEvents.emit_signal("onPlayerEntityUpdated", entity_node)
 
 
 func _server_received(msg) -> void:

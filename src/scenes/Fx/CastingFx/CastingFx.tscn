@@ -2,15 +2,11 @@
 
 [ext_resource path="res://scenes/Fx/CastingFx/CastingFx.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Fx/CastingFx/cast_circle.obj" type="ArrayMesh" id=2]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-params_cull_mode = 2
-albedo_color = Color( 0.537255, 0.917647, 0.992157, 1 )
+[ext_resource path="res://scenes/Fx/CastingFx/CastingFxMaterial.tres" type="Material" id=3]
 
 [node name="CastingFx" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="CastCircle" type="MeshInstance" parent="."]
 mesh = ExtResource( 2 )
-material/0 = SubResource( 1 )
+material/0 = ExtResource( 3 )

@@ -11,10 +11,13 @@ onready var _update_tween = $UpdateTween
 func _ready():
 	_primary.color = primary_color
 	_secondary.color = secondary_color
+	_border.material.set_shader_param("size", rect_size)
 
 
 func _process(delta):
-	_border.material.set_shader_param("size", rect_size)
+	# Check if this is not needed
+	# _border.material.set_shader_param("size", rect_size)
+	pass
 
 
 func set_value(value: float):
