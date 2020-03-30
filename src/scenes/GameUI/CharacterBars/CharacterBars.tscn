@@ -14,8 +14,10 @@ __meta__ = {
 
 [node name="HpBar" parent="." instance=ExtResource( 2 )]
 margin_bottom = 6.0
+mouse_filter = 1
 
 [node name="ManaBar" parent="." instance=ExtResource( 2 )]
 margin_top = 6.0
 margin_bottom = 12.0
+mouse_filter = 2
 primary_color = Color( 0, 0.372549, 1, 1 )

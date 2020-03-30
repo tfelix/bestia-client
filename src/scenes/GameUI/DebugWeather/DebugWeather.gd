@@ -1,10 +1,16 @@
 extends PanelContainer
 
-# var DayData = preload("res://scenes/Game/DayData.gd")
-
 onready var day = $Rows/DaySlider/DaySlider
 onready var brightness = $Rows/BrigthnessSlider/BrightnessSlider
 onready var weather = $Rows/Weather/WeatherSlider
+
+
+func _ready():
+	GlobalEvents.connect("onDebugMode", self, "_on_debug_mode")
+
+
+func _on_debug_mode(mode_flag: bool) -> void:
+	visible = mode_flag
 
 
 func _send_weather_data():

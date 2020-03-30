@@ -12,8 +12,10 @@ signal onDamageReceived(damage_message)
 # Player Signals
 signal onPlayerInteract(entity, interaction)
 signal onPlayerEntityUpdated(player)
-signal onCastStarted(attack_id)
-signal onCastEnded()
+signal onBuildingEntered(building_id)
+signal onBuildingExit(building_id)
+signal onCastSelectionStarted(attack_id)
+signal onCastSelectionEnded()
 
 # Inventory Signals
 signal onItemUsed(player_item_id)
@@ -36,7 +38,9 @@ signal onMessageReceived(message)
 # UI Signals
 signal onUiEntered()
 signal onUiExited()
-signal onShortcutPressed(shortcut, payload)
+signal onPrepareSetShortcut(shortcut_data)
+signal onShortcutPressed(shortcut_data)
+signal onDebugMode(enabled)
 
 # Environment
 signal onTemperatureChanged(temperature)

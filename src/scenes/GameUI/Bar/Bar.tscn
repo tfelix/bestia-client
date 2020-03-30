@@ -16,6 +16,7 @@ void fragment() {
 		discard;
 	}
 }"
+custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
@@ -28,12 +29,18 @@ rect_min_size = Vector2( 100, 6 )
 size_flags_horizontal = 0
 color = Color( 0.184314, 0.184314, 0.184314, 1 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 secondary_color = Color( 1, 1, 0.843137, 1 )
 
 [node name="BarColorSecondary" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.980392, 0.784314, 0.32549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BarColorPrimary" type="ColorRect" parent="."]
 anchor_right = 1.0

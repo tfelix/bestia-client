@@ -14,7 +14,7 @@ func _server_received(msg) -> void:
 	if msg is RangedAttackMessage:
 		handle_message(msg)
 	else:
-		pass
+		return
 
 
 func handle_message(msg) -> void:

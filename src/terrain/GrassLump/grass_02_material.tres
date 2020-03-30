@@ -1,0 +1,92 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_alpha_prepass,cull_disabled,diffuse_burley,specular_schlick_ggx;
+
+uniform vec3 camera_position = vec3(0.0);
+uniform vec4 albedo : hint_color;
+uniform sampler2D hide_texture;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float scale = 3.0;
+uniform float alpha_scissor_threshold : hint_range(0,1);
+uniform float roughness : hint_range(0,1);
+uniform vec4 transmission : hint_color;
+
+vec3 wind_displ() {
+	return vec3(0.0);
+}
+
+vec3 large_scale_displ(vec3 mesh_world_pos, float time) {
+	float x = 2.0 * sin(1.0 * (mesh_world_pos.x + mesh_world_pos.y + mesh_world_pos.z + time)) + 1.0;
+	float z = 1.0 * sin(2.0 * (mesh_world_pos.x + mesh_world_pos.y + mesh_world_pos.z + time)) + 0.5;
+	
+	return vec3(x, 0.0, z);
+}
+
+vec3 small_scale_displ(vec3 vertex, float time) {
+	float d = 0.1 * sin(2.65 * (vertex.x + vertex.y + vertex.z + time));
+	
+	return vec3(1.0, 0.35, 1.0) * d;
+}
+
+float sampled_scale(vec3 vertex_world) {
+	// We assume objects are placed within -25 to 25 in coordinates. Must be adapted
+	// if the field is dynamic in size
+	vec2 uv_pos = vec2((vertex_world.x + 25.0) / 50.0, (vertex_world.z + 25.0) / 50.0); 
+	
+	return texture(hide_texture, uv_pos).r;
+}
+
+void vertex() {
+	vec3 vertex_world = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	vec3 mesh_world = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+	
+	float sampled_scale = sampled_scale(vertex_world);
+	VERTEX *= (scale * sampled_scale);
+	float distance_falloff = 1.0 - smoothstep(0.1, 1.0, 0.025 * distance(camera_position, mesh_world));
+	
+	// If the distance gets to high and effect to little we stop evaluating costly vertex displacements
+	if(distance_falloff > 0.01) {
+		vec3 large_scale = large_scale_displ(mesh_world, TIME + float(INSTANCE_ID)) * 0.2;
+		vec3 small_scale = small_scale_displ(mesh_world, TIME);
+		vec3 wind = wind_displ();
+
+		VERTEX += (small_scale + large_scale + wind) * COLOR.x * distance_falloff;
+	}
+}
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	// Start with 20% of black from vertex color
+	ALBEDO = (albedo.rgb * albedo_tex.rgb) * (0.8 * COLOR.r + 0.2);
+	
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	ALPHA = albedo.a * albedo_tex.a;
+	TRANSMISSION = transmission.rgb;
+	ALPHA_SCISSOR = alpha_scissor_threshold;
+}
+"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/camera_position = Vector3( 0, 0, 0 )
+shader_param/albedo = Color( 0.294118, 0.74902, 0.164706, 1 )
+shader_param/specular = null
+shader_param/metallic = null
+shader_param/scale = 3.0
+shader_param/alpha_scissor_threshold = null
+shader_param/roughness = 1.0
+shader_param/transmission = Color( 0.819608, 0.870588, 0.466667, 1 )

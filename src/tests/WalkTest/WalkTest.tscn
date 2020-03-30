@@ -1,20 +1,21 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Game/Camera.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Game/Entity/Mob/Test/Test.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Game/Entity/Mob/Testor/Testor.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Selection/Selection.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Game/Entity/DamageDisplayManager.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tests/WalkTest/ClickManager.gd" type="Script" id=7]
 [ext_resource path="res://scenes/Game/Entity/Building/Building.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Game/Manager/FakeServerManager/FakeServerManager.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Game/Manager/CursorManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Game/CursorManager/CursorManager.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Game/Entity/Entities.gd" type="Script" id=11]
 [ext_resource path="res://scenes/Game/ServerConnector/ServerConnector.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/Game/Rain/Rain.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/SignSmall.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/GameUI/GameUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/Game/Entity/FxDisplayManager.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/Game/Entity/ProjectileManager.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/GameUI/CharacterBars/CharacterBars.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Game/Sky/Sky.tscn" type="PackedScene" id=21]
@@ -25,7 +26,7 @@ albedo_color = Color( 0.505882, 0.505882, 0.505882, 1 )
 
 [sub_resource type="QuadMesh" id=2]
 material = SubResource( 1 )
-size = Vector2( 40, 40 )
+size = Vector2( 50, 50 )
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.662745, 0.752941, 0.435294, 1 )
@@ -52,8 +53,11 @@ script = ExtResource( 7 )
 
 [node name="FakeServerManager" parent="." instance=ExtResource( 9 )]
 
+[node name="FxDisplayManager" parent="." instance=ExtResource( 18 )]
+_entites_path = NodePath("../Entities")
+
 [node name="Floor" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.114, 0, -0.371 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.63375, -0.153325, -0.333311 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
@@ -76,6 +80,7 @@ script = ExtResource( 11 )
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 15 )
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 15 )]
+visible = false
 
 [node name="Camera" type="Camera" parent="Entities/Player"]
 transform = Transform( 1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 12, 15 )
@@ -84,19 +89,24 @@ script = ExtResource( 3 )
 
 [node name="CharacterBars" parent="Entities/Player" instance=ExtResource( 20 )]
 
-[node name="TestMob" parent="Entities" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50759, 0.122936, -6.97882 )
-entity_id = 1
-
-[node name="TestMob2" parent="Entities" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.79868, 0.186096, 3.89831 )
-entity_id = 2
-
 [node name="Building" parent="Entities" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, -0.00772339, 8.54126 )
 
 [node name="SignSmall" parent="Entities" instance=ExtResource( 16 )]
 transform = Transform( 0.868917, 0, -0.494958, 0, 1, 0, 0.494958, 0, 0.868917, 6.19306, 0.0199342, 0 )
 
+[node name="Testor" parent="Entities" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2122, 0, 5.26027 )
+
+[node name="Testor2" parent="Entities" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10561, 0, -8.17997 )
+
+[node name="Testor3" parent="Entities" instance=ExtResource( 4 )]
+transform = Transform( 0.793491, 0, -0.608581, 0, 1, 0, 0.608581, 0, 0.793491, -3.24474, 0, 13.2876 )
+enabled = false
+
 [node name="GameUI" parent="." instance=ExtResource( 17 )]
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 0.644778, 0.476948, -0.597313, 0, 0.781444, 0.623975, 0.76437, -0.402325, 0.503858, -8.83955, 6.75812, 11.8772 )
 [connection signal="input_event" from="Floor/StaticBody" to="Floor/StaticBody" method="_on_StaticBody_input_event"]

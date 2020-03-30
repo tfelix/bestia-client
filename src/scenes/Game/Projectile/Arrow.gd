@@ -12,7 +12,7 @@ func start(target: Entity, damage) -> void:
 
 
 func _process(delta):
-	# TODO Improve this behavior
+	# TODO Improve the start behavior of the projectile.
 	var offset = Vector3(0, 1.0, 0.0)
 	var target_origin = _target.get_spatial().global_transform.origin
 	var distance = (target_origin + offset - global_transform.origin).normalized() * projectile_speed * delta

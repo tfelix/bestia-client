@@ -63,7 +63,7 @@ func print_text(text) -> void:
 	var msg = ChatMessage.new()
 	msg.entity_id = 0
 	msg.text = text
-	msg.type = ChatMessage.ChatType.PUBLIC
+	msg.type = ChatMessage.ChatType.SYSTEM
 	_insert_chat_text(msg)
 
 

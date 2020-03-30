@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/GameUI/Cursor/MoveCursor/MoveCursor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Game/CursorManager/MoveCursor/MoveCursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Game/Entity/Entity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Entity/Component/PlayerComponent.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Game/Entity/Component/WeaponComponent.gd" type="Script" id=6]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/growl.wav-2e8ea50c983f1790fab5a5c076e85194.sample"
+
+[deps]
+
+source_file="res://scenes/Game/Entity/Mob/Testor/growl.wav"
+dest_files=[ "res://.import/growl.wav-2e8ea50c983f1790fab5a5c076e85194.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

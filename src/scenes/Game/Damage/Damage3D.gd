@@ -13,6 +13,7 @@ func init(damage: DamageMessage, entity):
 	var aabb = entity.get_aabb() as AABB
 	var size_offset = aabb.size.z / 2
 	_random_offset = Vector2(randi() % 20 - 10, randi() % 50 - 25 - size_offset)
+	set_as_toplevel(true)
 
 
 func _process(_delta):

@@ -13,10 +13,10 @@ enum ItemType {
 export var database_name: String
 export(ItemType) var type = ItemType.ETC
 export var weight: int = 10
-export var item_id: int
-
-var amount: int = 1
-var player_item_id: int = 0
+export var item_id: int = 0
+export var amount: int = 1
+export var player_item_id: int = 0
+export var image: Texture
 
 onready var _amount = $Amount
 onready var _image = $ItemImage
@@ -24,6 +24,11 @@ onready var _select = $SelectHighlight
 onready var _hover = $HoverHighlight
 
 signal item_selected
+
+
+func _ready():
+	_image.texture = image
+	_set_amount(amount)
 
 
 func is_usable() -> bool:
@@ -37,10 +42,6 @@ func totalWeight() -> int:
 func _set_selected(is_selected: bool) -> void:
 	_select.visible = is_selected
 	selected = is_selected
-
-
-func _set_image(image: Texture) -> void:
-	_image.texture = image
 
 
 func _set_amount(new_amount: int) -> void:

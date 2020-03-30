@@ -21,6 +21,7 @@ __meta__ = {
 }
 
 [node name="WeatherDebug" parent="." instance=ExtResource( 2 )]
+visible = false
 anchor_left = 1.0
 anchor_bottom = 0.0
 margin_left = -220.0

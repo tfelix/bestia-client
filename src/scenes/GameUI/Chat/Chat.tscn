@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/GameUI/Chat/Chat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/EnableDebugMode.gd" type="Script" id=2]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
 [ext_resource path="res://scenes/GameUI/FlatPanelStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://scenes/GameUI/Chat/ChatCommands/PrintHelp.gd" type="Script" id=5]
 
 [sub_resource type="Animation" id=1]
 length = 6.0
@@ -100,14 +101,18 @@ caret_blink = true
 
 [node name="EnableDebugMode" type="Node" parent="ChatCommands"]
 script = ExtResource( 2 )
-cmd_usage = "/debug [true|false]"
+cmd_usage = "Enable Debug Mode: /debug [true|false]"
 help_text = "Enables or disables the debug mode"
 
 [node name="SwitchChatMode" type="Node" parent="ChatCommands"]
 script = ExtResource( 3 )
-cmd_usage = "/a, /p, /g <TEXT>"
+cmd_usage = "Switch Chat Mode: /a, /p, /g <TEXT>"
 help_text = "Switches the chat mode between public (all), party and guild."
 chat_panel = NodePath("../..")
+
+[node name="PrintHelp" type="Node" parent="ChatCommands"]
+script = ExtResource( 5 )
+chat = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "hide"

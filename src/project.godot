@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://scenes/GameUI/AttackList/AttackRow/AttackRow.gd"
 }, {
 "base": "Reference",
+"class": "BehaviorService",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/BehaviorService.gd"
+}, {
+"base": "Reference",
 "class": "BestiaPortraitData",
 "language": "GDScript",
 "path": "res://scenes/GameUI/BestiaPortraits/BestiaPortraitData.gd"
@@ -97,7 +102,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CursorManager",
 "language": "GDScript",
-"path": "res://scenes/Game/Manager/CursorManager.gd"
+"path": "res://scenes/Game/CursorManager/CursorManager.gd"
 }, {
 "base": "Reference",
 "class": "DamageMessage",
@@ -179,11 +184,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/GameUI/Inventory/ItemModel.gd"
 }, {
-"base": "Trigger",
-"class": "ItemTrigger",
-"language": "GDScript",
-"path": "res://scenes/GameUI/Shortcuts/ItemTrigger.gd"
-}, {
 "base": "Reference",
 "class": "ItemUseMessage",
 "language": "GDScript",
@@ -254,10 +254,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Game/ServerConnector/ServerConnector.gd"
 }, {
-"base": "Trigger",
-"class": "SkillTrigger",
+"base": "Reference",
+"class": "ShortcutData",
 "language": "GDScript",
-"path": "res://scenes/GameUI/Shortcuts/SkillTrigger.gd"
+"path": "res://scenes/GameUI/Shortcuts/ShortcutData.gd"
+}, {
+"base": "Reference",
+"class": "ShortcutsService",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Shortcuts/ShortcutsService.gd"
 }, {
 "base": "Component",
 "class": "StatusComponent",
@@ -278,11 +283,6 @@ _global_script_classes=[ {
 "class": "TimedTextLabel",
 "language": "GDScript",
 "path": "res://scenes/GameUI/TimedTextLabel/TimedTextLabel.gd"
-}, {
-"base": "Reference",
-"class": "Trigger",
-"language": "GDScript",
-"path": "res://scenes/GameUI/Shortcuts/Trigger.gd"
 }, {
 "base": "Reference",
 "class": "UUID",
@@ -320,6 +320,7 @@ _global_script_class_icons={
 "ActivePlayerBestiaComponent": "",
 "Attack": "",
 "AttackRow": "",
+"BehaviorService": "",
 "BestiaPortraitData": "",
 "CastComponent": "",
 "CastTargetMarker": "",
@@ -349,7 +350,6 @@ _global_script_class_icons={
 "ItemDescriptionModule": "",
 "ItemDropMessage": "",
 "ItemModel": "",
-"ItemTrigger": "",
 "ItemUseMessage": "",
 "ItemUseRequestMessage": "",
 "ItemUseResponseMessage": "",
@@ -364,12 +364,12 @@ _global_script_class_icons={
 "ResponseAttackListMessage": "",
 "ScreenBottomText": "",
 "ServerConnector": "",
-"SkillTrigger": "",
+"ShortcutData": "",
+"ShortcutsService": "",
 "StatusComponent": "",
 "Struct": "",
 "TemperatureData": "",
 "TimedTextLabel": "",
-"Trigger": "",
 "UUID": "",
 "UseAttackMessage": "",
 "VisualComponent": "",
@@ -1579,6 +1579,7 @@ ui_status_values={
 [layer_names]
 
 3d_physics/layer_1="structure"
+3d_render/layer_2="vegetation_displ"
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemy"
 3d_physics/layer_4="item"
@@ -1592,7 +1593,6 @@ locale_filter=[ 0, [ "en" ] ]
 
 [rendering]
 
-quality/shadows/filter_mode=2
 environment/default_clear_color=Color( 0.14902, 0.192157, 0.219608, 1 )
 quality/filters/msaa=2
 

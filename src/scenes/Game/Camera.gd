@@ -24,6 +24,9 @@ var _current_distance = (min_distance + max_distance) / 2
 var _start_cam_move = Vector2()
 var _cam_dir = Vector3()
 
+var _distance_outside_building = min_distance
+var _is_in_building = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_r = transform.origin.length()
@@ -38,6 +41,9 @@ func _ready():
 	_current_theta = GlobalConfig.get_value("camera", "current_theta", _current_theta)
 	_current_distance = GlobalConfig.get_value("camera", "current_distance", _current_distance)
 
+	GlobalEvents.connect("onBuildingEntered", self, "_player_enters_building")
+	GlobalEvents.connect("onBuildingExit", self, "_player_exists_building")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -46,15 +52,34 @@ func _process(delta):
 	var x = _current_distance * sin(deg2rad(_current_theta)) * sin(deg2rad(_current_phi))
 	
 	var parent_pos = get_parent().global_transform.origin
-	look_at_from_position(Vector3(parent_pos.x + x, parent_pos.y + y, parent_pos.z + z), parent_pos, Vector3.UP)
+	var new_cam_pos = Vector3(parent_pos.x + x, parent_pos.y + y, parent_pos.z + z)
+	# TODO Perform a smooth scrolling
+	look_at_from_position(new_cam_pos, parent_pos, Vector3.UP)
+
+
+func _player_enters_building(building_id: String) -> void:
+	_distance_outside_building = _current_distance
+	_current_distance = min_distance + 2;
+	_is_in_building = true
+
+
+func _player_exists_building(building_id: String) -> void:
+	_current_distance = _distance_outside_building;
+	_is_in_building = false
 
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:
+				# No cam zoom inside buildings
+				if _is_in_building:
+					return
 				_zoom_in()
 			elif event.button_index == BUTTON_WHEEL_DOWN:
+				# No cam zoom inside buildings
+				if _is_in_building:
+					return
 				_zoom_out()
 			elif event.button_index == BUTTON_RIGHT && event.doubleclick:
 				_reset()

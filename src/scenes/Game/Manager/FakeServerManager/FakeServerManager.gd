@@ -21,7 +21,8 @@ func _ready():
 	
 	# We must wait until the scene is setup in order to call this.
 	call_deferred("_setup_account")
-	call_deferred("_setup_items")
+	
+	_setup_items()
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1000
@@ -110,28 +111,32 @@ func _setup_items() -> void:
 	var item1 = ItemModel.new()
 	item1.item_id = 1
 	item1.player_item_id = 1
-	item1.amount = 1
+	item1.amount = 10
 	_player_items.append(item1)
+	
 	var item2 = ItemModel.new()
 	item2.item_id = 2
 	item2.player_item_id = 2
 	item2.amount = 3
 	_player_items.append(item2)
+	
 	var item3 = ItemModel.new()
 	item3.item_id = 3
 	item3.player_item_id = 3
 	item3.amount = 1
-	_player_items.append(item3)
+	#_player_items.append(item3)
+	
 	var item4 = ItemModel.new()
 	item4.item_id = 4
 	item4.player_item_id = 4
 	item4.amount = 1
-	_player_items.append(item4)
+	#_player_items.append(item4)
+	
 	var item5 = ItemModel.new()
 	item5.item_id = 5
 	item5.player_item_id = 5
 	item5.amount = 5
-	_player_items.append(item5)
+	#_player_items.append(item5)
 
 
 func _send_items() -> void:
@@ -159,6 +164,7 @@ func _drop_item(msg: ItemDropMessage) -> void:
 		visual_comp.animation = "spawn"
 		GlobalEvents.emit_signal("onMessageReceived", visual_comp)
 
+
 func _send_attacks() -> void:
 	var atk1 = Attack.new()
 	atk1.attack_entity_id = 1
@@ -182,7 +188,6 @@ func _send_attacks() -> void:
 	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
-
 func _send_chat(msg: ChatSend) -> void:
 	var response = ChatMessage.new()
 	response.entity_id = 1000 #GlobalData.client_account_id
@@ -196,7 +201,7 @@ func _use_skill(msg: UseAttackMessage):
 	if msg.player_attack_id == UseAttackMessage.RANGE_ATTACK_ID:
 		var dmg_msg = DamageMessage.new()
 		dmg_msg.entity_id = msg.target_entity
-		dmg_msg.total_damage = randi() % 100 + 1
+		dmg_msg.total_damage = randi() % 20 + 10
 		
 		var ranged_msg = RangedAttackMessage.new()
 		ranged_msg.entity_id = player_entity_id
@@ -215,31 +220,29 @@ func _use_skill(msg: UseAttackMessage):
 		var cast_comp = CastComponent.new()
 		cast_comp.cast_time = 400
 		cast_comp.cast_db_name = "skill_fireball"
-		cast_comp.entity_id = 1000
+		cast_comp.entity_id = player_entity_id
 		cast_comp.target_entity_id = msg.target_entity
 		GlobalEvents.emit_signal("onMessageReceived", cast_comp)
 	
+		# Setup the damage display later on
 		_casted_entity_id = msg.target_entity
-	
 		cast_timer.start(cast_comp.cast_time / 1000.0)
 
 
 func _on_CastTimer_timeout():
 	var cast_remove = ComponentRemoveMessage.new()
 	cast_remove.component_name = CastComponent.NAME
-	cast_remove.entity_id = 1000
+	cast_remove.entity_id = player_entity_id
 	GlobalEvents.emit_signal("onMessageReceived", cast_remove)
 
 	var dmg_msg = DamageMessage.new()
-	# TODO Fix entity ids.
-	dmg_msg.entity_id = 2 #_casted_entity_id
-	dmg_msg.total_damage = randi() % 100 + 1
-	GlobalEvents.emit_signal("onMessageReceived", dmg_msg)
+	dmg_msg.entity_id = _casted_entity_id
+	dmg_msg.total_damage = randi() % 20 + 30
 
 	var fx_msg = FxMessage.new()
-	# TODO Fix entity ids.
-	fx_msg.entity_id = 2 # _casted_entity_id
+	fx_msg.target_id = _casted_entity_id
 	fx_msg.fx = "fireball"
+	fx_msg.damage = dmg_msg
 	fx_msg.latency_ms = 10
 	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
 

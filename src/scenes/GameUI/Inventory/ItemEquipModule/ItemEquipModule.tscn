@@ -12,6 +12,9 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 10.0
@@ -20,13 +23,11 @@ margin_right = 1270.0
 margin_bottom = 710.0
 
 [node name="DescriptionContainer1" type="VBoxContainer" parent="HBoxContainer"]
-editor/display_folded = true
 margin_right = 476.0
 margin_bottom = 700.0
 size_flags_horizontal = 3
 
 [node name="SlotContainerHead" type="HBoxContainer" parent="HBoxContainer/DescriptionContainer1"]
-editor/display_folded = true
 margin_right = 476.0
 margin_bottom = 46.0
 
@@ -39,7 +40,6 @@ expand = true
 stretch_mode = 6
 
 [node name="ItemContainer" type="PanelContainer" parent="HBoxContainer/DescriptionContainer1/SlotContainerHead"]
-editor/display_folded = true
 margin_left = 44.0
 margin_right = 476.0
 margin_bottom = 46.0
@@ -90,7 +90,6 @@ margin_right = 476.0
 margin_bottom = 54.0
 
 [node name="SlotContainerHead2" type="HBoxContainer" parent="HBoxContainer/DescriptionContainer1"]
-editor/display_folded = true
 margin_top = 58.0
 margin_right = 476.0
 margin_bottom = 104.0
@@ -104,7 +103,6 @@ expand = true
 stretch_mode = 6
 
 [node name="ItemContainer" type="PanelContainer" parent="HBoxContainer/DescriptionContainer1/SlotContainerHead2"]
-editor/display_folded = true
 margin_left = 44.0
 margin_right = 476.0
 margin_bottom = 46.0
@@ -164,7 +162,6 @@ expand = true
 stretch_mode = 4
 
 [node name="DescriptionContainer2" type="VBoxContainer" parent="HBoxContainer"]
-editor/display_folded = true
 margin_left = 784.0
 margin_right = 1260.0
 margin_bottom = 700.0

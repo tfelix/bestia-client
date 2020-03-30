@@ -54,18 +54,20 @@ func _render_filtered_attacks() -> void:
 		atk_row.connect("pressed", self, "_attack_selected")
 
 
-func open():
-	_click_audio.play()
-	visible = true
+func show():
+	if not visible:
+		_click_audio.play()
+	.show()
 
 
-func close():
-	_click_audio.play()
-	visible = false
+func hide():
+	if visible:
+		_click_audio.play()
+	.hide()
 
 
 func _on_Close_pressed():
-	close()
+	hide()
 
 
 func _attack_selected(attack_row: AttackRow):
@@ -96,7 +98,7 @@ func _on_Search_text_changed(new_text):
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		close()
+		hide()
 
 
 func _on_AttackList_visibility_changed():

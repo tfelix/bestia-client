@@ -11,4 +11,3 @@ func _on_Entity_component_updated(component: Component):
 	
 	if visual_component.animation == "spawn":
 		animation.play("spawn")
-		

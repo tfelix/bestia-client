@@ -95,9 +95,9 @@ func _move_to(global_pos: Vector3) -> void:
 	if _current_state == PlayerState.CONSTRUCTING:
 		return
 	
-	# We cancel casts on hold
+	# We cancel possible casts on hold
 	_queued_casted_attack = null
-	GlobalEvents.emit_signal("onCastEnded")
+	GlobalEvents.emit_signal("onCastSelectionEnded")
 	look_at(global_pos, Vector3.UP)
 	_move_target = global_pos
 	_current_state = PlayerState.MOVING
@@ -116,21 +116,21 @@ func _on_player_interact(target_entity: Entity, type: String) -> void:
 
 # TODO Maybe better place this inside shortcut object?
 # TODO React upon which attack was pressed
-func _shortcut_pressed(action: String, payload: String) -> void:
-	if payload.begins_with("attack-"):
-		var data = payload.split("-")
-		var attack_id = int(data[1])
-		# Haben wir die attacke?
-		# Wird die Attacke direkt ausgelöst?
-		# Brauchen wir ein Ziel? Ja?
-		# - Ggf Cursor austauschen
-		# - Marker austauschen?
-		_queued_casted_attack = 5
-		GlobalEvents.emit_signal("onCastStarted")
+func _shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
+	if not shortcut.type == "skill":
+		return
+	var player_attack_id = shortcut.payload["player_attack_id"]
+	# Haben wir die attacke?
+	# Wird die Attacke direkt ausgelöst?
+	# Brauchen wir ein Ziel? Ja?
+	# - Ggf Cursor austauschen
+	# - Marker austauschen?
+	_queued_casted_attack = player_attack_id
+	GlobalEvents.emit_signal("onCastSelectionStarted")
 
 
 func _cast_attack_on_entity(entity) -> void:
-	GlobalEvents.emit_signal("onCastEnded")
+	GlobalEvents.emit_signal("onCastSelectionEnded")
 	
 	look_at(entity.global_transform.origin, Vector3.UP)
 	_current_state = Vector3.INF

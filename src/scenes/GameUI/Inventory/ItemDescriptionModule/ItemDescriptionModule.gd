@@ -1,7 +1,7 @@
 extends MarginContainer
 class_name ItemDescriptionModule
 
-var item: ItemModel
+var item: InventoryItem
 
 const ItemDropModal = preload("res://scenes/GameUI/Inventory/ItemDropDialog/ItemDropDialog.tscn")
 
@@ -11,34 +11,14 @@ onready var _amount = $DescriptionContainer/Amount
 onready var _weight = $DescriptionContainer/Weight
 onready var _item_img = $DescriptionContainer/TitleContainer/ItemImg
 onready var _use_btn = $DescriptionContainer/Use
-onready var _shortcuts = $DescriptionContainer/CenterShortcuts/Shortcuts
-
-var _current_item_trigger = null
-
-func _ready():
-	_shortcuts.connect("shortcut_triggered", self, "_save_item_to_shortcut")
 
 
-func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
-	if !msg.can_use:
-		print_debug("Can not use item ", msg.player_item_id, " (", msg.request_id  ,")")
-		return
-	
-	if item.type == ItemModel.ItemType.CONSUMEABLE:
-		var itemUseMsg = ItemUseMessage.new()
-		itemUseMsg.player_item_id = item.player_item_id
-		GlobalEvents.emit_signal("onMessageSend", msg)
-		return
-	
-	var item_name = item.database_name.capitalize().replace(" ", "")
-	var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name.to_lower()]
-	var item_scene = load(item_path)
-	var item_instance = item_scene.instance()
-	get_tree().root.add_child(item_instance)
-	item_instance.start_construct()
+func free():
+	GlobalEvents.emit_signal("onPrepareSetShortcut", null)
+	.free()
 
 
-func show_item_description(new_item: ItemModel) -> void:
+func show_item_description(new_item: InventoryItem) -> void:
 	if new_item == null:
 		return
 	item = new_item
@@ -49,17 +29,11 @@ func show_item_description(new_item: ItemModel) -> void:
 	_weight.text = "Weight: %skg (%skg ea)" % [item.totalWeight() / 10.0, item.weight / 10.0]
 	_use_btn.disabled = !new_item.is_usable()
 	
-	# Prepare the shortcut trigger
-	var item_trigger = ItemTrigger.new()
-	item_trigger.icon = item.image_path()
-	item_trigger.player_item_id = item.player_item_id
-	_current_item_trigger = item_trigger
-
-
-func _save_item_to_shortcut(shortcut) -> void:
-	if _current_item_trigger == null:
-		return
-	shortcut.on_shortcut_clicked = _current_item_trigger
+	var shortcut_data = ShortcutData.new()
+	shortcut_data.type = "item"
+	shortcut_data.icon = item.image.resource_path
+	shortcut_data.payload["player_item_id"] = item.player_item_id
+	GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 
 
 func _on_Drop_pressed():

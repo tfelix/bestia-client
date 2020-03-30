@@ -13,13 +13,13 @@ enum EntityKind {
 	PLAYER
 }
 
+
 enum BehaviorGroup {
-	RESOURCE,
-	ITEM,
-	MOB,
-	NPC,
-	STRUCTURE,
-	PLAYER
+	PICKUP,
+	ATTACK,
+	TALK,
+	INTERACT,
+	NOTHING
 }
 
 const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
@@ -27,7 +27,7 @@ const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
 signal component_updated(component)
 
 export (EntityKind) var entity_kind = EntityKind.ITEM
-export (BehaviorGroup) var behavior_group = BehaviorGroup.RESOURCE
+export (BehaviorGroup) var behavior_group = BehaviorGroup.NOTHING
 
 """
 You can set a path to a VisualInstance (e.g. a MeshInstance) which then will

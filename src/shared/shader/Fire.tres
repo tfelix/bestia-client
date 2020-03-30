@@ -121,6 +121,11 @@ void fragment() {
 		EMISSION = flameColor.rgb * emissionEnergy * 0.5;
 	}
 }"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.092827, 0.240506, 0.43038 )

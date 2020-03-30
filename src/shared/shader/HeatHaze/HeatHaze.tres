@@ -1,0 +1,62 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://shared/shader/HeatHaze/heat_dist_map.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+
+uniform sampler2D distortion_map; // Our heat distortion map texture
+uniform float distortion_factor: hint_range(0, 0.5); // Factor used to control severity of the effect
+uniform float rise_factor: hint_range(0, 2); // Factor used to control how fast air rises
+
+
+void vertex() {
+	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],WORLD_MATRIX[1],vec4(normalize(cross(CAMERA_MATRIX[0].xyz,WORLD_MATRIX[1].xyz)), 0.0),WORLD_MATRIX[3]);
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(vec4(1.0, 0.0, 0.0, 0.0),vec4(0.0, 1.0/length(WORLD_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0),vec4(0.0, 0.0, 0.0 ,1.0));
+}
+
+void fragment() {
+	vec2 distortion_map_uv = UV;
+	distortion_map_uv.y *= -1.0;
+	
+	// We use the time value to scroll our distortion texture upwards
+	// Since we enabled texture repeating.
+	distortion_map_uv.y -= TIME * rise_factor;
+	
+	vec4 dist_map_value = texture(distortion_map, distortion_map_uv);
+
+    // The values are normalized by OpenGL to lie in the range [0, 1]
+    // We want negative offsets too, so we subtract 0.5 and multiply by 2
+    // We end up with values in the range [-1, 1]
+    vec2 distortion_position_offset = dist_map_value.xy;
+    distortion_position_offset -= vec2(0.5f, 0.5f);
+    distortion_position_offset *= 2.f;
+
+    // The factor scales the offset and thus controls the severity
+    distortion_position_offset *= distortion_factor;
+
+    // Since we all know that hot air rises and cools,
+    // the effect loses its severity the higher up we get
+    // We use the t (a.k.a. y) texture coordinate of the original texture
+    // to tell us how \"high up\" we are and damp accordingly
+    // Remember, OpenGL 0 is at the bottom
+    distortion_position_offset *= (1.f - SCREEN_UV.y);
+    
+    vec2 dist_tex_cord = SCREEN_UV + distortion_position_offset;
+
+	ALBEDO = textureLod(SCREEN_TEXTURE, dist_tex_cord, 0.0).rgb;
+	ALPHA = 0.1;
+}
+"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/distortion_factor = 0.02
+shader_param/rise_factor = 1.2
+shader_param/distortion_map = ExtResource( 1 )

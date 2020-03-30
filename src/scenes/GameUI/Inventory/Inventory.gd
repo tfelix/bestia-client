@@ -1,6 +1,6 @@
 extends Control
 
-const ItemNode = preload("res://scenes/GameUI/Inventory/InventoryItem.tscn")
+const InventoryItemNode = preload("res://scenes/GameUI/Inventory/InventoryItem.tscn")
 const ItemDescriptionNode = preload("res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
 const ItemEquipModule = preload("res://scenes/GameUI/Inventory/ItemEquipModule/ItemEquipModule.tscn")
 
@@ -20,10 +20,10 @@ onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Con
 onready var _inventory_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode
 onready var _equip_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/EquipMode
 
+const item_db_file = "res://scenes/Game/Entity/Item/item_database.json"
+
 # Maybe do this by convention
-var _item_paths = {
-	5: "res://scenes/Game/Entity/Item/Apple/AppleInventory.tscn"
-}
+var _item_infos = { }
 
 var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
@@ -33,15 +33,27 @@ var _inventory_open_pre_construction = false
 # New published items will be added to the inventory
 # Selected items will be displayed in 
 func _ready():
-	_info.max_weight = 50
-	_info.max_items = 200
+	_load_item_db()
+	_info.max_weight = 0
+	_info.max_items = 0
 	_draw_inventory_info()
 	GlobalEvents.connect("onInventoryUpdate", self, "_on_inventory_update")
-	GlobalEvents.connect("onItemUsed", self, "_use_shortcut_item")
+	GlobalEvents.connect("onItemUsed", self, "_use_item")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_construction_started")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_construction_ended")
+	GlobalEvents.connect("onShortcutPressed", self, "_on_shortcut_pressed")
+	
 	var msg = RequestInventoryMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
+
+
+
+func _load_item_db() -> void:
+	var file = File.new()
+	file.open(item_db_file, file.READ)
+	var text = file.get_as_text()
+	_item_infos = parse_json(text)
+	file.close()
 
 
 func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
@@ -50,10 +62,17 @@ func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
 	update_inventory_items(payload.items)
 
 
+func _on_shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
+	if not shortcut.type == "item":
+		return
+	var player_item_id = shortcut.payload["player_item_id"]
+	_use_item(player_item_id)
+
+
 """
 Tries to use a certain item
 """
-func _use_shortcut_item(player_item_id)-> void:
+func _use_item(player_item_id)-> void:
 	print_debug("use_shortcut_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
 	var pi = _get_item_node(player_item_id)
@@ -70,6 +89,21 @@ func _use_shortcut_item(player_item_id)-> void:
 	GlobalEvents.emit_signal("onMessageSend", use_msg)
 
 
+func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
+	if !msg.can_use:
+		print_debug("Can not use item ", msg.player_item_id, " (", msg.request_id  ,")")
+		return
+	
+	# Player is allowed to use this item. Depending on the item we can now
+	# display special ui elements or start the construction process.
+	#var item_name = item.database_name.capitalize().replace(" ", "")
+	#var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name.to_lower()]
+	#var item_scene = load(item_path)
+	#var item_instance = item_scene.instance()
+	#get_tree().root.add_child(item_instance)
+	#item_instance.start_construct()
+
+
 """
 Checks if the player goes into item construction mode with opened inventory
 if this is the case after the end of construction mode the inventory will re-open
@@ -77,12 +111,12 @@ again
 """
 func _construction_started() -> void:
 	_inventory_open_pre_construction = self.visible
-	close()
+	hide()
 
 
 func _construction_ended() -> void:
 	if _inventory_open_pre_construction:
-		open()
+		show()
 
 
 func _get_item(pid: int) -> ItemModel:
@@ -108,7 +142,7 @@ func update_inventory_items(items: Array) -> void:
 
 
 func _check_item_still_selected() -> void:
-	var existing_item_desc = _module.get_child(0)
+	var existing_item_desc = _module.get_childweig(0)
 	if existing_item_desc != null && existing_item_desc is ItemDescriptionModule:
 		var selected_item = existing_item_desc.item as ItemModel
 		for item in _items:
@@ -124,22 +158,45 @@ func _show_displayed_items() -> void:
 		child.queue_free()
 	
 	for item in _displayed_items:
-		if not _item_paths.has(item.item_id):
+		var key = String(item.item_id)
+		if not _item_infos.has(key):
 			continue
 		
-		var path = _item_paths[item.item_id]
-		var item_node = load(path).instance()
+		var item_info = _item_infos[key]
+		var item_node = InventoryItemNode.instance()
 		
+		item_node.amount  = item.amount
 		item_node.player_item_id = item.player_item_id
-		# var name = tr(item.database_name.to_upper())
-		# var description = tr((item.database_name + "_description").to_upper())
-		# var imagePath = ItemModel.database_name_to_image_path(item.database_name)
-		# item.image = load(imagePath)
-		# if item.image == null:
-		#	item.image = placeholder_img
+		item_node.weight = item_info.weight
+		item_node.database_name = item_info.database_name
+		match item_info["type"]:
+			"consumeable":
+				item_node.type = InventoryItem.ItemType.CONSUMEABLE
+			"structure":
+				item_node.type = InventoryItem.ItemType.STRUCTURE
+			"equip":
+				item_node.type = InventoryItem.ItemType.EQUIP
+			_:
+				item_node.type = InventoryItem.ItemType.ETC
+		item_node.item_id = item.item_id
+		
+		var name = tr(item_info.database_name.to_upper())
+		var description = tr((item_info.database_name + "_description").to_upper())
+		
+		var image_path = _database_name_to_image_path(item_info.database_name)
+		item_node.image = load(image_path)
+		if item_node.image == null:
+			item_node.image = placeholder_img
 		
 		_items_grid.add_child(item_node)
 		item_node.connect("item_selected", self, "_on_item_selected")
+
+
+func _database_name_to_image_path(_database_name: String) -> String:
+	var base_path = "res://scenes/Game/Entity/Item/"
+	var cleaned_db_name = _database_name.capitalize().replace(" ", "")
+	
+	return base_path + cleaned_db_name + "/" + cleaned_db_name + ".png"
 
 
 func _on_item_selected(item_node) -> void:
@@ -176,9 +233,8 @@ func _draw_inventory_info():
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
-		pass
-		# TODO fix
-		# total_weight += i.weight
+		var item_node = _get_item_node(i.player_item_id)
+		total_weight += item_node.weight
 	return total_weight
 
 
@@ -188,18 +244,20 @@ func received_item(item: ItemModel):
 	_draw_inventory_info()
 
 
-func open():
-	$AudioClick.play()
-	visible = true
+func hide():
+	if visible:
+		$AudioClick.play()
+	.hide()
 
 
-func close():
-	$AudioClick.play()
-	visible = false
+func show():
+	if not visible:
+		$AudioClick.play()
+	.show()
 
 
 func _on_Close_pressed():
-	close()
+	hide()
 
 
 func _on_ClearSearch_pressed():
@@ -234,11 +292,6 @@ func _filter_displayed_items(filter_name: String) -> void:
 	_show_displayed_items()
 
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		close()
-
-
 func _on_EquipMode_pressed():
 	_inventory_mode_btn.disabled = false
 	_equip_mode_btn.disabled = true
@@ -255,11 +308,13 @@ func _on_InventoryMode_pressed():
 
 
 func _unhandled_key_input(event) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		hide()
 	if event.is_action_pressed("ui_inventory_open"):
 		if visible:
-			close()
+			hide()
 		else:
-			open()
+			show()
 
 
 func _on_Inventory_mouse_entered():

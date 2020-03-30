@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/FireSmall.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Struct/FireSmall/Fireplace.gltf" type="PackedScene" id=2]
+[ext_resource path="res://shared/shader/HeatHaze/HeatHaze.tres" type="Material" id=3]
 [ext_resource path="res://shared/shader/Fire.tres" type="Material" id=4]
 [ext_resource path="res://shared/audio/fx/fireplace_01.wav" type="AudioStream" id=5]
 
@@ -91,6 +92,11 @@ void fragment() {
 	ALPHA_SCISSOR = COLOR.r;
 	ALBEDO = vec3(smokeColor.rgb);
 }"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
 
 [sub_resource type="ShaderMaterial" id=9]
 shader = SubResource( 8 )
@@ -146,6 +152,9 @@ tracks/2/keys = {
 "values": [ Vector3( 0, 1.455, 0 ), Vector3( -0.212777, 1.455, -0.199488 ), Vector3( 0.200697, 1.455, 0.272026 ), Vector3( 0.145083, 1.455, -0.209341 ), Vector3( -0.0169258, 1.455, -0.231876 ) ]
 }
 
+[sub_resource type="QuadMesh" id=13]
+size = Vector2( 1.25, 1.5 )
+
 [node name="SmallFire" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -185,3 +194,8 @@ unit_size = 10.0
 autoplay = true
 max_distance = 8.0
 bus = "Fx"
+
+[node name="HeatHaze" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.413, 0 )
+mesh = SubResource( 13 )
+material/0 = ExtResource( 3 )

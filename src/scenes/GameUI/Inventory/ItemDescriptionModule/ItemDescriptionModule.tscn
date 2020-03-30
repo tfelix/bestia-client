@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GameUI/Inventory/ItemDescriptionModule/ItemDescriptionModule.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Item/EmptyBottle/EmptyBottle.png" type="Texture" id=2]
 [ext_resource path="res://shared/fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
-[ext_resource path="res://scenes/GameUI/Shortcuts/Shortcuts.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -15,6 +14,7 @@ font_data = ExtResource( 3 )
 [node name="ItemDescriptionModule" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -384.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -28,7 +28,7 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 1270.0
-margin_bottom = 710.0
+margin_bottom = 326.0
 
 [node name="TitleContainer" type="HBoxContainer" parent="DescriptionContainer"]
 margin_right = 1260.0
@@ -83,27 +83,18 @@ djskfshdf
 "
 autowrap = true
 
-[node name="CenterShortcuts" type="CenterContainer" parent="DescriptionContainer"]
-margin_top = 464.0
-margin_right = 1260.0
-margin_bottom = 612.0
-
-[node name="Shortcuts" parent="DescriptionContainer/CenterShortcuts" instance=ExtResource( 5 )]
-margin_left = 487.0
-margin_right = 773.0
-
 [node name="Use" type="Button" parent="DescriptionContainer"]
-margin_top = 616.0
+margin_top = 232.0
 margin_right = 1260.0
-margin_bottom = 656.0
+margin_bottom = 272.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Use"
 
 [node name="Drop" type="Button" parent="DescriptionContainer"]
-margin_top = 660.0
+margin_top = 276.0
 margin_right = 1260.0
-margin_bottom = 700.0
+margin_bottom = 316.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 text = "Drop"

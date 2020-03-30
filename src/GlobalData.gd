@@ -5,6 +5,8 @@ extends Node
 # soon as a default interaction was set.
 var default_interactions = {}
 
+var shortcut_service = ShortcutsService.new()
+
 # Set to the local account which is logged in
 var client_account_id: int = 1
 
@@ -12,3 +14,9 @@ var client_account_id: int = 1
 # can not be typed
 var entities 
 
+# Used for local entities.
+var _current_entity_id = 100
+
+func get_new_entity_id() -> int:
+	_current_entity_id += 1
+	return _current_entity_id
