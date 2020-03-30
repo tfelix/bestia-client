@@ -59,6 +59,7 @@ func _on_message(payload):
 
 func _respond_item_use(msg: ItemUseRequestMessage):
 	var response = ItemUseResponseMessage.new()
+	# TODO Build a proper test for the items found in the demo
 	response.can_use = true
 	response.player_item_id = msg.player_item_id
 	response.request_id = msg.request_id

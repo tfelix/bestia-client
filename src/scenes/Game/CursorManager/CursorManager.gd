@@ -9,7 +9,8 @@ export(Resource) var cursor_interact
 var _is_over_entity = false
 var _is_over_ui = false
 var _is_casting = false
-var _is_contructing = false
+var _is_constructing = false
+var _is_pre_constructing = false
 
 var _behavior_service = BehaviorService.new()
 var _current_hovered_entity: Entity = null
@@ -22,17 +23,27 @@ func _ready():
 	GlobalEvents.connect("onCastSelectionEnded", self, "_cast_selection_ended")
 	GlobalEvents.connect("onUiEntered", self, "_ui_entered")
 	GlobalEvents.connect("onUiExited", self, "_ui_exited")
-	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
-	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
+	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_pre_construction")
+	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_pre_construction")
+
+
+func _started_pre_construction(entity) -> void:
+	_is_pre_constructing = true
+	_check_cursor()
+
+
+func _ended_pre_construction(entity) -> void:
+	_is_pre_constructing = false
+	_check_cursor()
 
 
 func _started_construction(entity) -> void:
-	_is_contructing = true
+	_is_constructing = true
 	_check_cursor()
 
 
 func _ended_construction(entity) -> void:
-	_is_contructing = false
+	_is_constructing = false
 	_check_cursor()
 
 
@@ -72,8 +83,12 @@ func _check_cursor() -> void:
 	if _is_over_ui:
 		_show_default_icon()
 		return
+		
+	if _is_pre_constructing:
+		_show_default_icon()
+		return
 
-	if _is_contructing:
+	if _is_constructing:
 		_hide_mouse_icon()
 		return
 	
@@ -97,7 +112,7 @@ func _on_over_entity_cursor() -> void:
 
 
 func _reset_cursor(entity: Entity) -> void:
-	if _is_contructing:
+	if _is_constructing:
 		return
 	_adapt_mouse_icon(cursor_hand)
 

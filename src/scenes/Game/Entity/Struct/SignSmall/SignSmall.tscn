@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
+[ext_resource path="res://scenes/GameUI/SpatialFollower.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/SignSmall.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Game/Entity/Struct/SignSmall/sign_small.material" type="Material" id=3]
 [ext_resource path="res://scenes/Game/Entity/Struct/BuildingMaterial.tres" type="Material" id=4]
@@ -61,52 +62,59 @@ shape = SubResource( 3 )
 
 [node name="SignContentInput" type="Control" parent="."]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_right = 0.5
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 placeholder = "Sign Text"
 
-[node name="CenterContainer" type="CenterContainer" parent="SignContentInput"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="PanelContainer" type="PanelContainer" parent="SignContentInput"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -99.0
+margin_top = 10.0
+margin_right = 99.0
+margin_bottom = 56.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="SignContentInput/CenterContainer"]
-margin_left = 633.0
-margin_top = 353.0
-margin_right = 647.0
-margin_bottom = 367.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SignContentInput/CenterContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SignContentInput/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 191.0
-margin_bottom = 31.0
+margin_bottom = 49.0
 
-[node name="Description" type="Label" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer"]
-visible = false
+[node name="Description" type="Label" parent="SignContentInput/PanelContainer/VBoxContainer"]
 margin_right = 184.0
 margin_bottom = 14.0
 text = "Enter Sign Text"
+align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SignContentInput/PanelContainer/VBoxContainer"]
+margin_top = 18.0
 margin_right = 184.0
-margin_bottom = 24.0
+margin_bottom = 42.0
 
-[node name="LineEdit" type="LineEdit" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SignText" type="LineEdit" parent="SignContentInput/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 150.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 150, 0 )
 caret_blink = true
 caret_blink_speed = 0.5
 
-[node name="SendButton" type="Button" parent="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SendButton" type="Button" parent="SignContentInput/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 154.0
 margin_right = 184.0
 margin_bottom = 24.0
 text = "Ok"
+
+[node name="SpatialFollower" type="Node" parent="SignContentInput"]
+script = ExtResource( 1 )
+follow_node = NodePath("../..")
+enabled = true
 [connection signal="text_entered" from="SignContentInput" to="." method="_on_SignContentInput_text_entered"]
-[connection signal="text_entered" from="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/LineEdit" to="SignContentInput" method="_on_LineEdit_text_entered"]
-[connection signal="pressed" from="SignContentInput/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/SendButton" to="SignContentInput" method="_on_SendButton_pressed"]
+[connection signal="text_entered" from="SignContentInput/PanelContainer/VBoxContainer/HBoxContainer/SignText" to="SignContentInput" method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="SignContentInput/PanelContainer/VBoxContainer/HBoxContainer/SendButton" to="SignContentInput" method="_on_SendButton_pressed"]

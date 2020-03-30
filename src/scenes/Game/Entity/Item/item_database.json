@@ -1,4 +1,4 @@
 {
 "1": {"database_name": "apple", "type": "consumeable", "weight": 1},
-"2": {"database_name": "small_sign", "type": "structure", "weight": 50}
+"2": {"database_name": "sign_small", "type": "structure", "weight": 50}
 }

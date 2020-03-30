@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SmallSign.png-7f12a88042a15723869e0f00c0a9d135.stex"
+path="res://.import/SignSmall.png-cd9220b92e9aae2761cf18e186d19f54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Game/Entity/Item/SmallSign/SmallSign.png"
-dest_files=[ "res://.import/SmallSign.png-7f12a88042a15723869e0f00c0a9d135.stex" ]
+source_file="res://scenes/Game/Entity/Item/SignSmall/SignSmall.png"
+dest_files=[ "res://.import/SignSmall.png-cd9220b92e9aae2761cf18e186d19f54.stex" ]
 
 [params]
 

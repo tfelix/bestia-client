@@ -93,8 +93,9 @@ func _unhandled_input(event):
 
 
 func _pre_construct() -> bool:
-	_user_input.show()
+	_user_input.visible = true
 	_is_constructing = false
+	GlobalEvents.emit_signal("onStructurePreConstructionStarted", self)
 	return false
 
 

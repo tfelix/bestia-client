@@ -25,6 +25,8 @@ signal onInventoryUpdate(inventory_update)
 signal onChatReceived(chat)
 
 # Structure Signals
+signal onStructurePreConstructionStarted(entity)
+signal onStructurePreConstructionEnded(entity)
 signal onStructureConstructionStarted(entity)
 signal onStructureConstructionEnded(entity)
 

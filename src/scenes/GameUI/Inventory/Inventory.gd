@@ -29,6 +29,7 @@ var _info: InventoryInfo = InventoryInfo.new()
 var _items = []
 var _displayed_items = []
 var _inventory_open_pre_construction = false
+var _item_use_request_id = ""
 
 # New published items will be added to the inventory
 # Selected items will be displayed in 
@@ -38,10 +39,11 @@ func _ready():
 	_info.max_items = 0
 	_draw_inventory_info()
 	GlobalEvents.connect("onInventoryUpdate", self, "_on_inventory_update")
-	GlobalEvents.connect("onItemUsed", self, "_use_item")
+	GlobalEvents.connect("onItemUsed", self, "use_item")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_construction_started")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_construction_ended")
 	GlobalEvents.connect("onShortcutPressed", self, "_on_shortcut_pressed")
+	GlobalEvents.connect("onMessageReceived", self, "_on_item_use_response")
 	
 	var msg = RequestInventoryMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
@@ -66,13 +68,13 @@ func _on_shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
 	if not shortcut.type == "item":
 		return
 	var player_item_id = shortcut.payload["player_item_id"]
-	_use_item(player_item_id)
+	use_item(player_item_id)
 
 
 """
 Tries to use a certain item
 """
-func _use_item(player_item_id)-> void:
+func use_item(player_item_id)-> void:
 	print_debug("use_shortcut_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
 	var pi = _get_item_node(player_item_id)
@@ -84,24 +86,37 @@ func _use_item(player_item_id)-> void:
 		return
 	# TODO We need to check by the server if the player is actually allowed to
 	# use the item
-	var use_msg = ItemUseMessage.new()
+	var use_msg = ItemUseRequestMessage.new()
 	use_msg.player_item_id = player_item_id
+	use_msg.request_id = UUID.create()
+	_item_use_request_id = use_msg.request_id
 	GlobalEvents.emit_signal("onMessageSend", use_msg)
 
 
 func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
-	if !msg.can_use:
+	# Small trick on typed param godot delivers null if type does not match
+	if not msg:
+		return
+	
+	if not msg.request_id == _item_use_request_id:
+		print_debug("ItemUseResponse request id missmatch")
+		return
+	
+	if not msg.can_use:
 		print_debug("Can not use item ", msg.player_item_id, " (", msg.request_id  ,")")
 		return
 	
 	# Player is allowed to use this item. Depending on the item we can now
 	# display special ui elements or start the construction process.
-	#var item_name = item.database_name.capitalize().replace(" ", "")
-	#var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name.to_lower()]
-	#var item_scene = load(item_path)
-	#var item_instance = item_scene.instance()
-	#get_tree().root.add_child(item_instance)
-	#item_instance.start_construct()
+	# If the item is just a consumable we can just use it.
+	var item = _get_item_node(msg.player_item_id)
+	var item_name = item.database_name.capitalize().replace(" ", "")
+	var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name]
+	# TODO We can probably cache these loads here.
+	var item_scene = load(item_path)
+	var item_instance = item_scene.instance()
+	get_tree().root.add_child(item_instance)
+	item_instance.start_construct()
 
 
 """
@@ -109,12 +124,12 @@ Checks if the player goes into item construction mode with opened inventory
 if this is the case after the end of construction mode the inventory will re-open
 again
 """
-func _construction_started() -> void:
+func _construction_started(entity) -> void:
 	_inventory_open_pre_construction = self.visible
 	hide()
 
 
-func _construction_ended() -> void:
+func _construction_ended(entity) -> void:
 	if _inventory_open_pre_construction:
 		show()
 

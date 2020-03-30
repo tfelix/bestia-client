@@ -4,7 +4,7 @@ signal text_entered
 
 export (String) var placeholder = "Placeholder"
 
-onready var _input = $CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/LineEdit
+onready var _input = $PanelContainer/VBoxContainer/HBoxContainer/SignText
 
 func _ready():
 	_input.placeholder_text = placeholder
