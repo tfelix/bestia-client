@@ -17,8 +17,6 @@ onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainConten
 onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit
 onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
 onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
-onready var _inventory_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/InventoryMode
-onready var _equip_mode_btn = $MarginContainer/InventoryPanel/HContainer/Categories/EquipMode
 
 const item_db_file = "res://scenes/Game/Entity/Item/item_database.json"
 
@@ -26,8 +24,10 @@ const item_db_file = "res://scenes/Game/Entity/Item/item_database.json"
 var _item_infos = { }
 
 var _info: InventoryInfo = InventoryInfo.new()
+
 var _items = []
 var _displayed_items = []
+
 var _inventory_open_pre_construction = false
 var _item_use_request_id = ""
 
@@ -49,7 +49,6 @@ func _ready():
 	GlobalEvents.emit_signal("onMessageSend", msg)
 
 
-
 func _load_item_db() -> void:
 	var file = File.new()
 	file.open(item_db_file, file.READ)
@@ -61,7 +60,50 @@ func _load_item_db() -> void:
 func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
 	_info.max_items = payload.max_items
 	_info.max_weight = payload.max_weight
-	update_inventory_items(payload.items)
+	_clear_inventory_items()
+	_add_inventory_items(payload.items)
+	_display_all_items()
+	_draw_inventory_info()
+
+
+func _clear_inventory_items() -> void:
+	for item in _items:
+		item.queue_free()
+	_items.clear()
+
+
+func _add_inventory_items(items) -> void:
+	for item in items:
+		var key = String(item.item_id)
+		if not _item_infos.has(key):
+			continue
+		
+		var item_info = _item_infos[key]
+		var item_node = InventoryItemNode.instance()
+		
+		item_node.amount  = item.amount
+		item_node.player_item_id = item.player_item_id
+		item_node.weight = item_info.weight
+		item_node.database_name = item_info.database_name
+		match item_info["type"]:
+			"consumeable":
+				item_node.type = InventoryItem.ItemType.CONSUMEABLE
+			"structure":
+				item_node.type = InventoryItem.ItemType.STRUCTURE
+			"equip":
+				item_node.type = InventoryItem.ItemType.EQUIP
+			_:
+				item_node.type = InventoryItem.ItemType.ETC
+		item_node.item_id = item.item_id
+		
+		var name = tr(item_info.database_name.to_upper())
+		var description = tr((item_info.database_name + "_description").to_upper())
+		var image_path = _database_name_to_image_path(item_info.database_name)
+		item_node.image = load(image_path)
+		if item_node.image == null:
+			item_node.image = placeholder_img
+		item_node.connect("item_selected", self, "_on_item_selected")
+		_items.append(item_node)
 
 
 func _on_shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
@@ -77,7 +119,7 @@ Tries to use a certain item
 func use_item(player_item_id)-> void:
 	print_debug("use_shortcut_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
-	var pi = _get_item_node(player_item_id)
+	var pi = _get_item(player_item_id)
 	if pi == null:
 		print_debug("use_shortcut_item with pid ", player_item_id, " not found")
 		return
@@ -109,7 +151,14 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 	# Player is allowed to use this item. Depending on the item we can now
 	# display special ui elements or start the construction process.
 	# If the item is just a consumable we can just use it.
-	var item = _get_item_node(msg.player_item_id)
+	var item = _get_item(msg.player_item_id)
+	
+	if item.type == InventoryItem.ItemType.CONSUMEABLE:
+		var use_msg = ItemUseMessage.new()
+		use_msg.player_item_id = msg.player_item_id
+		GlobalEvents.emit_signal("onMessageSend", use_msg)
+		return
+	
 	var item_name = item.database_name.capitalize().replace(" ", "")
 	var item_path = "res://scenes/Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name]
 	# TODO We can probably cache these loads here.
@@ -140,21 +189,6 @@ func _get_item(pid: int) -> ItemModel:
 			return item
 	return null
 
-"""
-Returns the inventory node item.
-"""
-func _get_item_node(pid: int) -> InventoryItem:
-	for item in _items_grid.get_children():
-		if item.player_item_id == pid:
-			return item
-	return null
-
-
-func update_inventory_items(items: Array) -> void:
-	_items = items
-	_display_all_items()
-	_draw_inventory_info()
-
 
 func _check_item_still_selected() -> void:
 	var existing_item_desc = _module.get_childweig(0)
@@ -170,41 +204,10 @@ func _check_item_still_selected() -> void:
 
 func _show_displayed_items() -> void:
 	for child in _items_grid.get_children():
-		child.queue_free()
+		_items_grid.remove_child(child)
 	
 	for item in _displayed_items:
-		var key = String(item.item_id)
-		if not _item_infos.has(key):
-			continue
-		
-		var item_info = _item_infos[key]
-		var item_node = InventoryItemNode.instance()
-		
-		item_node.amount  = item.amount
-		item_node.player_item_id = item.player_item_id
-		item_node.weight = item_info.weight
-		item_node.database_name = item_info.database_name
-		match item_info["type"]:
-			"consumeable":
-				item_node.type = InventoryItem.ItemType.CONSUMEABLE
-			"structure":
-				item_node.type = InventoryItem.ItemType.STRUCTURE
-			"equip":
-				item_node.type = InventoryItem.ItemType.EQUIP
-			_:
-				item_node.type = InventoryItem.ItemType.ETC
-		item_node.item_id = item.item_id
-		
-		var name = tr(item_info.database_name.to_upper())
-		var description = tr((item_info.database_name + "_description").to_upper())
-		
-		var image_path = _database_name_to_image_path(item_info.database_name)
-		item_node.image = load(image_path)
-		if item_node.image == null:
-			item_node.image = placeholder_img
-		
-		_items_grid.add_child(item_node)
-		item_node.connect("item_selected", self, "_on_item_selected")
+		_items_grid.add_child(item)
 
 
 func _database_name_to_image_path(_database_name: String) -> String:
@@ -214,28 +217,43 @@ func _database_name_to_image_path(_database_name: String) -> String:
 	return base_path + cleaned_db_name + "/" + cleaned_db_name + ".png"
 
 
-func _on_item_selected(item_node) -> void:
-	for child in _items_grid.get_children():
-		if child == item_node:
-			child.selected = !child.selected
-		else:
-			child.selected = false
-	
+func _on_item_selected(selected_item) -> void:
 	_remove_module()
+	# If null we just deselect all items and return.
+	if selected_item == null:
+		for item_node in _items_grid.get_children():
+			item_node.selected = false
+		return
 	
-	if item_node.selected:
+	for item_node in _items_grid.get_children():
+		if selected_item == item_node:
+			item_node.selected = !item_node.selected
+		else:
+			item_node.selected = false
+	
+	if selected_item.selected:
 		var item_desc = ItemDescriptionNode.instance()
 		_module.add_child(item_desc)
-		item_desc.show_item_description(item_node)
+		item_desc.show_item_description(selected_item)
 		_module.visible = true
+		
+		# Prepare the shortcut call
+		var shortcut_data = ShortcutData.new()
+		shortcut_data.type = "item"
+		shortcut_data.icon = selected_item.image.resource_path
+		shortcut_data.payload["player_item_id"] = selected_item.player_item_id
+		GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 	else:
 		_module.visible = false
 
 
 func _remove_module() -> void:
+	# if there is no child, no need to remove it.
+	if _module.get_child_count() == 0:
+		return
 	var existing_module = _module.get_child(0)
-	if existing_module != null:
-		existing_module.queue_free()
+	existing_module.queue_free()
+	GlobalEvents.emit_signal("onPrepareSetShortcut", null)
 
 
 func _draw_inventory_info():
@@ -248,26 +266,22 @@ func _draw_inventory_info():
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
-		var item_node = _get_item_node(i.player_item_id)
+		var item_node = _get_item(i.player_item_id)
 		total_weight += item_node.weight
 	return total_weight
-
-
-func received_item(item: ItemModel):
-	_pickup_msg.show_message(item)
-	_items.push(item)
-	_draw_inventory_info()
 
 
 func hide():
 	if visible:
 		$AudioClick.play()
+	_on_item_selected(null)
 	.hide()
 
 
 func show():
 	if not visible:
 		$AudioClick.play()
+	_search_text.grab_focus()
 	.show()
 
 
@@ -298,28 +312,15 @@ func _display_all_items() -> void:
 
 
 func _filter_displayed_items(filter_name: String) -> void:
-	print_debug(filter_name)
 	_displayed_items.clear()
 	var filter_name_upper = filter_name.to_upper()
 	for item in _items:
-		if tr(item.database_name).to_upper().begins_with(filter_name_upper):
+		# Might be a bit wasteful but we have no proper other way
+		# to fetch the databse name.
+		var item_node = _get_item(item.player_item_id)
+		if tr(item_node.database_name).to_upper().begins_with(filter_name_upper):
 			_displayed_items.append(item)
 	_show_displayed_items()
-
-
-func _on_EquipMode_pressed():
-	_inventory_mode_btn.disabled = false
-	_equip_mode_btn.disabled = true
-	_remove_module()
-	var equip_module = ItemEquipModule.instance()
-	_module.add_child(equip_module)
-	_module.visible = true
-
-
-func _on_InventoryMode_pressed():
-	_inventory_mode_btn.disabled = true
-	_equip_mode_btn.disabled = false
-	_remove_module()
 
 
 func _unhandled_key_input(event) -> void:

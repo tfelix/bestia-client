@@ -81,6 +81,7 @@ func _remove_player_item(player_item: ItemModel) -> void:
 func _use_item(msg: ItemUseMessage) -> void:
 	var player_item = _get_player_item(msg.player_item_id)
 	if player_item == null:
+		print_debug("Item with player_item_id ", msg.player_item_id, " not found")
 		return
 
 	player_item.amount -= 1
@@ -88,8 +89,9 @@ func _use_item(msg: ItemUseMessage) -> void:
 		# Remove the item from the array
 		pass
 
-	if msg.player_item_id == 5:
-		# Heal the player
+	# APPLE
+	if msg.player_item_id == 1:
+		# Heal the player for 15 HP
 		print_debug("server: player used apple")
 
 	_send_items()

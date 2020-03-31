@@ -15,7 +15,10 @@ func _ready():
 
 
 func _prepare_set_shortcut(shortcut_data) -> void:
-	print_debug("_prepare_set_shortcut - type: ", shortcut_data.type , ", payload: ", to_json(shortcut_data.payload))
+	if shortcut_data:
+		print_debug("_prepare_set_shortcut - type: ", shortcut_data.type , ", payload: ", to_json(shortcut_data.payload))
+	else:
+		print_debug("_prepare_set_shortcut - Unset shortcut preparation")
 	_prepare_shortcut_data = shortcut_data
 
 
