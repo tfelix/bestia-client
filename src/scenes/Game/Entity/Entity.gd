@@ -1,17 +1,10 @@
 extends Spatial
+"""
+Base class for all adressable entities in the bestia game.
+The entity will be managed by the network manager and filled
+with data from the server.
+"""
 class_name Entity
-
-# Base class for all adressable entities in the bestia game.
-# The entity will be managed by the network manager and filled
-# with data from the server.
-enum EntityKind {
-	ITEM, 
-	STRUCTURE, 
-	NPC,
-	MOB,
-	VEGETATION,
-	PLAYER
-}
 
 
 enum BehaviorGroup {
@@ -26,7 +19,6 @@ const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
 
 signal component_updated(component)
 
-export (EntityKind) var entity_kind = EntityKind.ITEM
 export (BehaviorGroup) var behavior_group = BehaviorGroup.NOTHING
 
 """
@@ -61,6 +53,10 @@ func free():
 
 func _announce_entity():
 	GlobalEvents.emit_signal("onEntityAdded", self)
+	# Also iterate over the added components and signal that there
+	# was an update to trigger changes further upstream
+	for c in _components.get_children():
+		emit_signal("component_updated", c)
 
 
 """
@@ -71,8 +67,9 @@ func get_spatial():
 
 
 """
-Returns the bounding box of the mesh of this entity. Then a unit sized
-cube is returned.
+Returns the bounding box of the mesh of this entity. If not provided, then a 
+unit sized cube is returned. This is needed as some parts need to know the size
+of an entity when interacting with e.g. for displaying special effects.
 """
 func get_aabb() -> AABB:
 	return _aabb
@@ -83,6 +80,13 @@ func handle_message(msg):
 		_components.update_component(msg)
 	if msg is ComponentRemoveMessage:
 		_components.remove_component(msg.component_name)
+
+
+"""
+Returns the possible interactions with this entity.
+"""
+func get_interactions():
+	pass
 
 
 func get_component(component_name: String) -> Component:

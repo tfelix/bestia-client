@@ -10,15 +10,16 @@ onready var _item_desc = $DescriptionContainer/ItemDescription
 onready var _amount = $DescriptionContainer/Amount
 onready var _weight = $DescriptionContainer/Weight
 onready var _item_img = $DescriptionContainer/TitleContainer/ItemImg
-onready var _use_btn = $DescriptionContainer/Use
+onready var _use_btn = $DescriptionContainer/ButtonBox/Use
 
 
 func show_item_description(new_item: InventoryItem) -> void:
 	if new_item == null:
 		return
 	item = new_item
-	_item_name.text = tr(item.database_name.to_upper())
-	_item_desc.text = tr((item.database_name + "_description").to_upper())
+	var item_db_name_upper = item.database_name.to_upper()
+	_item_name.text = tr(item_db_name_upper)
+	_item_desc.text = tr(item_db_name_upper + "_DESCRIPTION")
 	_item_img.texture = item.image
 	_amount.text = "Amount: %s" % item.amount
 	_weight.text = "Weight: %skg (%skg ea)" % [item.totalWeight() / 10.0, item.weight / 10.0]

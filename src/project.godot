@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://shared/messages/DamageMessage.gd"
 }, {
+"base": "Component",
+"class": "DataComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/DataComponent.gd"
+}, {
 "base": "Reference",
 "class": "DayData",
 "language": "GDScript",
@@ -140,6 +145,11 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Entity/Component/EnvironmentComponent.gd"
 }, {
 "base": "Reference",
+"class": "FakeItemHandler",
+"language": "GDScript",
+"path": "res://scenes/Game/Manager/FakeServerManager/FakeItemHandler.gd"
+}, {
+"base": "Reference",
 "class": "FxMessage",
 "language": "GDScript",
 "path": "res://shared/messages/FxMessage.gd"
@@ -148,11 +158,6 @@ _global_script_classes=[ {
 "class": "InteractionRange",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/InteractionRange.gd"
-}, {
-"base": "Control",
-"class": "InteractionsUi",
-"language": "GDScript",
-"path": "res://scenes/GameUI/InteractionsUi/InteractionsUi.gd"
 }, {
 "base": "Control",
 "class": "InventoryItem",
@@ -168,6 +173,11 @@ _global_script_classes=[ {
 "class": "Item",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Item/Item.gd"
+}, {
+"base": "Reference",
+"class": "ItemDatabase",
+"language": "GDScript",
+"path": "res://scenes/GameUI/Inventory/ItemDatabase.gd"
 }, {
 "base": "MarginContainer",
 "class": "ItemDescriptionModule",
@@ -223,6 +233,11 @@ _global_script_classes=[ {
 "class": "PlayerComponent",
 "language": "GDScript",
 "path": "res://scenes/Game/Entity/Component/PlayerComponent.gd"
+}, {
+"base": "Component",
+"class": "PositionComponent",
+"language": "GDScript",
+"path": "res://scenes/Game/Entity/Component/PositionComponent.gd"
 }, {
 "base": "Reference",
 "class": "RangedAttackMessage",
@@ -340,18 +355,20 @@ _global_script_class_icons={
 "ConditionComponent": "",
 "CursorManager": "",
 "DamageMessage": "",
+"DataComponent": "",
 "DayData": "",
 "EffortValues": "",
 "Entities": "",
 "Entity": "",
 "EntityCreateMessage": "",
 "EnvironmentComponent": "",
+"FakeItemHandler": "",
 "FxMessage": "",
 "InteractionRange": "",
-"InteractionsUi": "",
 "InventoryItem": "",
 "InventoryUpdateMessage": "",
 "Item": "",
+"ItemDatabase": "",
 "ItemDescriptionModule": "",
 "ItemDropMessage": "",
 "ItemModel": "",
@@ -363,6 +380,7 @@ _global_script_class_icons={
 "PerformConstructionComponent": "",
 "Player": "",
 "PlayerComponent": "",
+"PositionComponent": "",
 "RangedAttackMessage": "",
 "RequestAttackListMessage": "",
 "RequestInventoryMessage": "",
@@ -1594,7 +1612,7 @@ ui_status_values={
 
 [locale]
 
-translations=PoolStringArray( "res://scenes/Game/Entity/Item/ItemTranslations.en.translation" )
+translations=PoolStringArray( "res://ItemTranslations.en.translation", "res://AttackTranslations.en.translation" )
 locale_filter=[ 0, [ "en" ] ]
 
 [rendering]

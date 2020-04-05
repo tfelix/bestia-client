@@ -196,6 +196,6 @@ max_distance = 8.0
 bus = "Fx"
 
 [node name="HeatHaze" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.413, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.12581, 0 )
 mesh = SubResource( 13 )
 material/0 = ExtResource( 3 )

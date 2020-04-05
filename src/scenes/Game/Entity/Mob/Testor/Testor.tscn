@@ -128,8 +128,7 @@ mesh = SubResource( 3 )
 material/0 = ExtResource( 6 )
 
 [node name="Entity" parent="." index="2" instance=ExtResource( 4 )]
-entity_kind = 3
-behavior_group = 2
+behavior_group = 1
 aabb_visual_instance_path = NodePath("../MeshInstance")
 
 [node name="NameComponent" type="Node" parent="Entity/Components" index="0"]

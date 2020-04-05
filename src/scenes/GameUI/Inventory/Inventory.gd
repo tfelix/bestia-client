@@ -18,12 +18,8 @@ onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainConten
 onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
 onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
 
-const item_db_file = "res://scenes/Game/Entity/Item/item_database.json"
-
-# Maybe do this by convention
-var _item_infos = { }
-
 var _info: InventoryInfo = InventoryInfo.new()
+var _item_db: ItemDatabase = ItemDatabase.new()
 
 var _items = []
 var _displayed_items = []
@@ -34,7 +30,6 @@ var _item_use_request_id = ""
 # New published items will be added to the inventory
 # Selected items will be displayed in 
 func _ready():
-	_load_item_db()
 	_info.max_weight = 0
 	_info.max_items = 0
 	_draw_inventory_info()
@@ -47,14 +42,6 @@ func _ready():
 	
 	var msg = RequestInventoryMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
-
-
-func _load_item_db() -> void:
-	var file = File.new()
-	file.open(item_db_file, file.READ)
-	var text = file.get_as_text()
-	_item_infos = parse_json(text)
-	file.close()
 
 
 func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
@@ -74,11 +61,9 @@ func _clear_inventory_items() -> void:
 
 func _add_inventory_items(items) -> void:
 	for item in items:
-		var key = String(item.item_id)
-		if not _item_infos.has(key):
+		var item_info = _item_db.get_data(item.item_id)
+		if not item_info:
 			continue
-		
-		var item_info = _item_infos[key]
 		var item_node = InventoryItemNode.instance()
 		
 		item_node.amount  = item.amount
@@ -171,7 +156,7 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 """
 Checks if the player goes into item construction mode with opened inventory
 if this is the case after the end of construction mode the inventory will re-open
-again
+again.
 """
 func _construction_started(entity) -> void:
 	_inventory_open_pre_construction = self.visible

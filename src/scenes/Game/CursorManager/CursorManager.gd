@@ -5,6 +5,7 @@ export(Resource) var cursor_skill
 export(Resource) var cursor_attack
 export(Resource) var cursor_hand
 export(Resource) var cursor_interact
+export(Resource) var cursor_pickup
 
 var _is_over_entity = false
 var _is_over_ui = false
@@ -107,8 +108,19 @@ Adapts the cursor to the current entity type which is under the pointer
 and depending on the setup behavior it will change the cursor type.
 """
 func _on_over_entity_cursor() -> void:
-	_current_hovered_entity
-	_adapt_mouse_icon(cursor_attack)
+	var behavior = _behavior_service.get_behavior_for(_current_hovered_entity)
+	print_debug("Entity Cursor behavior: ", behavior)
+	match behavior:
+		"attack":
+			_adapt_mouse_icon(cursor_attack)
+		"interact":
+			_adapt_mouse_icon(cursor_interact)
+		"pickup":
+			_adapt_mouse_icon(cursor_pickup)
+		_:
+			_adapt_mouse_icon(cursor_interact)
+	
+	
 
 
 func _reset_cursor(entity: Entity) -> void:

@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://tests/voxel/noise_distorted.png" type="Image" id=1]
 [ext_resource path="res://terrain/triplanar2.shader" type="Shader" id=2]
 [ext_resource path="res://scenes/Game/Sky/Sky.tscn" type="PackedScene" id=3]
 [ext_resource path="res://terrain/grass_03/hp_03.png" type="Texture" id=4]
@@ -8,10 +7,8 @@
 [ext_resource path="res://terrain/grass_03/hp_03_n.png" type="Texture" id=6]
 [ext_resource path="res://terrain/mountain_stone/MountainStone_COLOR.png" type="Texture" id=7]
 
-[sub_resource type="VoxelGeneratorImage" id=1]
-height_range = 120.0
-image = ExtResource( 1 )
-blur_enabled = true
+[sub_resource type="VoxelGeneratorWaves" id=5]
+height_start = 0.0
 
 [sub_resource type="OpenSimplexNoise" id=2]
 seed = 5
@@ -57,11 +54,11 @@ shader_param/noise_texture = SubResource( 3 )
 [node name="Sky" parent="." instance=ExtResource( 3 )]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.709975, 0.162633, 0.68519, -0.306297, 0.947431, 0.0924998, -0.634127, -0.275545, 0.722467, -5.95134, 20.4706, -109.694 )
+transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 38.6913, 11.4596 )
 far = 1024.0
 
 [node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="."]
-stream = SubResource( 1 )
+stream = SubResource( 5 )
 view_distance = 1024
 lod_count = 3
 viewer_path = NodePath("../Camera")

@@ -32,7 +32,6 @@ func _display_attacks(attacks) -> void:
 
 	for atk in _attacks:
 		atk.name = tr(atk.db_name)
-		atk.description = tr(atk.db_name + "_desc")
 
 
 func _render_filtered_attacks() -> void:
@@ -42,8 +41,6 @@ func _render_filtered_attacks() -> void:
 	var search_name = _search_text.text
 	var displayed_attacks = []
 	for atk in _attacks:
-		atk.name = tr(atk.db_name)
-		atk.description = tr(atk.db_name + "_desc")
 		if search_name.empty() || atk.name.find(search_name) != -1:
 			displayed_attacks.append(atk)
 	
@@ -85,6 +82,13 @@ func _attack_selected(attack_row: AttackRow):
 	
 	var atk = attack_row.attack
 	_attack_description.get_ref().set_attack(atk)
+	
+	# Also prepare the shortcut setting
+	var shortcut_data = ShortcutData.new()
+	shortcut_data.type = "attack"
+	shortcut_data.icon = "res://scenes/Attack/Fireball/icon.png"
+	shortcut_data.payload["attack_entity_id"] = atk.attack_entity_id
+	GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 
 
 func _on_ClearButton_pressed():

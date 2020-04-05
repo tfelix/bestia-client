@@ -1,0 +1,7 @@
+id,en
+TACKLE,Tackle
+TACKLE_DESC,The attacker will fast run towards the enemy and inflict damage upon impact. A weak physical attack.
+SMALL_HEAL,Small Heal
+SMALL_HEAL_DESC,A little bit of HP will be restored by a holy power.
+SMALL_FIREBALL,Small Fireball
+SMALL_FIREBALL_DESC,Summons a small fireball from the sky which will inflict fire damage on impact.

@@ -3,7 +3,6 @@ extends Node
 # The fake server listens to messages from the game and instead of sending it
 # to the server and reacting on the response it will directly manipulate the game
 # with predefined actions.
-
 const NoMovementComponent = preload("res://scenes/Game/Entity/Component/NoMovementComponent.gd")
 const ConstructionComponent = preload("res://scenes/Game/Entity/Component/PerformConstructionComponent.gd")
 
@@ -11,18 +10,15 @@ onready var cast_timer = $CastTimer
 
 export var player_entity_id = 1000
 
-var _player_items = []
-
 var _env_comp: EnvironmentComponent
 var _casted_entity_id: int = 0
+var _item_handler = FakeItemHandler.new()
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
 	
 	# We must wait until the scene is setup in order to call this.
 	call_deferred("_setup_account")
-	
-	_setup_items()
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1000
@@ -36,6 +32,8 @@ func _ready():
 	_env_comp.sunset = 0.70 # The usual sunset is at 0.7
 	_env_comp.day_progress = 1 # 0 Start of Day (00:00), 1 End of Day (23:59)
 
+	_item_handler.setup()
+
 
 func _on_message(payload):
 	if payload is ChatSend:
@@ -43,15 +41,15 @@ func _on_message(payload):
 	elif payload is UseAttackMessage:
 		_use_skill(payload)
 	elif payload is ItemDropMessage:
-		_drop_item(payload)
+		_item_handler.drop_item(payload)
 	elif payload is RequestInventoryMessage:
-		_send_items()
-	elif payload is RequestAttackListMessage:
-		_send_attacks()
+		_item_handler.send_items()
 	elif payload is ItemUseRequestMessage:
 		_respond_item_use(payload)
 	elif payload is ItemUseMessage:
-		_use_item(payload)
+		_item_handler.use_item(payload)
+	elif payload is RequestAttackListMessage:
+		_send_attacks()
 	else:
 		print_debug("Unknown message: ", payload)
 		pass
@@ -64,37 +62,6 @@ func _respond_item_use(msg: ItemUseRequestMessage):
 	response.player_item_id = msg.player_item_id
 	response.request_id = msg.request_id
 	GlobalEvents.emit_signal("onMessageReceived", response)
-
-
-func _get_player_item(player_item_id) -> ItemModel:
-	for item in _player_items:
-		if item.player_item_id  == player_item_id:
-			return item
-	return null
-
-
-func _remove_player_item(player_item: ItemModel) -> void:
-	_player_items.erase(player_item)
-	_send_items()
-
-
-func _use_item(msg: ItemUseMessage) -> void:
-	var player_item = _get_player_item(msg.player_item_id)
-	if player_item == null:
-		print_debug("Item with player_item_id ", msg.player_item_id, " not found")
-		return
-
-	player_item.amount -= 1
-	if player_item.amount <= 0:
-		# Remove the item from the array
-		pass
-
-	# APPLE
-	if msg.player_item_id == 1:
-		# Heal the player for 15 HP
-		print_debug("server: player used apple")
-
-	_send_items()
 
 
 func _setup_account() -> void:
@@ -110,69 +77,11 @@ func _setup_account() -> void:
 	GlobalEvents.emit_signal("onMessageReceived", player)
 
 
-func _setup_items() -> void:
-	var item1 = ItemModel.new()
-	item1.item_id = 1
-	item1.player_item_id = 1
-	item1.amount = 10
-	_player_items.append(item1)
-	
-	var item2 = ItemModel.new()
-	item2.item_id = 2
-	item2.player_item_id = 2
-	item2.amount = 3
-	_player_items.append(item2)
-	
-	var item3 = ItemModel.new()
-	item3.item_id = 3
-	item3.player_item_id = 3
-	item3.amount = 1
-	#_player_items.append(item3)
-	
-	var item4 = ItemModel.new()
-	item4.item_id = 4
-	item4.player_item_id = 4
-	item4.amount = 1
-	#_player_items.append(item4)
-	
-	var item5 = ItemModel.new()
-	item5.item_id = 5
-	item5.player_item_id = 5
-	item5.amount = 5
-	#_player_items.append(item5)
-
-
-func _send_items() -> void:
-	var update_msg = InventoryUpdateMessage.new()
-	update_msg.items = _player_items
-	update_msg.max_items = 200
-	update_msg.max_weight = 500
-	GlobalEvents.emit_signal("onMessageReceived", update_msg)
-
-
-func _drop_item(msg: ItemDropMessage) -> void:
-	if msg.item.player_item_id == 5:
-		var item = _get_player_item(msg.item.player_item_id)
-		if item == null:
-			return
-		item.amount -= msg.amount
-		if item.amount <= 0:
-			_remove_player_item(item)
-		_send_items()
-		var visual_comp = VisualComponent.new()
-		visual_comp.entity_id = 8888
-		visual_comp.entity_id = 8888
-		visual_comp.visual = "apple"
-		visual_comp.type = "item"
-		visual_comp.animation = "spawn"
-		GlobalEvents.emit_signal("onMessageReceived", visual_comp)
-
-
 func _send_attacks() -> void:
 	var atk1 = Attack.new()
 	atk1.attack_entity_id = 1
 	atk1.attack_id = 1
-	atk1.db_name = "tackle"
+	atk1.db_name = "TACKLE"
 	atk1.element = "NORMAL"
 	atk1.mana = 2
 	atk1.level = 1
@@ -180,13 +89,21 @@ func _send_attacks() -> void:
 	var atk2 = Attack.new()
 	atk2.attack_entity_id = 1
 	atk2.attack_id = 2
-	atk2.db_name = "fireball"
+	atk2.db_name = "SMALL_FIREBALL"
 	atk2.element = "FIRE"
 	atk2.mana = 5
 	atk2.level = 2
+	
+	var atk3 = Attack.new()
+	atk3.attack_entity_id = 1
+	atk3.attack_id = 3
+	atk3.db_name = "SMALL_HEAL"
+	atk3.element = "HOLY"
+	atk3.mana = 10
+	atk3.level = 5
 
 	var response = ResponseAttackListMessage.new()
-	response.attacks = [atk1, atk2]
+	response.attacks = [atk1, atk2, atk3]
 
 	GlobalEvents.emit_signal("onMessageReceived", response)
 

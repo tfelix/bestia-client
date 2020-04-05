@@ -50,7 +50,7 @@ custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
 
 [resource]
 shader = SubResource( 1 )
-shader_param/mainColor = Color( 0.0823529, 0.929412, 0.294118, 1 )
+shader_param/mainColor = Color( 0.0823529, 0.929412, 0.176471, 1 )
 shader_param/barSpeed = 4.0
 shader_param/barDistance = 12.0
 shader_param/alpha = 0.5

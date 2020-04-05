@@ -2,10 +2,22 @@ extends Struct
 
 var _is_constructing = false
 
+const TownName = preload("res://scenes/GameUI/TownName/TownName.tscn")
+
 onready var _mesh = $SignMesh
 onready var _building_mesh = $SignMeshBuilding
 onready var _collidor = $Collidor
 onready var _user_input = $SignContentInput
+onready var _entity = $Entity
+onready var _sign_radius = $SignageDetection/CollisionShape
+
+"""
+Prevents display of the signange if a player re-enters
+within this time delay.
+"""
+export(int) var display_cooldown_s = 60
+
+var _last_detection = 0
 
 
 func _physics_process(delta):
@@ -102,3 +114,28 @@ func _pre_construct() -> bool:
 func _on_SignContentInput_text_entered(arg):
 	print_debug("Send to server: Input, Position, Text: ", arg)
 	stop_construct()
+
+
+func _on_SignageDetection_body_entered(body):
+	var delta = OS.get_ticks_msec() - _last_detection
+	if _last_detection != 0 && delta / 1000 < display_cooldown_s:
+		return
+	_last_detection = OS.get_ticks_msec()
+	
+	var data_comp = _entity.get_component(DataComponent.NAME)
+	var sign_name = data_comp.data["content"]
+	var town_name = TownName.instance()
+	town_name.text = sign_name
+	town_name.is_pvp = false
+	add_child(town_name)
+
+
+"""
+We must update the radius of the sign.
+"""
+func _on_Entity_component_updated(component):
+	if not component.get_name() == DataComponent.NAME:
+		return
+	var radius = int(component.data["radius"])
+	_sign_radius.shape.radius = radius
+	

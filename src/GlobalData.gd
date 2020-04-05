@@ -17,6 +17,10 @@ var entities
 # Used for local entities.
 var _current_entity_id = 100
 
+"""
+This is for local demo only. It makes sure all entity ids are unique if they
+are not send from a server.
+"""
 func get_new_entity_id() -> int:
 	_current_entity_id += 1
 	return _current_entity_id
