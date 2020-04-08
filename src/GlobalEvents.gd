@@ -8,14 +8,18 @@ signal onEntityMouseExited(entity)
 signal onEntityAdded(entity)
 signal onEntityRemoved(entity)
 signal onDamageReceived(damage_message)
+# These are internal signals which are used by the demo to setup
+# some stuff without a proper game server
+signal onEnemySpawned(entity)
 
 # Player Signals
 signal onPlayerInteract(entity, interaction)
 signal onPlayerEntityUpdated(player)
 signal onBuildingEntered(building_id)
 signal onBuildingExit(building_id)
-signal onCastSelectionStarted(attack_id)
+signal onCastSelectionStarted(attack)
 signal onCastSelectionEnded()
+signal onSkillCasted(attack, entity, target)
 
 # Inventory Signals
 signal onItemUsed(player_item_id)

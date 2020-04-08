@@ -37,7 +37,6 @@ func _on_shortcut_clicked(action_name, shortcut) -> void:
 	if _prepare_shortcut_data:
 		# setup the new shortcut instead of triggering something
 		GlobalData.shortcut_service.save_shortcut(action_name, _prepare_shortcut_data)
-		pass
 	else:
 		# Safety check to make sure we really have shortcut data available
 		if not shortcut.shortcut_data:

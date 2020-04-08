@@ -13,8 +13,16 @@ var _attacks = []
 
 func _ready():
 	GlobalEvents.connect("onMessageReceived", self, "_server_reveiced")
+	GlobalEvents.connect("onShortcutPressed", self, "_shortcut_pressed")
 	_request_attack_list();
 	_render_filtered_attacks()
+
+
+func _shortcut_pressed(action_name, shortcut) -> void:
+	if not shortcut.type == "attack":
+		return
+	var attack_entity_id = shortcut.payload["attack_entity_id"]
+	GlobalEvents.emit_signal("onCastSelectionStarted", 123)
 
 
 func _server_reveiced(payload) -> void:
@@ -60,6 +68,7 @@ func show():
 func hide():
 	if visible:
 		_click_audio.play()
+	GlobalEvents.emit_signal("onPrepareSetShortcut", null)
 	.hide()
 
 

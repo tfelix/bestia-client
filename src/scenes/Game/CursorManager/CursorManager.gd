@@ -48,7 +48,7 @@ func _ended_construction(entity) -> void:
 	_check_cursor()
 
 
-func _cast_selection_started() -> void:
+func _cast_selection_started(attack) -> void:
 	_is_casting = true
 	_check_cursor()
 

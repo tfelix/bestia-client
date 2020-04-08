@@ -18,7 +18,7 @@ var _move_target: Vector3 = Vector3.INF
 var _current_state = PlayerState.IDLE
 
 var _has_attack_delay = false
-var _target_entity: Entity
+var _target_entity: Entity = null
 
 var _queued_casted_attack = null
 var _queued_attack_entity: Entity = null
@@ -32,7 +32,7 @@ func _ready():
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 	GlobalEvents.connect("onPlayerInteract", self, "_on_player_interact")
-	GlobalEvents.connect("onShortcutPressed", self, "_shortcut_pressed")
+	GlobalEvents.connect("onSkillCasted", self, "_cast_attack_on_entity")
 	
 	# This seems to be a bug in godot. in order to get mouse over events
 	# we must disable and enable raycasting detection.
@@ -72,6 +72,12 @@ func _physics_process(delta):
 	move_and_slide_with_snap(velocity, Vector3.UP)
 
 
+func _cast_attack_on_entity(attack, entity, target) -> void:
+	look_at(entity.global_transform.origin, Vector3.UP)
+	_current_state = Vector3.INF
+	_current_state = PlayerState.IDLE
+
+
 func _check_queued_actions() -> void:
 	if _queued_attack_entity:
 		_player_attacks(_queued_attack_entity)
@@ -92,12 +98,14 @@ func _terrain_clicked(global_pos: Vector3) -> void:
 
 
 func _move_to(global_pos: Vector3) -> void:
+	# We ignore movement clicks if we are currently constructing
 	if _current_state == PlayerState.CONSTRUCTING:
 		return
 	
 	# We cancel possible casts on hold
 	_queued_casted_attack = null
 	GlobalEvents.emit_signal("onCastSelectionEnded")
+	
 	look_at(global_pos, Vector3.UP)
 	_move_target = global_pos
 	_current_state = PlayerState.MOVING
@@ -114,39 +122,7 @@ func _on_player_interact(target_entity: Entity, type: String) -> void:
 		_player_attacks(target_entity)
 
 
-# TODO Maybe better place this inside shortcut object?
-# TODO React upon which attack was pressed
-func _shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
-	if not shortcut.type == "skill":
-		return
-	var player_attack_id = shortcut.payload["player_attack_id"]
-	# Haben wir die attacke?
-	# Wird die Attacke direkt ausgelöst?
-	# Brauchen wir ein Ziel? Ja?
-	# - Ggf Cursor austauschen
-	# - Marker austauschen?
-	_queued_casted_attack = player_attack_id
-	GlobalEvents.emit_signal("onCastSelectionStarted")
-
-
-func _cast_attack_on_entity(entity) -> void:
-	GlobalEvents.emit_signal("onCastSelectionEnded")
-	
-	look_at(entity.global_transform.origin, Vector3.UP)
-	_current_state = Vector3.INF
-	_current_state = PlayerState.IDLE
-	
-	var msg = UseAttackMessage.new()
-	msg.player_attack_id = 5
-	msg.target_entity = entity.id
-	GlobalEvents.emit_signal("onMessageSend", msg)
-
-
 func _player_attacks(target_entity: Entity) -> void:
-	if _queued_casted_attack:
-		_cast_attack_on_entity(target_entity)
-		return
-	
 	if _has_attack_delay:
 		return
 	

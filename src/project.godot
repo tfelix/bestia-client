@@ -150,6 +150,11 @@ _global_script_classes=[ {
 "path": "res://scenes/Game/Manager/FakeServerManager/FakeItemHandler.gd"
 }, {
 "base": "Reference",
+"class": "FakeMobHandler",
+"language": "GDScript",
+"path": "res://scenes/Game/Manager/FakeServerManager/FakeMobHandler.gd"
+}, {
+"base": "Reference",
 "class": "FxMessage",
 "language": "GDScript",
 "path": "res://shared/messages/FxMessage.gd"
@@ -363,6 +368,7 @@ _global_script_class_icons={
 "EntityCreateMessage": "",
 "EnvironmentComponent": "",
 "FakeItemHandler": "",
+"FakeMobHandler": "",
 "FxMessage": "",
 "InteractionRange": "",
 "InventoryItem": "",

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/GameUI/Chat/Chat.gd" type="Script" id=1]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/EnableDebugMode.gd" type="Script" id=2]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
 [ext_resource path="res://scenes/GameUI/FlatPanelStyle.tres" type="StyleBox" id=4]
 [ext_resource path="res://scenes/GameUI/Chat/ChatCommands/PrintHelp.gd" type="Script" id=5]
+[ext_resource path="res://bestia_theme.tres" type="Theme" id=6]
 
 [sub_resource type="Animation" id=1]
 length = 6.0
@@ -22,25 +23,27 @@ tracks/0/keys = {
 }
 
 [node name="Chat" type="VBoxContainer"]
-margin_right = 400.0
-margin_bottom = 170.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 400, 150 )
+theme = ExtResource( 6 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ChatPanel" type="PanelContainer" parent="."]
-margin_right = 400.0
-margin_bottom = 130.0
+margin_right = 1280.0
+margin_bottom = 674.0
+size_flags_vertical = 3
 custom_styles/panel = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="ChatPanel"]
-margin_right = 400.0
-margin_bottom = 130.0
+margin_right = 1280.0
+margin_bottom = 674.0
 mouse_filter = 1
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
@@ -50,48 +53,48 @@ custom_constants/margin_bottom = 5
 [node name="ChatContent" type="VBoxContainer" parent="ChatPanel/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 395.0
-margin_bottom = 125.0
+margin_right = 1275.0
+margin_bottom = 669.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ChatPanel/MarginContainer/ChatContent"]
-margin_right = 390.0
-margin_bottom = 120.0
+margin_right = 1270.0
+margin_bottom = 664.0
 rect_min_size = Vector2( 0, 120 )
 mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Lines" type="VBoxContainer" parent="ChatPanel/MarginContainer/ChatContent/ScrollContainer"]
-margin_right = 390.0
+margin_right = 1270.0
 size_flags_horizontal = 3
 
 [node name="InputMargin" type="MarginContainer" parent="."]
-margin_top = 134.0
-margin_right = 400.0
-margin_bottom = 170.0
+margin_top = 678.0
+margin_right = 1280.0
+margin_bottom = 720.0
 custom_constants/margin_top = 12
 
 [node name="InputPanel" type="PanelContainer" parent="InputMargin"]
 margin_top = 12.0
-margin_right = 400.0
-margin_bottom = 36.0
+margin_right = 1280.0
+margin_bottom = 42.0
 custom_styles/panel = ExtResource( 4 )
 
 [node name="InputLine" type="HBoxContainer" parent="InputMargin/InputPanel"]
-margin_right = 400.0
-margin_bottom = 24.0
+margin_right = 1280.0
+margin_bottom = 30.0
 
 [node name="ChatType" type="OptionButton" parent="InputMargin/InputPanel/InputLine"]
-margin_right = 68.0
-margin_bottom = 24.0
+margin_right = 59.0
+margin_bottom = 30.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Public"
 
 [node name="Text" type="LineEdit" parent="InputMargin/InputPanel/InputLine"]
-margin_left = 72.0
-margin_right = 400.0
-margin_bottom = 24.0
+margin_left = 63.0
+margin_right = 1280.0
+margin_bottom = 30.0
 mouse_filter = 1
 size_flags_horizontal = 3
 context_menu_enabled = false

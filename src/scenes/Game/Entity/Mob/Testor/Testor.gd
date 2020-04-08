@@ -23,6 +23,7 @@ func _ready():
 	entity.id = GlobalData.get_new_entity_id()
 	if not enabled:
 		_timer.stop()
+	GlobalEvents.emit_signal("onEnemySpawned", entity)
 
 
 func _physics_process(delta):

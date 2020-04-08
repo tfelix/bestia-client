@@ -12,7 +12,9 @@ export var player_entity_id = 1000
 
 var _env_comp: EnvironmentComponent
 var _casted_entity_id: int = 0
+
 var _item_handler = FakeItemHandler.new()
+var _mob_handler = FakeMobHandler.new()
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")

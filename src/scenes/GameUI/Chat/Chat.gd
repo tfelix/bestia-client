@@ -8,6 +8,7 @@ const MAX_CHAT_COUNT = 50
 onready var _chat_cmds = $ChatCommands
 onready var _chat_type = $InputMargin/InputPanel/InputLine/ChatType
 onready var _chat_line_container = $ChatPanel/MarginContainer/ChatContent/ScrollContainer/Lines
+onready var _scroll = $ChatPanel/MarginContainer/ChatContent/ScrollContainer
 onready var _text_input = $InputMargin/InputPanel/InputLine/Text
 onready var _animation = $AnimationPlayer as AnimationPlayer
 
@@ -82,6 +83,11 @@ func _insert_chat_text(msg: ChatMessage) -> void:
 	_chat_line_container.add_child(new_row)
 	new_row.set_message(msg)
 	_truncate_chat_lines()
+	var bar: VScrollBar = _scroll.get_v_scrollbar()
+	# Wait for update on scrollbar
+	yield(bar, "changed")
+	# Scroll to the bottom once the scrollbar has been updated
+	_scroll.scroll_vertical = bar.max_value;
 
 
 func _on_Text_text_entered(new_text):
