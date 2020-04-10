@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/WorldTemperature/WorldTemperature.gd" type="Script" id=2]
+[ext_resource path="res://UI/WorldTemperature/thermometer-half-solid.png" type="Texture" id=3]
+
+
+
+[node name="WorldTemperature" type="HBoxContainer"]
+margin_right = 71.0
+margin_bottom = 32.0
+mouse_filter = 2
+theme = ExtResource( 1 )
+custom_constants/separation = 4
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="TempLabel" type="Label" parent="."]
+margin_left = 36.0
+margin_top = 6.0
+margin_right = 71.0
+margin_bottom = 26.0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.913725, 0.913725, 0.913725, 1 )
+text = "23 °C"
+valign = 1

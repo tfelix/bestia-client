@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://Translations/AttackTranslations.en.translation" ]
+
+source_file="res://Translations/AttackTranslations.csv"
+dest_files=[ "res://Translations/AttackTranslations.en.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

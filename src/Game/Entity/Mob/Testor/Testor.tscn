@@ -1,0 +1,183 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Game/Entity/Component/NameComponent.gd" type="Script" id=1]
+[ext_resource path="res://Game/Entity/Mob/Testor/Testor.gd" type="Script" id=2]
+[ext_resource path="res://Game/Entity/Mob/Mob.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Game/Entity/Entity.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Game/Entity/Component/ConditionComponent.gd" type="Script" id=5]
+[ext_resource path="res://Game/Entity/Mob/Testor/TestorBody.tres" type="Material" id=6]
+[ext_resource path="res://Game/Entity/Mob/Testor/growl.wav" type="AudioStream" id=7]
+[ext_resource path="res://Game/Entity/Component/VisualComponent.gd" type="Script" id=8]
+
+
+[sub_resource type="CapsuleMesh" id=3]
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=1]
+emission_enabled = true
+emission = Color( 0.992157, 0.945098, 0.266667, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SphereMesh" id=2]
+material = SubResource( 1 )
+radius = 0.2
+height = 0.4
+radial_segments = 12
+rings = 4
+
+[sub_resource type="CapsuleShape" id=4]
+
+[sub_resource type="Animation" id=5]
+resource_name = "aggro"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:material/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.0431373, 0.423529, 0.870588, 1 ), Color( 0.776471, 0.207843, 0.207843, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 10 ), Vector3( 0, 0, -10 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "die"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.890747, 0 ), Vector3( 0, 0.410417, 0 ), Vector3( 0, 0.410417, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 90, 0, 0 ), Vector3( -1.08301, -90, -90 ), Vector3( -0.704223, -118.54, -40.5569 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -30, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 30, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 0.2, 0.2 ), Vector3( 1, 1, 1 ) ]
+}
+
+[node name="Testor" instance=ExtResource( 3 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.890747, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 6 )
+
+[node name="Eye" type="MeshInstance" parent="MeshInstance" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.462247, -0.530953 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Entity" parent="." index="1" instance=ExtResource( 4 )]
+behavior_group = 1
+aabb_visual_instance_path = NodePath("../MeshInstance")
+
+[node name="NameComponent" type="Node" parent="Entity/Components" index="0"]
+script = ExtResource( 1 )
+entity_name = "Testor"
+
+[node name="ConditionComponent" type="Node" parent="Entity/Components" index="1"]
+script = ExtResource( 5 )
+max_health = 100
+cur_health = 100
+max_mana = 50
+cur_mana = 50
+max_stamina = 100
+cur_stamina = 100
+
+[node name="VisualComponent" type="Node" parent="Entity/Components" index="2"]
+script = ExtResource( 8 )
+
+[node name="ClickBody" parent="Entity" index="1"]
+collision_layer = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.807013, 0 )
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/aggro = SubResource( 5 )
+anims/die = SubResource( 6 )
+anims/search = SubResource( 7 )
+anims/spawn = SubResource( 8 )
+
+[node name="PlayerDetector" type="RayCast" parent="." index="3"]
+transform = Transform( -1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.77638, 0.467051 )
+enabled = true
+cast_to = Vector3( 0, 15, 0 )
+collision_mask = 2
+
+[node name="StateTimer" type="Timer" parent="." index="4"]
+wait_time = 6.0
+autostart = true
+
+[node name="MonsterSound" type="AudioStreamPlayer3D" parent="." index="5"]
+stream = ExtResource( 7 )
+unit_db = 8.0
+max_distance = 15.0
+bus = "Fx"
+[connection signal="component_updated" from="Entity" to="." method="_on_Entity_component_updated"]
+[connection signal="timeout" from="StateTimer" to="." method="_on_StateTimer_timeout"]
+
+[editable path="Entity"]

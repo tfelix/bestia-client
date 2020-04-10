@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UI/Chat/Chat.gd" type="Script" id=1]
+[ext_resource path="res://UI/Chat/ChatCommands/EnableDebugMode.gd" type="Script" id=2]
+[ext_resource path="res://UI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
+[ext_resource path="res://UI/flat_panel_style.tres" type="StyleBox" id=4]
+[ext_resource path="res://UI/Chat/ChatCommands/PrintHelp.gd" type="Script" id=5]
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=6]
+
+
+
+[sub_resource type="Animation" id=1]
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Chat" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 400, 150 )
+theme = ExtResource( 6 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChatPanel" type="PanelContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 674.0
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ChatPanel"]
+margin_right = 1280.0
+margin_bottom = 674.0
+mouse_filter = 1
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="ChatContent" type="VBoxContainer" parent="ChatPanel/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1275.0
+margin_bottom = 669.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ChatPanel/MarginContainer/ChatContent"]
+margin_right = 1270.0
+margin_bottom = 664.0
+rect_min_size = Vector2( 0, 120 )
+mouse_filter = 1
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="Lines" type="VBoxContainer" parent="ChatPanel/MarginContainer/ChatContent/ScrollContainer"]
+margin_right = 1270.0
+size_flags_horizontal = 3
+
+[node name="InputMargin" type="MarginContainer" parent="."]
+margin_top = 678.0
+margin_right = 1280.0
+margin_bottom = 720.0
+custom_constants/margin_top = 12
+
+[node name="InputPanel" type="PanelContainer" parent="InputMargin"]
+margin_top = 12.0
+margin_right = 1280.0
+margin_bottom = 42.0
+custom_styles/panel = ExtResource( 4 )
+
+[node name="InputLine" type="HBoxContainer" parent="InputMargin/InputPanel"]
+margin_right = 1280.0
+margin_bottom = 30.0
+
+[node name="ChatType" type="OptionButton" parent="InputMargin/InputPanel/InputLine"]
+margin_right = 59.0
+margin_bottom = 30.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Public"
+
+[node name="Text" type="LineEdit" parent="InputMargin/InputPanel/InputLine"]
+margin_left = 63.0
+margin_right = 1280.0
+margin_bottom = 30.0
+mouse_filter = 1
+size_flags_horizontal = 3
+context_menu_enabled = false
+caret_blink = true
+
+[node name="ChatCommands" type="Node" parent="."]
+
+[node name="EnableDebugMode" type="Node" parent="ChatCommands"]
+script = ExtResource( 2 )
+cmd_usage = "Enable Debug Mode: /debug [true|false]"
+help_text = "Enables or disables the debug mode"
+
+[node name="SwitchChatMode" type="Node" parent="ChatCommands"]
+script = ExtResource( 3 )
+cmd_usage = "Switch Chat Mode: /a, /p, /g <TEXT>"
+help_text = "Switches the chat mode between public (all), party and guild."
+chat_panel = NodePath("../..")
+
+[node name="PrintHelp" type="Node" parent="ChatCommands"]
+script = ExtResource( 5 )
+chat = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "hide"
+anims/hide = SubResource( 1 )
+[connection signal="mouse_entered" from="." to="." method="_on_Chat_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Chat_mouse_exited"]
+[connection signal="text_entered" from="InputMargin/InputPanel/InputLine/Text" to="." method="_on_Text_text_entered"]

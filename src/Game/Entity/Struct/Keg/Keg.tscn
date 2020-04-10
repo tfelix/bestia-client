@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Game/Entity/Struct/Keg/Keg.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Game/Entity/Struct/ChestSmall/ChestMaterial.tres" type="Material" id=2]
+
+
+[node name="Keg" type="Spatial"]
+
+[node name="Keg" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+material/1 = ExtResource( 2 )
+material/2 = ExtResource( 2 )

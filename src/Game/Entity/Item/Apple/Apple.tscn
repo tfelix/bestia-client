@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Game/Entity/Item/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/Entity/Item/Apple/Apple.gd" type="Script" id=2]
+
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.694118, 0.0980392, 0.0980392, 1 )
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 0.15
+height = 0.3
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Animation" id=4]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AppleMesh:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.6, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AppleMesh:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.1 ), Vector3( 1, 1, 1 ) ]
+}
+
+[node name="Apple" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="ItemGlimmer" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0466309, 0.284912, 0 )
+
+[node name="Entity" parent="." index="1"]
+aabb_visual_instance_path = NodePath("../AppleMesh")
+
+[node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
+shape = SubResource( 1 )
+
+[node name="AppleMesh" type="MeshInstance" parent="." index="2"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+anims/spawn = SubResource( 4 )
+[connection signal="component_updated" from="Entity" to="." method="_on_Entity_component_updated"]
+
+[editable path="Entity"]

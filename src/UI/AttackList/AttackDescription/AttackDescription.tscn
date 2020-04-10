@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://shared/fonts/OpenSans_SemiboldHeadline.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/AttackList/AttackDescription/AttackDescription.gd" type="Script" id=2]
+[ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex"
+
+[node name="AttackDescription" type="Panel"]
+margin_right = 190.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 280, 300 )
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+
+[node name="BorderMargin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="AttackDescription" type="VBoxContainer" parent="BorderMargin"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 270.0
+margin_bottom = 290.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="HBoxContainer" parent="BorderMargin/AttackDescription"]
+margin_right = 260.0
+margin_bottom = 31.0
+
+[node name="Title" type="Label" parent="BorderMargin/AttackDescription/Title"]
+margin_right = 236.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "ATTACK_NAME"
+
+[node name="Close" type="TextureButton" parent="BorderMargin/AttackDescription/Title"]
+margin_left = 240.0
+margin_right = 260.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 20, 20 )
+texture_normal = SubResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="MarginSeperator" type="MarginContainer" parent="BorderMargin/AttackDescription"]
+margin_top = 35.0
+margin_right = 260.0
+margin_bottom = 43.0
+custom_constants/margin_top = 2
+custom_constants/margin_bottom = 2
+
+[node name="HSeparator" type="HSeparator" parent="BorderMargin/AttackDescription/MarginSeperator"]
+margin_top = 2.0
+margin_right = 260.0
+margin_bottom = 6.0
+
+[node name="Description" type="Label" parent="BorderMargin/AttackDescription"]
+margin_top = 47.0
+margin_right = 260.0
+margin_bottom = 61.0
+size_flags_vertical = 5
+text = "This is a description of the attack"
+autowrap = true
+
+[node name="AudioClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Fx"
+[connection signal="pressed" from="BorderMargin/AttackDescription/Title/Close" to="." method="_on_Close_pressed"]
+[connection signal="finished" from="AudioClick" to="." method="_on_AudioClick_finished"]

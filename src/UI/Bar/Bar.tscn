@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/Bar/Bar.gd" type="Script" id=1]
+
+
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec2 size = vec2(100, 5);
+
+void fragment() {
+	if(UV.y * size.y <= 1.0 || UV.y * size.y >= (size.y - 1.0)) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	} else if(UV.x * size.x <= 1.0 || UV.x * size.x >= (size.x - 1.0)) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	} else {
+		discard;
+	}
+}"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/size = Vector2( 100, 5 )
+
+[node name="Bar" type="ColorRect"]
+margin_right = 100.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 100, 6 )
+size_flags_horizontal = 0
+color = Color( 0.184314, 0.184314, 0.184314, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+secondary_color = Color( 1, 1, 0.843137, 1 )
+
+[node name="BarColorSecondary" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.980392, 0.784314, 0.32549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarColorPrimary" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.921569, 0.109804, 0.109804, 1 )
+
+[node name="BarBorder" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 100, 5 )
+
+[node name="UpdateTween" type="Tween" parent="."]

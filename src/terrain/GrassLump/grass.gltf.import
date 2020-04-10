@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/grass.gltf-7008d9f543624b7175068168dfb55e22.scn"
+path="res://.import/grass.gltf-bb96fcd722b972172809dad447be6abb.scn"
 
 [deps]
 
-source_file="res://terrain/GrassLump/grass.gltf"
-dest_files=[ "res://.import/grass.gltf-7008d9f543624b7175068168dfb55e22.scn" ]
+source_file="res://Terrain/GrassLump/grass.gltf"
+dest_files=[ "res://.import/grass.gltf-bb96fcd722b972172809dad447be6abb.scn" ]
 
 [params]
 

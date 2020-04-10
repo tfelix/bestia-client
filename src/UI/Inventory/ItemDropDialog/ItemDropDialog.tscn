@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Inventory/ItemDescriptionModule/ItemDescriptionFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/Inventory/ItemDropDialog/ItemDropDialog.gd" type="Script" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/item_placeholder.png-974a6931d6c21f9f2db38078578e221c.stex"
+
+[node name="ItemDropModal" type="PopupDialog"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -218.0
+margin_top = -81.0
+margin_right = 82.0
+margin_bottom = 81.0
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 290.0
+margin_bottom = 202.0
+
+[node name="HBoxHeader" type="HBoxContainer" parent="MarginContainer/VBox"]
+margin_right = 280.0
+margin_bottom = 40.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="ItemImg" type="TextureRect" parent="MarginContainer/VBox/HBoxHeader"]
+margin_left = 49.0
+margin_right = 89.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 32, 32 )
+texture = SubResource( 1 )
+stretch_mode = 4
+
+[node name="ItemName" type="Label" parent="MarginContainer/VBox/HBoxHeader"]
+margin_left = 109.0
+margin_top = 1.0
+margin_right = 231.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 1 )
+text = "Item Name"
+
+[node name="InputMargin" type="MarginContainer" parent="MarginContainer/VBox"]
+margin_top = 44.0
+margin_right = 280.0
+margin_bottom = 88.0
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBox/InputMargin"]
+margin_top = 10.0
+margin_right = 280.0
+margin_bottom = 34.0
+
+[node name="HBoxInput" type="HBoxContainer" parent="MarginContainer/VBox/InputMargin/CenterContainer"]
+margin_left = 86.0
+margin_right = 193.0
+margin_bottom = 24.0
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBox/InputMargin/CenterContainer/HBoxInput"]
+margin_right = 74.0
+margin_bottom = 24.0
+min_value = 1.0
+value = 1.0
+
+[node name="AllButton" type="Button" parent="MarginContainer/VBox/InputMargin/CenterContainer/HBoxInput"]
+margin_left = 78.0
+margin_right = 107.0
+margin_bottom = 24.0
+text = "All"
+
+[node name="HBoxButtons" type="HBoxContainer" parent="MarginContainer/VBox"]
+margin_top = 92.0
+margin_right = 280.0
+margin_bottom = 132.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Ok" type="Button" parent="MarginContainer/VBox/HBoxButtons"]
+margin_left = 35.0
+margin_right = 135.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+custom_fonts/font = ExtResource( 2 )
+text = "Drop"
+
+[node name="Cancel" type="Button" parent="MarginContainer/VBox/HBoxButtons"]
+margin_left = 145.0
+margin_right = 245.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+custom_fonts/font = ExtResource( 2 )
+text = "Cancel"
+[connection signal="popup_hide" from="." to="." method="_on_ItemDropModal_popup_hide"]
+[connection signal="pressed" from="MarginContainer/VBox/InputMargin/CenterContainer/HBoxInput/AllButton" to="." method="_on_AllButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBox/HBoxButtons/Ok" to="." method="_on_Ok_pressed"]
+[connection signal="pressed" from="MarginContainer/VBox/HBoxButtons/Cancel" to="." method="_on_Cancel_pressed"]

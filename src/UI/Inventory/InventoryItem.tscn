@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/Inventory/item_placeholder.png" type="Texture" id=1]
+[ext_resource path="res://shared/fonts/NESCyrillic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Inventory/item_highlight.png" type="Texture" id=3]
+[ext_resource path="res://UI/Inventory/InventoryItem.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="InventoryItem" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectHighlight" type="TextureRect" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="HoverHighlight" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0.929412, 0.756863, 0.160784, 0.666667 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="ItemImage" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -25.5094
+margin_top = -15.9433
+margin_right = -2.50941
+margin_bottom = -3.94334
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+text = "1"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="." to="." method="_on_Item_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_Item_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_InventoryItem_mouse_exited"]

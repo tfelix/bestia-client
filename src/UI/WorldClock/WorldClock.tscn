@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/WorldClock/WorldClock.gd" type="Script" id=2]
+[ext_resource path="res://UI/WorldClock/clock-regular.png" type="Texture" id=3]
+[ext_resource path="res://shared/fonts/OpenSans_RegularNormal.tres" type="DynamicFont" id=4]
+
+
+
+[node name="WorldClock" type="HBoxContainer"]
+margin_right = 79.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_constants/separation = 6
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClockIcon" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Clock" type="Label" parent="."]
+margin_left = 38.0
+margin_top = 6.0
+margin_right = 74.0
+margin_bottom = 26.0
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.913725, 0.913725, 0.913725, 1 )
+text = "12:10"

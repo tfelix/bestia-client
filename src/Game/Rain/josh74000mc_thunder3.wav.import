@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/josh74000mc_thunder3.wav-a78bfb903bdb77f54c6a170d104e87e1.sample"
+
+[deps]
+
+source_file="res://Game/Rain/josh74000mc_thunder3.wav"
+dest_files=[ "res://.import/josh74000mc_thunder3.wav-a78bfb903bdb77f54c6a170d104e87e1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

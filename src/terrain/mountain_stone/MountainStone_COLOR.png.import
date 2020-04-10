@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MountainStone_COLOR.png-fe937548d0016f12af985c1319a10647.s3tc.stex"
-path.etc2="res://.import/MountainStone_COLOR.png-fe937548d0016f12af985c1319a10647.etc2.stex"
+path.s3tc="res://.import/MountainStone_COLOR.png-a12043dda5bb2468bb973975cd915bcb.s3tc.stex"
+path.etc2="res://.import/MountainStone_COLOR.png-a12043dda5bb2468bb973975cd915bcb.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/mountain_stone/MountainStone_COLOR.png"
-dest_files=[ "res://.import/MountainStone_COLOR.png-fe937548d0016f12af985c1319a10647.s3tc.stex", "res://.import/MountainStone_COLOR.png-fe937548d0016f12af985c1319a10647.etc2.stex" ]
+source_file="res://Terrain/mountain_stone/MountainStone_COLOR.png"
+dest_files=[ "res://.import/MountainStone_COLOR.png-a12043dda5bb2468bb973975cd915bcb.s3tc.stex", "res://.import/MountainStone_COLOR.png-a12043dda5bb2468bb973975cd915bcb.etc2.stex" ]
 
 [params]
 

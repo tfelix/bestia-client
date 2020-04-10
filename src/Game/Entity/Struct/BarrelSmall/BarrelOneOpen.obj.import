@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BarrelOneOpen.obj-f31d1b0bf5514212a25bba607b0fccc8.mesh"
+
+[deps]
+
+files=[ "res://.import/BarrelOneOpen.obj-f31d1b0bf5514212a25bba607b0fccc8.mesh" ]
+
+source_file="res://Game/Entity/Struct/BarrelSmall/BarrelOneOpen.obj"
+dest_files=[ "res://.import/BarrelOneOpen.obj-f31d1b0bf5514212a25bba607b0fccc8.mesh", "res://.import/BarrelOneOpen.obj-f31d1b0bf5514212a25bba607b0fccc8.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

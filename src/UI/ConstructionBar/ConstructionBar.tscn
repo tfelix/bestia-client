@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/ConstructionBar/ConstructionBar.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorRect
+
+export (Color) var primary_color: Color = Color.red
+export (Color) var secondary_color: Color = Color.yellow
+
+onready var _border = $BarBorder
+onready var _primary = $BarColorPrimary
+onready var _secondary = $BarColorSecondary
+onready var _update_tween = $UpdateTween
+
+func _ready():
+	_primary.color = primary_color
+	_secondary.color = secondary_color
+	_border.material.set_shader_param(\"size\", rect_size)
+
+
+func _process(delta):
+	# Check if this is not needed
+	# _border.material.set_shader_param(\"size\", rect_size)
+	pass
+
+
+func set_value(value: float):
+	var new_size = self.rect_size.x * value
+	_primary.rect_size.x = new_size
+	_update_tween.interpolate_property(_secondary, \"rect_size\", _secondary.rect_size, Vector2(new_size, _secondary.rect_size.y), 0.4, Tween.TRANS_SINE, 0.0)
+	_update_tween.start()
+"
+
+[sub_resource type="Animation" id=3]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("PanelContainer/ConstructionBar/Header/Label:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[node name="ConstructionBar" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 314.0
+margin_bottom = 48.0
+
+[node name="ConstructionBar" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 307.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="Header" type="HBoxContainer" parent="PanelContainer/ConstructionBar"]
+margin_right = 300.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PanelContainer/ConstructionBar/Header"]
+margin_top = 5.0
+margin_right = 272.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Creating: Small Sign"
+clip_text = true
+
+[node name="Cancel" type="TextureButton" parent="PanelContainer/ConstructionBar/Header"]
+margin_left = 276.0
+margin_right = 300.0
+margin_bottom = 24.0
+texture_normal = SubResource( 1 )
+
+[node name="Bar" type="ColorRect" parent="PanelContainer/ConstructionBar"]
+margin_top = 28.0
+margin_right = 300.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 100, 6 )
+color = Color( 0.184314, 0.184314, 0.184314, 1 )
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+primary_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+secondary_color = Color( 1, 1, 0.843137, 1 )
+
+[node name="AnimationLabel" type="AnimationPlayer" parent="."]
+autoplay = "show"
+anims/show = SubResource( 3 )
+[connection signal="pressed" from="PanelContainer/ConstructionBar/Header/Cancel" to="." method="_on_Cancel_pressed"]

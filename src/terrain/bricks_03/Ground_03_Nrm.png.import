@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ground_03_Nrm.png-34736c614fe9ba12263327906725971b.stex"
+path="res://.import/Ground_03_Nrm.png-f23fd04994ec334d7877f0ed0e8d9127.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/bricks_03/Ground_03_Nrm.png"
-dest_files=[ "res://.import/Ground_03_Nrm.png-34736c614fe9ba12263327906725971b.stex" ]
+source_file="res://Terrain/bricks_03/Ground_03_Nrm.png"
+dest_files=[ "res://.import/Ground_03_Nrm.png-f23fd04994ec334d7877f0ed0e8d9127.stex" ]
 
 [params]
 

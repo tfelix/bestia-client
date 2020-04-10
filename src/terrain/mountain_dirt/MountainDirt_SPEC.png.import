@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MountainDirt_SPEC.png-0e930fbe48440a9c35a87d3dcbbfa92d.stex"
+path="res://.import/MountainDirt_SPEC.png-68a030282d83b619f3c8e33e9ee92151.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/mountain_dirt/MountainDirt_SPEC.png"
-dest_files=[ "res://.import/MountainDirt_SPEC.png-0e930fbe48440a9c35a87d3dcbbfa92d.stex" ]
+source_file="res://Terrain/mountain_dirt/MountainDirt_SPEC.png"
+dest_files=[ "res://.import/MountainDirt_SPEC.png-68a030282d83b619f3c8e33e9ee92151.stex" ]
 
 [params]
 

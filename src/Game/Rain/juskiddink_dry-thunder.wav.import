@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/juskiddink_dry-thunder.wav-952ad9e8eb23c03301694f34d6008c3c.sample"
+
+[deps]
+
+source_file="res://Game/Rain/juskiddink_dry-thunder.wav"
+dest_files=[ "res://.import/juskiddink_dry-thunder.wav-952ad9e8eb23c03301694f34d6008c3c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

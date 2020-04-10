@@ -1,0 +1,52 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;
+
+uniform vec4 albedo : hint_color;
+
+uniform float height_1: hint_range(0, 1) = 1;
+uniform float freq_1 = 2.0;
+uniform float speed_1 = 1.0;
+
+uniform float height_2: hint_range(0, 1) = 1;
+uniform float freq_2 = 2.0;
+uniform float speed_2 = 1.0;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	const float PI_2 = 2.0 * 3.14;
+	
+	float d1 = TIME * speed_1;
+	float d2 = TIME * speed_2;
+	
+	float a1, a2;
+	
+	if((sin(UV.x * PI_2 * freq_1 + d1) + 1.0) / 2.0  < UV.y) {
+		a1 = albedo.a;
+	} else {
+		a1 = 0.0;
+	}
+	
+	if((sin(UV.x * PI_2 * freq_2 + d2) + 1.0) / 2.0  < UV.y) {
+		a2 = albedo.a;
+	} else {
+		a2 = 0.0;
+	}
+	
+	ALPHA = max(a1, a2);
+	ALBEDO = albedo.rgb;
+}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/albedo = Color( 0.835294, 0.952941, 1, 0.337255 )
+shader_param/height_1 = 1.0
+shader_param/freq_1 = 9.0
+shader_param/speed_1 = 6.0
+shader_param/height_2 = 1.0
+shader_param/freq_2 = 5.0
+shader_param/speed_2 = 9.0

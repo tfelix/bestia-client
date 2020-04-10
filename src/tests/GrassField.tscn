@@ -1,7 +1,9 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://terrain/GrassLump/GrassLump.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://Terrain/GrassLump/GrassLump.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://tests/GrassField.gd" type="Script" id=2]
+
+
 
 [sub_resource type="MultiMesh" id=1]
 transform_format = 1
@@ -54,6 +56,7 @@ size = Vector2( 100, 100 )
 flags_unshaded = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
+albedo_color = Color( 0.5, 0.5, 0, 1 )
 
 [sub_resource type="ViewportTexture" id=7]
 viewport_path = NodePath("GrassHideViewport")
@@ -68,7 +71,7 @@ tonemap_mode = 2
 
 [sub_resource type="Shader" id=10]
 code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
+render_mode blend_add,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
 
 uniform bool is_circular = false;
 
@@ -80,10 +83,10 @@ float circle(in vec2 _st, in float _radius){
 }
 
 void fragment() {
-	ALBEDO = vec3(0.0);
+	ALBEDO = vec3(0.0, 0.0, 0.0);
 	if(is_circular) {
-		float pct = distance(UV, vec2(0.5)) * 2.0;
-		ALPHA = circle(UV, 0.9);
+		// float pct = distance(UV, vec2(0.5)) * 2.0;
+		ALBEDO.b = circle(UV, 0.9);
 	} else {
 		// bottom-left
 		vec2 bl = smoothstep(vec2(0.0), vec2(0.05), UV);
@@ -91,14 +94,9 @@ void fragment() {
 		// top-right
 		vec2 tr = smoothstep(vec2(0.0), vec2(0.05), vec2(1.0) - UV);
 		pct *= tr.x * tr.y;
-		ALPHA = pct;
+		ALBEDO.b = pct;
 	}
 }
-"
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
 "
 
 [sub_resource type="ShaderMaterial" id=11]
@@ -113,8 +111,6 @@ size = Vector2( 25, 10 )
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
 
-uniform bool is_circular = false;
-
 float circle(in vec2 _st, in float _radius){
     vec2 dist = _st - vec2(0.5);
 	return 1. - smoothstep(_radius - (_radius * 0.01),
@@ -123,63 +119,22 @@ float circle(in vec2 _st, in float _radius){
 }
 
 void fragment() {
-	ALBEDO = vec3(0.0, 1.0, 0.0);
-	if(is_circular) {
-		float pct = distance(UV, vec2(0.5)) * 2.0;
-		ALPHA = circle(UV, 0.9);
-	} else {
-		// bottom-left
-		vec2 bl = smoothstep(vec2(0.0), vec2(0.05), UV);
-		float pct = bl.x * bl.y;
-		// top-right
-		vec2 tr = smoothstep(vec2(0.0), vec2(0.05), vec2(1.0) - UV);
-		pct *= tr.x * tr.y;
-		ALPHA = pct;
-	}
+	const vec2 center = vec2(1.0);
+	vec2 cs_pos = (vec2(0.5) - UV) * 2.0;
+	
+	vec2 pos = (cs_pos + 1.0) / 2.0;
+	float d = smoothstep(1.0, 0.0, length(cs_pos));
+	
+	ALBEDO = vec3(pos.x * d, pos.y * d, 0.0);
+	ALPHA = d;
 }
-"
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
 "
 
 [sub_resource type="ShaderMaterial" id=14]
 shader = SubResource( 13 )
-shader_param/is_circular = true
 
 [sub_resource type="QuadMesh" id=15]
 material = SubResource( 14 )
-size = Vector2( 10, 10 )
-
-[sub_resource type="Shader" id=16]
-code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
-
-float circle(in vec2 _st, in float _radius){
-    vec2 dist = _st - vec2(0.5);
-	return 1. - smoothstep(_radius - (_radius * 0.01),
-                         _radius + (_radius * 0.01),
-                         dot(dist, dist) * 4.0);
-}
-
-void fragment() {
-	vec2 center = vec2(0.5);
-	vec2 d = center - UV;
-	ALBEDO = vec3(0.0, d.x, 0.0);
-}
-"
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
-"
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 16 )
-
-[sub_resource type="QuadMesh" id=18]
-material = SubResource( 17 )
 size = Vector2( 10, 10 )
 
 [node name="ShaderTest" type="Spatial"]
@@ -189,10 +144,11 @@ script = ExtResource( 2 )
 light_energy = 0.8
 
 [node name="Grass" type="MultiMeshInstance" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, -0.414295 )
 multimesh = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.927771, 0.37315, 0, -0.37315, 0.927771, 0, 7.61284, 30.0482 )
+transform = Transform( 1, 0, 0, 0, 0.932708, 0.360632, 0, -0.360632, 0.932708, 0, 5.05418, 28.6259 )
 cull_mask = 1048573
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -245,25 +201,25 @@ __meta__ = {
 environment = SubResource( 9 )
 
 [node name="GrassHider" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.539597, 0.0311279, -30.1653 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.481533, 0.0311279, -21.212 )
 layers = 2
 mesh = SubResource( 12 )
 material/0 = null
 
-[node name="GrassHiderCircle" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.539597, 0.0311279, -39.7021 )
+[node name="GrassPusher" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.87969, 0.0311279, -34.397 )
 layers = 2
 mesh = SubResource( 15 )
 material/0 = null
 
-[node name="GrassPusher" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10.7903, 0.0311279, -39.7021 )
+[node name="GrassPusher2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5.41803, 0.0311279, -37.9896 )
 layers = 2
-mesh = SubResource( 18 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="GrassHider2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.471481, 0, -25.1854 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8.85404, 0, -25.1854 )
 layers = 2
 mesh = SubResource( 12 )
 material/0 = null

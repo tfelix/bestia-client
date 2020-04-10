@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ground_04.png-067da24752cb577fac7ac3df362fa526.stex"
+path="res://.import/Ground_04.png-273ba2c6352fa7953f65a1b66f4bffa8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/bricks_04/Ground_04.png"
-dest_files=[ "res://.import/Ground_04.png-067da24752cb577fac7ac3df362fa526.stex" ]
+source_file="res://Terrain/bricks_04/Ground_04.png"
+dest_files=[ "res://.import/Ground_04.png-273ba2c6352fa7953f65a1b66f4bffa8.stex" ]
 
 [params]
 

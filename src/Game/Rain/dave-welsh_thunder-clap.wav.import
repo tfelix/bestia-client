@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dave-welsh_thunder-clap.wav-c9c87b158328e6a3b21fb2a0295f6a66.sample"
+
+[deps]
+
+source_file="res://Game/Rain/dave-welsh_thunder-clap.wav"
+dest_files=[ "res://.import/dave-welsh_thunder-clap.wav-c9c87b158328e6a3b21fb2a0295f6a66.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

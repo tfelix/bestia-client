@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ChestOne.obj-ce5dcd7f91a6f45b28b2617a8ee0b27f.mesh"
+
+[deps]
+
+files=[ "res://.import/ChestOne.obj-ce5dcd7f91a6f45b28b2617a8ee0b27f.mesh" ]
+
+source_file="res://Game/Entity/Struct/ChestSmall/ChestOne.obj"
+dest_files=[ "res://.import/ChestOne.obj-ce5dcd7f91a6f45b28b2617a8ee0b27f.mesh", "res://.import/ChestOne.obj-ce5dcd7f91a6f45b28b2617a8ee0b27f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

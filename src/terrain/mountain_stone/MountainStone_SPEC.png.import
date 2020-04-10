@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MountainStone_SPEC.png-f02008efc32d01d768b93696500de0a7.stex"
+path="res://.import/MountainStone_SPEC.png-06208cb109ff04cfd36698f78b25d22c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain/mountain_stone/MountainStone_SPEC.png"
-dest_files=[ "res://.import/MountainStone_SPEC.png-f02008efc32d01d768b93696500de0a7.stex" ]
+source_file="res://Terrain/mountain_stone/MountainStone_SPEC.png"
+dest_files=[ "res://.import/MountainStone_SPEC.png-06208cb109ff04cfd36698f78b25d22c.stex" ]
 
 [params]
 

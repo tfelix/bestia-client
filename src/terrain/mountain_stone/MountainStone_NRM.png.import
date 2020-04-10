@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MountainStone_NRM.png-2b1541413c2041e3e37fc513998de5de.s3tc.stex"
-path.etc2="res://.import/MountainStone_NRM.png-2b1541413c2041e3e37fc513998de5de.etc2.stex"
+path.s3tc="res://.import/MountainStone_NRM.png-ffc58ccb95fcd0969ab5d036dc3f8d2c.s3tc.stex"
+path.etc2="res://.import/MountainStone_NRM.png-ffc58ccb95fcd0969ab5d036dc3f8d2c.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/mountain_stone/MountainStone_NRM.png"
-dest_files=[ "res://.import/MountainStone_NRM.png-2b1541413c2041e3e37fc513998de5de.s3tc.stex", "res://.import/MountainStone_NRM.png-2b1541413c2041e3e37fc513998de5de.etc2.stex" ]
+source_file="res://Terrain/mountain_stone/MountainStone_NRM.png"
+dest_files=[ "res://.import/MountainStone_NRM.png-ffc58ccb95fcd0969ab5d036dc3f8d2c.s3tc.stex", "res://.import/MountainStone_NRM.png-ffc58ccb95fcd0969ab5d036dc3f8d2c.etc2.stex" ]
 
 [params]
 
