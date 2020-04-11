@@ -14,7 +14,7 @@ func get_name() -> String:
 	return NAME
 
 
-func on_attach(entity, data: ComponentData) -> void:
+func on_attach(entity) -> void:
 	entity_id = entity.id
 	_mob_label = MobLabel.instance()
 	entity.get_spatial().add_child(_mob_label)

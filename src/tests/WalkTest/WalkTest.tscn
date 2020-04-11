@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Game/Entity/ProjectileManager.tscn" type="PackedScene" id=19]
 [ext_resource path="res://UI/CharacterBars/CharacterBars.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Game/Sky/Sky.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=22]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -42,6 +43,9 @@ albedo_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 [sub_resource type="CubeMesh" id=6]
 material = SubResource( 5 )
 size = Vector3( 5, 2.5, 5 )
+
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 1, 2, 1 )
 
 [node name="WalkTest" type="Spatial"]
 script = ExtResource( 14 )
@@ -89,8 +93,14 @@ visible = false
 [node name="Entities" type="Node" parent="."]
 script = ExtResource( 11 )
 
+[node name="Tree01" parent="Entities" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3211, 0, 14.8658 )
+
+[node name="Tree02" parent="Entities" instance=ExtResource( 22 )]
+transform = Transform( 0.888873, 0, -0.458153, 0, 1, 0, 0.458153, 0, 0.888873, 8.0558, 0, 11.7626 )
+
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 15 )]
 visible = false
@@ -133,5 +143,10 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.25, 11 )
 visible = false
 mesh = SubResource( 6 )
+material/0 = null
+
+[node name="SizeTest" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 7 )
 material/0 = null
 [connection signal="input_event" from="Floor/StaticBody" to="Floor/StaticBody" method="_on_StaticBody_input_event"]

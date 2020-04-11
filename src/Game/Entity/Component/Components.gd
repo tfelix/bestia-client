@@ -44,7 +44,8 @@ func update_component(data: ComponentData) -> void:
 		old_comp.on_update(_parent_entity, data)
 	else:
 		var new_component = _spawn_component(data)
-		new_component.on_attach(_parent_entity, data)
+		new_component.on_attach(_parent_entity)
+		new_component.on_update(_parent_entity, data)
 
 
 func remove_component(componentName: String):

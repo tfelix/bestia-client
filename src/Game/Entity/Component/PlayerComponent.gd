@@ -5,24 +5,26 @@ const CharacterLabel = preload("res://UI/CharacterLabel/CharacterLabel.tscn")
 
 const NAME = "PlayerComponent"
 
+export(String) var player_name = ""
+export(String) var guild_name = ""
+export(String) var emblem = ""
 export var account_id: int = 0
 export var player_bestia_id: int = 0
-export(String) var player_name = "Player"
-export(String) var guild_name = "Guild"
-export(String) var emblem
 
 var _char_label = null
+
+func _ready() -> void:
+	_char_label = CharacterLabel.instance()
+	_char_label.init(player_name, guild_name)
+	_char_label.visible = false
 
 func get_name() -> String:
 	return NAME
 
 
-func on_attach(entity, data: ComponentData) -> void:
+func on_attach(entity) -> void:
 	entity_id = entity.id
-	_char_label = CharacterLabel.instance()
-	_char_label.init(player_name, guild_name)
 	entity.get_spatial().add_child(_char_label)
-	_char_label.visible = false
 
 
 func on_remove(entity) -> void:

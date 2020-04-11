@@ -60,10 +60,12 @@ func get_entity(id: int) -> Entity:
 func _send_to_entity(msg) -> Entity:
 	var e = null
 	
+	# TODO Improve this code flow
 	if not _entities.has(msg.entity_id):
 		# Check if this is a visual component message so we can create entity.
-		if msg is VisualComponent:
-			e = _spawner.spawn_entity(msg)
+		if msg is ComponentData && msg.component_name == VisualComponent.NAME:
+			e = _spawner.spawn_entity(msg.data["visual"])
+			assert(e != null)
 			add_child(e)
 		else:
 			# Probably we sadly need some kind of caching for some time if

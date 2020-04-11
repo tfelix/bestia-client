@@ -1,4 +1,5 @@
 extends Spatial
+class_name Item
 
 # Funktionen eines Items:
 # - Wenn angeklickt und kein default behavior angegeben auswahl des behaviors zeigen

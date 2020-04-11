@@ -82,19 +82,20 @@ func drop_item(msg: ItemDropMessage) -> void:
 	var info = GlobalData.item_db.get_data(item.item_id)
 	var item_entity_id = GlobalData.get_new_entity_id()
 	
-	var visual_comp = VisualComponent.new()
-	visual_comp.entity_id = item_entity_id
-	visual_comp.visual = info["visual"]
-	visual_comp.type = "item"
-	visual_comp.animation = "spawn"
-	GlobalEvents.emit_signal("onMessageReceived", visual_comp)
+	var visual_data = ComponentData.new()
+	visual_data.entity_id = item_entity_id
+	visual_data.component_name = VisualComponent.NAME
+	visual_data.data["visual"] = "item/%s" % info["visual"]
+	visual_data.data["animation"] = "spawn"
+	GlobalEvents.emit_signal("onMessageReceived", visual_data)
 	
-	var pos_comp = PositionComponent.new()
-	pos_comp.entity_id = item_entity_id
-	pos_comp.x = 5
-	pos_comp.y = 0
-	pos_comp.z = 4
-	GlobalEvents.emit_signal("onMessageReceived", pos_comp)
+	var pos_data = ComponentData.new()
+	pos_data.entity_id = item_entity_id
+	pos_data.component_name = PositionComponent.NAME
+	pos_data.data["x"] = 5
+	pos_data.data["y"] = 0
+	pos_data.data["z"] = 4
+	GlobalEvents.emit_signal("onMessageReceived", pos_data)
 
 func send_items() -> void:
 	var update_msg = InventoryUpdateMessage.new()

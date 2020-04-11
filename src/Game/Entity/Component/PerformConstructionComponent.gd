@@ -15,7 +15,7 @@ func get_name() -> String:
 	return NAME
 
 
-func on_attach(entity, data: ComponentData) -> void:
+func on_attach(entity) -> void:
 	_bar = ConstructionBar.instance()
 	entity.add_child(_bar, true)
 	_bar.set_progress(progress_ms, duration_ms)

@@ -5,11 +5,11 @@ class_name EntitySpawner
 
 const ITEM_ENTITY_PATH = "res://Game/Entity/Item/%s/%s.tscn"
 
-func spawn_entity(visual: VisualComponent) -> Spatial:
-	var visual_path = visual.visual.split("/")
+func spawn_entity(visual: String) -> Spatial:
+	var visual_path = visual.split("/")
 	assert(visual_path.size() == 2)
 	var visual_type = visual_path[0].to_upper()
-	var visual_name = visual_path[1].capitalize()
+	var visual_name = visual_path[1].capitalize().replace(" ", "")
 	var complete_path = ""
 	if visual_type == "ITEM":
 		complete_path = ITEM_ENTITY_PATH % [visual_name, visual_name]

@@ -36,7 +36,25 @@ func take_damage(entity_id: int, damage: int) -> void:
 			GlobalEvents.emit_signal("onMessageReceived", update)
 
 
+func _can_attack_entity(entity_id: int) -> bool:
+	var entity = GlobalData.entities.get_entity(entity_id)
+	if entity == null:
+		return false
+	
+	var cond_comp = entity.get_component(ConditionComponent.NAME) as ConditionComponent
+	if cond_comp == null:
+		return false
+	
+	if cond_comp.cur_health <= 0:
+		return false
+
+	return true
+
+
 func use_skill(msg: UseAttackMessage):
+	if not _can_attack_entity(msg.target_entity):
+		return
+	
 	if msg.player_attack_id == UseAttackMessage.RANGE_ATTACK_ID:
 		var dmg_msg = DamageMessage.new()
 		dmg_msg.entity_id = msg.target_entity

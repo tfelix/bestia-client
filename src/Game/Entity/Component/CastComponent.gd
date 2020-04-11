@@ -7,8 +7,8 @@ const CastTargetMarker = preload("res://Game/CastTargetMarker/CastTargetMarker.t
 
 const NAME = "CastComponent"
 
-var cast_time: int
-var cast_db_name: String
+var cast_time := 0
+var cast_db_name := ""
 
 var _cast_bar
 var _cast_fx
@@ -18,13 +18,15 @@ func get_name() -> String:
 	return NAME
 
 
-func on_attach(entity, data: ComponentData) -> void:
+func on_attach(entity) -> void:
 	_cast_fx = CastingFx.instance()
 	entity.add_child(_cast_fx)
-	
+
+
+func on_update(entity, component_data) -> void:
 	_cast_bar = CastBar.instance()
 	_cast_bar.init("Fireball!", 400, entity)
-	var target_entity_id = data.data["target_entity_id"]
+	var target_entity_id = component_data.data["target_entity_id"]
 	
 	var target_entity = GlobalData.entities.get_entity(target_entity_id)
 	# Cast marker is able to delete itself so we must keep a weakref to

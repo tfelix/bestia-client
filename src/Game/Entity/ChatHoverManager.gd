@@ -19,7 +19,7 @@ func _server_received(msg) -> void:
 
 
 func _display_hover_chat(msg: ChatMessage) -> void:
-	var entity = _entites_path.get_entity(msg.entity_id)
+	var entity = _entities.get_entity(msg.entity_id)
 	if entity == null:
 		print_debug("_display_hover_chat: Entity with id ", msg.entity_id, " not found")
 		return

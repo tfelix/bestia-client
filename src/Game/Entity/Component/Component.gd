@@ -11,7 +11,7 @@ var entity_id
 var local_only: bool = false
 
 # Called if the component is attached to an Entity
-func on_attach(entity, data: ComponentData) -> void:
+func on_attach(entity) -> void:
 	pass
 
 

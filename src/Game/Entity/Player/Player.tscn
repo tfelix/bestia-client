@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Game/Entity/Player/PlayerMesh.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/CursorManager/MoveCursor/MoveCursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game/Entity/Entity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Entity/Component/PlayerComponent.gd" type="Script" id=5]
@@ -19,12 +19,12 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 1.07933, 0 )
-shape = SubResource( 1 )
+[node name="Mannequiny" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.132501 )
 
-[node name="PlayerMesh" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.285209, 0, 0, 0, 1, 1.06581e-14, 0, -2.95373e-15, 0.277135, 0, 0.935579, 0.108137 )
+shape = SubResource( 1 )
 
 [node name="MoveCursor" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -33,11 +33,12 @@ visible = false
 one_shot = true
 
 [node name="Entity" parent="." instance=ExtResource( 4 )]
-aabb_visual_instance_path = NodePath("../PlayerMesh/PlayerMesh")
 id = 1000
 
 [node name="PlayerComponent" type="Node" parent="Entity/Components" index="0"]
 script = ExtResource( 5 )
+player_name = "rocket"
+guild_name = "LTU"
 
 [node name="WeaponComponent" type="Node" parent="Entity/Components" index="1"]
 script = ExtResource( 6 )
@@ -57,14 +58,12 @@ max_stamina = 100
 cur_stamina = 100
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
-transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.933055, 0 )
+transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.93633, 0 )
 shape = SubResource( 1 )
 
 [node name="Listener" type="Listener" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66973, 0 )
 current = true
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
-
-[editable path="PlayerMesh"]
 
 [editable path="Entity"]
