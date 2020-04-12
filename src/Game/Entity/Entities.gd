@@ -11,7 +11,8 @@ func _ready():
 	GlobalEvents.connect("onEntityAdded", self, "_add_entity")
 	GlobalEvents.connect("onEntityRemoved", self, "_add_entity")
 	GlobalEvents.connect("onMessageReceived", self, "_server_received")
-	call_deferred("setup_existing_entities")
+	yield(owner, "ready")
+	setup_existing_entities()
 
 
 func free():

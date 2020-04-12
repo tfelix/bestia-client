@@ -33,10 +33,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -484.0
-margin_top = -149.5
-margin_right = 401.0
-margin_bottom = 150.5
+margin_left = -334.5
+margin_top = -150.0
+margin_right = 334.5
+margin_bottom = 150.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 __meta__ = {
@@ -44,8 +44,7 @@ __meta__ = {
 }
 
 [node name="InventoryPanel" type="PanelContainer" parent="MarginContainer"]
-margin_left = 54.0
-margin_right = 831.0
+margin_right = 669.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 300, 300 )
 size_flags_horizontal = 7
@@ -54,36 +53,36 @@ size_flags_vertical = 7
 [node name="HContainer" type="HBoxContainer" parent="MarginContainer/InventoryPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 770.0
+margin_right = 662.0
 margin_bottom = 293.0
 
 [node name="MainContent" type="VBoxContainer" parent="MarginContainer/InventoryPanel/HContainer"]
-margin_right = 763.0
+margin_right = 655.0
 margin_bottom = 286.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
-margin_right = 763.0
+margin_right = 655.0
 margin_bottom = 26.0
 
 [node name="SearchEdit" type="LineEdit" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_right = 400.0
+margin_right = 250.0
 margin_bottom = 26.0
-rect_min_size = Vector2( 400, 0 )
+rect_min_size = Vector2( 250, 0 )
 placeholder_text = "Search"
 
 [node name="ClearSearch" type="Button" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 404.0
-margin_right = 451.0
+margin_left = 254.0
+margin_right = 301.0
 margin_bottom = 26.0
 custom_fonts/font = ExtResource( 4 )
 disabled = true
 text = "Clear"
 
 [node name="MarginItemCount" type="MarginContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 455.0
-margin_right = 593.0
+margin_left = 305.0
+margin_right = 443.0
 margin_bottom = 26.0
 custom_constants/margin_right = 20
 custom_constants/margin_left = 20
@@ -101,16 +100,17 @@ custom_fonts/font = ExtResource( 4 )
 text = "Items: 12 / 300"
 
 [node name="Weight" type="Label" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 597.0
+margin_left = 447.0
 margin_top = 3.0
-margin_right = 735.0
+margin_right = 627.0
 margin_bottom = 23.0
+rect_min_size = Vector2( 180, 0 )
 custom_fonts/font = ExtResource( 4 )
 text = "Weight: 12 kg / 45 kg"
 
 [node name="Close" type="TextureButton" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 739.0
-margin_right = 763.0
+margin_left = 631.0
+margin_right = 655.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 24, 0 )
 size_flags_horizontal = 10
@@ -119,12 +119,12 @@ expand = true
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent"]
 margin_top = 30.0
-margin_right = 763.0
+margin_right = 655.0
 margin_bottom = 286.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content"]
-margin_right = 763.0
+margin_right = 655.0
 margin_bottom = 256.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -142,7 +142,7 @@ custom_constants/margin_bottom = 5
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 758.0
+margin_right = 650.0
 margin_bottom = 251.0
 scroll_horizontal_enabled = false
 

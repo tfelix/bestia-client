@@ -11,19 +11,42 @@ onready var _camera = $Camera
 
 
 func _ready():
-	var points = _position_grass()
-	_multi_mesh.multimesh.instance_count = points.size()
+	var points = _position_grass2()
 	
-	for i in range(points.size()):
+	var point_count = points.size() / 2
+	_multi_mesh.multimesh.instance_count = point_count
+	
+	for i in range(point_count):
 		var transform = Transform()
 		var p = points[i]
 		var newPos = Vector3(p.x, 0.0, p.y)
-		var scale_fac = 0.8 # rand_range(1.0 - random_scale, 1.0)
+		var scale_fac = rand_range(1.0 - random_scale, 1.0)
 		var scale = Vector3(scale_fac, scale_fac, scale_fac)
 		#transform = transform.translated(newPos)
-		# .rotated(Vector3.UP, rand_range(0.0, 3.14))
-		transform = transform.translated(newPos)
+		# 
+		transform.basis.rotated(Vector3.UP, rand_range(0.0, 3.14))
+		transform = transform.scaled(scale).translated(newPos)
 		_multi_mesh.multimesh.set_instance_transform(i, transform)
+
+
+func _position_grass2():
+	var stepsize = 0.3
+	var hsx = size.x / 2.0
+	var hsy = size.y / 2.0
+	
+	# Cover only half
+	var sx = (size.x / stepsize) / 2
+	var sy = (size.y / stepsize) / 2
+	
+	var points = []
+	
+	for i in range(sx):
+		var x = i * stepsize - hsx + 12.5
+		for j in range(sy):
+			var y = j * stepsize - hsy + 12.5
+			points.append(Vector2(x, y))
+	
+	return points
 
 
 func _position_grass():
@@ -85,5 +108,5 @@ func _process(delta):
 	var material = _multi_mesh.multimesh.mesh.surface_get_material(0)
 	# I am not sure why the texture must be manually set. It should work when
 	# set via shader texture but it does not. Godot Bug?
-	material.set_shader_param("hide_texture", tex)
+	# material.set_shader_param("hide_texture", tex)
 	material.set_shader_param("camera_position", _camera.global_transform.origin)

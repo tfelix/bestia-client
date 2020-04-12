@@ -5,7 +5,8 @@ in the standalone mode.
 """
 class_name FakeMobHandler
 
-const player_entity_id = 1000
+# better handle this in a unique and single place
+const player_entity_id = 1
 var _mob = {}
 
 onready var _cast_timer = $CastTimer
@@ -51,54 +52,62 @@ func _can_attack_entity(entity_id: int) -> bool:
 	return true
 
 
-func use_skill(msg: UseAttackMessage):
+func use_skill(msg: UseAttackMessage) -> void:
 	if not _can_attack_entity(msg.target_entity):
 		return
 	
 	if msg.player_attack_id == UseAttackMessage.RANGE_ATTACK_ID:
-		var dmg_msg = DamageMessage.new()
-		dmg_msg.entity_id = msg.target_entity
-		dmg_msg.total_damage = randi() % 20 + 10
-		
-		var ranged_msg = RangedAttackMessage.new()
-		ranged_msg.entity_id = player_entity_id
-		ranged_msg.target_id = msg.target_entity
-		ranged_msg.projectile = "arrow"
-		ranged_msg.damage = dmg_msg
-		ranged_msg.latency_ms = 10
-		
-		GlobalEvents.emit_signal("onMessageReceived", ranged_msg)
-		take_damage(msg.target_entity, dmg_msg.total_damage)
-		
+		_use_ranged_attack(msg.target_entity)
 	elif msg.player_attack_id == UseAttackMessage.MELEE_ATTACK_ID:
 		# check if distance is ok and then let the attack be made
 		print_debug("melee")
 	else:
-		# Cast the skill
-		var cast_comp = ComponentData.new()
-		cast_comp.data["cast_time"] = 400
-		cast_comp.data["cast_db_name"] = "skill_fireball"
-		cast_comp.data["target_entity_id"] = msg.target_entity
-		cast_comp.entity_id = player_entity_id
-		cast_comp.component_name = CastComponent.NAME
-		GlobalEvents.emit_signal("onMessageReceived", cast_comp)
+		_use_skill_attack(msg.target_entity)
+
+
+func _use_ranged_attack(target_entity_id: int) -> void:
+	var dmg_msg = DamageMessage.new()
+	dmg_msg.entity_id = target_entity_id
+	dmg_msg.total_damage = randi() % 20 + 10
 	
-		# Setup the damage display later on
-		_cast_timer.start(cast_comp.data["cast_time"] / 1000.0)
-		yield(_cast_timer, "timeout")
-		
-		var cast_remove = ComponentRemoveMessage.new()
-		cast_remove.component_name = CastComponent.NAME
-		cast_remove.entity_id = player_entity_id
-		GlobalEvents.emit_signal("onMessageReceived", cast_remove)
+	var ranged_msg = RangedAttackMessage.new()
+	ranged_msg.entity_id = player_entity_id
+	ranged_msg.target_id = target_entity_id
+	ranged_msg.projectile = "arrow"
+	ranged_msg.damage = dmg_msg
+	ranged_msg.latency_ms = 10
 	
-		var dmg_msg = DamageMessage.new()
-		dmg_msg.entity_id = msg.target_entity
-		dmg_msg.total_damage = randi() % 20 + 30
+	GlobalEvents.emit_signal("onMessageReceived", ranged_msg)
+	take_damage(target_entity_id, dmg_msg.total_damage)
+
+
+func _use_skill_attack(target_entity_id: int) -> void:
+	# Cast the skill
+	var cast_comp = ComponentData.new()
+	cast_comp.data["cast_time"] = 400
+	cast_comp.data["cast_db_name"] = "skill_fireball"
+	cast_comp.data["target_entity_id"] = target_entity_id
+	cast_comp.entity_id = player_entity_id
+	cast_comp.component_name = CastComponent.NAME
+	GlobalEvents.emit_signal("onMessageReceived", cast_comp)
+
+	# Setup the damage display later on
+	_cast_timer.start(cast_comp.data["cast_time"] / 1000.0)
+	yield(_cast_timer, "timeout")
 	
-		var fx_msg = FxMessage.new()
-		fx_msg.target_id = msg.target_entity
-		fx_msg.fx = "fireball"
-		fx_msg.damage = dmg_msg
-		fx_msg.latency_ms = 10
-		GlobalEvents.emit_signal("onMessageReceived", fx_msg)
+	var cast_remove = ComponentRemoveMessage.new()
+	cast_remove.component_name = CastComponent.NAME
+	cast_remove.entity_id = player_entity_id
+	GlobalEvents.emit_signal("onMessageReceived", cast_remove)
+
+	var dmg_msg = DamageMessage.new()
+	dmg_msg.entity_id = target_entity_id
+	dmg_msg.total_damage = randi() % 20 + 30
+
+	var fx_msg = FxMessage.new()
+	fx_msg.target_id = target_entity_id
+	fx_msg.fx = "fireball"
+	fx_msg.damage = dmg_msg
+	fx_msg.latency_ms = 10
+	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
+	take_damage(target_entity_id, dmg_msg.total_damage)

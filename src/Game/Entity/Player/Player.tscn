@@ -33,12 +33,14 @@ visible = false
 one_shot = true
 
 [node name="Entity" parent="." instance=ExtResource( 4 )]
-id = 1000
+id = 1
 
 [node name="PlayerComponent" type="Node" parent="Entity/Components" index="0"]
 script = ExtResource( 5 )
 player_name = "rocket"
 guild_name = "LTU"
+account_id = 1
+player_bestia_id = 1
 
 [node name="WeaponComponent" type="Node" parent="Entity/Components" index="1"]
 script = ExtResource( 6 )

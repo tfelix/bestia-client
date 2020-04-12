@@ -35,6 +35,17 @@ func setup() -> void:
 	#_player_items.append(item5)
 
 
+func _find_item_pos(item_id: int) -> int:
+	var idx = -1
+	var i = 0
+	for item in _player_items:
+		if item.id == item_id:
+			idx = i
+			break
+		i += 1
+	return idx
+
+
 func use_item(msg: ItemUseMessage) -> void:
 	var player_item = _get_player_item(msg.player_item_id)
 	if player_item == null:
@@ -42,16 +53,28 @@ func use_item(msg: ItemUseMessage) -> void:
 		return
 
 	player_item.amount -= 1
-	if player_item.amount <= 0:
-		# Remove the item from the array
-		pass
 
 	# APPLE
 	if msg.player_item_id == 1:
-		# Heal the player for 15 HP
-		print_debug("server: player used apple")
+		_use_apple()
+	
+	if player_item.amount <= 0:
+		_remove_player_item(player_item)
+	else:
+		send_items()
 
-	send_items()
+
+func _use_apple() -> void:
+	var dmg_msg = DamageMessage.new()
+	dmg_msg.entity_id = 1
+	dmg_msg.total_damage = 15
+
+	var fx_msg = FxMessage.new()
+	fx_msg.target_id = 1
+	fx_msg.fx = "heal"
+	fx_msg.damage = dmg_msg
+	fx_msg.latency_ms = 10
+	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
 
 
 func _get_player_item(player_item_id) -> ItemModel:

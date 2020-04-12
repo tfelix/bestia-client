@@ -9,9 +9,6 @@
 [ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://UI/CharacterPlate/HealthManaFont.tres" type="DynamicFont" id=8]
 
-
-
-
 [node name="CharacterPlate" type="PanelContainer"]
 margin_right = 258.0
 margin_bottom = 100.0
@@ -22,13 +19,11 @@ __meta__ = {
 }
 
 [node name="Rows" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 251.0
-margin_bottom = 93.0
+margin_right = 258.0
+margin_bottom = 100.0
 
 [node name="Top" type="HBoxContainer" parent="Rows"]
-margin_right = 244.0
+margin_right = 258.0
 margin_bottom = 32.0
 
 [node name="InfoMargin" type="MarginContainer" parent="Rows/Top"]
@@ -45,13 +40,13 @@ text = "CharacterName"
 
 [node name="Placeholder" type="Control" parent="Rows/Top"]
 margin_left = 110.0
-margin_right = 136.0
+margin_right = 150.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 
 [node name="Inventory" type="Button" parent="Rows/Top"]
-margin_left = 140.0
-margin_right = 172.0
+margin_left = 154.0
+margin_right = 186.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 icon = ExtResource( 5 )
@@ -59,8 +54,8 @@ flat = true
 expand_icon = true
 
 [node name="Attacks" type="Button" parent="Rows/Top"]
-margin_left = 176.0
-margin_right = 208.0
+margin_left = 190.0
+margin_right = 222.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 icon = ExtResource( 4 )
@@ -68,8 +63,8 @@ flat = true
 expand_icon = true
 
 [node name="StatusValues" type="Button" parent="Rows/Top"]
-margin_left = 212.0
-margin_right = 244.0
+margin_left = 226.0
+margin_right = 258.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 icon = ExtResource( 6 )
@@ -78,7 +73,7 @@ expand_icon = true
 
 [node name="Main" type="HBoxContainer" parent="Rows"]
 margin_top = 36.0
-margin_right = 244.0
+margin_right = 258.0
 margin_bottom = 86.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Rows/Main"]

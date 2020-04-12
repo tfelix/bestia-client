@@ -2,8 +2,6 @@
 
 [ext_resource path="res://VFX/Attack/Fireball/Fireball.gd" type="Script" id=1]
 
-
-
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 albedo_color = Color( 0.937255, 0.0627451, 0.0627451, 1 )
@@ -98,7 +96,7 @@ damping = 22.0
 scale_curve = SubResource( 8 )
 color_ramp = SubResource( 6 )
 
-[sub_resource type="Shader" id=12]
+[sub_resource type="Shader" id=10]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,shadows_disabled;
 uniform float emission_energy;
@@ -114,12 +112,12 @@ custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
 #define MAX_SKELETON_BONES 1365
 "
 
-[sub_resource type="ShaderMaterial" id=13]
-shader = SubResource( 12 )
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
 shader_param/emission_energy = 6.0
 
-[sub_resource type="CubeMesh" id=11]
-material = SubResource( 13 )
+[sub_resource type="CubeMesh" id=12]
+material = SubResource( 11 )
 size = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="Fireball" type="Spatial"]
@@ -143,7 +141,7 @@ shape = SubResource( 3 )
 [node name="FireLight" type="OmniLight" parent="FireballMesh"]
 transform = Transform( 0.897951, 0.440096, 0, 1.92372e-08, -3.92507e-08, 1, 0.440096, -0.897951, -4.37114e-08, 0, 0, 0 )
 light_color = Color( 1, 0.866667, 0.407843, 1 )
-light_energy = 1.4
+light_energy = 0.0
 shadow_enabled = true
 omni_range = 6.0
 omni_attenuation = 0.5
@@ -160,6 +158,6 @@ one_shot = true
 explosiveness = 0.9
 randomness = 0.1
 process_material = SubResource( 9 )
-draw_pass_1 = SubResource( 11 )
+draw_pass_1 = SubResource( 12 )
 [connection signal="body_entered" from="FireballMesh/HitArea" to="." method="_on_HitArea_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

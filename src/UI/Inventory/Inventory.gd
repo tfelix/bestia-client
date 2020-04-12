@@ -240,16 +240,16 @@ func _remove_module() -> void:
 
 func _draw_inventory_info():
 	_count_label.text = str("Items: ", _items.size(), " / ", _info.max_items)
-	var cur_weight_kg = stepify(get_total_weight() / 10.0, 0.01)
+	var cur_weight = get_total_weight()
+	var cur_weight_kg = stepify(cur_weight / 10.0, 0.01)
 	var max_weight_kg = stepify(_info.max_weight / 10.0, 0.01)
-	_weight_label.text = str("Weight: ", cur_weight_kg, "kg / ", max_weight_kg, "kg")
+	_weight_label.text = "Weight: %skg / %skg" % [cur_weight_kg, max_weight_kg]
 
 
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
-		var item_node = _get_item(i.player_item_id)
-		total_weight += item_node.weight
+		total_weight += i.weight * i.amount
 	return total_weight
 
 
