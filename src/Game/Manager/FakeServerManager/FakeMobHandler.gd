@@ -69,6 +69,15 @@ func _use_ranged_attack(target_entity_id: int) -> void:
 	var dmg_msg = DamageMessage.new()
 	dmg_msg.entity_id = target_entity_id
 	dmg_msg.total_damage = randi() % 20 + 10
+	dmg_msg.type = DamageMessage.DamageType.DAMAGE
+	
+	var chance = randf()
+	if chance > 0.9:
+		dmg_msg.total_damage *= 1.5
+		dmg_msg.type = DamageMessage.DamageType.CRIT
+	elif chance < 0.2:
+		dmg_msg.total_damage = 0
+		dmg_msg.type = DamageMessage.DamageType.MISS
 	
 	var ranged_msg = RangedAttackMessage.new()
 	ranged_msg.entity_id = player_entity_id

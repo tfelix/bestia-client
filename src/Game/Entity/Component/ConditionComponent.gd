@@ -4,13 +4,13 @@ class_name ConditionComponent
 const NAME = "ConditionComponent"
 
 export var max_health: int = 1
-export var cur_health: int
+export var cur_health: int = 0
 
 export var max_mana: int = 1
-export var cur_mana: int
+export var cur_mana: int = 0
 
 export var max_stamina: int = 1
-export var cur_stamina: int
+export var cur_stamina: int = 0
 
 
 func get_health_perc():

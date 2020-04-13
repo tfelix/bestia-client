@@ -37,6 +37,7 @@
 * [Sword wound](https://game-icons.net/1x1/lorc/sword-wound.html), Lorc, CC BY 3.0
 * [Hamburger menu icon](https://game-icons.net/1x1/delapouite/hamburger-menu.html), Delapouite, [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * [thermometer-half-solid](https://fontawesome.com/icons/thermometer-half?style=solid), Font Awesome, Unmodified, [CC BY 4.0](https://fontawesome.com/license)
+* [Heart Icon](https://game-icons.net/1x1/skoll/hearts.html), Skoll [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 ## Music / Audio
 
@@ -51,6 +52,7 @@
 * [dave-welsh_thunder-clap.wav](https://freesound.org/people/Dave%20Welsh/sounds/194364), Dave Welsh, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [nimlos_rain-thunder.wav](https://freesound.org/people/Nimlos/sounds/359151/), Nimlos, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [josh74000mc_thunder3.wav](https://freesound.org/people/Josh74000MC/sounds/475094/), Josh74000MC, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [juancamiloorjuela__heal_1.wav](https://freesound.org/people/juancamiloorjuela/sounds/204318/), juancamiloorjuela [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Shader
 

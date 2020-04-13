@@ -95,7 +95,8 @@ func _send_attacks() -> void:
 
 func _send_chat(msg: ChatSend) -> void:
 	var response = ChatMessage.new()
-	response.entity_id = 1000 #GlobalData.client_account_id
+	# This is not the entity ID. We must also fetch the username from the player
+	response.entity_id = GlobalData.client_account_id
 	response.username = "rocket"
 	response.text = msg.text
 	response.type = msg.type

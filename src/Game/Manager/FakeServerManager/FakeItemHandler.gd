@@ -67,6 +67,7 @@ func use_item(msg: ItemUseMessage) -> void:
 func _use_apple() -> void:
 	var dmg_msg = DamageMessage.new()
 	dmg_msg.entity_id = 1
+	dmg_msg.type = DamageMessage.DamageType.HEAL
 	dmg_msg.total_damage = 15
 
 	var fx_msg = FxMessage.new()

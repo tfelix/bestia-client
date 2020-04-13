@@ -28,5 +28,5 @@ func handle_message(msg: DamageMessage) -> void:
 		print_debug("Entity ", msg.entity_id, " for DamageMessage not found")
 		return
 	var dmg3d = Damage3D.instance()
-	dmg3d.init(msg, entity)
+	dmg3d.init(msg)
 	entity.get_spatial().add_child(dmg3d)

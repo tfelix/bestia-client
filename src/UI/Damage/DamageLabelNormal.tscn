@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=1]
+[ext_resource path="res://UI/Damage/DamageFont.tres" type="DynamicFont" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+onready var label_normal = $DamageLabel
+
+func set_text(text: String):
+	label_normal.text = text
+"
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("DamageLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="DamageLabelNormal" type="Control"]
+mouse_filter = 2
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DamageLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.5
+margin_top = -13.5
+margin_right = 61.5
+margin_bottom = 13.5
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.984314, 1, 0.188235, 1 )
+text = "1243484"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpatialFollower" type="Node" parent="."]
+script = ExtResource( 1 )
+follow_node = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade"
+anims/fade = SubResource( 2 )

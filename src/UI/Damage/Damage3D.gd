@@ -2,58 +2,66 @@ extends RigidBody
 class_name Damage3D
 
 var _damage: DamageMessage
-var _source_entity
-var _random_offset: Vector2
+var _random_offset
 
-onready var _label = $DamageLabel
+onready var _normal = $DamageLabelNormal
+onready var _crit = $DamageLabelCrit
+onready var _miss = $DamageLabelMiss
+onready var _heal = $DamageLabelHeal
+onready var _hit_sound = $HitAudio
+onready var _heal_sound = $HealAudio
 
-
-func init(damage: DamageMessage, entity):
+func init(damage: DamageMessage):
 	_damage = damage
-	_source_entity = entity
-	var aabb = entity.get_aabb() as AABB
-	var size_offset = aabb.size.z / 2
-	_random_offset = Vector2(randi() % 20 - 10, randi() % 50 - 25 - size_offset)
 	set_as_toplevel(true)
 
 
-func _process(_delta):
-	_position_label()
-
-
-func _position_label():
-	var cam = get_tree().get_root().get_camera()
-	var pos = self.global_transform.origin
-	var viewport_pos = cam.unproject_position(pos)
-	_label.set_position(viewport_pos + _random_offset)
-
-
 func _ready():
-	_label.set_text(str(_damage.total_damage))
+	# _follower.offset = Vector2(randi() % 20 - 10, randi() % 50 - 25)
 	match _damage.type:
-		DamageMessage.DamageType.DAMAGE, DamageMessage.DamageType.MISS:
-			_label.show_normal()
+		DamageMessage.DamageType.DAMAGE:
+			_normal.visible = true
+			_normal.set_text(str(_damage.total_damage))
+			_crit.visible = false
+			_miss.visible = false
+			_heal.visible = false
+			_hit_sound.play()
+		DamageMessage.DamageType.MISS:
+			_normal.visible = false
+			_crit.visible = false
+			_miss.visible = true
+			_heal.visible = false
 		DamageMessage.DamageType.CRIT:
-			_label.show_crit()
+			_normal.visible = false
+			_crit.visible = true
+			_crit.set_text(str(_damage.total_damage))
+			_miss.visible = false
+			_heal.visible = false
+			_hit_sound.play()
 		DamageMessage.DamageType.HEAL:
-			_label.show_heal()
-	_position_label()
+			_normal.visible = false
+			_crit.visible = false
+			_miss.visible = false
+			_heal.visible = true
+			_heal.set_text(str(_damage.total_damage))
+			_heal_sound.play()
 	_prepare_velocity()
 
 
 func _prepare_velocity():
+	var cam = get_tree().get_root().get_camera()
 	var vel_x = randf() * 1.5 + 2
 	var vel_y = randi() % 3 + 16
-	if _source_entity != null:
-		var own_pos = get_parent().global_transform.origin
-		var delta_x = own_pos.x - _source_entity.global_transform.origin.x
-		if get_viewport().size.x / 2 > _label.rect_position.x:
-			vel_x *= -1
+	var view_pos_owner = cam.unproject_position(get_parent().global_transform.origin)
+
+	if view_pos_owner.x < get_viewport().size.x / 2:
+		vel_x *= -1
 	
-	if _damage.type == DamageMessage.DamageType.HEAL || _damage.type == DamageMessage.DamageType.MISS:
-		vel_x = 0
-		vel_y = 15
-		gravity_scale = 0
+	match(_damage.type):
+		DamageMessage.DamageType.HEAL, DamageMessage.DamageType.MISS:
+			vel_x = 0
+			vel_y = 5
+			gravity_scale = 0
 	
 	self.linear_velocity = Vector3(vel_x, vel_y, 0)
 

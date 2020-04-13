@@ -2,7 +2,7 @@ class_name DamageMessage
 
 enum DamageType {
 	DAMAGE,
-	CRIT_DAMAGE,
+	CRIT,
 	HEAL,
 	MISS
 }
