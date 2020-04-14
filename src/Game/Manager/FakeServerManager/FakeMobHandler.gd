@@ -20,7 +20,7 @@ func _register_spawned_enemy(entity: Entity) -> void:
 
 
 func take_damage(entity_id: int, damage: int) -> void:
-	print_debug("Entity ", entity_id, " take damage: ", damage)
+	print_debug("Entity ", entity_id, " takes damage: ", damage)
 	if _mob.has(entity_id):
 		var entity = _mob[entity_id]
 		var cond_comp = entity.get_component(ConditionComponent.NAME) as ConditionComponent
@@ -93,12 +93,17 @@ func _use_ranged_attack(target_entity_id: int) -> void:
 func _use_skill_attack(target_entity_id: int) -> void:
 	# Cast the skill
 	var cast_comp = ComponentData.new()
-	cast_comp.data["cast_time"] = 400
+	cast_comp.data["cast_time"] = 4000
 	cast_comp.data["cast_db_name"] = "skill_fireball"
 	cast_comp.data["target_entity_id"] = target_entity_id
 	cast_comp.entity_id = player_entity_id
 	cast_comp.component_name = CastComponent.NAME
 	GlobalEvents.emit_signal("onMessageReceived", cast_comp)
+	
+	var no_move_comp = ComponentData.new()
+	no_move_comp.entity_id = player_entity_id
+	no_move_comp.component_name = NoMovementComponent.NAME
+	GlobalEvents.emit_signal("onMessageReceived", no_move_comp)
 
 	# Setup the damage display later on
 	_cast_timer.start(cast_comp.data["cast_time"] / 1000.0)
@@ -115,8 +120,14 @@ func _use_skill_attack(target_entity_id: int) -> void:
 
 	var fx_msg = FxMessage.new()
 	fx_msg.target_id = target_entity_id
-	fx_msg.fx = "fireball"
+	fx_msg.fx = "fireball" # TODO Insert actual used skill here
 	fx_msg.damage = dmg_msg
 	fx_msg.latency_ms = 10
 	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
 	take_damage(target_entity_id, dmg_msg.total_damage)
+	
+	# Maybe its better to handle this via a case specific check.
+	var no_move_remove = ComponentRemoveMessage.new()
+	no_move_remove.component_name = NoMovementComponent.NAME
+	no_move_remove.entity_id = player_entity_id
+	GlobalEvents.emit_signal("onMessageReceived", no_move_remove)

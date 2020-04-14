@@ -10,7 +10,6 @@ enum PlayerState {
 	CONSTRUCTING,
 	ATTACKING, 
 	MOVING,
-	CASTING,
 	INTERACTING # e.g. talking with npc
 }
 
@@ -23,6 +22,7 @@ var _target_entity: Entity = null
 var _queued_casted_attack = null
 var _queued_attack_entity: Entity = null
 
+onready var _model = $Mannequiny
 onready var _move_cursor = $MoveCursor
 onready var _attack_delay = $AttackDelay
 onready var _entity = $Entity
@@ -62,6 +62,8 @@ func _physics_process(delta):
 	
 	if target_delta < 0.1:
 		_current_state = PlayerState.IDLE
+		_model.is_moving = false
+		_model.transition_to(Mannequiny.States.IDLE)
 		_check_queued_actions()
 		return
 
@@ -102,6 +104,9 @@ func _move_to(global_pos: Vector3) -> void:
 	if _current_state == PlayerState.CONSTRUCTING:
 		return
 	
+	if _entity.get_component(NoMovementComponent.NAME) != null:
+		return
+
 	# We cancel possible casts on hold
 	_queued_casted_attack = null
 	GlobalEvents.emit_signal("onCastSelectionEnded")
@@ -109,6 +114,8 @@ func _move_to(global_pos: Vector3) -> void:
 	look_at(global_pos, Vector3.UP)
 	_move_target = global_pos
 	_current_state = PlayerState.MOVING
+	_model.is_moving = true
+	_model.transition_to(Mannequiny.States.RUN)
 	_clear_queued_actions()
 
 

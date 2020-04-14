@@ -1,14 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/Intro/step1/Step1.gd" type="Script" id=1]
-[ext_resource path="res://shared/img/fx/flare_blue.png" type="Texture" id=2]
-
-
-
-
-
-
-
+[ext_resource path="res://shared/vfx/gradient_circle_1.png" type="Texture" id=2]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.28125, 0.88208, 1, 1, 1, 0.75, 0.75, 1 )
@@ -37,8 +30,8 @@ orbit_velocity_random = 0.0
 linear_accel = 10.0
 radial_accel = 30.0
 tangential_accel = 5.0
-scale = 0.3
-scale_random = 0.3
+scale = 0.1
+scale_random = 0.05
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
@@ -126,5 +119,4 @@ texture = ExtResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "particle_explosion"
 anims/particle_explosion = SubResource( 6 )
-
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

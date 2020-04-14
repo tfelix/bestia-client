@@ -1,12 +1,11 @@
 extends Spatial
 
 var _hit_damage: DamageMessage
-
-func _on_HitArea_body_entered(body) -> void:
-	print_debug("has hit!")
+onready var _smoke = $Smoke
 
 
 func _trigger_damage() -> void:
+	_smoke.emitting = true
 	if _hit_damage:
 		GlobalEvents.emit_signal("onDamageReceived", _hit_damage)
 

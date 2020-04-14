@@ -25,9 +25,13 @@ func on_attach(entity) -> void:
 
 func on_update(entity, component_data) -> void:
 	_cast_bar = CastBar.instance()
-	_cast_bar.init("Fireball!", 400, entity)
-	var target_entity_id = component_data.data["target_entity_id"]
+	var cast_time = int(component_data.data["cast_time"])
+	var cast_db_name = component_data.data["cast_db_name"]
+	# TODO Transform Name into attack name somehow
 	
+	_cast_bar.init("Fireball!", cast_time, entity)
+	
+	var target_entity_id = component_data.data["target_entity_id"]
 	var target_entity = GlobalData.entities.get_entity(target_entity_id)
 	# Cast marker is able to delete itself so we must keep a weakref to
 	# avoid double free calls.

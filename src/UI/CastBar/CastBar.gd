@@ -7,13 +7,27 @@ onready var _bar = $VBox/CenterContainer/Bar
 var _entity
 var _progress = 0.0
 
+var _cast_text = "SKILL_NAME" 
+var _duration = 1000
+
+
 func _ready() -> void:
-	_text.text = "Fireball!!!"
-	var duration = 400.0
-	_perc_tween.interpolate_property(self, "_progress", 0.0, 1.0, duration / 1000, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_text.text = _cast_text
+	_perc_tween.interpolate_property(
+		self,
+		"_progress",
+		0.0,
+		1.0,
+		_duration / 1000.0,
+		Tween.TRANS_LINEAR,
+		Tween.EASE_IN_OUT
+	)
 	_perc_tween.start()
 
+
 func init(cast_text: String, cast_duration_ms: int, parent: Spatial) -> void:
+	_duration = cast_duration_ms
+	_cast_text = cast_text
 	_entity = parent
 	parent.add_child(self)
 	_update_position()

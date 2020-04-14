@@ -2,7 +2,9 @@
 
 [ext_resource path="res://Game/Entity/Item/ItemGlimmer/ItemGlimmer.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Item/ItemGlimmer/Glimmer.shader" type="Shader" id=2]
-[ext_resource path="res://shared/img/fx/kenney_particle_pack/star_07.png" type="Texture" id=3]
+[ext_resource path="res://shared/vfx/star_02.png" type="Texture" id=3]
+
+
 
 
 

@@ -14,12 +14,6 @@ func _ready():
 	_border.material.set_shader_param("size", rect_size)
 
 
-func _process(delta):
-	# Check if this is not needed
-	# _border.material.set_shader_param("size", rect_size)
-	pass
-
-
 func set_value(value: float):
 	var new_size = self.rect_size.x * value
 	_primary.rect_size.x = new_size

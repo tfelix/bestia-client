@@ -6,9 +6,6 @@ class_name Component
 
 var id
 var entity_id
-# Flag if the component is not send to the server upon change.
-# It is used only for the local client.
-var local_only: bool = false
 
 # Called if the component is attached to an Entity
 func on_attach(entity) -> void:

@@ -1,10 +1,59 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://VFX/CastingFx/CastingFxMaterial.tres" type="Material" id=1]
+[ext_resource path="res://shared/vfx/star_01.png" type="Texture" id=2]
 [ext_resource path="res://VFX/CastingFx/cast_circle.obj" type="ArrayMesh" id=3]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.10828, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.544586, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+width = 256
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 2, 0.2, 2 )
+direction = Vector3( 0, 1, 0 )
+spread = 2.0
+gravity = Vector3( 0, 4, 0 )
+tangential_accel = 3.0
+damping = 0.2
+scale_curve = SubResource( 2 )
+color = Color( 0.392157, 0.756863, 0.996078, 1 )
+hue_variation = 0.1
+hue_variation_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+params_billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 1, 0.705882 )
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 0.6, 0.6 )
 
 [node name="CastingFx" type="Spatial"]
 
 [node name="CastCircle" type="MeshInstance" parent="."]
 mesh = ExtResource( 3 )
 material/0 = ExtResource( 1 )
+
+[node name="CastCircle2" type="MeshInstance" parent="."]
+transform = Transform( 1.16562, 0, 0.285182, 0, 1.6, 0, -0.285182, 0, 1.16562, 0, 0, 0 )
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="Particles" type="Particles" parent="."]
+amount = 10
+lifetime = 1.2
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
