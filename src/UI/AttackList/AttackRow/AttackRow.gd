@@ -9,10 +9,10 @@ onready var _atk_element = $MarginContainer/AttackWrapper/AttackText/AttackEleme
 onready var _mana = $MarginContainer/AttackWrapper/MarginMana/Mana
 onready var _lv = $MarginContainer/AttackWrapper/Lv
 
-var attack: Attack
+var attack: AttackData
 
 
-func set_attack(atk: Attack) -> void:
+func set_attack(atk: AttackData) -> void:
 	_atk_name.text = atk.name
 	_atk_element.text = atk.element
 	_mana.text = String(atk.mana)

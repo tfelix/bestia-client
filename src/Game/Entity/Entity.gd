@@ -6,6 +6,7 @@ with data from the server.
 """
 class_name Entity
 
+signal onVfxPlayed(vfx_name)
 
 enum BehaviorGroup {
 	PICKUP,

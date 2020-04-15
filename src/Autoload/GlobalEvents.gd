@@ -12,6 +12,7 @@ signal onDamageReceived(damage_message)
 # some stuff without a proper game server
 signal onEnemySpawned(entity)
 
+
 # Player Signals
 signal onPlayerInteract(entity, interaction)
 signal onPlayerEntityUpdated(player)

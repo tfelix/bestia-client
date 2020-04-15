@@ -63,7 +63,7 @@ func _setup_account() -> void:
 
 
 func _send_attacks() -> void:
-	var atk1 = Attack.new()
+	var atk1 = AttackData.new()
 	atk1.attack_entity_id = 1
 	atk1.attack_id = 1
 	atk1.db_name = "TACKLE"
@@ -71,7 +71,7 @@ func _send_attacks() -> void:
 	atk1.mana = 2
 	atk1.level = 1
 
-	var atk2 = Attack.new()
+	var atk2 = AttackData.new()
 	atk2.attack_entity_id = 1
 	atk2.attack_id = 2
 	atk2.db_name = "SMALL_FIREBALL"
@@ -79,7 +79,7 @@ func _send_attacks() -> void:
 	atk2.mana = 5
 	atk2.level = 2
 	
-	var atk3 = Attack.new()
+	var atk3 = AttackData.new()
 	atk3.attack_entity_id = 1
 	atk3.attack_id = 3
 	atk3.db_name = "SMALL_HEAL"

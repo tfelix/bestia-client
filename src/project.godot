@@ -29,10 +29,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Projectile/Arrow.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Attack",
 "language": "GDScript",
 "path": "res://VFX/Attack/Attack.gd"
+}, {
+"base": "Reference",
+"class": "AttackData",
+"language": "GDScript",
+"path": "res://VFX/Attack/AttackData.gd"
 }, {
 "base": "Reference",
 "class": "BehaviorService",
@@ -380,6 +385,7 @@ _global_script_class_icons={
 "ActivePlayerBestiaComponent": "",
 "Arrow": "",
 "Attack": "",
+"AttackData": "",
 "BehaviorService": "",
 "BestiaPortrait": "",
 "BestiaPortraitData": "",

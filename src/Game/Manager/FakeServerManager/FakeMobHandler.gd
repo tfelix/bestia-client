@@ -93,7 +93,7 @@ func _use_ranged_attack(target_entity_id: int) -> void:
 func _use_skill_attack(target_entity_id: int) -> void:
 	# Cast the skill
 	var cast_comp = ComponentData.new()
-	cast_comp.data["cast_time"] = 4000
+	cast_comp.data["cast_time"] = 400
 	cast_comp.data["cast_db_name"] = "skill_fireball"
 	cast_comp.data["target_entity_id"] = target_entity_id
 	cast_comp.entity_id = player_entity_id

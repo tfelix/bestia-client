@@ -5,7 +5,7 @@ onready var _desc = $BorderMargin/AttackDescription/Description
 onready var _audio_click = $AudioClick
 
 
-func set_attack(atk: Attack):
+func set_attack(atk: AttackData):
 	_title.text = tr(atk.db_name)
 	_desc.text = tr(atk.db_name + "_DESC")
 
