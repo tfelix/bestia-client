@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=1]
+
+[node name="InteractionMenu" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Interactions" type="VBoxContainer" parent="."]
+margin_right = 60.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inspect" type="Button" parent="Interactions"]
+margin_right = 120.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 120, 30 )
+text = "Inspect"
+
+[node name="Attack" type="Button" parent="Interactions"]
+margin_top = 34.0
+margin_right = 120.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 120, 30 )
+text = "Attack"
+
+[node name="SpatialFollower" type="Node" parent="."]
+script = ExtResource( 1 )

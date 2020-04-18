@@ -76,6 +76,17 @@ func get_aabb() -> AABB:
 	return _aabb
 
 
+"""
+Returns the top position of an entity.
+"""
+func get_origin_top() -> Vector3:
+	var origin = get_spatial().global_transform.origin
+	var height = get_aabb().size.y
+	origin.y += height
+	
+	return origin
+
+
 func handle_message(msg):
 	if msg is ComponentData:
 		_components.update_component(msg)

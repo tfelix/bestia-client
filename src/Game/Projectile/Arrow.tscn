@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game/Projectile/Arrow.gd" type="Script" id=1]
 [ext_resource path="res://Game/Projectile/normal_arrow.glb" type="PackedScene" id=2]
@@ -6,19 +6,32 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.2
 
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+params_cull_mode = 2
+
 [node name="Arrow" type="Spatial"]
 script = ExtResource( 1 )
-projectile_speed = 45.0
 
-[node name="ArrowMesh" parent="." instance=ExtResource( 2 )]
-transform = Transform( -4.37114e-08, 0, 2, 0, 2, 0, -1, 0, -8.74228e-08, 0, 0, -0.129481 )
-
-[node name="Area" type="Area" parent="."]
-visible = false
-collision_layer = 16
+[node name="Hit" type="Area" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.238484 )
+[node name="CollisionShape" type="CollisionShape" parent="Hit"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.238484, 0, 1.04245e-08 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+
+[node name="ItemMesh" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="Arrow" parent="ItemMesh" index="0"]
+material/0 = SubResource( 2 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+[connection signal="body_entered" from="Hit" to="." method="_on_Hit_body_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+
+[editable path="ItemMesh"]
