@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.309804, 0.305882, 0.305882, 0.901961 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[node name="UiStyleTest" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rows" type="VBoxContainer" parent="."]
+margin_right = 297.0
+margin_bottom = 138.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="PanelContainer" parent="Rows"]
+margin_right = 297.0
+margin_bottom = 40.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Label" type="Label" parent="Rows/Header"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 287.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Das ist ein Test für Text"
+
+[node name="Content" type="PanelContainer" parent="Rows"]
+margin_top = 40.0
+margin_right = 297.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="Label" type="Label" parent="Rows/Content"]
+margin_top = 42.0
+margin_right = 297.0
+margin_bottom = 56.0
+text = "Das ist ein Test für Text"

@@ -1,21 +1,29 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://UI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/Inventory/ItemDropZone.gd" type="Script" id=5]
 [ext_resource path="res://UI/close-24px.svg" type="Texture" id=8]
 [ext_resource path="res://UI/Inventory/InventoryItem.tscn" type="PackedScene" id=9]
 
 [node name="Inventory" type="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-mouse_filter = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemDropZone" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -24,9 +32,6 @@ __meta__ = {
 visible = false
 margin_top = 49.0
 margin_bottom = 94.0
-
-[node name="AudioClick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
 
 [node name="MarginContainer" type="CenterContainer" parent="."]
 anchor_left = 0.5
@@ -161,6 +166,10 @@ margin_left = 758.0
 margin_right = 1058.0
 margin_bottom = 576.0
 rect_min_size = Vector2( 300, 0 )
+
+[node name="AudioClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Fx"
 [connection signal="mouse_entered" from="." to="." method="_on_Inventory_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Inventory_mouse_exited"]
 [connection signal="text_changed" from="MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit" to="." method="_on_SearchEdit_text_changed"]

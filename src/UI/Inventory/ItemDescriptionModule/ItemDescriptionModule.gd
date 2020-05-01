@@ -18,12 +18,12 @@ func show_item_description(new_item: InventoryItem) -> void:
 	if new_item == null:
 		return
 	item = new_item
-	var item_db_name_upper = item.database_name.to_upper()
+	var item_db_name_upper = item.data.database_name.to_upper()
 	_item_name.text = tr(item_db_name_upper)
 	_item_desc.text = tr(item_db_name_upper + "_DESCRIPTION")
-	_item_img.texture = item.image
-	_amount.text = "Amount: %s" % item.amount
-	_weight.text = "Weight: %skg (%skg ea)" % [item.totalWeight() / 10.0, item.weight / 10.0]
+	_item_img.texture = item.data.image
+	_amount.text = "Amount: %s" % item.data.amount
+	_weight.text = "Weight: %skg (%skg ea)" % [item.totalWeight() / 10.0, item.data.weight / 10.0]
 	_use_btn.disabled = !new_item.is_usable()
 
 

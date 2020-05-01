@@ -1,42 +1,48 @@
 extends Control
 class_name InventoryItem
 
+const DragItem = preload("res://UI/Inventory/DragItem.tscn")
+
+signal item_selected
+
+var data: ItemData
 var selected: bool setget _set_selected
 
-enum ItemType {
-	CONSUMEABLE,
-	STRUCTURE,
-	EQUIP,
-	ETC
-}
-
-export var database_name: String
-export(ItemType) var type = ItemType.ETC
-export var weight: int = 10
-export var item_id: int = 0
-export var amount: int = 1
-export var player_item_id: int = 0
-export var image: Texture
 
 onready var _amount = $Amount
 onready var _image = $ItemImage
 onready var _select = $SelectHighlight
 onready var _hover = $HoverHighlight
 
-signal item_selected
-
 
 func _ready():
-	_image.texture = image
-	_set_amount(amount)
+	if data != null:
+		_image.texture = data.image
+		_set_amount(data.amount)
+
+
+func get_drag_data(position):
+	var drag_item = DragItem.instance()
+	drag_item.data = data
+	set_drag_preview(drag_item)
+	
+	return data
+
+
+"""
+Can not drop on this item here.
+"""
+func can_drop_data(position, drop_data) -> bool:
+	print_debug(drop_data.get_class())
+	return true
 
 
 func is_usable() -> bool:
-	return type == ItemType.CONSUMEABLE || type == ItemType.STRUCTURE
+	return data.type == ItemData.ItemType.CONSUMEABLE || data.type == ItemData.ItemType.STRUCTURE
 
 
 func totalWeight() -> int:
-	return weight * amount
+	return data.weight * data.amount
 
 
 func _set_selected(is_selected: bool) -> void:
@@ -47,7 +53,7 @@ func _set_selected(is_selected: bool) -> void:
 func _set_amount(new_amount: int) -> void:
 	if new_amount > 9999:
 		new_amount = 9999
-	amount = new_amount
+	data.amount = new_amount
 	_amount.text = String(new_amount)
 
 

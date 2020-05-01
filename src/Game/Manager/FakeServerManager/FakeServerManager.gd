@@ -44,6 +44,8 @@ func _on_message(payload):
 		_item_handler.use_item(payload)
 	elif payload is RequestAttackListMessage:
 		_send_attacks()
+	elif payload is RequestGainPointMessage:
+		_send_gainpoints()
 	else:
 		print_debug("Unknown message: ", payload)
 		pass
@@ -60,6 +62,12 @@ func _setup_account() -> void:
 	player.player_bestia_id = 1
 	player.player_name = "rocket"
 	GlobalEvents.emit_signal("onMessageReceived", player)
+
+
+func _send_gainpoints() -> void:
+	var msg = GainPointData.new()
+	msg.value = 112
+	GlobalEvents.emit_signal("onMessageReceived", msg)
 
 
 func _send_attacks() -> void:

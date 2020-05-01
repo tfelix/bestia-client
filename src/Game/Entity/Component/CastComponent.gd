@@ -25,8 +25,8 @@ func on_attach(entity) -> void:
 
 func on_update(entity, component_data) -> void:
 	_cast_bar = CastBar.instance()
-	var cast_time = int(component_data.data["cast_time"])
-	var cast_db_name = component_data.data["cast_db_name"]
+	cast_time = int(component_data.data["cast_time"])
+	cast_db_name = component_data.data["cast_db_name"]
 	# TODO Transform Name into attack name somehow
 	
 	_cast_bar.init("Fireball!", cast_time, entity)

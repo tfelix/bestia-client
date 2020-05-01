@@ -8,8 +8,6 @@
 [ext_resource path="res://UI/menu_theme.tres" type="Theme" id=6]
 [ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
 
-
-
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -123,3 +121,4 @@ expand = true
 stretch_mode = 6
 [connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
 [connection signal="fade_out_finished" from="FadeIn" to="." method="_on_FadeIn_fade_out_finished"]
+[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Credits" to="." method="_on_Credits_pressed"]

@@ -1,6 +1,5 @@
 extends Control
 
-const PLACEHOLDER_IMG = preload("res://UI/Inventory/item_placeholder.png")
 const InventoryItemNode = preload("res://UI/Inventory/InventoryItem.tscn")
 const ItemDescriptionNode = preload("res://UI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
 
@@ -60,30 +59,14 @@ func _add_inventory_items(items) -> void:
 	for item in items:
 		var item_info = GlobalData.item_db.get_data(item.item_id)
 		if not item_info:
+			printerr("Could not find data for item_id: ", item.item_id)
 			continue
+		item_info.amount = item.amount
 		var item_node = InventoryItemNode.instance()
-		item_node.amount  = item.amount
-		item_node.player_item_id = item.player_item_id
-		item_node.weight = item_info.weight
-		item_node.database_name = item_info.database_name
-		
-		match item_info["type"]:
-			"consumeable":
-				item_node.type = InventoryItem.ItemType.CONSUMEABLE
-			"structure":
-				item_node.type = InventoryItem.ItemType.STRUCTURE
-			"equip":
-				item_node.type = InventoryItem.ItemType.EQUIP
-			_:
-				item_node.type = InventoryItem.ItemType.ETC
-		item_node.item_id = item.item_id
+		item_node.data = item_info
 		
 		var name = tr(item_info.database_name.to_upper())
 		var description = tr((item_info.database_name + "_description").to_upper())
-		var image_path = _database_name_to_image_path(item_info.database_name)
-		item_node.image = load(image_path)
-		if item_node.image == null:
-			item_node.image = PLACEHOLDER_IMG
 		item_node.connect("item_selected", self, "_on_item_selected")
 		_items.append(item_node)
 
@@ -192,13 +175,6 @@ func _show_displayed_items() -> void:
 		_items_grid.add_child(item)
 
 
-func _database_name_to_image_path(_database_name: String) -> String:
-	var base_path = "res://Game/Entity/Item/"
-	var cleaned_db_name = _database_name.capitalize().replace(" ", "")
-	
-	return base_path + cleaned_db_name + "/" + cleaned_db_name + ".png"
-
-
 func _on_item_selected(selected_item) -> void:
 	_remove_module()
 	# If null we just deselect all items and return.
@@ -222,8 +198,8 @@ func _on_item_selected(selected_item) -> void:
 		# Prepare the shortcut call
 		var shortcut_data = ShortcutData.new()
 		shortcut_data.type = ShortcutData.ShortcutType.ITEM
-		shortcut_data.icon = selected_item.image
-		shortcut_data.payload["player_item_id"] = selected_item.player_item_id
+		shortcut_data.icon = selected_item.data.image
+		shortcut_data.payload["player_item_id"] = selected_item.data.player_item_id
 		GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 	else:
 		_module.visible = false
@@ -249,7 +225,7 @@ func _draw_inventory_info():
 func get_total_weight() -> int:
 	var total_weight = 0
 	for i in _items:
-		total_weight += i.weight * i.amount
+		total_weight += i.data.weight * i.data.amount
 	return total_weight
 
 

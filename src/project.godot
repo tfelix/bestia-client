@@ -179,6 +179,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://VFX/FxMessage.gd"
 }, {
+"base": "Reference",
+"class": "GainPointData",
+"language": "GDScript",
+"path": "res://UI/StatusValues/GainPointData.gd"
+}, {
 "base": "Control",
 "class": "InventoryItem",
 "language": "GDScript",
@@ -193,6 +198,11 @@ _global_script_classes=[ {
 "class": "Item",
 "language": "GDScript",
 "path": "res://Game/Entity/Item/Item.gd"
+}, {
+"base": "Resource",
+"class": "ItemData",
+"language": "GDScript",
+"path": "res://UI/Inventory/ItemData.gd"
 }, {
 "base": "Reference",
 "class": "ItemDatabase",
@@ -285,6 +295,11 @@ _global_script_classes=[ {
 "path": "res://UI/AttackList/RequestAttackListMessage.gd"
 }, {
 "base": "Reference",
+"class": "RequestGainPointMessage",
+"language": "GDScript",
+"path": "res://UI/StatusValues/RequestGainPointMessage.gd"
+}, {
+"base": "Reference",
 "class": "RequestInventoryMessage",
 "language": "GDScript",
 "path": "res://UI/Inventory/RequestInventoryMessage.gd"
@@ -328,6 +343,11 @@ _global_script_classes=[ {
 "class": "StatusComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/StatusComponent.gd"
+}, {
+"base": "Resource",
+"class": "StatusValueData",
+"language": "GDScript",
+"path": "res://UI/StatusValues/StatusValueData.gd"
 }, {
 "base": "Spatial",
 "class": "Struct",
@@ -414,9 +434,11 @@ _global_script_class_icons={
 "FakeItemHandler": "",
 "FakeMobHandler": "",
 "FxMessage": "",
+"GainPointData": "",
 "InventoryItem": "",
 "InventoryUpdateMessage": "",
 "Item": "",
+"ItemData": "",
 "ItemDatabase": "",
 "ItemDescriptionModule": "",
 "ItemDropMessage": "",
@@ -435,6 +457,7 @@ _global_script_class_icons={
 "PositionComponent": "",
 "RangedAttackMessage": "",
 "RequestAttackListMessage": "",
+"RequestGainPointMessage": "",
 "RequestInventoryMessage": "",
 "ResponseAttackListMessage": "",
 "ScreenBottomText": "",
@@ -444,6 +467,7 @@ _global_script_class_icons={
 "ShortcutsService": "",
 "SpatialFollower": "",
 "StatusComponent": "",
+"StatusValueData": "",
 "Struct": "",
 "TemperatureData": "",
 "TimedTextLabel": "",
@@ -463,6 +487,7 @@ run/main_scene="res://tests/WalkTest/WalkTest.tscn"
 boot_splash/image="res://shared/img/splash.png"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
+config/version="0.0.1-alpha"
 
 [autoload]
 
