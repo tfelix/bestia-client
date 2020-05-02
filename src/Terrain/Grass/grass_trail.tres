@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
+
+float circle(in vec2 _st, in float _radius, in float blur){
+    vec2 dist = _st - vec2(0.5);
+	return 1. - smoothstep(_radius - (_radius * blur),
+                         _radius + (_radius * blur),
+                         dot(dist, dist) * 4.0);
+}
+
+void fragment() {
+	vec2 cs_pos = normalize((UV - vec2(0.5))) * 0.5 + vec2(0.5);
+	ALPHA = circle(UV, 0.4, 1.4) * COLOR.a;
+	ALBEDO = vec3(cs_pos.x, cs_pos.y, 0.0);
+}
+"
+
+[resource]
+shader = SubResource( 1 )

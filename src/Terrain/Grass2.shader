@@ -29,16 +29,7 @@ vec3 small_scale_displ(vec3 vertex, float time) {
 	return vec3(1.0, 0.35, 1.0) * d;
 }
 
-float sampled_scale(vec3 vertex_world) {
-	// We assume objects are placed within -25 to 25 in coordinates. Size must be adapted
-	// if the field is dynamic in size
-	vec2 uv_pos = vec2((vertex_world.x + 25.0) / 50.0, (vertex_world.z + 25.0) / 50.0); 
-	
-	// we must invert this channel as 0 means no change and blue means no grass at all.
-	return 1.0; // - texture(hide_texture, uv_pos).b;
-}
-
-vec3 rotateAboutAxis(vec3 v, float angle, vec3 normalized_axis, vec3 pivot) {
+vec3 rotate_about_axis(vec3 v, float angle, vec3 normalized_axis, vec3 pivot) {
 	vec3 shifted_v = v - pivot; 
 	
 	shifted_v = shifted_v * cos(angle) + cross(normalized_axis, shifted_v) * sin(angle) 
@@ -62,22 +53,22 @@ void vertex() {
 	if(hide > 0.1) {
 		VERTEX = vec3(0.0);
 	} else {
-		float rotation_angle = length(displacement) * max_rotation;
-		float rotation_angle_rad = PI2 * rotation_angle;
+		float rotation_angle = length(displacement) * max_rotation * PI2;
 		
-		// float pivot_offset = 0.1;
-		// vec3 mesh_top_world = (WORLD_MATRIX * vec4(0.0, 1.0, 0.0, 1.0)).xyz;
-		// vec3 pivot_point = mesh_world;
-		// vec3 pivot_point = vertex_world - mesh_top_world * pivot_offset;
+		float d = vertex_world.y - mesh_world.y;
+		vec3 pivot_point = vec3(vertex_world.x, vertex_world.y - d, vertex_world.z);
 		
-		vec3 rotation_axis = normalize(cross(vec3(displacement, 0.0), vec3(0.0, -1.0, 0.0)));
+		vec3 rotation_axis = normalize(cross(vec3(displacement.x, 0.0, displacement.y), vec3(0.0, -1.0, 0.0)));
 		
-		rotation_angle_rad = rotation_angle_rad * COLOR.r;
-		vec3 rotated = rotateAboutAxis(vertex_world, rotation_angle_rad, rotation_axis, mesh_world);
-		VERTEX = (model_matrix * vec4(rotated, 1.0)).xyz * 3.0;
+		rotation_angle = rotation_angle * COLOR.r;
+		vec3 rotated = rotate_about_axis(vertex_world, rotation_angle, rotation_axis, pivot_point);
+		
+		// Add wind influence
+		vec3 wind_displ = (large_scale_displ(mesh_world, TIME) + small_scale_displ(VERTEX, TIME)) * COLOR.r * wind_strenght;
+		
+		VERTEX = (model_matrix * vec4(rotated, 1.0)).xyz * 3.0 + wind_displ;
 	}
 }
-
 
 void fragment() {
 	vec2 base_uv = UV;

@@ -1,7 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://tests/GrassTrail.tres" type="Material" id=1]
+[ext_resource path="res://Terrain/Grass/grass_trail.tres" type="Material" id=1]
 [ext_resource path="res://Terrain/Grass/GrassTrail.gd" type="Script" id=2]
+
+
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.028436, 1 )
