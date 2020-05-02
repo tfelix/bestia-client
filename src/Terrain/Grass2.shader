@@ -1,23 +1,16 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
+
 uniform vec4 albedo : hint_color;
 uniform sampler2D texture_albedo : hint_albedo;
-uniform float specular;
-uniform float metallic;
-uniform float roughness : hint_range(0,1);
+uniform sampler2D displacement_map;
+
 uniform float point_size : hint_range(0,128);
-uniform float rim : hint_range(0,1);
-uniform float rim_tint : hint_range(0,1);
-uniform sampler2D texture_rim : hint_white;
-uniform float clearcoat : hint_range(0,1);
-uniform float clearcoat_gloss : hint_range(0,1);
-uniform sampler2D texture_clearcoat : hint_white;
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
 uniform vec3 camera_position = vec3(0.0);
 uniform float wind_strenght : hint_range(0,1) = 1.0;
+uniform float max_rotation : hint_range(0, 0.3) = 0.2;
+
+const float PI2 = 2.0 * 3.1415926;
 
 vec3 wind_displ() {
 	return vec3(0.0);
@@ -45,19 +38,43 @@ float sampled_scale(vec3 vertex_world) {
 	return 1.0; // - texture(hide_texture, uv_pos).b;
 }
 
+vec3 rotateAboutAxis(vec3 v, float angle, vec3 normalized_axis, vec3 pivot) {
+	vec3 shifted_v = v - pivot; 
+	
+	shifted_v = shifted_v * cos(angle) + cross(normalized_axis, shifted_v) * sin(angle) 
+		+ normalized_axis * (dot(normalized_axis, shifted_v)) * (1.0 - cos(angle));
+	
+	return shifted_v + pivot;
+}
 
 void vertex() {
+	mat4 model_matrix = inverse(WORLD_MATRIX);
 	vec3 vertex_world = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	vec3 mesh_world = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 	
-	float distance_falloff = 1.0 - smoothstep(0.1, 1.0, 0.025 * distance(camera_position, mesh_world));
+	vec2 mesh_world_uv = (mesh_world.xz + vec2(25.0)) / 50.0;
 	
-	// If the distance gets to high and effect to little we stop evaluating costly vertex displacements
-	if(distance_falloff > 0.01) {
-		vec3 large_scale = large_scale_displ(mesh_world, TIME + float(INSTANCE_ID));
-		vec3 small_scale = small_scale_displ(mesh_world, TIME);
-		vec3 wind = wind_displ();
-		VERTEX += wind_strenght * (small_scale + large_scale + wind) * COLOR.x * distance_falloff;
+	vec3 displacement_sample = texture(displacement_map, mesh_world_uv).rgb;
+	float hide = displacement_sample.b;
+	// We must correct back again to our vector space
+	vec2 displacement = displacement_sample.rg * 2.0 - vec2(1.0);
+	
+	if(hide > 0.1) {
+		VERTEX = vec3(0.0);
+	} else {
+		float rotation_angle = length(displacement) * max_rotation;
+		float rotation_angle_rad = PI2 * rotation_angle;
+		
+		// float pivot_offset = 0.1;
+		// vec3 mesh_top_world = (WORLD_MATRIX * vec4(0.0, 1.0, 0.0, 1.0)).xyz;
+		// vec3 pivot_point = mesh_world;
+		// vec3 pivot_point = vertex_world - mesh_top_world * pivot_offset;
+		
+		vec3 rotation_axis = normalize(cross(vec3(displacement, 0.0), vec3(0.0, -1.0, 0.0)));
+		
+		rotation_angle_rad = rotation_angle_rad * COLOR.r;
+		vec3 rotated = rotateAboutAxis(vertex_world, rotation_angle_rad, rotation_axis, mesh_world);
+		VERTEX = (model_matrix * vec4(rotated, 1.0)).xyz * 3.0;
 	}
 }
 
@@ -65,12 +82,7 @@ void vertex() {
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = (albedo.rgb * albedo_tex.rgb) * (0.8 * COLOR.r + 0.2);
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-	vec2 rim_tex = texture(texture_rim,base_uv).xy;
-	RIM = rim*rim_tex.x;	RIM_TINT = rim_tint*rim_tex.y;
-	vec2 clearcoat_tex = texture(texture_clearcoat,base_uv).xy;
-	CLEARCOAT = clearcoat*clearcoat_tex.x;	CLEARCOAT_GLOSS = clearcoat_gloss*clearcoat_tex.y;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	ALPHA = albedo.a;
+	ALPHA_SCISSOR = 0.97;
 }

@@ -1,20 +1,36 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Terrain/GrassLump2/Grass.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://tests/GrassField.gd" type="Script" id=2]
+[ext_resource path="res://tests/GrassTrail.tres" type="Material" id=3]
+[ext_resource path="res://Terrain/Grass/GrassTrail.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Terrain/grass_03/hp_03.png" type="Texture" id=5]
+[ext_resource path="res://Terrain/grass_03/hp_03_r.png" type="Texture" id=6]
+[ext_resource path="res://Terrain/grass_03/hp_03_n.png" type="Texture" id=7]
+[ext_resource path="res://Terrain/grass_03/hp_03_s.png" type="Texture" id=8]
 
-[sub_resource type="MultiMesh" id=1]
+[sub_resource type="MultiMesh" id=3]
 transform_format = 1
 custom_data_format = 2
 mesh = ExtResource( 1 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "grass_hide"
+[sub_resource type="Animation" id=4]
 length = 10.0
 loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 8, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.5, 0 ), Vector3( -16.4166, 1.5, -14.519 ), Vector3( -16.3045, 1.5, 9.47165 ), Vector3( 0, 1.5, 0 ) ]
+}
 
-[sub_resource type="Animation" id=3]
-resource_name = "slide"
+[sub_resource type="Animation" id=5]
 length = 18.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:translation")
@@ -41,30 +57,26 @@ tracks/1/keys = {
 "values": [ Vector3( -7.426, 0, 0 ), Vector3( -7.426, 0, 0 ), Vector3( 0, -180, 0 ), Vector3( 0, 180, 0 ) ]
 }
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 50, 1, 50 )
+[sub_resource type="QuadMesh" id=6]
+size = Vector2( 50, 50 )
 
-[sub_resource type="QuadMesh" id=5]
-size = Vector2( 100, 100 )
-
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 flags_unshaded = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
-albedo_color = Color( 0.5, 0.5, 0, 1 )
+albedo_color = Color( 0.501961, 0.501961, 0, 1 )
 
-[sub_resource type="ViewportTexture" id=7]
+[sub_resource type="ViewportTexture" id=8]
 viewport_path = NodePath("GrassHideViewport")
 
-[sub_resource type="ProceduralSky" id=8]
+[sub_resource type="ProceduralSky" id=9]
 
-[sub_resource type="Environment" id=9]
+[sub_resource type="Environment" id=10]
 background_mode = 2
-background_sky = SubResource( 8 )
-fog_enabled = true
+background_sky = SubResource( 9 )
 tonemap_mode = 2
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="Shader" id=11]
 code = "shader_type spatial;
 render_mode blend_add,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
 
@@ -94,49 +106,48 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
 shader_param/is_circular = false
 
-[sub_resource type="QuadMesh" id=12]
-material = SubResource( 11 )
+[sub_resource type="QuadMesh" id=13]
+material = SubResource( 12 )
 size = Vector2( 25, 10 )
 
-[sub_resource type="Shader" id=13]
-code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
-
-float circle(in vec2 _st, in float _radius){
-    vec2 dist = _st - vec2(0.5);
-	return 1. - smoothstep(_radius - (_radius * 0.01),
-                         _radius + (_radius * 0.01),
-                         dot(dist, dist) * 4.0);
-}
-
-void fragment() {
-	const vec2 center = vec2(1.0);
-	vec2 cs_pos = (vec2(0.5) - UV) * 2.0;
-	
-	vec2 pos = (cs_pos + 1.0) / 2.0;
-	float d = smoothstep(1.0, 0.0, length(cs_pos));
-	
-	ALBEDO = vec3(pos.x * d, pos.y * d, 0.0);
-	ALPHA = d;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 13 )
+[sub_resource type="QuadMesh" id=14]
+material = ExtResource( 3 )
+size = Vector2( 20, 20 )
 
 [sub_resource type="QuadMesh" id=15]
-material = SubResource( 14 )
-size = Vector2( 10, 10 )
-
-[sub_resource type="QuadMesh" id=16]
 size = Vector2( 50, 50 )
 
-[sub_resource type="SpatialMaterial" id=17]
-albedo_color = Color( 0.592157, 0.545098, 0.152941, 1 )
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 0.631373, 0.572549, 0.188235, 1 )
+albedo_texture = ExtResource( 5 )
+metallic_texture = ExtResource( 8 )
+roughness_texture = ExtResource( 6 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 7 )
+uv1_scale = Vector3( 3, 3, 1 )
+
+[sub_resource type="CapsuleMesh" id=17]
+
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0, 0.028436, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
+width = 1024
+
+[sub_resource type="ParticlesMaterial" id=20]
+gravity = Vector3( 0, 0, 0 )
+scale = 5.0
+color_ramp = SubResource( 19 )
+
+[sub_resource type="QuadMesh" id=21]
+material = ExtResource( 3 )
 
 [node name="ShaderTest" type="Spatial"]
 script = ExtResource( 2 )
@@ -147,43 +158,38 @@ light_energy = 0.8
 shadow_enabled = true
 
 [node name="Grass" type="MultiMeshInstance" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, -0.414295 )
-multimesh = SubResource( 1 )
+multimesh = SubResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2.00554, 13.2778 )
+transform = Transform( 1, 0, 0, 0, 0.818351, 0.574719, 0, -0.574719, 0.818351, -10.7892, 16.4063, 21.5911 )
 cull_mask = 1048573
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "grass_hide"
-playback_speed = 0.1
-anims/grass_hide = SubResource( 2 )
-anims/slide = SubResource( 3 )
-
-[node name="GrassHideCollector" type="Area" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="GrassHideCollector"]
-shape = SubResource( 4 )
+anims/grass_hide = SubResource( 4 )
+anims/slide = SubResource( 5 )
 
 [node name="GrassHideViewport" type="Viewport" parent="."]
 size = Vector2( 1024, 1024 )
+transparent_bg = true
 handle_input_locally = false
 hdr = false
-keep_3d_linear = true
+render_target_v_flip = true
 gui_disable_input = true
 
 [node name="Camera" type="Camera" parent="GrassHideViewport"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
 cull_mask = 2
 projection = 1
-size = 100.0
+size = 50.0
+far = 20.0
 
-[node name="FakeBackground" type="MeshInstance" parent="GrassHideViewport"]
+[node name="Background" type="MeshInstance" parent="GrassHideViewport"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -4.32172, 0 )
 layers = 2
 cast_shadow = 0
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="TextureRect3D" type="TextureRect" parent="."]
 anchor_left = 1.0
@@ -193,7 +199,7 @@ anchor_bottom = 1.0
 margin_left = -256.0
 margin_top = -256.0
 rect_min_size = Vector2( 256, 256 )
-texture = SubResource( 7 )
+texture = SubResource( 8 )
 expand = true
 stretch_mode = 1
 __meta__ = {
@@ -201,33 +207,52 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 9 )
+environment = SubResource( 10 )
 
 [node name="GrassHider" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.481533, 0.0311279, -21.212 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+visible = false
 layers = 2
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="GrassPusher" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.87969, 0.0311279, -34.397 )
-layers = 2
-mesh = SubResource( 15 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="GrassPusher2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5.41803, 0.0311279, -37.9896 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -13.2307, 0.0311279, 14.5614 )
 layers = 2
-mesh = SubResource( 15 )
+mesh = SubResource( 14 )
 material/0 = null
 
 [node name="GrassHider2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8.85404, 0, -25.1854 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.45755, 0.147888, 14.6484 )
 layers = 2
-mesh = SubResource( 12 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="Ground" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 16 )
-material/0 = SubResource( 17 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
+
+[node name="Player" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+visible = false
+mesh = SubResource( 17 )
+material/0 = null
+
+[node name="GrassTrail" parent="Player" instance=ExtResource( 4 )]
+
+[node name="Player2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.51557, 1.5, -17.7863 )
+visible = false
+mesh = SubResource( 17 )
+material/0 = null
+
+[node name="GrassTrail" type="Particles" parent="Player2"]
+transform = Transform( 1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0 )
+layers = 2
+amount = 30
+lifetime = 5.0
+local_coords = false
+draw_order = 1
+process_material = SubResource( 20 )
+draw_pass_1 = SubResource( 21 )
