@@ -19,6 +19,9 @@ export var player_item_id: int = 0
 export var image: Texture
 export var visual: String
 
+var tr_database_name: String setget ,_get_tr_database_name
+var tr_description: String setget ,_get_tr_description
+
 
 """
 Returns true if the user can use an item. This is true for several item types.
@@ -40,3 +43,11 @@ func _database_name_to_image_path(_database_name: String) -> String:
 	var cleaned_db_name = _database_name.capitalize().replace(" ", "")
 	
 	return base_path + cleaned_db_name + "/" + cleaned_db_name + ".png"
+
+
+func _get_tr_database_name() -> String:
+	return tr(database_name.to_upper())
+
+
+func _get_tr_description() -> String:
+	return tr((database_name + "_description").to_upper())

@@ -48,6 +48,10 @@ func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
 	_add_inventory_items(payload.items)
 	_display_all_items()
 	_draw_inventory_info()
+	var updated_items = []
+	for item in _items:
+		updated_items.append(item.data)
+	GlobalEvents.emit_signal("onInventoryItemsUpdated", updated_items)
 
 
 func _clear_inventory_items() -> void:
@@ -67,8 +71,6 @@ func _add_inventory_items(items) -> void:
 		var item_node = InventoryItemNode.instance()
 		item_node.data = item_info
 		
-		var name = tr(item_info.database_name.to_upper())
-		var description = tr((item_info.database_name + "_description").to_upper())
 		item_node.connect("item_selected", self, "_on_item_selected")
 		_items.append(item_node)
 
@@ -84,17 +86,17 @@ func _on_shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
 Tries to use a certain item
 """
 func use_item(player_item_id)-> void:
-	print_debug("use_shortcut_item with pid ", player_item_id)
+	print_debug("use_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
 	var pi = _get_item(player_item_id)
 	if pi == null:
-		print_debug("use_shortcut_item with pid ", player_item_id, " not found")
+		print_debug("use_item with pid ", player_item_id, " not found")
 		return
 	if not pi.data.is_usable() || pi.data.amount < 1:
-		print_debug("use_shortcut_item with pid ", player_item_id, " not usable")
+		print_debug("use_item with pid ", player_item_id, " not usable")
 		return
-	# TODO We need to check by the server if the player is actually allowed to
-	# use the item
+	# We need to check with the server if the player is actually allowed
+	# to use this item. Maybe we can just use it and react on the response?
 	var use_msg = ItemUseRequestMessage.new()
 	use_msg.player_item_id = player_item_id
 	use_msg.request_id = UUID.create()

@@ -9,6 +9,7 @@ export(String) var shortcut_action_name = "shortcut_1"
 onready var _color_player = $ColorPlayer
 onready var _label = $Container/Label
 onready var _icon = $Container/Icon
+onready var _counter_label = $Container/Icon/ItemCount
 
 var shortcut_data: ShortcutData
 
@@ -20,13 +21,36 @@ func _ready():
 	var firstAction = actions[0]
 	_label.text = firstAction.as_text()
 	GlobalData.shortcut_service.connect("shortcuts_changed", self, "_load_shortcut_data")
+	GlobalEvents.connect("onInventoryItemsUpdated", self, "_inventory_items_updated")
 	_load_shortcut_data()
+
+
+"""
+If we have a shortcut saved as an item type we want to display its count.
+"""
+func _inventory_items_updated(updated_items) -> void:
+	if shortcut_data == null:
+		return
+	if shortcut_data.type != ShortcutData.ShortcutType.ITEM:
+		return
+	var player_item_id = shortcut_data.payload["player_item_id"]
+	var updated_item: ItemData = null
+	for i in updated_items:
+		if i.player_item_id == player_item_id:
+			updated_item = i
+			break
+	if updated_item == null:
+		print_debug("shortcut item was not found in updated items")
+		return
+	_counter_label.text = str(updated_item.amount)
 
 
 func _load_shortcut_data() -> void:
 	shortcut_data = GlobalData.shortcut_service.get_shortcut(shortcut_action_name)
 	if shortcut_data:
 		_icon.texture = shortcut_data.icon
+		if shortcut_data.type == ShortcutData.ShortcutType.ITEM:
+			_counter_label.visible = true
 	else:
 		_icon.texture = null
 

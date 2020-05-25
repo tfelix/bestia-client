@@ -26,6 +26,7 @@ signal onSkillCasted(attack, entity, target)
 # Inventory Signals
 signal onItemUsed(player_item_id)
 signal onInventoryUpdate(inventory_update)
+signal onInventoryItemsUpdated(updated_items)
 
 # Chat Signals
 signal onChatReceived(chat)

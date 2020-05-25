@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Inventory/item_placeholder.png" type="Texture" id=1]
-[ext_resource path="res://shared/fonts/NESCyrillic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/Inventory/ItemCountFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/Inventory/item_highlight.png" type="Texture" id=3]
 [ext_resource path="res://UI/Inventory/InventoryItem.gd" type="Script" id=4]
-
-[sub_resource type="DynamicFont" id=1]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 2 )
 
 [node name="InventoryItem" type="Control"]
 margin_right = 40.0
@@ -59,7 +54,7 @@ margin_top = -15.9433
 margin_right = -2.50941
 margin_bottom = -3.94334
 grow_horizontal = 0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "1"
 align = 2
 __meta__ = {

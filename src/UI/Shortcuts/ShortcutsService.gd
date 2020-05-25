@@ -22,7 +22,7 @@ func load_data() -> void:
 		dir.remove(SAVE_FILE)
 		return
 	for slot in shortcuts.shortcuts.keys():
-		_shortcuts[slot] = shortcuts[slot]
+		_shortcuts[slot] = shortcuts.shortcuts[slot]
 
 
 func get_shortcut(slot: String) -> ShortcutData:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/Shortcuts/Shortcut/Shortcut.gd" type="Script" id=1]
+[ext_resource path="res://UI/Inventory/ItemCountFont.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.32549, 0.32549, 0.32549, 1 )
@@ -55,6 +56,21 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 expand = true
 stretch_mode = 6
+
+[node name="ItemCount" type="Label" parent="Container/Icon"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -14.0
+custom_fonts/font = ExtResource( 2 )
+text = "12"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Container"]
 margin_top = 44.0
