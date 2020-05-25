@@ -6,8 +6,8 @@ onready var _audio_click = $AudioClick
 
 
 func set_attack(atk: AttackData):
-	_title.text = tr(atk.db_name)
-	_desc.text = tr(atk.db_name + "_DESC")
+	_title.text = atk.tr_name
+	_desc.text = atk.tr_description
 
 
 func _on_Close_pressed():

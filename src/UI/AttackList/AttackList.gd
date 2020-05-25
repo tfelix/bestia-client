@@ -18,7 +18,7 @@ func _ready():
 	_render_filtered_attacks()
 
 
-func _shortcut_pressed(action_name, shortcut) -> void:
+func _shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
 	if not shortcut.type == ShortcutData.ShortcutType.ATTACK:
 		return
 	var attack_entity_id = shortcut.payload["attack_entity_id"]
@@ -49,7 +49,8 @@ func _render_filtered_attacks() -> void:
 	var search_name = _search_text.text
 	var displayed_attacks = []
 	for atk in _attacks:
-		if search_name.empty() || atk.name.find(search_name) != -1:
+		print_debug(atk.tr_name.find(search_name))
+		if search_name.empty() || atk.tr_name.findn(search_name) != -1:
 			displayed_attacks.append(atk)
 	
 	for atk in displayed_attacks:
