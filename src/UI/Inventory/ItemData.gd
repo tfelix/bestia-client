@@ -17,6 +17,14 @@ export var item_id: int = 0
 export var amount: int = 0
 export var player_item_id: int = 0
 export var image: Texture
+export var visual: String
+
+
+"""
+Returns true if the user can use an item. This is true for several item types.
+"""
+func is_usable() -> bool:
+	return type == ItemType.CONSUMEABLE || type == ItemType.EQUIP || type == ItemType.STRUCTURE
 
 
 func _set_database_name(new_value: String) -> void:

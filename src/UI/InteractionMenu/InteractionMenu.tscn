@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=1]
+[ext_resource path="res://UI/InteractionMenu/InteractionMenu.gd" type="Script" id=2]
 
 [node name="InteractionMenu" type="Control"]
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

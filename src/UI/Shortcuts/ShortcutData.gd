@@ -7,6 +7,5 @@ enum ShortcutType {
 }
 
 export(ShortcutType) var type
-export var slot: String = ""
 export var icon: Texture
 export var payload = {}

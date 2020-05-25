@@ -1,27 +1,25 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Game/Entity/Component/NameComponent.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Mob/Testor/Testor.gd" type="Script" id=2]
 [ext_resource path="res://Game/Entity/Mob/Mob.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Game/Entity/Entity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Entity/Component/ConditionComponent.gd" type="Script" id=5]
 [ext_resource path="res://Game/Entity/Mob/Testor/TestorBody.tres" type="Material" id=6]
 [ext_resource path="res://Game/Entity/Mob/Testor/growl.wav" type="AudioStream" id=7]
 [ext_resource path="res://Game/Entity/Component/VisualComponent.gd" type="Script" id=8]
 
-
-[sub_resource type="CapsuleMesh" id=3]
+[sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=2]
 emission_enabled = true
 emission = Color( 0.992157, 0.945098, 0.266667, 1 )
 emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
 radius = 0.2
 height = 0.4
 radial_segments = 12
@@ -121,16 +119,15 @@ script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.890747, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 material/0 = ExtResource( 6 )
 
 [node name="Eye" type="MeshInstance" parent="MeshInstance" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.462247, -0.530953 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
-[node name="Entity" parent="." index="1" instance=ExtResource( 4 )]
-behavior_group = 1
+[node name="Entity" parent="." index="1"]
 aabb_visual_instance_path = NodePath("../MeshInstance")
 
 [node name="NameComponent" type="Node" parent="Entity/Components" index="0"]

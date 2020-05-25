@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "BehaviorService",
 "language": "GDScript",
-"path": "res://Game/Entity/BehaviorService.gd"
+"path": "res://Game/Entity/InteractionService.gd"
 }, {
 "base": "MarginContainer",
 "class": "BestiaPortrait",
@@ -183,6 +183,16 @@ _global_script_classes=[ {
 "class": "GainPointData",
 "language": "GDScript",
 "path": "res://UI/StatusValues/GainPointData.gd"
+}, {
+"base": "Reference",
+"class": "InteractionRequest",
+"language": "GDScript",
+"path": "res://Game/Entity/InteractionRequest.gd"
+}, {
+"base": "Reference",
+"class": "InteractionResponse",
+"language": "GDScript",
+"path": "res://Game/Entity/InteractionResponse.gd"
 }, {
 "base": "Control",
 "class": "InventoryItem",
@@ -435,6 +445,8 @@ _global_script_class_icons={
 "FakeMobHandler": "",
 "FxMessage": "",
 "GainPointData": "",
+"InteractionRequest": "",
+"InteractionResponse": "",
 "InventoryItem": "",
 "InventoryUpdateMessage": "",
 "Item": "",
@@ -510,7 +522,7 @@ window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "decals" )
+enabled=PoolStringArray( "decals", "protobuf" )
 
 [global]
 

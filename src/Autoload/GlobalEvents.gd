@@ -14,6 +14,7 @@ signal onEnemySpawned(entity)
 
 
 # Player Signals
+signal onPlayerMoved(global_pos)
 signal onPlayerInteract(entity, interaction)
 signal onPlayerEntityUpdated(player)
 signal onBuildingEntered(building_id)

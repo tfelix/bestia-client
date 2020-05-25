@@ -7,8 +7,6 @@
 radius = 0.2
 
 [sub_resource type="SpatialMaterial" id=2]
-flags_unshaded = true
-params_cull_mode = 2
 
 [node name="Arrow" type="Spatial"]
 script = ExtResource( 1 )

@@ -1,3 +1,6 @@
+"""
+Responsible for displaying the right cursor image when hovering over entites.
+"""
 extends Node
 class_name CursorManager
 
@@ -119,8 +122,6 @@ func _on_over_entity_cursor() -> void:
 			_adapt_mouse_icon(cursor_pickup)
 		_:
 			_adapt_mouse_icon(cursor_interact)
-	
-	
 
 
 func _reset_cursor(entity: Entity) -> void:

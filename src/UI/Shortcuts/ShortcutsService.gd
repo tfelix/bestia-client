@@ -21,8 +21,8 @@ func load_data() -> void:
 		var dir := Directory.new()
 		dir.remove(SAVE_FILE)
 		return
-	for sc in shortcuts.shortcuts:
-		_shortcuts[sc.slot] = sc
+	for slot in shortcuts.shortcuts.keys():
+		_shortcuts[slot] = shortcuts[slot]
 
 
 func get_shortcut(slot: String) -> ShortcutData:
@@ -48,8 +48,8 @@ func save_shortcut(slot: String, payload: ShortcutData) -> void:
 
 func _persist_locally() -> void:
 	var shortcuts := ShortcutsData.new()
-	for sc in _shortcuts.values():
-		shortcuts.shortcuts.append(sc)
+	for key in _shortcuts.keys():
+		shortcuts.shortcuts[key] = _shortcuts[key]
 	
 	var error: int = ResourceSaver.save(SAVE_FILE, shortcuts)
 	if error != OK:

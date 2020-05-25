@@ -2,6 +2,7 @@ extends Control
 
 const InventoryItemNode = preload("res://UI/Inventory/InventoryItem.tscn")
 const ItemDescriptionNode = preload("res://UI/Inventory/ItemDescriptionModule/ItemDescriptionModule.tscn")
+const ItemDropDialog = preload("res://UI/Inventory/ItemDropDialog/ItemDropDialog.tscn")
 
 class InventoryInfo:
 	var max_weight: int
@@ -62,6 +63,7 @@ func _add_inventory_items(items) -> void:
 			printerr("Could not find data for item_id: ", item.item_id)
 			continue
 		item_info.amount = item.amount
+		item_info.player_item_id = item.player_item_id
 		var item_node = InventoryItemNode.instance()
 		item_node.data = item_info
 		
@@ -88,7 +90,7 @@ func use_item(player_item_id)-> void:
 	if pi == null:
 		print_debug("use_shortcut_item with pid ", player_item_id, " not found")
 		return
-	if pi.is_usable() != true || pi.amount < 1:
+	if not pi.data.is_usable() || pi.data.amount < 1:
 		print_debug("use_shortcut_item with pid ", player_item_id, " not usable")
 		return
 	# TODO We need to check by the server if the player is actually allowed to
@@ -98,6 +100,13 @@ func use_item(player_item_id)-> void:
 	use_msg.request_id = UUID.create()
 	_item_use_request_id = use_msg.request_id
 	GlobalEvents.emit_signal("onMessageSend", use_msg)
+
+
+func drop_item(item_data) -> void:
+	var item_drop_modal = ItemDropDialog.instance()
+	get_tree().root.add_child(item_drop_modal)
+	item_drop_modal.ask_drop_amount(item_data)
+	item_drop_modal.popup_centered()
 
 
 func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
@@ -118,7 +127,7 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 	# If the item is just a consumable we can just use it.
 	var item = _get_item(msg.player_item_id)
 	
-	if item.type == InventoryItem.ItemType.CONSUMEABLE:
+	if item.data.type == ItemData.ItemType.CONSUMEABLE:
 		var use_msg = ItemUseMessage.new()
 		use_msg.player_item_id = msg.player_item_id
 		GlobalEvents.emit_signal("onMessageSend", use_msg)
@@ -150,7 +159,7 @@ func _construction_ended(entity) -> void:
 
 func _get_item(pid: int) -> ItemModel:
 	for item in _items:
-		if pid == item.player_item_id:
+		if pid == item.data.player_item_id:
 			return item
 	return null
 
@@ -275,8 +284,8 @@ func _filter_displayed_items(filter_name: String) -> void:
 	for item in _items:
 		# Might be a bit wasteful but we have no proper other way
 		# to fetch the databse name.
-		var item_node = _get_item(item.player_item_id)
-		if tr(item_node.database_name).to_upper().begins_with(filter_name_upper):
+		var item_node = _get_item(item.data.player_item_id)
+		if tr(item_node.data.database_name).to_upper().begins_with(filter_name_upper):
 			_displayed_items.append(item)
 	_show_displayed_items()
 

@@ -68,6 +68,7 @@ func _send_to_entity(msg) -> Entity:
 			e = _spawner.spawn_entity(msg.data["visual"])
 			assert(e != null)
 			add_child(e)
+			_entities[msg.entity_id] = e
 		else:
 			# Probably we sadly need some kind of caching for some time if
 			# a visual component arrives later...

@@ -4,9 +4,9 @@ onready var _item_img = $MarginContainer/VBox/HBoxHeader/ItemImg
 onready var _item_name = $MarginContainer/VBox/HBoxHeader/ItemName
 onready var _item_spinner = $MarginContainer/VBox/InputMargin/CenterContainer/HBoxInput/SpinBox
 
-var _item: InventoryItem
+var _item: ItemData
 
-func ask_drop_amount(item: InventoryItem) -> void:
+func ask_drop_amount(item: ItemData) -> void:
 	_item = item
 	_item_spinner.max_value = _item.amount
 	_item_img.texture = item.image

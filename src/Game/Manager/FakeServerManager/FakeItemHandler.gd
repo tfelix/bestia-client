@@ -109,16 +109,19 @@ func drop_item(msg: ItemDropMessage) -> void:
 	var visual_data = ComponentData.new()
 	visual_data.entity_id = item_entity_id
 	visual_data.component_name = VisualComponent.NAME
-	visual_data.data["visual"] = "item/%s" % info["visual"]
+	visual_data.data["visual"] = "item/%s" % info.visual
 	visual_data.data["animation"] = "spawn"
 	GlobalEvents.emit_signal("onMessageReceived", visual_data)
 	
+	# Position the item to the player position.
+	var player = GlobalData.entities.get_entity(GlobalData.client_account_id)
+	var player_pos = player.get_component(PositionComponent.NAME)
 	var pos_data = ComponentData.new()
 	pos_data.entity_id = item_entity_id
 	pos_data.component_name = PositionComponent.NAME
-	pos_data.data["x"] = 5
-	pos_data.data["y"] = 0
-	pos_data.data["z"] = 4
+	pos_data.data["x"] = player_pos.x
+	pos_data.data["y"] = player_pos.y
+	pos_data.data["z"] = player_pos.z
 	GlobalEvents.emit_signal("onMessageReceived", pos_data)
 
 func send_items() -> void:

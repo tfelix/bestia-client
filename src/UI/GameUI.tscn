@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://UI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://UI/BestiaPortraits/BestiaPortraits.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Inventory/Inventory.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/AttackList/AttackList.tscn" type="PackedScene" id=10]
+[ext_resource path="res://UI/Inventory/ItemDropZone.tscn" type="PackedScene" id=11]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -19,6 +20,12 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ItemDropZone" parent="." instance=ExtResource( 11 )]
+visible = false
+margin_top = -3.0
+margin_bottom = -3.0
+dropzone = "drop_item"
 
 [node name="WeatherDebug" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -60,6 +67,7 @@ margin_right = 0.0
 margin_bottom = 0.0
 
 [node name="BestiaPortraits" parent="." instance=ExtResource( 8 )]
+visible = false
 margin_top = 110.0
 margin_bottom = 529.0
 
@@ -74,6 +82,7 @@ visible = false
 margin_left = 282.549
 margin_top = 10.0
 margin_right = 810.549
+[connection signal="item_dropped" from="ItemDropZone" to="." method="_on_ItemDropZone_item_dropped"]
 [connection signal="on_attacks_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_attacks_pressed"]
 [connection signal="on_inventory_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_inventory_pressed"]
 [connection signal="status_values_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_status_values_pressed"]

@@ -28,7 +28,7 @@ onready var _attack_delay = $AttackDelay
 onready var _entity = $Entity
 
 func _ready():
-	GlobalEvents.connect("onTerrainClicked", self, "_terrain_clicked")
+	GlobalEvents.connect("onPlayerMoved", self, "_terrain_clicked")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 	GlobalEvents.connect("onPlayerInteract", self, "_on_player_interact")

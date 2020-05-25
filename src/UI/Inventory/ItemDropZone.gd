@@ -4,11 +4,15 @@ so the inventory can ask for the item to be dropped to the ground.
 """
 extends Control
 
-signal item_dropped(item)
+signal item_dropped(item_data, dropzone)
+
+"""
+Name of the dropzone where the item is dropped.
+"""
+export var dropzone: String
 
 func can_drop_data(position, data):
-	return true
-
+	return data is ItemData
 
 func drop_data(position, data):
-	print_debug("item dropped")
+	emit_signal("item_dropped", data, dropzone)

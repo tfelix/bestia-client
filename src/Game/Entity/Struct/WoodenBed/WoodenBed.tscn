@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Game/Entity/Struct/Struct.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/Entity/Component/DataComponent.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.603922, 0.352941, 0.129412, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 2 )
+size = Vector3( 1, 0.4, 2 )
+
+[node name="WoodenBed" instance=ExtResource( 1 )]
+
+[node name="Entity" parent="." index="0"]
+behavior_group = 4
+aabb_visual_instance_path = NodePath("../Bed")
+
+[node name="DataComponent" type="Node" parent="Entity/Components" index="0"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
+transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )
+shape = SubResource( 1 )
+
+[node name="Bed" type="MeshInstance" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185556, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Collision" type="StaticBody" parent="." index="2"]
+input_ray_pickable = false
+collision_mask = 22
+
+[node name="CollisionShape" type="CollisionShape" parent="Collision" index="0"]
+transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )
+shape = SubResource( 1 )
+
+[editable path="Entity"]

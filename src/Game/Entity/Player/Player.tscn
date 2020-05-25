@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Game/Entity/Component/WeaponComponent.gd" type="Script" id=6]
 [ext_resource path="res://Game/Entity/Component/StatusComponent.gd" type="Script" id=7]
 [ext_resource path="res://Game/Entity/Component/ConditionComponent.gd" type="Script" id=8]
+[ext_resource path="res://Game/Entity/Component/PositionComponent.gd" type="Script" id=9]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.1
@@ -20,10 +21,10 @@ collision_mask = 33
 script = ExtResource( 1 )
 
 [node name="Mannequiny" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.132501 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0.150976 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.285209, 0, 0, 0, 1, 1.06581e-14, 0, -2.95373e-15, 0.277135, 0, 0.935579, 0.108137 )
+transform = Transform( 0.285209, 0, 0, 0, 1, 0, 0, 0, 0.277135, 0, 0.936, 0 )
 shape = SubResource( 1 )
 
 [node name="MoveCursor" parent="." instance=ExtResource( 3 )]
@@ -58,6 +59,9 @@ max_mana = 120
 cur_mana = 100
 max_stamina = 100
 cur_stamina = 100
+
+[node name="PositionComponent" type="Node" parent="Entity/Components" index="4"]
+script = ExtResource( 9 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.93633, 0 )

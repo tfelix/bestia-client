@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://UI/CharacterBars/CharacterBars.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Game/Sky/Sky.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Game/Entity/Struct/WoodenBed/WoodenBed.tscn" type="PackedScene" id=23]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -35,7 +36,7 @@ size = Vector2( 50, 50 )
 albedo_color = Color( 0.662745, 0.752941, 0.435294, 1 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 20, 20, 0.2 )
+extents = Vector3( 20, 20, 0.1 )
 
 [node name="WalkTest" type="Spatial"]
 script = ExtResource( 14 )
@@ -74,7 +75,7 @@ collision_mask = 15
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 4.97862e-09, -0.113898 )
 shape = SubResource( 4 )
 
 [node name="Selection" parent="." instance=ExtResource( 5 )]
@@ -90,7 +91,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3211, 0, 14.8658 )
 transform = Transform( 0.888873, 0, -0.458153, 0, 1, 0, 0.458153, 0, 0.888873, 8.0558, 0, 11.7626 )
 
 [node name="Player" parent="Entities" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19209e-07, 15 )
 
 [node name="Rain" parent="Entities/Player" instance=ExtResource( 15 )]
 visible = false
@@ -117,6 +118,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10561, 0, -8.17997 )
 [node name="Testor3" parent="Entities" instance=ExtResource( 4 )]
 transform = Transform( 0.793491, 0, -0.608581, 0, 1, 0, 0.608581, 0, 0.793491, -3.24474, 0, 13.2876 )
 enabled = false
+
+[node name="WoodenBed" parent="Entities" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.21642, 0, 16.4002 )
 
 [node name="GameUI" parent="." instance=ExtResource( 17 )]
 

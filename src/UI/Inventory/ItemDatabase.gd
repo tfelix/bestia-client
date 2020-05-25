@@ -33,6 +33,7 @@ func _dict_to_res(dict) -> ItemData:
 	var res = ItemData.new()
 	res.database_name = dict["database_name"]
 	res.weight = dict["weight"]
+	res.visual = dict["visual"]
 	match dict["type"]:
 		"consumeable":
 			res.type = ItemData.ItemType.CONSUMEABLE

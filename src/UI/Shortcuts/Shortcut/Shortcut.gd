@@ -39,6 +39,21 @@ func _trigger_shortcut_flashing() -> void:
 		_color_player.play("flash")
 
 
+func can_drop_data(position, data):
+	return (data is ItemData) or (data is AttackData)
+
+
+func drop_data(position, data):
+	if data is ItemData:
+		print_debug("item dropped")
+		var shortcut = ShortcutData.new()
+		shortcut.type = ShortcutData.ShortcutType.ITEM
+		shortcut.icon = data.image
+		GlobalData.shortcut_service.save_shortcut(shortcut_action_name, shortcut)
+	elif data is AttackData:
+		print_debug("attack dropped")
+
+
 func _unhandled_key_input(event) -> void:
 	if event.is_action_pressed(shortcut_action_name):
 		emit_signal("shortcut_clicked", shortcut_action_name, self)

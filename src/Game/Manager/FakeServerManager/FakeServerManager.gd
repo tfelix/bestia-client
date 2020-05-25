@@ -30,6 +30,14 @@ func _ready():
 
 
 func _on_message(payload):
+	if payload is InteractionRequest:
+		# TODO Make actual check against entities in own service
+		var response = InteractionResponse.new()
+		response.interactions = ["use"]
+		response.entity_id = payload.entity_id
+		GlobalEvents.emit_signal("onMessageReceived", response)
+		return
+	
 	if payload is ChatSend:
 		_send_chat(payload)
 	elif payload is UseAttackMessage:
