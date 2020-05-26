@@ -12,18 +12,44 @@ You can also get in touch via [Discord](https://discord.gg/zZW8M2S).
 
 ## Development
 
-The Bestia Game Client is build upon the great Godot Engine. If you want to contribute or develop you will need the engine to load
-the code inside this repository. You can find the [Godot Engine](https://godotengine.org) here and you also want to take a look at the
-[Godot documentation](https://docs.godotengine.org/en/3.1/).
+The Bestia Game Client is build with [Godot Engine](https://godotengine.org) with two custom modules, the `bestia` module which
+handles the entity synchronization with the server and the [godot_voxel module](https://github.com/Zylann/godot_voxel).
+
+
+If you want to contribute or develop you will need the engine to build with these two modules. In order to do so follow these
+instructions:
+
+1. Download the Godot engine stable branch. You probably need to check with the voxel_plugin which branch is supported.
+
+      ```bash
+      git clone --branch 3.2.1-stable https://github.com/godotengine/godot.git
+      ```
+
+2. Add the required modules and copy them to the right place.
+
+      ```bash
+      cd godot/modules
+      git clone https://github.com/Zylann/godot_voxel.git voxel
+      cd ../..
+      git clone https://github.com/tfelix/bestia-client.git
+      cp -r bestia-client/modules/bestia godot/modules
+      ```
+
+3. Build Godot for your designated platform, for Linux use:
+
+      ```bash
+      scons -j4 platform=x11
+      ```
+
+For additional information check the official docs, there you find information about the needed dependencies to build Godot.
 
 ## Contributing
 
-Contribution is quite simple, there is no Contributing Guide yet. The main points are:
-
-* Found a bug? Report it on [GitHub Issues](https://github.com/tfelix/bestia-client/issues) and include a code sample.
+* Found a bug? Report it on [GitHub Issues](https://github.com/tfelix/bestia-client/issues)
 * Before submitting a Pull Request please make sure you follow the [Godot best practices](https://docs.godotengine.org/en/3.1/getting_started/workflow/best_practices/)
+* If you want to extend the client please read the [Bestia Developers Documentation](https://docs.bestia-game.net/) first
 
-Have an idea which would benefit the game? Cool, tell us via our [Discord Server](https://discord.gg/zZW8M2S).
+Have an idea which would benefit the game and want to chat about it? Cool, tell us via our [Discord Server](https://discord.gg/zZW8M2S)!
 
 ## Art Assets
 
@@ -31,25 +57,15 @@ The licences of all artwork content used in this project can be found in the [AS
 Great care was taken to only include artworks and assets with permissive licences. If you think there is a problem please
 open an issue about it.
 
-Without this free artwork this game would not have been possible. Thanks to all artists! Please
-check out their great work!
-
-## Additions
-
-There are some nices resources or Plugins which where used doing this game. Notable one are:
-
-* [Screen-Space-Decals](https://github.com/Mr-Slurpy/Screen-Space-Decals)
-* [Holo Shader Port](https://github.com/grizeldi/HoloShader)
-* [Grass Shader Tutorial for Uniy](https://roystan.net/articles/grass-shader.html)
-* [Presentation: Just Cause Vast Game Worlds](http://www.humus.name/Articles/Persson_CreatingVastGameWorlds.pdf)
+Without this free artwork this game would not have been possible. Thanks to all artists! Please check out their great work!
 
 ## Created By
 
 Created with :heart: by [Thomas Felix](https://tfelix.de).
 
-The idea of this game is in my mind since 2006. It was meant as a little browsergame meant to be played by my highschool
-class. Sadly it never came to a state which I was satisfied with. So the idea got dragged along and along and slowly
-evolved into this game.
+The idea of this game is in my mind since 2006. It was originaly planned as a little browsergame meant to be played
+by my highschool class. Sadly it never came to a state which I was satisfied with. So the idea got dragged along and
+along and slowly evolved into this game.
 
 The first Alpha version screenshots looked like this and came from the release around 2009:
 
