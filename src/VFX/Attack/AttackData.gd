@@ -1,7 +1,6 @@
 class_name AttackData
 
-var name: String
-var db_name: String
+var database_name: String
 var attack_id: int
 var attack_entity_id: int
 var mana: int
@@ -13,8 +12,9 @@ var tr_description: String setget ,_get_tr_description
 
 
 func _get_tr_name() -> String:
-	return tr(db_name)
+	return tr(database_name)
 
 
 func _get_tr_description() -> String:
-	return tr(db_name + "_DESC")
+	return tr(database_name + "_DESC")
+

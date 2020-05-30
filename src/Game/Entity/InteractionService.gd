@@ -1,10 +1,37 @@
-class_name BehaviorService
+class_name InteractionService
 
 signal response_received(interactions)
 
+const InteractionMenu = preload("res://UI/InteractionMenu/InteractionMenu.tscn")
+
+var _interaction_menu
+var _requested_entity
+
 func _init():
-	pass
-	#GlobalEvents.connect("onMessageReceived", self, "_receive_response")
+	_interaction_menu = InteractionMenu.instance()
+	_interaction_menu.visible = false
+	GlobalEvents.connect("onMessageReceived", self, "_receive_response")
+
+
+func _receive_response(msg: InteractionResponse) -> void:
+	if msg == null:
+		return
+	if _requested_entity == null or msg.entity_id != _requested_entity.id:
+		return
+	_requested_entity.get_spatial().add_child(_interaction_menu)
+	_interaction_menu.visible = true
+	_interaction_menu.display_interactions(msg.interactions)
+
+
+"""
+Displays the menu with all possible interactions
+"""
+func show_behavior_selection(entity: Entity) -> void:
+	_requested_entity = entity
+	var request = InteractionRequest.new()
+	request.entity_id = entity.id
+	GlobalEvents.emit_signal("onMessageSend", request)
+	
 
 
 func get_behavior_for(entity: Entity) -> String:
@@ -23,7 +50,7 @@ func get_behavior_for(entity: Entity) -> String:
 	if server_interactions.find(default_interaction) != -1:
 		return default_interaction
 	
-	return "nothing"
+	return "unknown"
 
 
 func _request_possible_interactions(entity: Entity):

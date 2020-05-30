@@ -8,6 +8,8 @@ onready var _attacks_container = $CenterContainer/HBoxContainer/AttackPanel/Bord
 onready var _box_container = $CenterContainer/HBoxContainer
 onready var _click_audio = $AudioClick
 
+var _attack_db = AttackDatabase.new()
+
 var _attack_description = null
 var _attacks = []
 
@@ -16,6 +18,10 @@ func _ready():
 	GlobalEvents.connect("onShortcutPressed", self, "_shortcut_pressed")
 	_request_attack_list();
 	_render_filtered_attacks()
+
+
+func can_drop_data(position, drop_data) -> bool:
+	return false
 
 
 func _shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
@@ -36,10 +42,11 @@ func _request_attack_list() -> void:
 
 
 func _display_attacks(attacks) -> void:
-	_attacks = attacks
-
-	for atk in _attacks:
-		atk.name = tr(atk.db_name)
+	var attacks_data = [] 
+	for atk in attacks:
+		var atk_data = _attack_db.get_data(atk)
+		attacks_data.append(atk_data)
+	_attacks = attacks_data
 
 
 func _render_filtered_attacks() -> void:
@@ -49,7 +56,6 @@ func _render_filtered_attacks() -> void:
 	var search_name = _search_text.text
 	var displayed_attacks = []
 	for atk in _attacks:
-		print_debug(atk.tr_name.find(search_name))
 		if search_name.empty() || atk.tr_name.findn(search_name) != -1:
 			displayed_attacks.append(atk)
 	

@@ -27,6 +27,12 @@ signal onSkillCasted(attack, entity, target)
 signal onItemUsed(player_item_id)
 signal onInventoryUpdate(inventory_update)
 signal onInventoryItemsUpdated(updated_items)
+"""
+When this signal is send out the inventory is requested to send out
+an onInventoryItemsUpdated signal. Then possible some parts of the application
+need a list of items.
+"""
+signal onInventoryItemUpdateRequested()
 
 # Chat Signals
 signal onChatReceived(chat)

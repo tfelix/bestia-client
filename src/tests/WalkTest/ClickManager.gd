@@ -4,7 +4,7 @@ on something. It is the central instance which can overwrite the click behavior.
 """
 extends Node
 
-var _behavior_servce = BehaviorService.new()
+var _interaction_servce = InteractionService.new()
 
 enum State {
 	CAST_SELECTION,
@@ -43,18 +43,21 @@ func _on_castselection_ended() -> void:
 
 # Checks what action should be performed on that entity. This basically means
 # asking what the configured std. behavior is and then executing it.
-func _on_entity_clicked(entity, click_event) -> void:
+func _on_entity_clicked(entity: Entity, click_event: InputEventMouseButton) -> void:
 	match(_current_state):
 		State.CAST_SELECTION:
 			_cast_on_entity(entity)
 		State.DEFAULT:
-			# Get the default behavior for this entity and execute it.
-			var behavior = _behavior_servce.get_behavior_for(entity)
-			match behavior:
-				"attack":
-					_attack_entity(entity)
-				_:
-					return
+			if click_event.is_action_pressed(Actions.ACTION_LEFT_CLICK) and click_event.control:
+				_interaction_servce.show_behavior_selection(entity)
+			else:
+				# Get the default behavior for this entity and execute it.
+				var interaction = _interaction_servce.get_behavior_for(entity)
+				match interaction:
+					"attack":
+						_attack_entity(entity)
+					_:
+						return
 
 
 func _cast_on_entity(entity) -> void:

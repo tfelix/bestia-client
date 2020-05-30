@@ -16,7 +16,7 @@ var _is_casting = false
 var _is_constructing = false
 var _is_pre_constructing = false
 
-var _behavior_service = BehaviorService.new()
+var _behavior_service = InteractionService.new()
 var _current_hovered_entity: Entity = null
 
 func _ready():

@@ -35,4 +35,4 @@ func _on_Drop_pressed():
 
 
 func _on_Use_pressed():
-	GlobalEvents.emit_signal("onItemUsed", item.player_item_id)
+	GlobalEvents.emit_signal("onItemUsed", item.data.player_item_id)

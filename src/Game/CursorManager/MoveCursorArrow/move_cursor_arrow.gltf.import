@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/move_cursor_arrow.gltf-a346bc0fc7de46ba8f51b19a17c799e0.scn"
+path="res://.import/move_cursor_arrow.gltf-9e89540ed4c2b7ec58bf4ea583335120.scn"
 
 [deps]
 
-source_file="res://scenes/GameUI/Cursor/MoveCursor/MoveCursorArrow/move_cursor_arrow.gltf"
-dest_files=[ "res://.import/move_cursor_arrow.gltf-a346bc0fc7de46ba8f51b19a17c799e0.scn" ]
+source_file="res://Game/CursorManager/MoveCursorArrow/move_cursor_arrow.gltf"
+dest_files=[ "res://.import/move_cursor_arrow.gltf-9e89540ed4c2b7ec58bf4ea583335120.scn" ]
 
 [params]
 
@@ -24,6 +24,7 @@ meshes/ensure_tangents=true
 meshes/storage=0
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
+skins/use_named_skins=true
 external_files/store_in_subdir=false
 animation/import=false
 animation/fps=15

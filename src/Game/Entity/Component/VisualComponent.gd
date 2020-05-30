@@ -7,8 +7,8 @@ const NAME = "VisualComponent"
 This is the visual identifier and determines which model is getting spawned
 when this entity is encountered.
 """
-var visual: String
-var animation: String
+export var visual: String
+export var animation: String
 
 var _animation_player
 var _current_vfx = null

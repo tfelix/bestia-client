@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Game/SlopeDetector/SlopeDetector.gd" type="Script" id=1]
 
-
 [node name="SlopeDetector" type="Spatial"]
 script = ExtResource( 1 )
 

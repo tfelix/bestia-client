@@ -16,16 +16,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Inspect" type="Button" parent="Interactions"]
+[node name="Use" type="Button" parent="Interactions"]
 margin_right = 120.0
 margin_bottom = 30.0
+rect_min_size = Vector2( 120, 30 )
+text = "Use"
+
+[node name="Inspect" type="Button" parent="Interactions"]
+margin_top = 34.0
+margin_right = 120.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 120, 30 )
 text = "Inspect"
 
 [node name="Attack" type="Button" parent="Interactions"]
-margin_top = 34.0
+margin_top = 68.0
 margin_right = 120.0
-margin_bottom = 64.0
+margin_bottom = 98.0
 rect_min_size = Vector2( 120, 30 )
 text = "Attack"
 

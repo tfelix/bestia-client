@@ -1,0 +1,5 @@
+{
+"tackle": {"element": "NORMAL", "mana": 2},
+"small_fireball": {"element": "FIRE", "mana": 5},
+"small_heal": {"element": "HOLY", "mana": 10}
+}

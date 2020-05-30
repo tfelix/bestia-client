@@ -29,12 +29,8 @@ func get_drag_data(position):
 	return data
 
 
-"""
-Can not drop on this item here.
-"""
 func can_drop_data(position, drop_data) -> bool:
-	print_debug(drop_data.get_class())
-	return true
+	return drop_data is ItemData
 
 
 func is_usable() -> bool:

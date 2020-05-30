@@ -36,9 +36,21 @@ func _ready():
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_construction_ended")
 	GlobalEvents.connect("onShortcutPressed", self, "_on_shortcut_pressed")
 	GlobalEvents.connect("onMessageReceived", self, "_on_item_use_response")
+	GlobalEvents.connect("onInventoryItemUpdateRequested", self, "_on_item_udpdate_requested")
 	
 	var msg = RequestInventoryMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
+
+
+func _on_item_udpdate_requested() -> void:
+	_emit_items_updated()
+
+
+func _emit_items_updated() -> void:
+	var updated_items = []
+	for item in _items:
+		updated_items.append(item.data)
+	GlobalEvents.emit_signal("onInventoryItemsUpdated", updated_items)
 
 
 func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
@@ -48,10 +60,7 @@ func _on_inventory_update(payload: InventoryUpdateMessage) -> void:
 	_add_inventory_items(payload.items)
 	_display_all_items()
 	_draw_inventory_info()
-	var updated_items = []
-	for item in _items:
-		updated_items.append(item.data)
-	GlobalEvents.emit_signal("onInventoryItemsUpdated", updated_items)
+	_emit_items_updated()
 
 
 func _clear_inventory_items() -> void:
@@ -135,7 +144,7 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 		GlobalEvents.emit_signal("onMessageSend", use_msg)
 		return
 	
-	var item_name = item.database_name.capitalize().replace(" ", "")
+	var item_name = item.data.database_name.capitalize().replace(" ", "")
 	var item_path = "res://Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name]
 	# TODO We can probably cache these loads here.
 	var item_scene = load(item_path)

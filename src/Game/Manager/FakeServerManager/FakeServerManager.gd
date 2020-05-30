@@ -7,6 +7,7 @@ var _env_comp: EnvironmentComponent
 
 onready var _item_handler = $FakeItemHandler
 onready var _mob_handler = $FakeMobHandler
+onready var _interaction_handler = $FakeInteractionHandler
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
@@ -31,13 +32,7 @@ func _ready():
 
 func _on_message(payload):
 	if payload is InteractionRequest:
-		# TODO Make actual check against entities in own service
-		var response = InteractionResponse.new()
-		response.interactions = ["use"]
-		response.entity_id = payload.entity_id
-		GlobalEvents.emit_signal("onMessageReceived", response)
-		return
-	
+		_interaction_handler.check_interactions(payload)
 	if payload is ChatSend:
 		_send_chat(payload)
 	elif payload is UseAttackMessage:
@@ -79,32 +74,10 @@ func _send_gainpoints() -> void:
 
 
 func _send_attacks() -> void:
-	var atk1 = AttackData.new()
-	atk1.attack_entity_id = 1
-	atk1.attack_id = 1
-	atk1.db_name = "TACKLE"
-	atk1.element = "NORMAL"
-	atk1.mana = 2
-	atk1.level = 1
-
-	var atk2 = AttackData.new()
-	atk2.attack_entity_id = 1
-	atk2.attack_id = 2
-	atk2.db_name = "SMALL_FIREBALL"
-	atk2.element = "FIRE"
-	atk2.mana = 5
-	atk2.level = 2
-	
-	var atk3 = AttackData.new()
-	atk3.attack_entity_id = 1
-	atk3.attack_id = 3
-	atk3.db_name = "SMALL_HEAL"
-	atk3.element = "HOLY"
-	atk3.mana = 10
-	atk3.level = 5
-
 	var response = ResponseAttackListMessage.new()
-	response.attacks = [atk1, atk2, atk3]
+	response.attacks = [
+		{"database_name": "small_fireball", "attack_entity_id": 1, "level": 1}
+	]
 
 	GlobalEvents.emit_signal("onMessageReceived", response)
 

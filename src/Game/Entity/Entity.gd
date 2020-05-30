@@ -7,6 +7,7 @@ with data from the server.
 class_name Entity
 
 signal onVfxPlayed(vfx_name)
+signal component_updated(component)
 
 enum BehaviorGroup {
 	PICKUP,
@@ -22,8 +23,6 @@ enum BehaviorGroup {
 }
 
 const UNIT_AABB = AABB(Vector3.ZERO, Vector3.ONE)
-
-signal component_updated(component)
 
 export (BehaviorGroup) var behavior_group = BehaviorGroup.NOTHING
 
@@ -99,13 +98,6 @@ func handle_message(msg):
 		_components.remove_component(msg.component_name)
 
 
-"""
-Returns the possible interactions with this entity.
-"""
-func get_interactions():
-	pass
-
-
 func get_component(component_name: String) -> Component:
 	return _components.get_component(component_name)
 
@@ -121,7 +113,6 @@ func remove_component(component_name: String):
 
 func _handle_default_input() -> void:
 	pass
-	
 
 # The clicking should work like so:
 # Select the object and see if there is a default behavior

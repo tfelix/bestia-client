@@ -36,7 +36,9 @@ func _physics_process(delta):
 		_building_mesh.visible = false
 	else:
 		_building_mesh.visible = true
-		self.global_transform.origin = result.position
+		var rx = round(result.position.x)
+		var rz = round(result.position.z)
+		self.global_transform.origin = Vector3(rx, result.position.y, rz)
 
 
 func use_item() -> void:

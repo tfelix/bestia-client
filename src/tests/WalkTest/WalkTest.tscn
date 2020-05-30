@@ -103,6 +103,8 @@ script = ExtResource( 3 )
 
 [node name="CharacterBars" parent="Entities/Player" instance=ExtResource( 20 )]
 
+[node name="CameraTarget" type="Spatial" parent="Entities/Player"]
+
 [node name="Building" parent="Entities" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, -0.00772339, 8.54126 )
 

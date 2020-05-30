@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game/Entity/Struct/Struct.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game/Entity/Component/DataComponent.gd" type="Script" id=2]
+[ext_resource path="res://Game/Entity/Component/VisualComponent.gd" type="Script" id=3]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -20,6 +21,10 @@ aabb_visual_instance_path = NodePath("../Bed")
 
 [node name="DataComponent" type="Node" parent="Entity/Components" index="0"]
 script = ExtResource( 2 )
+
+[node name="VisualComponent" type="Node" parent="Entity/Components" index="1"]
+script = ExtResource( 3 )
+visual = "wooden_bed"
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )

@@ -69,11 +69,11 @@ func can_drop_data(position, data):
 
 func drop_data(position, data):
 	if data is ItemData:
-		print_debug("item dropped")
 		var shortcut = ShortcutData.new()
 		shortcut.type = ShortcutData.ShortcutType.ITEM
 		shortcut.icon = data.image
 		GlobalData.shortcut_service.save_shortcut(shortcut_action_name, shortcut)
+		GlobalEvents.emit_signal("onInventoryItemUpdateRequested")
 	elif data is AttackData:
 		print_debug("attack dropped")
 
