@@ -28,6 +28,7 @@ var _modified_status_values: StatusValueData = StatusValueData.new()
 var _effort_values: StatusValueData = StatusValueData.new()
 
 export(Color) var reduced_status_color = Color(0.796875, 0.174316, 0.174316)
+export(Color) var upped_status_color = Color(0.17, 0.8, 0.27)
 
 
 func _ready():
@@ -42,6 +43,23 @@ func _update_gainpoints(msg) -> void:
 		return
 	_available_gain_points = msg.value
 	_check_up_buttons_state()
+
+
+"""
+Sets the color to red or green, depending if we got values added or removed.
+"""
+func _setup_modifier_color() -> void:
+	var mod = _status_values.strength - _modified_status_values.strength
+	_strength_mod.visible = true
+	if mod > 0:
+		_strength_mod.text = "+%s" % str(mod)
+		_strength_mod.add_color_override("font_color", upped_status_color)
+	elif mod < 0:
+		_strength_mod.text = "-%s" % str(mod)
+		_strength_mod.add_color_override("font_color", reduced_status_color)
+	else:
+		_strength_mod.text = "+0"
+
 
 """
 Checks if the up buttons should stay enabled depending on the the available
@@ -66,6 +84,7 @@ func _update_values(player: Entity) -> void:
 	var data = player.get_component(StatusComponent.NAME) as StatusComponent
 	if data == null:
 		return
+	_setup_modifier_color()
 
 
 func hide() -> void:

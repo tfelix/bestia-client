@@ -11,7 +11,7 @@ func _ready():
 		printerr("Could not load config file: ", err)
 
 
-func get_value(section: String, property: String, default_value = null):
+func get_value(section: String, property: String, default_value = ""):
 	return _config.get_value(section, property, default_value)
 
 

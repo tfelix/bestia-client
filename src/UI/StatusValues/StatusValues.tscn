@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+upped_status_color = Color( 0.168627, 0.8, 0.270588, 1 )
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
