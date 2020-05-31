@@ -47,6 +47,9 @@ func _inventory_items_updated(updated_items) -> void:
 
 func _load_shortcut_data() -> void:
 	shortcut_data = GlobalData.shortcut_service.get_shortcut(shortcut_action_name)
+	
+	_counter_label.visible = false
+	
 	if shortcut_data:
 		_icon.texture = shortcut_data.icon
 		if shortcut_data.type == ShortcutData.ShortcutType.ITEM:
@@ -68,14 +71,17 @@ func can_drop_data(position, data):
 
 
 func drop_data(position, data):
+	var shortcut = ShortcutData.new()
 	if data is ItemData:
-		var shortcut = ShortcutData.new()
 		shortcut.type = ShortcutData.ShortcutType.ITEM
 		shortcut.icon = data.image
-		GlobalData.shortcut_service.save_shortcut(shortcut_action_name, shortcut)
-		GlobalEvents.emit_signal("onInventoryItemUpdateRequested")
+		shortcut.payload["player_item_id"] = data.player_item_id
 	elif data is AttackData:
-		print_debug("attack dropped")
+		shortcut.type = ShortcutData.ShortcutType.ATTACK
+		shortcut.icon = data.icon
+		shortcut.payload["player_attack_id"] = data.attack_entity_id
+	GlobalData.shortcut_service.save_shortcut(shortcut_action_name, shortcut)
+	GlobalEvents.emit_signal("onInventoryItemUpdateRequested")
 
 
 func _unhandled_key_input(event) -> void:

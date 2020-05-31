@@ -214,13 +214,6 @@ func _on_item_selected(selected_item) -> void:
 		_module.add_child(item_desc)
 		item_desc.show_item_description(selected_item)
 		_module.visible = true
-		
-		# Prepare the shortcut call
-		var shortcut_data = ShortcutData.new()
-		shortcut_data.type = ShortcutData.ShortcutType.ITEM
-		shortcut_data.icon = selected_item.data.image
-		shortcut_data.payload["player_item_id"] = selected_item.data.player_item_id
-		GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 	else:
 		_module.visible = false
 

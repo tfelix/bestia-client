@@ -36,7 +36,7 @@ size = Vector2( 50, 50 )
 albedo_color = Color( 0.662745, 0.752941, 0.435294, 1 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 20, 20, 0.1 )
+extents = Vector3( 25, 25, 0.1 )
 
 [node name="WalkTest" type="Spatial"]
 script = ExtResource( 14 )

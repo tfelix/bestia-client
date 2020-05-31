@@ -75,7 +75,6 @@ margin_bottom = 529.0
 visible = false
 
 [node name="AttackList" parent="." instance=ExtResource( 10 )]
-visible = false
 
 [node name="StatusValues" parent="." instance=ExtResource( 7 )]
 visible = false

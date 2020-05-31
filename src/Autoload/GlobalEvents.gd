@@ -53,7 +53,6 @@ signal onMessageReceived(message)
 # UI Signals
 signal onUiEntered()
 signal onUiExited()
-signal onPrepareSetShortcut(shortcut_data)
 signal onShortcutPressed(shortcut_data)
 signal onDebugMode(enabled)
 

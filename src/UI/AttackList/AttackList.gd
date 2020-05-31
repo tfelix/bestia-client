@@ -75,7 +75,6 @@ func show():
 func hide():
 	if visible:
 		_click_audio.play()
-	GlobalEvents.emit_signal("onPrepareSetShortcut", null)
 	.hide()
 
 
@@ -96,15 +95,8 @@ func _attack_selected(attack_row):
 	_attack_description = weakref(AttackDescription.instance())
 	_box_container.add_child(_attack_description.get_ref())
 	
-	var atk = attack_row.attack
+	var atk = attack_row.data
 	_attack_description.get_ref().set_attack(atk)
-	
-	# Also prepare the shortcut setting
-	var shortcut_data = ShortcutData.new()
-	shortcut_data.type = ShortcutData.ShortcutType.ATTACK
-	shortcut_data.icon = load("res://VFX/Attack/Fireball/icon.png")
-	shortcut_data.payload["attack_entity_id"] = atk.attack_entity_id
-	GlobalEvents.emit_signal("onPrepareSetShortcut", shortcut_data)
 
 
 func _on_ClearButton_pressed():
