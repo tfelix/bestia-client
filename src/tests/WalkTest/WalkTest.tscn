@@ -102,6 +102,7 @@ fov = 50.0
 script = ExtResource( 3 )
 
 [node name="CharacterBars" parent="Entities/Player" instance=ExtResource( 20 )]
+visible = false
 
 [node name="CameraTarget" type="Spatial" parent="Entities/Player"]
 
