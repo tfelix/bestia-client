@@ -7,10 +7,11 @@ export var max_theta_delta = 30
 export var max_phi_delta = 55
 
 export var camera_move_distance = 0.3 # how many % of the viewport you must travel
+export var camera_move_speed = 0.5 # camera does 
 
 var _is_cam_controlled = false
-var _r = 15
 var _start_theta = 0
+onready var _r_tween = $DistanceTween
 
 var _current_theta = 0
 var _current_phi = 0
@@ -21,6 +22,8 @@ var _last_theta = 0
 var _last_phi = 0
 
 var _current_distance = (min_distance + max_distance) / 2
+# Helper variable for easing the camera movement
+var _r = 0
 var _start_cam_move = Vector2()
 var _cam_dir = Vector3()
 
@@ -29,8 +32,6 @@ var _is_in_building = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_r = transform.origin.length()
-	# parent is expected to be at 0,0,0
 	_cam_dir = transform.origin.normalized()
 	_current_theta = rad2deg(acos(_cam_dir.y)) # length is 1 unit vector
 	_start_theta = _current_theta
@@ -40,16 +41,16 @@ func _ready():
 	_current_phi = GlobalConfig.get_value("camera", "current_phi", 0)
 	_current_theta = GlobalConfig.get_value("camera", "current_theta", _current_theta)
 	_current_distance = GlobalConfig.get_value("camera", "current_distance", _current_distance)
+	_r = _current_distance
 
 	GlobalEvents.connect("onBuildingEntered", self, "_player_enters_building")
 	GlobalEvents.connect("onBuildingExit", self, "_player_exists_building")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var z = _current_distance * sin(deg2rad(_current_theta)) * cos(deg2rad(_current_phi))
-	var y = _current_distance * cos(deg2rad(_current_theta))
-	var x = _current_distance * sin(deg2rad(_current_theta)) * sin(deg2rad(_current_phi))
+	var z = _r * sin(deg2rad(_current_theta)) * cos(deg2rad(_current_phi))
+	var y = _r * cos(deg2rad(_current_theta))
+	var x = _r * sin(deg2rad(_current_theta)) * sin(deg2rad(_current_phi))
 	
 	var parent_pos = get_parent().global_transform.origin
 	var new_cam_pos = Vector3(parent_pos.x + x, parent_pos.y + y, parent_pos.z + z)
@@ -57,14 +58,31 @@ func _process(delta):
 	look_at_from_position(new_cam_pos, parent_pos, Vector3.UP)
 
 
+"""
+Starts camera movement towards the targeted distance _current_distance.
+"""
+func _start_easing_to_distance(_new_distance: float, duration: float = 1.0) -> void:
+	_r_tween.interpolate_property(
+		self, 
+		"_r", 
+		_r, 
+		_new_distance,
+		duration,
+		Tween.TRANS_CUBIC,
+		Tween.EASE_IN_OUT
+	)
+	_r_tween.start()
+	_current_distance = _new_distance
+
+
 func _player_enters_building(building_id: String) -> void:
 	_distance_outside_building = _current_distance
-	_current_distance = min_distance + 2;
+	_start_easing_to_distance(min_distance + 2)
 	_is_in_building = true
 
 
 func _player_exists_building(building_id: String) -> void:
-	_current_distance = _distance_outside_building;
+	_start_easing_to_distance(_distance_outside_building)
 	_is_in_building = false
 
 
@@ -123,14 +141,16 @@ func _reset() -> void:
 
 
 func _zoom_in() -> void:
-	_current_distance -= 1
-	if _current_distance < min_distance:
+	if _current_distance > min_distance:
+		_start_easing_to_distance(_current_distance - 1, 0.2)
+	else:
 		_current_distance = min_distance
 	GlobalConfig.set_value("camera", "current_distance", _current_distance)
 
 
 func _zoom_out() -> void:
-	_current_distance += 1
-	if _current_distance > max_distance:
+	if _current_distance < max_distance:
+		_start_easing_to_distance(_current_distance + 1, 0.2)
+	else:
 		_current_distance = max_distance
 	GlobalConfig.set_value("camera", "current_distance", _current_distance)

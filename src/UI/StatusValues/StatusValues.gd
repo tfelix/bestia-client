@@ -14,6 +14,26 @@ onready var _vitality_mod = $MainContainer/Body/MarginContainer/StatusValues/Vit
 onready var _vitality_cost = $MainContainer/Body/MarginContainer/StatusValues/Vitality/VitCost
 onready var _vitality_up = $MainContainer/Body/MarginContainer/StatusValues/Vitality/VitUp
 
+onready var _int = $MainContainer/Body/MarginContainer/StatusValues/Intelligence/IntValue
+onready var _int_mod = $MainContainer/Body/MarginContainer/StatusValues/Intelligence/IntMod
+onready var _int_cost = $MainContainer/Body/MarginContainer/StatusValues/Intelligence/IntCost
+onready var _int_up = $MainContainer/Body/MarginContainer/StatusValues/Intelligence/IntUp
+
+onready var _agi = $MainContainer/Body/MarginContainer/StatusValues/Agility/AgiValue
+onready var _agi_mod = $MainContainer/Body/MarginContainer/StatusValues/Agility/AgiMod
+onready var _agi_cost = $MainContainer/Body/MarginContainer/StatusValues/Agility/AgiCost
+onready var _agi_up = $MainContainer/Body/MarginContainer/StatusValues/Agility/AgiUp
+
+onready var _dex = $MainContainer/Body/MarginContainer/StatusValues/Dexterity/DexValue
+onready var _dex_mod = $MainContainer/Body/MarginContainer/StatusValues/Dexterity/DexMod
+onready var _dex_cost = $MainContainer/Body/MarginContainer/StatusValues/Dexterity/DexCost
+onready var _dex_up = $MainContainer/Body/MarginContainer/StatusValues/Dexterity/DexUp
+
+onready var _wil = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilValue
+onready var _wil_mod = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilMod
+onready var _wil_cost = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilCost
+onready var _wil_up = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilUp
+
 onready var _save_btn = $MainContainer/ButtonRow/Save
 
 var _is_pristine = true
@@ -48,17 +68,17 @@ func _update_gainpoints(msg) -> void:
 """
 Sets the color to red or green, depending if we got values added or removed.
 """
-func _setup_modifier_color() -> void:
-	var mod = _status_values.strength - _modified_status_values.strength
-	_strength_mod.visible = true
+func _setup_modifier_color(mod_label: Label, value: int, mod_value: int) -> void:
+	var mod = value - mod_value
+	mod_label.visible = true
 	if mod > 0:
-		_strength_mod.text = "+%s" % str(mod)
-		_strength_mod.add_color_override("font_color", upped_status_color)
+		mod_label.text = "+%s" % str(mod)
+		mod_label.add_color_override("font_color", upped_status_color)
 	elif mod < 0:
-		_strength_mod.text = "-%s" % str(mod)
-		_strength_mod.add_color_override("font_color", reduced_status_color)
+		mod_label.text = "-%s" % str(mod)
+		mod_label.add_color_override("font_color", reduced_status_color)
 	else:
-		_strength_mod.text = "+0"
+		mod_label.text = "+0"
 
 
 """
@@ -67,13 +87,30 @@ gain points.
 """
 func _check_up_buttons_state() -> void:
 	_gain_label.text = "Available Points: %d" % _available_gain_points
+	
 	var str_cost = _get_up_gain_cost(_effort_values.strength + 1)
 	_strength_cost.text = "%d (%d)" % [_effort_values.strength, str_cost]
 	_strength_up.disabled = str_cost > _available_gain_points
+	
 	var vit_cost = _get_up_gain_cost(_effort_values.vitality + 1)
 	_vitality_cost.text = "%d (%d)" % [_effort_values.vitality, vit_cost]
 	_vitality_up.disabled = vit_cost > _available_gain_points
-	# TODO complete
+	
+	var int_cost = _get_up_gain_cost(_effort_values.intelligence + 1)
+	_int_cost.text = "%d (%d)" % [_effort_values.intelligence, int_cost]
+	_int_up.disabled = int_cost > _available_gain_points
+	
+	var agi_cost = _get_up_gain_cost(_effort_values.agility + 1)
+	_agi_cost.text = "%d (%d)" % [_effort_values.agility, agi_cost]
+	_agi_up.disabled = agi_cost > _available_gain_points
+	
+	var dex_cost = _get_up_gain_cost(_effort_values.dexterity + 1)
+	_dex_cost.text = "%d (%d)" % [_effort_values.dexterity, dex_cost]
+	_dex_up.disabled = dex_cost > _available_gain_points
+	
+	var wil_cost = _get_up_gain_cost(_effort_values.willpower + 1)
+	_wil_cost.text = "%d (%d)" % [_effort_values.willpower, wil_cost]
+	_wil_up.disabled = vit_cost > _available_gain_points
 
 
 func _get_up_gain_cost(next_value: int) -> int:
@@ -84,7 +121,9 @@ func _update_values(player: Entity) -> void:
 	var data = player.get_component(StatusComponent.NAME) as StatusComponent
 	if data == null:
 		return
-	_setup_modifier_color()
+	_setup_modifier_color(_strength_mod, _status_values.strength, _modified_status_values.strength)
+	_setup_modifier_color(_vitality_mod, _status_values.vitality, _modified_status_values.vitality)
+	_setup_modifier_color(_int, _status_values.intelligence, _modified_status_values.intelligence)
 
 
 func hide() -> void:

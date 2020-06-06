@@ -101,6 +101,8 @@ transform = Transform( 1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0
 fov = 50.0
 script = ExtResource( 3 )
 
+[node name="DistanceTween" type="Tween" parent="Entities/Player/Camera"]
+
 [node name="CharacterBars" parent="Entities/Player" instance=ExtResource( 20 )]
 visible = false
 
