@@ -8,8 +8,8 @@
 [node name="CharacterPlate" type="PanelContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 323.0
-margin_bottom = 86.0
+margin_right = 345.0
+margin_bottom = 79.0
 theme = ExtResource( 7 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -17,17 +17,17 @@ __meta__ = {
 }
 
 [node name="MainCols" type="HBoxContainer" parent="."]
-margin_right = 320.0
-margin_bottom = 86.0
+margin_right = 340.0
+margin_bottom = 74.0
 
 [node name="CharInfoMargin" type="MarginContainer" parent="MainCols"]
 margin_right = 182.0
-margin_bottom = 86.0
+margin_bottom = 74.0
 custom_constants/margin_right = 2
 
 [node name="Rows" type="VBoxContainer" parent="MainCols/CharInfoMargin"]
 margin_right = 180.0
-margin_bottom = 86.0
+margin_bottom = 74.0
 
 [node name="CharacterInfo" type="Label" parent="MainCols/CharInfoMargin/Rows"]
 margin_right = 180.0
@@ -75,7 +75,7 @@ text = "Mana: 0 / 0"
 [node name="Buttons1" type="VBoxContainer" parent="MainCols"]
 margin_left = 186.0
 margin_right = 261.0
-margin_bottom = 86.0
+margin_bottom = 74.0
 
 [node name="Inventory" type="Button" parent="MainCols/Buttons1"]
 margin_right = 75.0
@@ -88,22 +88,23 @@ margin_right = 75.0
 margin_bottom = 56.0
 text = "Attacks"
 
-[node name="Status" type="Button" parent="MainCols/Buttons1"]
-margin_top = 60.0
-margin_right = 75.0
-margin_bottom = 86.0
-text = "Status"
-
 [node name="Buttons2" type="VBoxContainer" parent="MainCols"]
 margin_left = 265.0
-margin_right = 316.0
-margin_bottom = 86.0
+margin_right = 340.0
+margin_bottom = 74.0
 
 [node name="Equip" type="Button" parent="MainCols/Buttons2"]
-margin_right = 51.0
+margin_right = 75.0
 margin_bottom = 26.0
+rect_min_size = Vector2( 75, 26 )
 text = "Equip"
+
+[node name="Status" type="Button" parent="MainCols/Buttons2"]
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 56.0
+text = "Status"
 [connection signal="pressed" from="MainCols/Buttons1/Inventory" to="." method="_on_Inventory_pressed"]
 [connection signal="pressed" from="MainCols/Buttons1/Attacks" to="." method="_on_Attacks_pressed"]
-[connection signal="pressed" from="MainCols/Buttons1/Status" to="." method="_on_Status_pressed"]
 [connection signal="pressed" from="MainCols/Buttons2/Equip" to="." method="_on_Equip_pressed"]
+[connection signal="pressed" from="MainCols/Buttons2/Status" to="." method="_on_Status_pressed"]

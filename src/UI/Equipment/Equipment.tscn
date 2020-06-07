@@ -216,6 +216,7 @@ margin_bottom = 47.0
 
 [node name="PlayerPortraitView" type="Viewport" parent="."]
 size = Vector2( 250, 250 )
+own_world = true
 transparent_bg = true
 handle_input_locally = false
 msaa = 2

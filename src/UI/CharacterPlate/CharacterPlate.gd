@@ -5,11 +5,11 @@ signal on_attacks_pressed
 signal status_values_pressed
 signal equip_pressed
 
-onready var _character_name = $Rows/Top/InfoMargin/CharacterInfo
-onready var _health_bar = $Rows/Main/Bars/HpBar
-onready var _mana_bar = $Rows/Main/Bars/ManaBar
-onready var _health_label = $Rows/Main/Bars/HealthLabel
-onready var _mana_label = $Rows/Main/Bars/ManaLabel
+onready var _character_name = $MainCols/CharInfoMargin/Rows/CharacterInfo
+onready var _health_bar = $MainCols/CharInfoMargin/Rows/Main/Bars/HpBar
+onready var _mana_bar = $MainCols/CharInfoMargin/Rows/Main/Bars/ManaBar
+onready var _health_label = $MainCols/CharInfoMargin/Rows/Main/Bars/HealthLabel
+onready var _mana_label = $MainCols/CharInfoMargin/Rows/Main/Bars/ManaLabel
 
 
 func _ready():

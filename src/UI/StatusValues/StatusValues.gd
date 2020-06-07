@@ -43,6 +43,9 @@ onready var _cast = $MainContainer/Body/MarginContainer1/StatusBasedValues1/Cast
 onready var _duration = $MainContainer/Body/MarginContainer1/StatusBasedValues1/SpellDuration/Value
 onready var _aspd = $MainContainer/Body/MarginContainer1/StatusBasedValues1/ASPD/Value
 onready var _walkspeed = $MainContainer/Body/MarginContainer1/StatusBasedValues1/Walkspeed/Value
+onready var _hp_regen = $MainContainer/Body/MarginContainer2/StatusBasedValues2/HPTick/Value
+onready var _mana_regen = $MainContainer/Body/MarginContainer2/StatusBasedValues2/ManaTick/Value
+onready var _stamina_regen = $MainContainer/Body/MarginContainer2/StatusBasedValues2/StaminaTick/Value
 
 var _is_pristine = true
 
@@ -148,6 +151,17 @@ func _update_status_values() -> void:
 	_setup_modifier_color(_agi_mod, _status_values.agility, _modified_status_values.agility)
 	_setup_modifier_color(_dex_mod, _status_values.dexterity, _modified_status_values.dexterity)
 	_setup_modifier_color(_wil_mod, _status_values.willpower, _modified_status_values.willpower)
+	
+	_def.text = "%.1f%%" % _status_based_values.def
+	_mdef.text = "%.1f%%" % _status_based_values.mdef
+	_crit.text = "%.1f%%" % _status_based_values.crit
+	_cast.text = "%.1f%%" % _status_based_values.cast_time
+	_duration.text = "%.1f%%" % _status_based_values.spell_duration
+	_aspd.text = "%.1f%%" % _status_based_values.aspd
+	_walkspeed.text = "%.1f%%" % _status_based_values.walkspeed
+	_hp_regen.text = "%d" % _status_based_values.hp_regen
+	_mana_regen.text = "%d" % _status_based_values.mana_regen
+	_stamina_regen.text = "%d" % _status_based_values.stamina_regen
 
 
 func _update_values(player: Entity) -> void:
