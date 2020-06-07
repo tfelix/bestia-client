@@ -224,7 +224,6 @@ func _remove_module() -> void:
 		return
 	var existing_module = _module.get_child(0)
 	existing_module.queue_free()
-	GlobalEvents.emit_signal("onPrepareSetShortcut", null)
 
 
 func _draw_inventory_info():

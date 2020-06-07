@@ -3,6 +3,7 @@ extends Control
 signal on_inventory_pressed
 signal on_attacks_pressed
 signal status_values_pressed
+signal equip_pressed
 
 onready var _character_name = $Rows/Top/InfoMargin/CharacterInfo
 onready var _health_bar = $Rows/Main/Bars/HpBar
@@ -47,5 +48,9 @@ func _on_Attacks_pressed():
 	emit_signal("on_attacks_pressed")
 
 
-func _on_StatusValues_pressed():
+func _on_Status_pressed():
 	emit_signal("status_values_pressed")
+
+
+func _on_Equip_pressed():
+	emit_signal("equip_pressed")

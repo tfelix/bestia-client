@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/Equipment/EquipSlot/EquipSlot.gd" type="Script" id=1]
+
+[node name="EquipSlot" type="Control"]
+margin_right = 220.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 220, 47 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SlotLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -20.0
+margin_right = 40.0
+text = "HEAD"
+__meta__ = {
+"_edit_use_anchors_": false
+}

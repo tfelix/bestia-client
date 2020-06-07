@@ -1,8 +1,10 @@
 extends PanelContainer
 
 onready var _click = $CloseClick
+onready var _save_btn = $MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/Save
 
-onready var _gain_label = $MainContainer/Body/MarginContainer/StatusValues/GainPoints/MarginContainer/AvailablePoints
+onready var _gain_points = $MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer
+onready var _gain_label = $MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/MarginContainer/AvailablePoints
 
 onready var _strength = $MainContainer/Body/MarginContainer/StatusValues/Strength/StrValue
 onready var _strength_mod = $MainContainer/Body/MarginContainer/StatusValues/Strength/StrMod
@@ -34,18 +36,22 @@ onready var _wil_mod = $MainContainer/Body/MarginContainer/StatusValues/Willpowe
 onready var _wil_cost = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilCost
 onready var _wil_up = $MainContainer/Body/MarginContainer/StatusValues/Willpower/WilUp
 
-onready var _save_btn = $MainContainer/ButtonRow/Save
+onready var _mdef = $MainContainer/Body/MarginContainer1/StatusBasedValues1/MagicDefense/Value
+onready var _def = $MainContainer/Body/MarginContainer1/StatusBasedValues1/PhysicalDefense/Value
+onready var _crit = $MainContainer/Body/MarginContainer1/StatusBasedValues1/Crit/Value
+onready var _cast = $MainContainer/Body/MarginContainer1/StatusBasedValues1/CastTime/Value
+onready var _duration = $MainContainer/Body/MarginContainer1/StatusBasedValues1/SpellDuration/Value
+onready var _aspd = $MainContainer/Body/MarginContainer1/StatusBasedValues1/ASPD/Value
+onready var _walkspeed = $MainContainer/Body/MarginContainer1/StatusBasedValues1/Walkspeed/Value
 
 var _is_pristine = true
 
-var _available_gain_points = 0
-
-var _strength_cost_value = 0
-var _vitality_cost_value = 0
+var _available_gain_points = 120
 
 var _status_values: StatusValueData = StatusValueData.new()
 var _modified_status_values: StatusValueData = StatusValueData.new()
 var _effort_values: StatusValueData = StatusValueData.new()
+var _status_based_values: StatusBasedValueData = StatusBasedValueData.new()
 
 export(Color) var reduced_status_color = Color(0.796875, 0.174316, 0.174316)
 export(Color) var upped_status_color = Color(0.17, 0.8, 0.27)
@@ -55,14 +61,19 @@ func _ready():
 	GlobalEvents.connect("onPlayerEntityUpdated", self, "_update_values")
 	GlobalEvents.connect("onMessageReceived", self, "_update_gainpoints")
 	_check_up_buttons_state()
+	_update_status_values()
 	_request_gainpoints()
 
 
 func _update_gainpoints(msg) -> void:
-	if not msg is GainPointData:
+	if msg is GainPointData:
+		_available_gain_points = msg.value
+	elif msg is StatusValueData:
+		_status_based_values = msg
+	else:
 		return
-	_available_gain_points = msg.value
 	_check_up_buttons_state()
+	_update_status_values()
 
 
 """
@@ -87,43 +98,63 @@ gain points.
 """
 func _check_up_buttons_state() -> void:
 	_gain_label.text = "Available Points: %d" % _available_gain_points
+	if _available_gain_points == 0 && _is_pristine:
+		_gain_points.visible = false
+	else:
+		_gain_points.visible = true
+
+	_save_btn.disabled = _is_pristine
 	
 	var str_cost = _get_up_gain_cost(_effort_values.strength + 1)
-	_strength_cost.text = "%d (%d)" % [_effort_values.strength, str_cost]
+	_strength_cost.text = "%d" % str_cost
 	_strength_up.disabled = str_cost > _available_gain_points
 	
 	var vit_cost = _get_up_gain_cost(_effort_values.vitality + 1)
-	_vitality_cost.text = "%d (%d)" % [_effort_values.vitality, vit_cost]
+	_vitality_cost.text = "%d" % vit_cost
 	_vitality_up.disabled = vit_cost > _available_gain_points
 	
 	var int_cost = _get_up_gain_cost(_effort_values.intelligence + 1)
-	_int_cost.text = "%d (%d)" % [_effort_values.intelligence, int_cost]
+	_int_cost.text = "%d" % int_cost
 	_int_up.disabled = int_cost > _available_gain_points
 	
 	var agi_cost = _get_up_gain_cost(_effort_values.agility + 1)
-	_agi_cost.text = "%d (%d)" % [_effort_values.agility, agi_cost]
+	_agi_cost.text = "%d" % agi_cost
 	_agi_up.disabled = agi_cost > _available_gain_points
 	
 	var dex_cost = _get_up_gain_cost(_effort_values.dexterity + 1)
-	_dex_cost.text = "%d (%d)" % [_effort_values.dexterity, dex_cost]
+	_dex_cost.text = "%d" % dex_cost
 	_dex_up.disabled = dex_cost > _available_gain_points
 	
 	var wil_cost = _get_up_gain_cost(_effort_values.willpower + 1)
-	_wil_cost.text = "%d (%d)" % [_effort_values.willpower, wil_cost]
+	_wil_cost.text = "%d" % wil_cost
 	_wil_up.disabled = vit_cost > _available_gain_points
 
 
 func _get_up_gain_cost(next_value: int) -> int:
-	return int(max(1, int(next_value / 10.0)))
+	return int(max(1, next_value / 3.0))
+
+
+func _update_status_values() -> void:
+	_strength.text = str(_status_values.strength + _effort_values.strength)
+	_vitality.text = str(_status_values.vitality + _effort_values.vitality)
+	_int.text = str(_status_values.intelligence + _effort_values.intelligence)
+	_agi.text = str(_status_values.agility + _effort_values.agility)
+	_dex.text = str(_status_values.dexterity + _effort_values.dexterity)
+	_wil.text = str(_status_values.willpower + _effort_values.willpower)
+	
+	_setup_modifier_color(_strength_mod, _status_values.strength, _modified_status_values.strength)
+	_setup_modifier_color(_vitality_mod, _status_values.vitality, _modified_status_values.vitality)
+	_setup_modifier_color(_int_mod, _status_values.intelligence, _modified_status_values.intelligence)
+	_setup_modifier_color(_agi_mod, _status_values.agility, _modified_status_values.agility)
+	_setup_modifier_color(_dex_mod, _status_values.dexterity, _modified_status_values.dexterity)
+	_setup_modifier_color(_wil_mod, _status_values.willpower, _modified_status_values.willpower)
 
 
 func _update_values(player: Entity) -> void:
 	var data = player.get_component(StatusComponent.NAME) as StatusComponent
 	if data == null:
 		return
-	_setup_modifier_color(_strength_mod, _status_values.strength, _modified_status_values.strength)
-	_setup_modifier_color(_vitality_mod, _status_values.vitality, _modified_status_values.vitality)
-	_setup_modifier_color(_int, _status_values.intelligence, _modified_status_values.intelligence)
+	_update_status_values()
 
 
 func hide() -> void:
@@ -147,18 +178,50 @@ func _request_gainpoints() -> void:
 
 func _on_StrUp_pressed():
 	_is_pristine = false
-	_save_btn.disabled = false
 	_available_gain_points -= _get_up_gain_cost(_effort_values.strength + 1)
 	_effort_values.strength += 1
 	_check_up_buttons_state()
+	_update_status_values()
 
 
 func _on_VitUp_pressed():
 	_is_pristine = false
-	_save_btn.disabled = false
 	_available_gain_points -= _get_up_gain_cost(_effort_values.vitality + 1)
 	_effort_values.vitality += 1
 	_check_up_buttons_state()
+	_update_status_values()
+
+
+func _on_IntUp_pressed():
+	_is_pristine = false
+	_available_gain_points -= _get_up_gain_cost(_effort_values.intelligence + 1)
+	_effort_values.intelligence += 1
+	_check_up_buttons_state()
+	_update_status_values()
+
+
+func _on_AgiUp_pressed():
+	_is_pristine = false
+	_available_gain_points -= _get_up_gain_cost(_effort_values.agility + 1)
+	_effort_values.agility += 1
+	_check_up_buttons_state()
+	_update_status_values()
+
+
+func _on_DexUp_pressed():
+	_is_pristine = false
+	_available_gain_points -= _get_up_gain_cost(_effort_values.dexterity + 1)
+	_effort_values.dexterity += 1
+	_check_up_buttons_state()
+	_update_status_values()
+
+
+func _on_WilUp_pressed():
+	_is_pristine = false
+	_available_gain_points -= _get_up_gain_cost(_effort_values.willpower + 1)
+	_effort_values.willpower += 1
+	_check_up_buttons_state()
+	_update_status_values()
 
 
 func _unhandled_key_input(event):
@@ -172,7 +235,9 @@ func _unhandled_key_input(event):
 
 
 func _on_Save_pressed():
-	pass # Replace with function body.
+	# TODO Persist to the server
+	_is_pristine = true
+	_check_up_buttons_state()
 
 
 func _on_Cancel_pressed():
@@ -186,3 +251,4 @@ func _on_StatusValues_mouse_entered():
 
 func _on_StatusValues_mouse_exited():
 	GlobalEvents.emit_signal("onUiExited")
+

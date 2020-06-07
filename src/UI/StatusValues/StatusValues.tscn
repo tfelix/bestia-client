@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/StatusValues/StatusValues.gd" type="Script" id=1]
 [ext_resource path="res://UI/StatusValues/hamburger-menu.svg" type="Texture" id=2]
@@ -6,9 +6,26 @@
 [ext_resource path="res://UI/close-24px.svg" type="Texture" id=4]
 [ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=5]
 
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.952941, 0.952941, 0.952941, 1 )
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="StatusValues" type="PanelContainer"]
-margin_right = 572.0
-margin_bottom = 247.0
+margin_right = 557.0
+margin_bottom = 231.0
 mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
@@ -19,16 +36,16 @@ upped_status_color = Color( 0.168627, 0.8, 0.270588, 1 )
 [node name="MainContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 565.0
-margin_bottom = 240.0
+margin_right = 550.0
+margin_bottom = 224.0
 
 [node name="MarginHeader" type="MarginContainer" parent="MainContainer"]
-margin_right = 558.0
+margin_right = 543.0
 margin_bottom = 36.0
 custom_constants/margin_bottom = 5
 
 [node name="Header" type="HBoxContainer" parent="MainContainer/MarginHeader"]
-margin_right = 558.0
+margin_right = 543.0
 margin_bottom = 31.0
 
 [node name="Icon" type="TextureRect" parent="MainContainer/MarginHeader/Header"]
@@ -41,7 +58,7 @@ stretch_mode = 6
 
 [node name="MarginLabel" type="MarginContainer" parent="MainContainer/MarginHeader/Header"]
 margin_left = 24.0
-margin_right = 534.0
+margin_right = 519.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_constants/margin_left = 5
@@ -51,15 +68,15 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="MainContainer/MarginHeader/Header/MarginLabel"]
 margin_left = 5.0
-margin_right = 510.0
+margin_right = 495.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Status Valus"
 
 [node name="Close" type="TextureButton" parent="MainContainer/MarginHeader/Header"]
-margin_left = 538.0
-margin_right = 558.0
+margin_left = 523.0
+margin_right = 543.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 20, 20 )
 texture_normal = ExtResource( 4 )
@@ -68,315 +85,330 @@ stretch_mode = 5
 
 [node name="Body" type="HBoxContainer" parent="MainContainer"]
 margin_top = 40.0
-margin_right = 558.0
-margin_bottom = 198.0
+margin_right = 543.0
+margin_bottom = 217.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/Body"]
-margin_right = 230.0
-margin_bottom = 158.0
+margin_right = 220.0
+margin_bottom = 177.0
 custom_constants/margin_left = 5
 
 [node name="StatusValues" type="VBoxContainer" parent="MainContainer/Body/MarginContainer"]
 margin_left = 5.0
-margin_right = 230.0
-margin_bottom = 158.0
+margin_right = 220.0
+margin_bottom = 177.0
 
-[node name="GainPoints" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_right = 225.0
-margin_bottom = 14.0
+[node name="GainPointsContainer" type="PanelContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
+margin_right = 215.0
+margin_bottom = 33.0
+custom_styles/panel = SubResource( 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/Body/MarginContainer/StatusValues/GainPoints"]
-margin_right = 225.0
-margin_bottom = 14.0
+[node name="GainPoints" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 207.0
+margin_bottom = 29.0
+
+[node name="Save" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints"]
+margin_right = 60.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 60, 25 )
+disabled = true
+text = "Save"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints"]
+margin_left = 64.0
+margin_right = 203.0
+margin_bottom = 25.0
 size_flags_horizontal = 3
 custom_constants/margin_left = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AvailablePoints" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/GainPoints/MarginContainer"]
+[node name="AvailablePoints" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/MarginContainer"]
 margin_left = 5.0
-margin_right = 225.0
-margin_bottom = 14.0
+margin_top = 5.0
+margin_right = 139.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0.937255, 0.894118, 0.235294, 1 )
 text = "Available Points: 120"
-align = 2
 
 [node name="Strength" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 18.0
-margin_right = 225.0
-margin_bottom = 38.0
+margin_top = 37.0
+margin_right = 215.0
+margin_bottom = 57.0
 
 [node name="Strength" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
 margin_top = 3.0
-margin_right = 79.0
+margin_right = 84.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Strength"
 
 [node name="StrValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
-margin_left = 83.0
+margin_left = 88.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 35, 0 )
 text = "10"
 align = 2
 
 [node name="StrMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
-custom_colors/font_color = Color( 0.054902, 0.835294, 0.0862745, 1 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="StrUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="StrCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="StrUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Strength"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="Vitality" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 42.0
-margin_right = 225.0
-margin_bottom = 62.0
+margin_top = 61.0
+margin_right = 215.0
+margin_bottom = 81.0
 
 [node name="Vitality" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
 margin_top = 3.0
-margin_right = 64.0
+margin_right = 69.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Vitality"
 
 [node name="VitValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
-margin_left = 68.0
+margin_left = 73.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 50, 0 )
 text = "10"
 align = 2
 
 [node name="VitMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="VitUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="VitCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="VitUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Vitality"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="Intelligence" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 66.0
-margin_right = 225.0
-margin_bottom = 86.0
+margin_top = 85.0
+margin_right = 215.0
+margin_bottom = 105.0
 
 [node name="Intelligence" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
 margin_top = 3.0
-margin_right = 79.0
+margin_right = 84.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Intelligence"
 
 [node name="IntValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
-margin_left = 83.0
+margin_left = 88.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 35, 0 )
 text = "10"
 align = 2
 
 [node name="IntMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="IntUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="IntCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="IntUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Intelligence"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="Agility" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 90.0
-margin_right = 225.0
-margin_bottom = 110.0
+margin_top = 109.0
+margin_right = 215.0
+margin_bottom = 129.0
 
 [node name="Agility" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
 margin_top = 3.0
-margin_right = 64.0
+margin_right = 69.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Agility"
 
 [node name="AgiValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
-margin_left = 68.0
+margin_left = 73.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 50, 0 )
 text = "10"
 align = 2
 
 [node name="AgiMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="AgiUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="AgiCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="AgiUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Agility"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="Dexterity" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 114.0
-margin_right = 225.0
-margin_bottom = 134.0
+margin_top = 133.0
+margin_right = 215.0
+margin_bottom = 153.0
 
 [node name="Dexterity" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
 margin_top = 3.0
-margin_right = 64.0
+margin_right = 69.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Dexterity"
 
 [node name="DexValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
-margin_left = 68.0
+margin_left = 73.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 50, 0 )
 text = "10"
 align = 2
 
 [node name="DexMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="DexUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="DexCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="DexUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Dexterity"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="Willpower" type="HBoxContainer" parent="MainContainer/Body/MarginContainer/StatusValues"]
-margin_top = 138.0
-margin_right = 225.0
-margin_bottom = 158.0
+margin_top = 157.0
+margin_right = 215.0
+margin_bottom = 177.0
 
 [node name="Willpwoer" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
 margin_top = 3.0
-margin_right = 64.0
+margin_right = 69.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 text = "Willpower"
 
 [node name="WilValue" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
-margin_left = 68.0
+margin_left = 73.0
 margin_top = 3.0
-margin_right = 118.0
+margin_right = 123.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 50, 0 )
 text = "10"
 align = 2
 
 [node name="WilMod" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
-margin_left = 122.0
+margin_left = 127.0
 margin_top = 3.0
-margin_right = 172.0
+margin_right = 162.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 50, 0 )
+rect_min_size = Vector2( 35, 0 )
 text = "+10"
 
+[node name="WilUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
+margin_left = 166.0
+margin_right = 186.0
+margin_bottom = 20.0
+text = "+"
+
 [node name="WilCost" type="Label" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
-margin_left = 176.0
+margin_left = 190.0
 margin_top = 3.0
-margin_right = 201.0
+margin_right = 215.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 25, 0 )
 text = "15"
 align = 2
 
-[node name="WilUp" type="Button" parent="MainContainer/Body/MarginContainer/StatusValues/Willpower"]
-margin_left = 205.0
-margin_right = 225.0
-margin_bottom = 20.0
-text = "+"
-
 [node name="MarginContainer1" type="MarginContainer" parent="MainContainer/Body"]
-margin_left = 234.0
-margin_right = 414.0
-margin_bottom = 158.0
+margin_left = 224.0
+margin_right = 404.0
+margin_bottom = 177.0
 rect_min_size = Vector2( 180, 0 )
 custom_constants/margin_left = 20
 
 [node name="StatusBasedValues1" type="VBoxContainer" parent="MainContainer/Body/MarginContainer1"]
 margin_left = 20.0
 margin_right = 180.0
-margin_bottom = 158.0
+margin_bottom = 177.0
 custom_constants/separation = 8
 
 [node name="MagicDefense" type="HBoxContainer" parent="MainContainer/Body/MarginContainer1/StatusBasedValues1"]
@@ -510,16 +542,16 @@ text = "10 %"
 align = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/Body"]
-margin_left = 418.0
-margin_right = 553.0
-margin_bottom = 158.0
+margin_left = 408.0
+margin_right = 543.0
+margin_bottom = 177.0
 custom_constants/margin_right = 5
 custom_constants/margin_left = 10
 
 [node name="StatusBasedValues2" type="VBoxContainer" parent="MainContainer/Body/MarginContainer2"]
 margin_left = 10.0
 margin_right = 130.0
-margin_bottom = 158.0
+margin_bottom = 177.0
 rect_min_size = Vector2( 120, 0 )
 custom_constants/separation = 8
 
@@ -576,43 +608,16 @@ size_flags_horizontal = 3
 text = "10"
 align = 2
 
-[node name="Spacer" type="Control" parent="MainContainer"]
-margin_top = 202.0
-margin_right = 558.0
-margin_bottom = 202.0
-
-[node name="ButtonRow" type="HBoxContainer" parent="MainContainer"]
-margin_top = 206.0
-margin_right = 558.0
-margin_bottom = 231.0
-
-[node name="Placeholder" type="Control" parent="MainContainer/ButtonRow"]
-margin_right = 430.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-
-[node name="Save" type="Button" parent="MainContainer/ButtonRow"]
-margin_left = 434.0
-margin_right = 494.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 60, 25 )
-disabled = true
-text = "Save"
-
-[node name="Cancel" type="Button" parent="MainContainer/ButtonRow"]
-margin_left = 498.0
-margin_right = 558.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 60, 25 )
-text = "Cancel"
-
 [node name="CloseClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 bus = "Fx"
 [connection signal="mouse_entered" from="." to="." method="_on_StatusValues_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_StatusValues_mouse_exited"]
 [connection signal="pressed" from="MainContainer/MarginHeader/Header/Close" to="." method="_on_Close_pressed"]
+[connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Strength/StrUp" to="." method="_on_StrUp_pressed"]
 [connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Vitality/VitUp" to="." method="_on_VitUp_pressed"]
-[connection signal="pressed" from="MainContainer/ButtonRow/Save" to="." method="_on_Save_pressed"]
-[connection signal="pressed" from="MainContainer/ButtonRow/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Intelligence/IntUp" to="." method="_on_IntUp_pressed"]
+[connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Agility/AgiUp" to="." method="_on_AgiUp_pressed"]
+[connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Dexterity/DexUp" to="." method="_on_DexUp_pressed"]
+[connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Willpower/WilUp" to="." method="_on_WilUp_pressed"]
