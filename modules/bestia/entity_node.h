@@ -1,4 +1,3 @@
-//insert the Headername here
 #ifndef ENTITYNODE_H
 #define ENTITYNODE_H
 

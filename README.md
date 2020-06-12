@@ -19,7 +19,6 @@ You can also get in touch via [Discord](https://discord.gg/zZW8M2S).
 The Bestia Game Client is build with [Godot Engine](https://godotengine.org) with two custom modules, the `bestia` module which
 handles the entity synchronization with the server and the [godot_voxel module](https://github.com/Zylann/godot_voxel).
 
-
 If you want to contribute or develop you will need the engine to build with these two modules. In order to do so follow these
 instructions:
 

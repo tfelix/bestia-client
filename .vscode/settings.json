@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "thread": "cpp",
+    "xlocale": "cpp",
+    "functional": "cpp",
+    "system_error": "cpp",
+    "type_traits": "cpp",
+    "xlocmon": "cpp",
+    "xtr1common": "cpp"
+  }
+}
