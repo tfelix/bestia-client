@@ -520,7 +520,7 @@ _global_script_class_icons={
 
 config/name="Bestia Behemoth"
 run/main_scene="res://tests/WalkTest/WalkTest.tscn"
-boot_splash/image="res://shared/img/splash.png"
+boot_splash/image="res://shared/img/logo.png"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
 config/version="0.0.1-alpha"

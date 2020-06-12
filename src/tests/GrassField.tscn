@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://Terrain/GrassLump2/Grass.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://Terrain/GrassLump3/Plane.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://tests/GrassField.gd" type="Script" id=2]
 [ext_resource path="res://Terrain/Grass/grass_trail.tres" type="Material" id=3]
 [ext_resource path="res://Terrain/Grass/GrassTrail.tscn" type="PackedScene" id=4]
@@ -158,7 +158,7 @@ material = ExtResource( 3 )
 script = ExtResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.90066, 0.201111, 0.385182, -0.434524, 0.416854, 0.798387, 0, -0.886446, 0.462832, 8.5724, 7.95894, 0 )
+transform = Transform( 0.970266, 0.152351, 0.188078, -0.104268, -0.438162, 0.892828, 0.218432, -0.885891, -0.409248, 8.5724, 7.95894, 0 )
 light_energy = 0.8
 shadow_enabled = true
 
@@ -216,7 +216,6 @@ environment = SubResource( 8 )
 
 [node name="GrassHider" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0 )
-visible = false
 layers = 2
 mesh = SubResource( 11 )
 material/0 = null
@@ -230,7 +229,6 @@ material/0 = null
 
 [node name="GrassHider2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.458, 2, 14.648 )
-visible = false
 layers = 2
 mesh = SubResource( 11 )
 material/0 = null

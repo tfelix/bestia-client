@@ -13,13 +13,15 @@ onready var _camera = $Camera
 func _ready():
 	var points = _position_grass2()
 	
-	var point_count = 7000 #points.size() / 2
+	var point_count = 50000 #points.size() / 2
 	_multi_mesh.multimesh.instance_count = point_count
 	
 	for i in range(point_count):
 		var newPos = Vector3(randf() * 50 - 25, 1.0, randf() * 50 - 25)
 		var transform = Transform().translated(newPos)
 		transform.basis = transform.basis.rotated(Vector3.UP, 2*PI*randf())
+		var size = 0.3 * randf() + 0.3
+		transform.basis = transform.basis.scaled(Vector3(0.5, size, 0.5))
 		_multi_mesh.multimesh.set_instance_transform(i, transform)
 
 

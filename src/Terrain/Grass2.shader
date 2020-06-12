@@ -70,10 +70,14 @@ void vertex() {
 	}
 }
 
+float map(float value, float new_min, float new_max) {
+	return (new_max - new_min) * value + new_min;
+}
+
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	ALBEDO = albedo.rgb * albedo_tex.rgb * map(COLOR.r, 0.3, 1.0);
 	ALPHA = albedo.a;
 	ALPHA_SCISSOR = 0.97;
 }

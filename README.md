@@ -1,4 +1,6 @@
-# Bestia Game Client
+<img style="display: block; margin-left: auto; margin-right: auto; width: 50%; height: auto;" src="img/logo.png">
+
+# Bestia - Game Client
 
 This is the client implementation of the [Bestia Game](https://bestia-game.net).
 
@@ -67,11 +69,10 @@ The idea of this game is in my mind since 2006. It was originaly planned as a li
 by my highschool class. Sadly it never came to a state which I was satisfied with. So the idea got dragged along and
 along and slowly evolved into this game.
 
-The first Alpha version screenshots looked like this and came from the release around 2009:
+The first Alpha version screenshots of the Browser Game version looked like this and came from the release around 2009:
 
 ![Bestia Overview Screen](https://bestia-game.net/user/data/images/github/bestia_overview.jpg "Bestia Overview Screen")
 ![Inventory](https://bestia-game.net/user/data/images/github/inventory.jpg "Bestia Inventory")
 ![Moving Bestia in the overworld](https://bestia-game.net/user/data/images/github/move.jpg "Moving Bestia in Overview World")
 
-Since then there was pause in development until I dreamed about new game mechanics and was complelty fed up with todays
-MMORPGs. The idea of Bestia was renewed and development began to speed up again in 2016.
+Since then there was pause in development until I dreamed about new game mechanics and was complelty fed up with todays MMORPGs. The idea of Bestia was renewed and development began to speed up again in 2016.
