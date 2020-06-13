@@ -294,11 +294,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Entity/Component/PlayerComponent.gd"
 }, {
-"base": "State",
-"class": "PlayerState",
-"language": "GDScript",
-"path": "res://Game/Entity/Player/PlayerState.gd"
-}, {
 "base": "Component",
 "class": "PositionComponent",
 "language": "GDScript",
@@ -487,7 +482,6 @@ _global_script_class_icons={
 "PerformConstructionComponent": "",
 "Player": "",
 "PlayerComponent": "",
-"PlayerState": "",
 "PositionComponent": "",
 "RangedAttackMessage": "",
 "RequestAttackListMessage": "",

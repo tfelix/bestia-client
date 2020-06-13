@@ -50,6 +50,7 @@ projectile_speed = 45.0
 
 [node name="StatusComponent" type="Node" parent="Entity/Components" index="2"]
 script = ExtResource( 7 )
+walkspeed = 5.0
 
 [node name="ConditionComponent" type="Node" parent="Entity/Components" index="3"]
 script = ExtResource( 8 )

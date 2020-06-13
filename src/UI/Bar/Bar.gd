@@ -3,7 +3,6 @@ extends ColorRect
 export (Color) var primary_color: Color = Color.red
 export (Color) var secondary_color: Color = Color.yellow
 
-onready var _border = $BarBorder
 onready var _primary = $BarColorPrimary
 onready var _secondary = $BarColorSecondary
 onready var _update_tween = $UpdateTween

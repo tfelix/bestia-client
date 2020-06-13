@@ -1,15 +1,13 @@
 extends KinematicBody
 class_name Player
 
-# TODO Read walkspeed from component
-export(float) var speed = 5.0
-
 # Maybe put this in own state node
 enum PlayerState {
 	IDLE,
 	CONSTRUCTING,
 	ATTACKING, 
 	MOVING,
+	USE,
 	INTERACTING # e.g. talking with npc
 }
 
@@ -20,7 +18,6 @@ var _has_attack_delay = false
 var _target_entity: Entity = null
 
 var _queued_casted_attack = null
-var _queued_attack_entity: Entity = null
 
 onready var _model = $Mannequiny
 onready var _move_cursor = $MoveCursor
@@ -70,7 +67,12 @@ func _physics_process(delta):
 	if _move_target == global_pos:
 		return
 
+	var status_comp = _entity.get_component(StatusComponent.NAME) as StatusComponent
+	var speed = 5.0
+	if status_comp != null:
+		speed = status_comp.walkspeed
 	var velocity = (_move_target - global_pos).normalized() * speed
+	
 	move_and_slide_with_snap(velocity, Vector3.UP)
 
 
@@ -81,12 +83,19 @@ func _cast_attack_on_entity(attack, entity, target) -> void:
 
 
 func _check_queued_actions() -> void:
-	if _queued_attack_entity:
-		_player_attacks(_queued_attack_entity)
+	match _current_state:
+		PlayerState.ATTACKING:
+			if _target_entity != null:
+				_attack(_target_entity)
+		PlayerState.USE:
+			if _target_entity != null:
+				_use(_target_entity)
+		_:
+			pass
 
 
 func _clear_queued_actions() -> void:
-	_queued_attack_entity = null
+	_current_state = PlayerState.IDLE
 
 
 # TODO Later access the real mesh of the player
@@ -95,15 +104,15 @@ func get_aabb() -> AABB:
 
 
 func _terrain_clicked(global_pos: Vector3) -> void:
+	# We ignore movement clicks if we are currently constructing
+	if _current_state == PlayerState.CONSTRUCTING:
+		return
 	_play_move_marker(global_pos)
 	_move_to(global_pos)
 
 
 func _move_to(global_pos: Vector3) -> void:
-	# We ignore movement clicks if we are currently constructing
-	if _current_state == PlayerState.CONSTRUCTING:
-		return
-	
+	# If the entity is currently marked as non movable we stop movement here.
 	if _entity.get_component(NoMovementComponent.NAME) != null:
 		return
 
@@ -113,10 +122,10 @@ func _move_to(global_pos: Vector3) -> void:
 	
 	look_at(global_pos, Vector3.UP)
 	_move_target = global_pos
+	_clear_queued_actions()
 	_current_state = PlayerState.MOVING
 	_model.is_moving = true
 	_model.transition_to(Mannequiny.States.RUN)
-	_clear_queued_actions()
 
 
 func _play_move_marker(position: Vector3) -> void:
@@ -126,10 +135,27 @@ func _play_move_marker(position: Vector3) -> void:
 
 func _on_player_interact(target_entity: Entity, type: String) -> void:
 	if type == "basic_attack":
-		_player_attacks(target_entity)
+		_attack(target_entity)
+	elif type == "use":
+		_use(target_entity)
 
 
-func _player_attacks(target_entity: Entity) -> void:
+func _use(target_entity: Entity) -> void:
+	# Check if we are in usable range.
+	# Yes, use item -> call use on structure.
+	# No, try to close distance and re-check usability
+	var target_origin = target_entity.get_spatial().global_transform.origin
+	var target_distance = target_origin.distance_to(global_transform.origin)
+	
+	var in_use_range = false
+	if  not in_use_range:
+		_current_state = PlayerState.USE
+		_target_entity = target_entity
+		_move_to_distance_from_entity(0.1, target_entity)
+		return
+
+
+func _attack(target_entity: Entity) -> void:
 	if _has_attack_delay:
 		return
 	
@@ -142,17 +168,17 @@ func _player_attacks(target_entity: Entity) -> void:
 		print_debug("No weapon component on player entity")
 		return
 	
+	# Check if we need to move towards our target before we can perform the attack
 	var target_distance = target_origin.distance_to(global_transform.origin)
 	if  weapon_comp.attack_range < target_distance:
-		# distance is too short we need to move first.
 		_move_to_distance_from_entity(weapon_comp.attack_range, target_entity)
-		_queued_attack_entity = target_entity
+		_target_entity = target_entity
 		return
 	
 	_current_state = PlayerState.ATTACKING
 	_target_entity = target_entity
 	
-	# TODO diffeentiate between melee or ranged depending on component
+	# TODO diffeentiate between melee or ranged depending on equip component
 	var atk_msg = UseAttackMessage.new()
 	atk_msg.player_attack_id = UseAttackMessage.RANGE_ATTACK_ID
 	atk_msg.target_entity = target_entity.id
@@ -179,4 +205,4 @@ func _on_AttackDelay_timeout():
 		if _target_entity == null:
 			_current_state = PlayerState.IDLE
 			return
-		_player_attacks(_target_entity)
+		_attack(_target_entity)

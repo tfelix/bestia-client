@@ -28,6 +28,7 @@ func _ready():
 func _on_terrain_clicked(global_pos) -> void:
 	if _current_state != State.DEFAULT:
 		return
+	_interaction_servce.hide_behavior_selection()
 	GlobalEvents.emit_signal("onPlayerMoved", global_pos)
 
 
@@ -52,12 +53,19 @@ func _on_entity_clicked(entity: Entity, click_event: InputEventMouseButton) -> v
 				_interaction_servce.show_behavior_selection(entity)
 			else:
 				# Get the default behavior for this entity and execute it.
+				_interaction_servce.hide_behavior_selection()
 				var interaction = _interaction_servce.get_behavior_for(entity)
 				match interaction:
 					"attack":
 						_attack_entity(entity)
+					"use":
+						_use_entity(entity)
 					_:
 						return
+
+
+func _use_entity(target_entity) -> void:
+	GlobalEvents.emit_signal("onPlayerInteract", target_entity, "use")
 
 
 func _cast_on_entity(entity) -> void:

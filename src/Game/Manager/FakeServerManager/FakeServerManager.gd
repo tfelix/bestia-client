@@ -53,7 +53,6 @@ func _on_message(payload):
 		print_debug("Unknown message: ", payload)
 		pass
 
-
 func _setup_account() -> void:
 	var info = AccountInfoMessage.new()
 	info.account_id = 1

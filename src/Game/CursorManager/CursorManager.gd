@@ -111,8 +111,15 @@ Adapts the cursor to the current entity type which is under the pointer
 and depending on the setup behavior it will change the cursor type.
 """
 func _on_over_entity_cursor() -> void:
+	# Dont display anything if entity is dead. This is probably the wrong place as the server
+	# must determine if it makes sense to interact with the entity.
+	#var cond_comp = _current_hovered_entity.get_component(ConditionComponent.NAME) as ConditionComponent
+	#if cond_comp != null && cond_comp.is_dead():
+	#	return
+	
 	var behavior = _behavior_service.get_behavior_for(_current_hovered_entity)
 	print_debug("Entity Cursor behavior: ", behavior)
+	
 	match behavior:
 		"attack":
 			_adapt_mouse_icon(cursor_attack)

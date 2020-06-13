@@ -84,18 +84,6 @@ func _on_col_input_event(camera, event, click_position, click_normal, shape_idx)
 		# get_tree().root.add_child(dialog)
 
 
-func _handle_default_input() -> void:
-	if _is_constructing:
-		pass
-	._handle_default_input()
-
-
-func _handle_secondary_input() -> void:
-	if _is_constructing:
-		pass
-	._handle_secondary_input()
-
-
 func _unhandled_key_input(event):
 	if _is_constructing && event.is_action_pressed("ui_cancel"):
 		stop_construct()

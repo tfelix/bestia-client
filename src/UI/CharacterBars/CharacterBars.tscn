@@ -3,12 +3,10 @@
 [ext_resource path="res://UI/CharacterBars/CharacterBars.gd" type="Script" id=1]
 [ext_resource path="res://UI/Bar/Bar.tscn" type="PackedScene" id=2]
 
-
-
 [node name="CharacterBars" type="VBoxContainer"]
-margin_right = 80.0
-margin_bottom = 10.0
-custom_constants/separation = 0
+margin_right = 100.0
+margin_bottom = 11.0
+custom_constants/separation = -1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -19,7 +17,7 @@ margin_bottom = 6.0
 mouse_filter = 1
 
 [node name="ManaBar" parent="." instance=ExtResource( 2 )]
-margin_top = 6.0
-margin_bottom = 12.0
+margin_top = 5.0
+margin_bottom = 11.0
 mouse_filter = 2
-primary_color = Color( 0, 0.372549, 1, 1 )
+primary_color = Color( 0.290196, 0.65098, 1, 1 )

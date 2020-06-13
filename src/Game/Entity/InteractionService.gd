@@ -31,29 +31,30 @@ func show_behavior_selection(entity: Entity) -> void:
 	var request = InteractionRequest.new()
 	request.entity_id = entity.id
 	GlobalEvents.emit_signal("onMessageSend", request)
-	
+
+
+func hide_behavior_selection() -> void:
+	_interaction_menu.visible = false
 
 
 func get_behavior_for(entity: Entity) -> String:
-	var server_interactions = _request_possible_interactions(entity)
+	_request_possible_interactions(entity)
 	
-	# TODO find better way to group entities
 	var default_interaction = get_default_behavior_for(entity)
 	
 	var node_name = entity.get_parent().name
 	var behavior_group_name = "entity-%s" % [node_name]
 	var saved_interaction = GlobalConfig.get_value("interaction", behavior_group_name)
 	
-	if server_interactions.find(saved_interaction) != -1:
-		return saved_interaction
+	#if server_interactions.find(saved_interaction) != -1:
+	#	return saved_interaction
 	
-	if server_interactions.find(default_interaction) != -1:
-		return default_interaction
-	
-	return "unknown"
+	return default_interaction
 
 
 func _request_possible_interactions(entity: Entity):
+	# Create a request to the server and if the server returns then update the opened
+	# menue.
 	return ["use"]
 
 

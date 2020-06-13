@@ -27,8 +27,8 @@ func can_drop_data(position, drop_data) -> bool:
 func _shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
 	if not shortcut.type == ShortcutData.ShortcutType.ATTACK:
 		return
-	var attack_entity_id = shortcut.payload["attack_entity_id"]
-	GlobalEvents.emit_signal("onCastSelectionStarted", 123)
+	var player_attack_id = shortcut.payload["player_attack_id"]
+	GlobalEvents.emit_signal("onCastSelectionStarted", player_attack_id)
 
 
 func _server_reveiced(payload) -> void:

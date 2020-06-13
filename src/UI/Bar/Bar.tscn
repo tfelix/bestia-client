@@ -28,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.921569, 0.109804, 0.109804, 1 )
 
-[node name="BarBoder" type="NinePatchRect" parent="."]
+[node name="BarBorder" type="NinePatchRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 2 )

@@ -111,9 +111,6 @@ func remove_component(component_name: String):
 	_components.remove_component(component_name)
 
 
-func _handle_default_input() -> void:
-	pass
-
 # The clicking should work like so:
 # Select the object and see if there is a default behavior
 # yes: - des the behavior need physical placement beside the object
@@ -122,7 +119,6 @@ func _handle_default_input() -> void:
 # no: - Select the object and show all possible actions
 func _on_ClickBody_input_event(camera, event, click_position, click_normal, shape_idx):
 	if event.is_action_pressed(Actions.ACTION_LEFT_CLICK):
-		_handle_default_input()
 		GlobalEvents.emit_signal("onEntityClicked", self, event)
 
 
