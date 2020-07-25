@@ -524,6 +524,7 @@ config/version="0.0.1-alpha"
 GlobalData="*res://Autoload/GlobalData.gd"
 GlobalEvents="*res://Autoload/GlobalEvents.gd"
 GlobalConfig="*res://Autoload/GlobalConfig.gd"
+GlobalAudio="*res://Autoload/GlobalAudio.tscn"
 
 [debug]
 

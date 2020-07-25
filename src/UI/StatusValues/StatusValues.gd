@@ -254,11 +254,6 @@ func _on_Save_pressed():
 	_check_up_buttons_state()
 
 
-func _on_Cancel_pressed():
-	# reset possible gain values which where not saved
-	hide()
-
-
 func _on_StatusValues_mouse_entered():
 	GlobalEvents.emit_signal("onUiEntered")
 
@@ -266,3 +261,7 @@ func _on_StatusValues_mouse_entered():
 func _on_StatusValues_mouse_exited():
 	GlobalEvents.emit_signal("onUiExited")
 
+
+
+func _on_Title_close_clicked():
+	hide()

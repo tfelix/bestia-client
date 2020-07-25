@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/MainScreen/MainScreen.gd" type="Script" id=1]
-[ext_resource path="res://UI/MainScreen/landscape-nature-clouds-cloudy.jpg" type="Texture" id=2]
+[ext_resource path="res://UI/TitleBackground/TitleBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=3]
 [ext_resource path="res://UI/FadeIn/FadeIn.tscn" type="PackedScene" id=4]
-[ext_resource path="res://shared/audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=5]
 [ext_resource path="res://UI/menu_theme.tres" type="Theme" id=6]
 [ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
 
@@ -45,32 +44,20 @@ __meta__ = {
 "_edit_vertical_guides_": [ -149.0 ]
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 7
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="TitleBackground" parent="." instance=ExtResource( 2 )]
 
-[node name="FadeIn" parent="." instance=ExtResource( 4 )]
-visible = false
-fade_duration_ms = 1500
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-volume_db = -14.959
-autoplay = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "logo_fade_in"
+anims/logo_fade_in = SubResource( 1 )
 
 [node name="MenuPanel" type="PanelContainer" parent="."]
+anchor_left = 0.2
+anchor_right = 0.2
 anchor_bottom = 1.0
-margin_left = 120.0
-margin_top = -10.0
-margin_right = 434.0
-margin_bottom = 20.0001
-rect_min_size = Vector2( 300, 0 )
+margin_left = -152.0
+margin_right = 152.0
+margin_bottom = 6.10352e-05
+rect_min_size = Vector2( 380, 720 )
 theme = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -78,19 +65,19 @@ __meta__ = {
 
 [node name="Menu" type="VBoxContainer" parent="MenuPanel"]
 margin_left = 2.0
-margin_right = 312.0
-margin_bottom = 750.0
+margin_right = 378.0
+margin_bottom = 720.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuPanel/Menu"]
-margin_right = 310.0
+margin_right = 376.0
 margin_bottom = 180.0
 custom_constants/margin_top = 80
 
 [node name="Logo" type="TextureRect" parent="MenuPanel/Menu/MarginContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 120.0
-margin_right = 310.0
-margin_bottom = 220.0
+margin_top = 80.0
+margin_right = 376.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 300, 100 )
 texture = ExtResource( 3 )
 expand = true
@@ -98,15 +85,15 @@ stretch_mode = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="MenuPanel/Menu"]
 margin_top = 184.0
-margin_right = 310.0
-margin_bottom = 656.0
+margin_right = 376.0
+margin_bottom = 624.0
 size_flags_vertical = 3
 
 [node name="Menu" type="VBoxContainer" parent="MenuPanel/Menu/CenterContainer"]
-margin_left = 30.0
-margin_top = 177.0
-margin_right = 280.0
-margin_bottom = 295.0
+margin_left = 63.0
+margin_top = 184.0
+margin_right = 313.0
+margin_bottom = 256.0
 rect_min_size = Vector2( 250, 0 )
 custom_constants/separation = 20
 __meta__ = {
@@ -124,49 +111,50 @@ margin_right = 250.0
 margin_bottom = 72.0
 text = "Options"
 
-[node name="Credits" type="Button" parent="MenuPanel/Menu/CenterContainer/Menu"]
-margin_top = 92.0
-margin_right = 250.0
-margin_bottom = 118.0
-text = "Credits"
+[node name="Footer" type="CenterContainer" parent="MenuPanel/Menu"]
+margin_top = 628.0
+margin_right = 376.0
+margin_bottom = 720.0
 
-[node name="CenterContainer2" type="CenterContainer" parent="MenuPanel/Menu"]
-margin_top = 660.0
-margin_right = 310.0
-margin_bottom = 750.0
+[node name="MarginContainer" type="MarginContainer" parent="MenuPanel/Menu/Footer"]
+margin_left = 91.0
+margin_right = 284.0
+margin_bottom = 92.0
+custom_constants/margin_bottom = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuPanel/Menu/CenterContainer2"]
-margin_left = 130.0
-margin_right = 180.0
-margin_bottom = 90.0
-custom_constants/margin_bottom = 40
+[node name="FooterVbox" type="VBoxContainer" parent="MenuPanel/Menu/Footer/MarginContainer"]
+margin_right = 193.0
+margin_bottom = 62.0
+custom_constants/separation = 10
 
-[node name="TfLogo" type="TextureRect" parent="MenuPanel/Menu/CenterContainer2/MarginContainer"]
-margin_right = 32.0
+[node name="TfLogo" type="TextureRect" parent="MenuPanel/Menu/Footer/MarginContainer/FooterVbox"]
+margin_right = 193.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
-
-[node name="Version" type="Label" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -114.161
-margin_top = -30.3289
-margin_right = -22.1606
-margin_bottom = -16.3289
-grow_horizontal = 0
-text = "VERSION"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "logo_fade_in"
-anims/logo_fade_in = SubResource( 1 )
+[node name="DevDocsLink" type="LinkButton" parent="MenuPanel/Menu/Footer/MarginContainer/FooterVbox"]
+margin_top = 42.0
+margin_right = 193.0
+margin_bottom = 62.0
+text = "https://docs.bestia-game.net"
+underline = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeIn" parent="." instance=ExtResource( 4 )]
+visible = false
+fade_duration_ms = 1500
+[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/PlayDemo" to="." method="_on_PlayDemo_pressed"]
+[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MenuPanel/Menu/Footer/MarginContainer/FooterVbox/DevDocsLink" to="." method="_on_DevDocsLink_pressed"]
 [connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
-[connection signal="fade_out_finished" from="FadeIn" to="." method="_on_FadeIn_fade_out_finished"]
-[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Credits" to="." method="_on_Credits_pressed"]

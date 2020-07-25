@@ -2,6 +2,12 @@ extends Node
 
 const config_file = "user://game.cfg"
 
+const SEC_AUDIO = "audio"
+
+const PROP_AUDIO_MASTER_VOLUME = "master_volume"
+const PROP_AUDIO_FX_VOLUME = "fx_volume"
+const PROP_AUDIO_MUSIC_VOLUME = "music_volume"
+
 var _config
 
 func _ready():

@@ -13,6 +13,7 @@ func fade():
 	var new_speed = base_duration_ms / fade_duration_ms
 	$AnimationPlayer.play("fade_in", -1, new_speed)
 
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if is_fade_out:
 		is_fade_out = false

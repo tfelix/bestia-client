@@ -1,7 +1,7 @@
 extends Control
 
-
 export var slot_name: String
+export var enabled: bool = true
 
 onready var _slot_label = $SlotLabel
 

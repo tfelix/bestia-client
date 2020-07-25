@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+float circle(in vec2 _st, in float _radius){
+	 vec2 dist = _st - vec2(0.5);
+	return 1.-smoothstep(
+		_radius - (_radius * 0.01),
+		_radius + (_radius * 0.01),
+		 dot(dist, dist) * 4.0
+	);
+}
+
+void fragment(){
+	vec3 color = vec3(circle(UV, 0.3));
+	COLOR = vec4(color, 1.0);
+}"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.05261
+margin_bottom = 1.05261
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+material = SubResource( 2 )
+margin_right = 421.0
+margin_bottom = 421.0

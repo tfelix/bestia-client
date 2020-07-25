@@ -15,7 +15,7 @@ var client_account_id: int = 1
 # can not be typed
 var entities 
 
-# Used for local entities.
+# Used when local entities are spawned
 var _current_entity_id = 100
 
 """
