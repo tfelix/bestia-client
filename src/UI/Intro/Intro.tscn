@@ -10,12 +10,7 @@
 [ext_resource path="res://UI/Intro/step3/Step3.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Intro/step2/Step2.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/Intro/step1/Step1.tscn" type="PackedScene" id=10]
-[ext_resource path="res://UI/Intro/FadeInOut.tscn" type="PackedScene" id=11]
-
-
-
-
-
+[ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_step_1"
@@ -156,10 +151,14 @@ tracks/1/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Story" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
 autoplay = true
+bus = "Music"
 
 [node name="Step8" parent="." instance=ExtResource( 3 )]
 
@@ -179,11 +178,9 @@ anchor_bottom = 1.0
 
 [node name="Step1" parent="." instance=ExtResource( 10 )]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="SceneFadeIn" parent="." instance=ExtResource( 11 )]
 
-[node name="FadeIn" parent="." instance=ExtResource( 11 )]
-visible = false
-color = Color( 0, 0, 0, 0 )
+[node name="Timer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fade_step_1 = SubResource( 1 )
@@ -191,7 +188,6 @@ anims/fade_step_2 = SubResource( 2 )
 anims/fade_step_3 = SubResource( 3 )
 anims/fade_step_4 = SubResource( 4 )
 anims/fade_step_7 = SubResource( 5 )
-
 [connection signal="finished" from="Step8" to="." method="_on_Step8_finished"]
 [connection signal="finished" from="Step7" to="." method="_on_Step7_finished"]
 [connection signal="finished" from="Step6" to="." method="_on_Step6_finished"]
@@ -200,4 +196,3 @@ anims/fade_step_7 = SubResource( 5 )
 [connection signal="finished" from="Step3" to="." method="_on_Step3_finished"]
 [connection signal="finished" from="Step2" to="." method="_on_Step2_finished"]
 [connection signal="finished" from="Step1" to="." method="_on_Step1_finished"]
-[connection signal="fade_out_finished" from="FadeIn" to="." method="_on_FadeIn_fade_out_finished"]

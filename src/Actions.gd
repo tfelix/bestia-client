@@ -1,4 +1,5 @@
 class_name Actions
+
 # Contains the name constants of the player actions.
 const ACTION_LEFT_CLICK = "left_click"
 const ACTION_RIGHT_CLICK = "right_click"

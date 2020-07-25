@@ -1,16 +1,17 @@
 [gd_scene format=2]
 
 [node name="CharacterCreation" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 1280.0
+margin_bottom = 720.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CharacterForm" type="VBoxContainer" parent="."]
-margin_top = -1.0
-margin_right = 291.0
-margin_bottom = 719.0
+margin_left = 4.29593
+margin_top = -8.15987
+margin_right = 295.296
+margin_bottom = 711.84
 __meta__ = {
 "_edit_use_anchors_": false
 }

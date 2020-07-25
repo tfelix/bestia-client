@@ -1,13 +1,99 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/Register/Register.gd" type="Script" id=1]
+[ext_resource path="res://UI/menu_theme.tres" type="Theme" id=2]
 
 [node name="Register" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="RegisterForm" type="VBoxContainer" parent="."]
+margin_right = 315.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterName" type="Label" parent="RegisterForm"]
+margin_right = 315.0
+margin_bottom = 20.0
+text = "Character Name"
+
+[node name="CharacterNameRow" type="HBoxContainer" parent="RegisterForm"]
+margin_top = 24.0
+margin_right = 315.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterName" type="LineEdit" parent="RegisterForm/CharacterNameRow"]
+margin_right = 315.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+placeholder_text = "Name"
+
+[node name="CheckIndicator" type="TextureRect" parent="RegisterForm/CharacterNameRow"]
+visible = false
+margin_left = 285.0
+margin_right = 315.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 30, 20 )
+
+[node name="LoginMargin" type="MarginContainer" parent="RegisterForm"]
+margin_top = 58.0
+margin_right = 315.0
+margin_bottom = 238.0
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="LoginContainer" type="TabContainer" parent="RegisterForm/LoginMargin"]
+margin_top = 20.0
+margin_right = 315.0
+margin_bottom = 160.0
+
+[node name="Password" type="VBoxContainer" parent="RegisterForm/LoginMargin/LoginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 38.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Email" type="LineEdit" parent="RegisterForm/LoginMargin/LoginContainer/Password"]
+margin_right = 307.0
+margin_bottom = 30.0
+placeholder_text = "Email"
+
+[node name="Password" type="LineEdit" parent="RegisterForm/LoginMargin/LoginContainer/Password"]
+margin_top = 34.0
+margin_right = 307.0
+margin_bottom = 64.0
+secret = true
+placeholder_text = "Password"
+
+[node name="PasswordRepeat" type="LineEdit" parent="RegisterForm/LoginMargin/LoginContainer/Password"]
+margin_top = 68.0
+margin_right = 307.0
+margin_bottom = 98.0
+secret = true
+placeholder_text = "Repeat Password"
+
+[node name="Google" type="Control" parent="RegisterForm/LoginMargin/LoginContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 38.0
+margin_right = -4.0
+margin_bottom = -4.0

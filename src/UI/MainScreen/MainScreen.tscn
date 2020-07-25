@@ -3,7 +3,7 @@
 [ext_resource path="res://UI/MainScreen/MainScreen.gd" type="Script" id=1]
 [ext_resource path="res://UI/TitleBackground/TitleBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=3]
-[ext_resource path="res://UI/FadeIn/FadeIn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/menu_theme.tres" type="Theme" id=6]
 [ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
 
@@ -151,10 +151,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FadeIn" parent="." instance=ExtResource( 4 )]
+[node name="SceneFade" parent="." instance=ExtResource( 4 )]
 visible = false
 fade_duration_ms = 1500
+fade_direction = 1
 [connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/PlayDemo" to="." method="_on_PlayDemo_pressed"]
 [connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="MenuPanel/Menu/Footer/MarginContainer/FooterVbox/DevDocsLink" to="." method="_on_DevDocsLink_pressed"]
-[connection signal="fade_in_finished" from="FadeIn" to="." method="_on_FadeIn_fade_in_finished"]
+[connection signal="fade_out_finished" from="SceneFade" to="." method="_on_SceneFade_fade_out_finished"]

@@ -19,6 +19,15 @@ func update_volumes():
 
 func play_bgm(stream: AudioStream):
 	_player.stream = stream
+	_player.play()
+
+
+func play() -> void:
+	_player.play()
+
+
+func stop() -> void:
+	_player.stop()
 
 
 """

@@ -1,9 +1,7 @@
 extends Control
 
 var scene_path_to_load
-
-func _on_FadeIn_fade_out_finished():
-	get_tree().change_scene("res://scenes/intro/Intro.tscn")
+onready var _fader = $SceneFade
 
 
 func _on_DevDocsLink_pressed():
@@ -15,9 +13,12 @@ func _on_Options_pressed():
 
 
 func _on_PlayDemo_pressed():
-	$FadeIn.show()
-	$FadeIn.fade()
+	_fader.fade()
 
 
 func _on_FadeIn_fade_in_finished():
-	$FadeIn.hide()
+	_fader.hide()
+
+
+func _on_SceneFade_fade_out_finished():
+	get_tree().change_scene("res://UI/Intro/Intro.tscn")
