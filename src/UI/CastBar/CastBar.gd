@@ -1,14 +1,14 @@
 extends Control
 
 onready var _perc_tween = $TweenCastPerc
-onready var _text = $VBox/Text
-onready var _bar = $VBox/CenterContainer/Bar
+onready var _text = $Rows/Text
+onready var _bar = $Rows/Bar
 
 var _entity
 var _progress = 0.0
 
 var _cast_text = "SKILL_NAME" 
-var _duration = 1000
+var _duration = 10000
 
 
 func _ready() -> void:
@@ -35,7 +35,7 @@ func init(cast_text: String, cast_duration_ms: int, parent: Spatial) -> void:
 
 func _process(delta) -> void:
 	_bar.set_value(_progress)
-	_update_position()
+	#_update_position()
 
 
 func _update_position():

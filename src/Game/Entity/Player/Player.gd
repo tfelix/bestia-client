@@ -137,6 +137,11 @@ func _terrain_clicked(global_pos: Vector3) -> void:
 	# We ignore movement clicks if we are currently constructing
 	if _is_in_state(PlayerState.CONSTRUCTING):
 		return
+	
+	# We also ignore movement clicks when we are marked as non movable
+	if _entity.get_component(NoMovementComponent.NAME) != null:
+		return
+	
 	_play_move_marker(global_pos)
 	# We cancel all queued actions
 	_clear_queued_actions()
