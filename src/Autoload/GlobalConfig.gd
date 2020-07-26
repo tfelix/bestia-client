@@ -3,10 +3,16 @@ extends Node
 const config_file = "user://game.cfg"
 
 const SEC_AUDIO = "audio"
+const SEC_WIN_POS = "win_position"
 
 const PROP_AUDIO_MASTER_VOLUME = "master_volume"
 const PROP_AUDIO_FX_VOLUME = "fx_volume"
 const PROP_AUDIO_MUSIC_VOLUME = "music_volume"
+
+const PROP_WIN_EQUIP = "win_equipment"
+const PROP_WIN_INVENTORY = "win_inventory"
+const PROP_WIN_STATUS = "win_status"
+const PROP_WIN_ATTACKS = "win_attacks"
 
 var _config
 
@@ -17,7 +23,7 @@ func _ready():
 		printerr("Could not load config file: ", err)
 
 
-func get_value(section: String, property: String, default_value = ""):
+func get_value(section: String, property: String, default_value = null):
 	return _config.get_value(section, property, default_value)
 
 

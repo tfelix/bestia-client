@@ -1,23 +1,33 @@
-extends Control
+extends HBoxContainer
 
 const AttackRow = preload("res://UI/AttackList/AttackRow/AttackRow.tscn")
 const AttackDescription = preload("res://UI/AttackList/AttackDescription/AttackDescription.tscn")
 
-onready var _search_text = $CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/Search/Search
-onready var _attacks_container = $CenterContainer/HBoxContainer/AttackPanel/BorderMargin/Attacks/ScrollContainer/AttackRows
-onready var _box_container = $CenterContainer/HBoxContainer
-onready var _click_audio = $AudioClick
+onready var _search_text = $AttackPanel/BorderMargin/Attacks/Search/Search
+onready var _attacks_container = $AttackPanel/BorderMargin/Attacks/ScrollContainer/AttackRows
 
 var _attack_db = AttackDatabase.new()
 
 var _attack_description = null
 var _attacks = []
 
+var _is_dragged = false
+var _mouse_offset = Vector2(0, 0)
+
 func _ready():
 	GlobalEvents.connect("onMessageReceived", self, "_server_reveiced")
 	GlobalEvents.connect("onShortcutPressed", self, "_shortcut_pressed")
 	_request_attack_list();
 	_render_filtered_attacks()
+	# Setup the initial position
+	var win_pos = GlobalConfig.get_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_ATTACKS, Vector2(100, 100))
+	rect_position = win_pos
+
+
+func _process(delta):
+	if _is_dragged:
+		var mouse_pos = get_viewport().get_mouse_position()
+		rect_position = mouse_pos - _mouse_offset
 
 
 func can_drop_data(position, drop_data) -> bool:
@@ -66,22 +76,6 @@ func _render_filtered_attacks() -> void:
 		atk_row.connect("pressed", self, "_attack_selected")
 
 
-func show():
-	if not visible:
-		_click_audio.play()
-	.show()
-
-
-func hide():
-	if visible:
-		_click_audio.play()
-	.hide()
-
-
-func _on_Close_pressed():
-	hide()
-
-
 func _attack_selected(attack_row):
 	for atk in _attacks_container.get_children():
 		atk.selected = false
@@ -93,7 +87,7 @@ func _attack_selected(attack_row):
 			_attack_description_ref.queue_free()
 	
 	_attack_description = weakref(AttackDescription.instance())
-	_box_container.add_child(_attack_description.get_ref())
+	add_child(_attack_description.get_ref())
 	
 	var atk = attack_row.data
 	_attack_description.get_ref().set_attack(atk)
@@ -111,6 +105,11 @@ func _on_Search_text_changed(new_text):
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		hide()
+	if event.is_action_pressed("ui_attacks"):
+		if visible == true:
+			hide()
+		else:
+			show()
 
 
 func _on_AttackList_visibility_changed():
@@ -118,9 +117,15 @@ func _on_AttackList_visibility_changed():
 		_request_attack_list();
 
 
-func _on_AttackList_mouse_entered():
-	GlobalEvents.emit_signal("onUiEntered")
+func _on_WindowTitle_close_clicked():
+	hide()
 
 
-func _on_AttackList_mouse_exited():
-	GlobalEvents.emit_signal("onUiExited")
+func _on_WindowTitle_drag_ended():
+	_is_dragged = false
+	GlobalConfig.set_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_ATTACKS, rect_position)
+
+
+func _on_WindowTitle_drag_started(mouse_offset):
+	_mouse_offset = mouse_offset
+	_is_dragged = true

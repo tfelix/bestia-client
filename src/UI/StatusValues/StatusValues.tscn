@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/StatusValues/StatusValues.gd" type="Script" id=1]
 [ext_resource path="res://UI/StatusValues/hamburger-menu.svg" type="Texture" id=2]
-[ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=5]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=6]
-
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 4.0
@@ -37,7 +35,7 @@ upped_status_color = Color( 0.168627, 0.8, 0.270588, 1 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 550.0
-margin_bottom = 231.0
+margin_bottom = 224.0
 
 [node name="Title" parent="MainContainer" instance=ExtResource( 6 )]
 margin_right = 543.0
@@ -45,9 +43,9 @@ title_text = "Status Values"
 icon = ExtResource( 2 )
 
 [node name="Body" type="HBoxContainer" parent="MainContainer"]
-margin_top = 47.0
+margin_top = 45.0
 margin_right = 543.0
-margin_bottom = 201.0
+margin_bottom = 199.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/Body"]
 margin_right = 215.0
@@ -568,13 +566,11 @@ margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "10"
 align = 2
-
-[node name="CloseClick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-bus = "Fx"
 [connection signal="mouse_entered" from="." to="." method="_on_StatusValues_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_StatusValues_mouse_exited"]
 [connection signal="close_clicked" from="MainContainer/Title" to="." method="_on_Title_close_clicked"]
+[connection signal="drag_ended" from="MainContainer/Title" to="." method="_on_Title_drag_ended"]
+[connection signal="drag_started" from="MainContainer/Title" to="." method="_on_Title_drag_started"]
 [connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Strength/StrUp" to="." method="_on_StrUp_pressed"]
 [connection signal="pressed" from="MainContainer/Body/MarginContainer/StatusValues/Vitality/VitUp" to="." method="_on_VitUp_pressed"]

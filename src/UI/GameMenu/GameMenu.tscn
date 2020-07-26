@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/GameMenu/GameMenu.gd" type="Script" id=1]
+
+[node name="GameMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuLines" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 601.0
+margin_top = 350.0
+margin_right = 678.0
+margin_bottom = 370.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="Button" parent="CenterContainer/MenuLines"]
+margin_right = 77.0
+margin_bottom = 20.0
+text = "Exit Game"
+[connection signal="pressed" from="CenterContainer/MenuLines/ExitButton" to="." method="_on_ExitButton_pressed"]

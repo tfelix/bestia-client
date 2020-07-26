@@ -1,6 +1,5 @@
 extends PanelContainer
 
-onready var _click = $CloseClick
 onready var _save_btn = $MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer/GainPoints/Save
 
 onready var _gain_points = $MainContainer/Body/MarginContainer/StatusValues/GainPointsContainer
@@ -49,6 +48,9 @@ onready var _stamina_regen = $MainContainer/Body/MarginContainer2/StatusBasedVal
 
 var _is_pristine = true
 
+var _mouse_offset = Vector2(0, 0)
+var _is_dragged = false
+
 var _available_gain_points = 120
 
 var _status_values: StatusValueData = StatusValueData.new()
@@ -66,6 +68,16 @@ func _ready():
 	_check_up_buttons_state()
 	_update_status_values()
 	_request_gainpoints()
+	
+	# Setup the initial position
+	var win_pos = GlobalConfig.get_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_STATUS, Vector2(0, 0))
+	rect_position = win_pos
+
+
+func _process(delta):
+	if _is_dragged:
+		var mouse_pos = get_viewport().get_mouse_position()
+		rect_position = mouse_pos - _mouse_offset
 
 
 func _update_gainpoints(msg) -> void:
@@ -171,16 +183,6 @@ func _update_values(player: Entity) -> void:
 	_update_status_values()
 
 
-func hide() -> void:
-	_click.play()
-	.hide()
-
-
-func show() -> void:
-	_click.play()
-	.show()
-
-
 func _on_Close_pressed() -> void:
 	hide()
 
@@ -262,6 +264,15 @@ func _on_StatusValues_mouse_exited():
 	GlobalEvents.emit_signal("onUiExited")
 
 
-
 func _on_Title_close_clicked():
 	hide()
+
+
+func _on_Title_drag_started(mouse_offset):
+	_mouse_offset = mouse_offset
+	_is_dragged = true
+
+
+func _on_Title_drag_ended():
+	_is_dragged = false
+	GlobalConfig.set_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_STATUS, rect_position)

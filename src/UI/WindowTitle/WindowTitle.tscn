@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://shared/audio/fx/click3.wav" type="AudioStream" id=1]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.gd" type="Script" id=2]
 [ext_resource path="res://shared/fonts/OpenSans_SemiboldHeadline.tres" type="DynamicFont" id=3]
 
@@ -15,38 +14,47 @@ load_path = "res://.import/sword-wound.svg-adc02d31f58dd42f6bc022a14d5cff35.stex
 flags = 4
 load_path = "res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex"
 
-[node name="Title" type="PanelContainer"]
+[node name="WindowTitle" type="MarginContainer"]
 margin_right = 1280.0
-margin_bottom = 43.0
-custom_styles/panel = SubResource( 1 )
+margin_bottom = 41.0
+custom_constants/margin_bottom = 8
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TitleBackground" type="PanelContainer" parent="."]
 margin_right = 1280.0
-margin_bottom = 43.0
-custom_constants/margin_bottom = 10
+margin_bottom = 33.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TitleRow" type="HBoxContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TitleBackground"]
+margin_right = 1280.0
+margin_bottom = 33.0
+mouse_filter = 1
+size_flags_horizontal = 3
+
+[node name="TitleRow" type="HBoxContainer" parent="TitleBackground/MarginContainer"]
 margin_right = 1280.0
 margin_bottom = 33.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="IconMargin" type="MarginContainer" parent="MarginContainer/TitleRow"]
-margin_right = 54.0
+[node name="IconMargin" type="MarginContainer" parent="TitleBackground/MarginContainer/TitleRow"]
+margin_right = 44.0
 margin_bottom = 33.0
-custom_constants/margin_right = 14
+custom_constants/margin_right = 4
 custom_constants/margin_top = 3
 custom_constants/margin_left = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/TitleRow/IconMargin"]
+[node name="Icon" type="TextureRect" parent="TitleBackground/MarginContainer/TitleRow/IconMargin"]
 margin_left = 10.0
 margin_top = 3.0
 margin_right = 40.0
@@ -56,16 +64,17 @@ texture = SubResource( 2 )
 expand = true
 stretch_mode = 6
 
-[node name="Title" type="Label" parent="MarginContainer/TitleRow"]
-margin_left = 58.0
+[node name="Title" type="Label" parent="TitleBackground/MarginContainer/TitleRow"]
+margin_left = 48.0
 margin_right = 1226.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 custom_fonts/font = ExtResource( 3 )
 text = "Title"
+valign = 1
 
-[node name="CloseMargin" type="MarginContainer" parent="MarginContainer/TitleRow"]
+[node name="CloseMargin" type="MarginContainer" parent="TitleBackground/MarginContainer/TitleRow"]
 margin_left = 1230.0
 margin_right = 1280.0
 margin_bottom = 33.0
@@ -75,7 +84,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Close" type="TextureButton" parent="MarginContainer/TitleRow/CloseMargin"]
+[node name="Close" type="TextureButton" parent="TitleBackground/MarginContainer/TitleRow/CloseMargin"]
 margin_left = 5.0
 margin_right = 45.0
 margin_bottom = 33.0
@@ -83,7 +92,5 @@ rect_min_size = Vector2( 40, 20 )
 texture_normal = SubResource( 3 )
 expand = true
 stretch_mode = 3
-
-[node name="ClickPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-bus = "Fx"
+[connection signal="gui_input" from="TitleBackground" to="." method="_on_TitleBackground_gui_input"]
+[connection signal="pressed" from="TitleBackground/MarginContainer/TitleRow/CloseMargin/Close" to="." method="_on_Close_pressed"]

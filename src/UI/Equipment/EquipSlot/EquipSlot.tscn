@@ -1,7 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Equipment/EquipSlot/EquipSlot.gd" type="Script" id=1]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.168627, 0.168627, 0.168627, 1 )
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.168627, 0.168627, 0.168627, 1 )
@@ -10,7 +19,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [node name="EquipSlot" type="Control"]
 margin_right = 220.0
@@ -22,7 +31,15 @@ __meta__ = {
 }
 slot_name = "Head"
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelLeft" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelRight" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )

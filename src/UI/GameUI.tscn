@@ -72,33 +72,16 @@ visible = false
 margin_top = 110.0
 margin_bottom = 161.0
 
-[node name="Inventory" parent="." instance=ExtResource( 9 )]
-visible = false
-
 [node name="AttackList" parent="." instance=ExtResource( 10 )]
 visible = false
 
 [node name="Equipment" parent="." instance=ExtResource( 12 )]
 visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -317.0
-margin_top = -175.0
-margin_right = 317.0
-margin_bottom = 175.0
 
 [node name="StatusValues" parent="." instance=ExtResource( 7 )]
+
+[node name="Inventory" parent="." instance=ExtResource( 9 )]
 visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -278.5
-margin_top = -115.5
-margin_right = 278.5
-margin_bottom = 115.5
 [connection signal="item_dropped" from="ItemDropZone" to="." method="_on_ItemDropZone_item_dropped"]
 [connection signal="equip_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_equip_pressed"]
 [connection signal="on_attacks_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_on_attacks_pressed"]

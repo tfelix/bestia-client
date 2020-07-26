@@ -15,6 +15,7 @@ onready var _mana_label = $MainCols/CharInfoMargin/Rows/Main/Bars/ManaLabel
 func _ready():
 	GlobalEvents.connect("onPlayerEntityUpdated", self, "_on_player_changed")
 
+
 func _on_player_changed(player: Entity):
 	var info = player.get_component(PlayerComponent.NAME) as PlayerComponent
 	if info == null:

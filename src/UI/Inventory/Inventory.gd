@@ -9,17 +9,20 @@ class InventoryInfo:
 	var max_items: int
 
 onready var _pickup_msg = $ItemPickupMessage
-onready var _items_grid = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid
-onready var _weight_label = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/Weight
-onready var _count_label = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/MarginItemCount/ItemCount
-onready var _search_text = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/SearchEdit
-onready var _search_clear_btn = $MarginContainer/InventoryPanel/HContainer/MainContent/Header/ClearSearch
-onready var _module = $MarginContainer/InventoryPanel/HContainer/MainContent/Content/Module
+onready var _items_grid = $InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid
+onready var _weight_label = $InventoryPanel/HContainer/MainContent/Header/Weight
+onready var _count_label = $InventoryPanel/HContainer/MainContent/Header/MarginItemCount/ItemCount
+onready var _search_text = $InventoryPanel/HContainer/MainContent/Header/SearchEdit
+onready var _search_clear_btn = $InventoryPanel/HContainer/MainContent/Header/ClearSearch
+onready var _module = $InventoryPanel/HContainer/MainContent/Content/Module
 
 var _info: InventoryInfo = InventoryInfo.new()
 
 var _items = []
 var _displayed_items = []
+
+var _is_dragged = false
+var _mouse_offset = Vector2(0, 0)
 
 var _inventory_open_pre_construction = false
 var _item_use_request_id = ""
@@ -40,6 +43,16 @@ func _ready():
 	
 	var msg = RequestInventoryMessage.new()
 	GlobalEvents.emit_signal("onMessageSend", msg)
+	
+	# Setup the initial position
+	var win_pos = GlobalConfig.get_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_INVENTORY, Vector2(100, 100))
+	rect_position = win_pos
+
+
+func _process(delta):
+	if _is_dragged:
+		var mouse_pos = get_viewport().get_mouse_position()
+		rect_position = mouse_pos - _mouse_offset
 
 
 func _on_item_udpdate_requested() -> void:
@@ -242,21 +255,8 @@ func get_total_weight() -> int:
 
 
 func hide():
-	if visible:
-		$AudioClick.play()
 	_on_item_selected(null)
 	.hide()
-
-
-func show():
-	if not visible:
-		$AudioClick.play()
-	_search_text.grab_focus()
-	.show()
-
-
-func _on_Close_pressed():
-	hide()
 
 
 func _on_ClearSearch_pressed():
@@ -295,8 +295,10 @@ func _filter_displayed_items(filter_name: String) -> void:
 
 func _unhandled_key_input(event) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		get_tree().set_input_as_handled()
 		hide()
-	if event.is_action_pressed("ui_inventory_open"):
+	if event.is_action_pressed("ui_inventory"):
+		get_tree().set_input_as_handled()
 		if visible:
 			hide()
 		else:
@@ -309,3 +311,17 @@ func _on_Inventory_mouse_entered():
 
 func _on_Inventory_mouse_exited():
 	GlobalEvents.emit_signal("onUiExited")
+
+
+func _on_WindowTitle_drag_started(mouse_offset):
+	_mouse_offset = mouse_offset
+	_is_dragged = true
+
+
+func _on_WindowTitle_drag_ended():
+	_is_dragged = false
+	GlobalConfig.set_value(GlobalConfig.SEC_WIN_POS, GlobalConfig.PROP_WIN_INVENTORY, rect_position)
+
+
+func _on_WindowTitle_close_clicked():
+	hide()
