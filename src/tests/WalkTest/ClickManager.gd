@@ -69,10 +69,6 @@ func _use_entity(target_entity) -> void:
 
 
 func _cast_on_entity(entity) -> void:
-	var msg = UseAttackMessage.new()
-	msg.player_attack_id = _casted_attack
-	msg.target_entity = entity.id
-	GlobalEvents.emit_signal("onMessageSend", msg)
 	GlobalEvents.emit_signal("onSkillCasted", _casted_attack, entity, null)
 	GlobalEvents.emit_signal("onCastSelectionEnded")
 

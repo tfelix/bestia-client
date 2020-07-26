@@ -55,6 +55,10 @@ func _ended_construction(entity) -> void:
 
 func _physics_process(delta):
 	# Check if we are in a moving state.
+	if _is_in_state(PlayerState.IDLE):
+		_model.transition_to(Mannequiny.States.IDLE)
+		return
+	
 	if not _is_in_state(PlayerState.MOVING):
 		return
 	
@@ -96,6 +100,14 @@ func _is_in_state(player_state) -> bool:
 
 func _cast_attack_on_entity(attack, entity, target) -> void:
 	look_at(entity.global_transform.origin, Vector3.UP)
+	
+	# Check if target is in range, if its not, then do nothing.
+	
+	var msg = UseAttackMessage.new()
+	msg.player_attack_id = attack
+	msg.target_entity = entity.id
+	GlobalEvents.emit_signal("onMessageSend", msg)
+	
 	_command_queue.clear()
 
 
