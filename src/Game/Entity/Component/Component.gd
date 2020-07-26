@@ -15,7 +15,7 @@ func on_attach(entity) -> void:
 """
 Called if the server sends an component update to the entity.
 """
-func on_update(entity, component_data) -> void:
+func on_update(entity, component_data: ComponentData) -> void:
 	pass
 
 

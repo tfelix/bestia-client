@@ -44,11 +44,14 @@ func _server_received(msg) -> void:
 		pass
 
 
-func _check_send_player_entity_update(msg: Component, entity: Entity) -> void:
+func _check_send_player_entity_update(msg: ComponentData, entity: Entity) -> void:
 	if entity == null:
 		return
-	if msg is PlayerComponent && GlobalData.client_account_id == msg.account_id:
-		GlobalEvents.emit_signal("onPlayerEntityUpdated", entity)
+	# We need a proper way to update components. Currently its a mess and the ComponentData
+	# does not have a account_id. It only has the entity id of the player character. But there
+	# is no good setup/flow to keep track of the current player entity id.
+	#if GlobalData.client_account_id == msg.account_id:
+	#	GlobalEvents.emit_signal("onPlayerEntityUpdated", entity)
 
 
 func get_entity(id: int) -> Entity:

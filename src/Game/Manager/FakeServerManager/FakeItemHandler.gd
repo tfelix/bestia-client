@@ -60,8 +60,7 @@ func use_item(msg: ItemUseMessage) -> void:
 	
 	if player_item.amount <= 0:
 		_remove_player_item(player_item)
-	else:
-		send_items()
+	send_items()
 
 
 func _use_apple() -> void:
@@ -76,6 +75,21 @@ func _use_apple() -> void:
 	fx_msg.damage = dmg_msg
 	fx_msg.latency_ms = 10
 	GlobalEvents.emit_signal("onMessageReceived", fx_msg)
+	
+	var player = GlobalData.entities.get_entity(GlobalData.client_account_id)
+	var player_cond = player.get_component(ConditionComponent.NAME) as ConditionComponent
+	player_cond.cur_health += 15
+	if player_cond.cur_health >= player_cond.max_health:
+		player_cond.cur_health = player_cond.max_health
+	
+	var cond_data = ComponentData.new()
+	cond_data.entity_id = player.id
+	cond_data.component_name = ConditionComponent.NAME
+	cond_data.data["cur_health"] = player_cond.cur_health + 15
+	if cond_data.data["cur_health"] > player_cond.max_health:
+		cond_data.data["cur_health"] = player_cond.max_health
+	
+	GlobalEvents.emit_signal("onMessageReceived", cond_data)
 
 
 func _get_player_item(player_item_id) -> ItemModel:
@@ -123,6 +137,7 @@ func drop_item(msg: ItemDropMessage) -> void:
 	pos_data.data["y"] = player_pos.y
 	pos_data.data["z"] = player_pos.z
 	GlobalEvents.emit_signal("onMessageReceived", pos_data)
+
 
 func send_items() -> void:
 	var update_msg = InventoryUpdateMessage.new()

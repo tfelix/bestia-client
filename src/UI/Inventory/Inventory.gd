@@ -313,9 +313,15 @@ func _on_Inventory_mouse_exited():
 	GlobalEvents.emit_signal("onUiExited")
 
 
+func _put_on_top() -> void:
+	var child_count = get_parent().get_child_count()
+	get_parent().move_child(self, child_count)
+
+
 func _on_WindowTitle_drag_started(mouse_offset):
 	_mouse_offset = mouse_offset
 	_is_dragged = true
+	_put_on_top()
 
 
 func _on_WindowTitle_drag_ended():

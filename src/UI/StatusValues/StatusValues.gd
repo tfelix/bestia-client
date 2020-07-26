@@ -241,13 +241,14 @@ func _on_WilUp_pressed():
 
 
 func _unhandled_key_input(event):
-	if not event.is_action_pressed("ui_status_values"):
-		return
-	
-	if visible:
-		hide()
-	else:
-		show()
+	if event.is_action_pressed("ui_status_values"):
+		get_tree().set_input_as_handled()
+		if visible:
+			hide()
+		else:
+			show()
+	if event.is_action_pressed("left_click"):
+		_put_on_top()
 
 
 func _on_Save_pressed():
@@ -268,9 +269,15 @@ func _on_Title_close_clicked():
 	hide()
 
 
+func _put_on_top() -> void:
+	var child_count = get_parent().get_child_count()
+	get_parent().move_child(self, child_count)
+
+
 func _on_Title_drag_started(mouse_offset):
 	_mouse_offset = mouse_offset
 	_is_dragged = true
+	_put_on_top()
 
 
 func _on_Title_drag_ended():

@@ -68,7 +68,6 @@ func _physics_process(delta):
 	
 	if target_delta < 0.1:
 		_command_queue.pop_front()
-		_model.is_moving = false
 		_model.transition_to(Mannequiny.States.IDLE)
 		_check_queued_actions()
 		return
@@ -127,17 +126,21 @@ func _terrain_clicked(global_pos: Vector3) -> void:
 	if _is_in_state(PlayerState.CONSTRUCTING):
 		return
 	_play_move_marker(global_pos)
+	# We cancel all queued actions
+	_clear_queued_actions()
 	_move_to(global_pos)
 
 
+"""
+Tries to move the player to this position. This is a high level action
+and will cancel all other queued commands.
+"""
 func _move_to(global_pos: Vector3) -> void:
 	# If the entity is currently marked as non movable we stop movement here.
 	if _entity.get_component(NoMovementComponent.NAME) != null:
 		return
-
-	# We cancel all queued actions
-	_clear_queued_actions()
 	
+	# Cancel the casting target selection.
 	GlobalEvents.emit_signal("onCastSelectionEnded")
 	
 	look_at(global_pos, Vector3.UP)
@@ -147,7 +150,6 @@ func _move_to(global_pos: Vector3) -> void:
 	cmd.target_point = global_pos
 	_command_queue.push_front(cmd)
 	
-	_model.is_moving = true
 	_model.transition_to(Mannequiny.States.RUN)
 
 

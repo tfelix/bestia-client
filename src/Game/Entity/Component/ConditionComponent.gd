@@ -30,3 +30,7 @@ func get_stamina_perc() -> float:
 
 func get_name() -> String:
 	return NAME
+
+func on_update(entity, component_data: ComponentData) -> void:
+	# max_health = component_data.data["max_health"]
+	cur_health = component_data.data["cur_health"]
