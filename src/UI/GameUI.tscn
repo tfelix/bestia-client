@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://UI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://UI/AttackList/AttackList.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/Inventory/ItemDropZone.tscn" type="PackedScene" id=11]
 [ext_resource path="res://UI/Equipment/Equipment.tscn" type="PackedScene" id=12]
+[ext_resource path="res://UI/GameMenu/GameMenu.tscn" type="PackedScene" id=13]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -81,6 +82,9 @@ visible = false
 [node name="StatusValues" parent="." instance=ExtResource( 7 )]
 
 [node name="Inventory" parent="." instance=ExtResource( 9 )]
+visible = false
+
+[node name="GameMenu" parent="." instance=ExtResource( 13 )]
 visible = false
 [connection signal="item_dropped" from="ItemDropZone" to="." method="_on_ItemDropZone_item_dropped"]
 [connection signal="equip_pressed" from="CharacterPlate" to="." method="_on_CharacterPlate_equip_pressed"]

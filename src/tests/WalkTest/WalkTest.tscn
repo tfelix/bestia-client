@@ -107,6 +107,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, -0.00772339, 8.54126 
 
 [node name="SignSmall" parent="Entities" instance=ExtResource( 16 )]
 transform = Transform( 0.868917, 0, -0.494958, 0, 1, 0, 0.494958, 0, 0.868917, 6.19306, 0.0199342, 0 )
+visible = false
 
 [node name="Testor" parent="Entities" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2122, 0, 5.26027 )
