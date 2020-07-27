@@ -3,6 +3,14 @@ extends Control
 var scene_path_to_load
 onready var _fader = $SceneFade
 
+export var bgm_music: AudioStream
+
+
+func _ready():
+	GlobalAudio.update_volumes()
+	GlobalAudio.play_bgm(bgm_music)
+	GlobalVideo.update_video()
+
 
 func _on_DevDocsLink_pressed():
 	OS.shell_open("https://docs.bestia-game.net")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://UI/Intro/Intro.gd" type="Script" id=1]
 [ext_resource path="res://shared/audio/bgm/story.ogg" type="AudioStream" id=2]
@@ -9,11 +9,27 @@
 [ext_resource path="res://UI/Intro/step4/Step4.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/Intro/step3/Step3.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/Intro/step2/Step2.tscn" type="PackedScene" id=9]
-[ext_resource path="res://UI/Intro/step1/Step1.tscn" type="PackedScene" id=10]
+[ext_resource path="res://UI/Intro/Step1/Step1.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=11]
+[ext_resource path="res://UI/Intro/Step0/Step0.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Animation" id=1]
-resource_name = "fade_step_1"
+resource_name = "fade_step_0"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Step0:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Step1:modulate")
 tracks/0/interp = 1
@@ -26,21 +42,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Step1:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
 
-[sub_resource type="Animation" id=2]
-resource_name = "fade_step_2"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Step2:visible")
 tracks/0/interp = 1
@@ -66,8 +69,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "fade_step_3"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Step3:visible")
 tracks/0/interp = 1
@@ -93,8 +95,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "fade_step_4"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Step4:visible")
 tracks/0/interp = 1
@@ -120,8 +121,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "fade_step_7"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Step7:visible")
 tracks/0/interp = 1
@@ -155,8 +155,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Story" type="AudioStreamPlayer2D" parent="."]
+[node name="Story" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = 10.0
 autoplay = true
 bus = "Music"
 
@@ -173,21 +174,22 @@ bus = "Music"
 [node name="Step3" parent="." instance=ExtResource( 8 )]
 
 [node name="Step2" parent="." instance=ExtResource( 9 )]
-anchor_right = 1.0
-anchor_bottom = 1.0
 
 [node name="Step1" parent="." instance=ExtResource( 10 )]
+
+[node name="Step0" parent="." instance=ExtResource( 12 )]
 
 [node name="SceneFadeIn" parent="." instance=ExtResource( 11 )]
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_step_1 = SubResource( 1 )
-anims/fade_step_2 = SubResource( 2 )
-anims/fade_step_3 = SubResource( 3 )
-anims/fade_step_4 = SubResource( 4 )
-anims/fade_step_7 = SubResource( 5 )
+anims/fade_step_0 = SubResource( 1 )
+anims/fade_step_1 = SubResource( 2 )
+anims/fade_step_2 = SubResource( 3 )
+anims/fade_step_3 = SubResource( 4 )
+anims/fade_step_4 = SubResource( 5 )
+anims/fade_step_7 = SubResource( 6 )
 [connection signal="finished" from="Step8" to="." method="_on_Step8_finished"]
 [connection signal="finished" from="Step7" to="." method="_on_Step7_finished"]
 [connection signal="finished" from="Step6" to="." method="_on_Step6_finished"]
@@ -196,3 +198,4 @@ anims/fade_step_7 = SubResource( 5 )
 [connection signal="finished" from="Step3" to="." method="_on_Step3_finished"]
 [connection signal="finished" from="Step2" to="." method="_on_Step2_finished"]
 [connection signal="finished" from="Step1" to="." method="_on_Step1_finished"]
+[connection signal="finished" from="Step0" to="." method="_on_Step0_finished"]

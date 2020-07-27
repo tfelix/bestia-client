@@ -2,13 +2,9 @@
 
 [ext_resource path="res://UI/Intro/step5/Step5.gd" type="Script" id=1]
 
-
-
-
-
 [sub_resource type="Animation" id=1]
 resource_name = "player"
-length = 5.0
+length = 6.3
 
 [node name="Step5" type="Control"]
 anchor_right = 1.0
@@ -37,5 +33,4 @@ text = "HIER SPIELER EINBAUEN"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/player = SubResource( 1 )
-
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

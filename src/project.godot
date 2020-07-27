@@ -525,6 +525,7 @@ GlobalData="*res://Autoload/GlobalData.gd"
 GlobalEvents="*res://Autoload/GlobalEvents.gd"
 GlobalConfig="*res://Autoload/GlobalConfig.gd"
 GlobalAudio="*res://Autoload/GlobalAudio.tscn"
+GlobalVideo="*res://Autoload/GlobalVideo.gd"
 
 [debug]
 

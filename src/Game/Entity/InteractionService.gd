@@ -37,6 +37,12 @@ func hide_behavior_selection() -> void:
 	_interaction_menu.visible = false
 
 
+"""
+To fetch the behavior for the entity we see if there is user saved behavior,
+we check if this behavior is still possible for this entity and return it if
+this is the case.
+If the behavior is not possibly (or not saved) we return the default interaction.
+"""
 func get_behavior_for(entity: Entity) -> String:
 	_request_possible_interactions(entity)
 	
@@ -44,7 +50,8 @@ func get_behavior_for(entity: Entity) -> String:
 	
 	var node_name = entity.get_parent().name
 	var behavior_group_name = "entity-%s" % [node_name]
-	var saved_interaction = GlobalConfig.get_value("interaction", behavior_group_name)
+	var saved_interaction = GlobalConfig.get_value("interaction", behavior_group_name, default_interaction)
+
 	
 	#if server_interactions.find(saved_interaction) != -1:
 	#	return saved_interaction

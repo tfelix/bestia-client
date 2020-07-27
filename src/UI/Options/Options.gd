@@ -8,12 +8,16 @@ onready var _master_slider = $PanelContainer/MarginContainer/Rows/GridContainer/
 onready var _fx_slider = $PanelContainer/MarginContainer/Rows/GridContainer/FxVolumeContainer/FxVolumeSlider
 onready var _music_slider = $PanelContainer/MarginContainer/Rows/GridContainer/MusicVolumeContainer/MusicVolumeSlider
 
+onready var _borderless_win = $PanelContainer/MarginContainer/Rows/BorderlessWin
+
 func _ready():
 	# Setup the initial values
 	_master_slider.value = float(GlobalConfig.get_value(GlobalConfig.SEC_AUDIO, GlobalConfig.PROP_AUDIO_MASTER_VOLUME, "1")) * 100
 	_fx_slider.value = float(GlobalConfig.get_value(GlobalConfig.SEC_AUDIO, GlobalConfig.PROP_AUDIO_FX_VOLUME, "1")) * 100
 	_music_slider.value = float(GlobalConfig.get_value(GlobalConfig.SEC_AUDIO, GlobalConfig.PROP_AUDIO_MUSIC_VOLUME, "1")) * 100
-
+	
+	_borderless_win.pressed = GlobalConfig.get_value(GlobalConfig.SEC_VIDEO, GlobalConfig.PROP_VIDEO_BORDERLESS_WIN, "1")
+	
 func _on_MasterVolumeSlider_value_changed(value):
 	_master_volume_label.text = "%s %%" % value
 	GlobalConfig.set_value(GlobalConfig.SEC_AUDIO, GlobalConfig.PROP_AUDIO_MASTER_VOLUME, value / 100.0)
@@ -34,3 +38,8 @@ func _on_MusicVolumeSlider_value_changed(value):
 
 func _on_BackButton_pressed():
 	get_tree().change_scene("res://UI/MainScreen/MainScreen.tscn")
+
+
+func _on_BorderlessWin_toggled(button_pressed):
+	GlobalConfig.set_value(GlobalConfig.SEC_VIDEO, GlobalConfig.PROP_VIDEO_BORDERLESS_WIN, button_pressed)
+	GlobalVideo.update_video()

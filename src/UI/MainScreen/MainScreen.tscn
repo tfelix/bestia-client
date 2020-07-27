@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/MainScreen/MainScreen.gd" type="Script" id=1]
 [ext_resource path="res://UI/TitleBackground/TitleBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=3]
 [ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=4]
+[ext_resource path="res://shared/audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=5]
 [ext_resource path="res://UI/menu_theme.tres" type="Theme" id=6]
 [ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
 
@@ -35,7 +36,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 120 ), Vector2( 0, 80 ) ]
 }
 
-[node name="TitleScreen" type="Control"]
+[node name="MainScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -43,6 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ -149.0 ]
 }
+bgm_music = ExtResource( 5 )
 
 [node name="TitleBackground" parent="." instance=ExtResource( 2 )]
 

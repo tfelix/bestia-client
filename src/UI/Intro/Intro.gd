@@ -2,30 +2,59 @@ extends Control
 
 onready var _scene_fade_in = $SceneFadeIn
 
-const _game_scene = "res://scenes/Game/Game.tscn"
+const _game_scene = "res://tests/WalkTest/WalkTest.tscn"
+
+onready var _anim_player = $AnimationPlayer
+onready var _step0 = $Step0
+onready var _step1 = $Step1
+onready var _step2 = $Step2
+onready var _step3 = $Step3
+onready var _step4 = $Step4
+onready var _step5 = $Step5
+onready var _step6 = $Step6
+onready var _step7 = $Step7
+onready var _step8 = $Step8
+
 
 func _ready():
-	_scene_fade_in.fade()
+	#_check_intro_skip()
 	GlobalAudio.stop()
+	_scene_fade_in.fade()
+	yield(_scene_fade_in, "fade_in_finished")
+	_step0.start()
+
+
+func _check_intro_skip() -> void:
+	var has_played_intro = GlobalConfig.get_value(GlobalConfig.SEC_MISC, GlobalConfig.PROP_MISC_PLAYED_INTRO, false)
+	if has_played_intro:
+		_start_game()
+	else:
+		GlobalConfig.set_value(GlobalConfig.SEC_MISC, GlobalConfig.PROP_MISC_PLAYED_INTRO, true)
+
+
+func _on_Step0_finished():
+	_anim_player.play("fade_step_0")
+	yield(_anim_player, "animation_finished")
+	_step1.start()
 
 
 func _on_Step1_finished():
-	$AnimationPlayer.play("fade_step_1")
-	$Step2.start()
+	_anim_player.play("fade_step_1")
+	_step2.start()
 
 
 func _on_Step2_finished():
-	$AnimationPlayer.play("fade_step_2")
+	_anim_player.play("fade_step_2")
 	$Step3.start()
 
 
 func _on_Step3_finished():
-	$AnimationPlayer.play("fade_step_3")
+	_anim_player.play("fade_step_3")
 	$Step4.start()
 
 
 func _on_Step4_finished():
-	$AnimationPlayer.play("fade_step_4")
+	_anim_player.play("fade_step_4")
 	$Step5.start()
 
 
