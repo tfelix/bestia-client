@@ -1,29 +1,147 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=23 format=2]
 
 [ext_resource path="res://shared/fonts/OpenSans_RegularNormal.tres" type="DynamicFont" id=1]
-[ext_resource path="res://UI/flat_panel_style.tres" type="StyleBox" id=2]
+[ext_resource path="res://shared/themes/button_flat_pressed.tres" type="StyleBox" id=2]
+[ext_resource path="res://shared/themes/button_flat_normal.tres" type="StyleBox" id=3]
+[ext_resource path="res://shared/themes/button_flat_hover.tres" type="StyleBox" id=4]
+[ext_resource path="res://shared/themes/option_button_flat_normal.tres" type="StyleBox" id=5]
 
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 4.0
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.329412, 0.329412, 0.329412, 1 )
 draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.207843, 0.207843, 0.207843, 1 )
+expand_margin_top = 3.0
+expand_margin_bottom = 3.0
 
-[sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 4.0
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=16]
+content_margin_left = 6.0
+bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
 draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.584314, 0.584314, 0.584314, 1 )
+expand_margin_top = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.215686, 0.215686, 0.215686, 0.941176 )
+shadow_size = 2
+
+[sub_resource type="ImageTexture" id=17]
+
+[sub_resource type="ImageTexture" id=18]
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.384314, 0.384314, 0.384314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 0.941176 )
+expand_margin_left = 4.0
 
 [resource]
 default_font = ExtResource( 1 )
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.533333, 0.533333, 0.533333, 0.584314 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = SubResource( 7 )
+Button/styles/focus = null
+Button/styles/hover = ExtResource( 4 )
+Button/styles/normal = ExtResource( 3 )
+Button/styles/pressed = ExtResource( 2 )
+CheckBox/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 1
+CheckBox/constants/hseparation = 8
+CheckBox/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/radio_checked = null
+CheckBox/icons/radio_unchecked = null
+CheckBox/icons/unchecked = null
+CheckBox/styles/disabled = null
+CheckBox/styles/focus = SubResource( 8 )
+CheckBox/styles/hover = SubResource( 9 )
+CheckBox/styles/hover_pressed = SubResource( 10 )
+CheckBox/styles/normal = SubResource( 11 )
+CheckBox/styles/pressed = SubResource( 12 )
+CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = null
+CheckButton/icons/on_disabled = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = SubResource( 2 )
+CheckButton/styles/hover = SubResource( 3 )
+CheckButton/styles/hover_pressed = SubResource( 4 )
+CheckButton/styles/normal = SubResource( 5 )
+CheckButton/styles/pressed = SubResource( 6 )
 OptionButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 OptionButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 OptionButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
 OptionButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-OptionButton/constants/arrow_margin = 2
+OptionButton/constants/arrow_margin = 4
 OptionButton/constants/hseparation = 2
 OptionButton/fonts/font = null
 OptionButton/icons/arrow = null
 OptionButton/styles/disabled = null
 OptionButton/styles/focus = null
-OptionButton/styles/hover = SubResource( 1 )
-OptionButton/styles/normal = SubResource( 2 )
+OptionButton/styles/hover = SubResource( 16 )
+OptionButton/styles/normal = ExtResource( 5 )
 OptionButton/styles/pressed = null
-PanelContainer/styles/panel = ExtResource( 2 )
+PanelContainer/styles/panel = SubResource( 19 )
+PopupMenu/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
+PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
+PopupMenu/colors/font_color_hover = Color( 0.88, 0.88, 0.88, 1 )
+PopupMenu/constants/hseparation = 0
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = null
+PopupMenu/icons/checked = null
+PopupMenu/icons/radio_checked = SubResource( 17 )
+PopupMenu/icons/radio_unchecked = SubResource( 18 )
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = null
+PopupMenu/styles/hover = SubResource( 14 )
+PopupMenu/styles/labeled_separator_left = null
+PopupMenu/styles/labeled_separator_right = null
+PopupMenu/styles/panel = SubResource( 15 )
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = null

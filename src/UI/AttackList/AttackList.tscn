@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/AttackList/AttackList.gd" type="Script" id=2]
 [ext_resource path="res://UI/AttackList/sword-wound.svg" type="Texture" id=3]
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=4]
 [ext_resource path="res://UI/backspace-24px.svg" type="Texture" id=6]
 
 [node name="AttackList" type="HBoxContainer"]
@@ -10,6 +11,7 @@ margin_right = 290.0
 margin_bottom = 500.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 4 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -47,32 +49,32 @@ title_text = "Attacks"
 icon = ExtResource( 3 )
 
 [node name="Search" type="HBoxContainer" parent="AttackPanel/BorderMargin/Attacks"]
-margin_top = 45.0
+margin_top = 48.0
 margin_right = 270.0
-margin_bottom = 70.0
+margin_bottom = 76.0
 
 [node name="Search" type="LineEdit" parent="AttackPanel/BorderMargin/Attacks/Search"]
-margin_right = 235.0
-margin_bottom = 25.0
+margin_right = 231.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
 placeholder_text = "Search"
 
 [node name="ClearButton" type="Button" parent="AttackPanel/BorderMargin/Attacks/Search"]
-margin_left = 239.0
+margin_left = 235.0
 margin_right = 270.0
-margin_bottom = 25.0
+margin_bottom = 28.0
 icon = ExtResource( 6 )
 flat = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="AttackPanel/BorderMargin/Attacks"]
-margin_top = 74.0
+margin_top = 80.0
 margin_right = 270.0
 margin_bottom = 480.0
 size_flags_vertical = 3
 
 [node name="AttackRows" type="VBoxContainer" parent="AttackPanel/BorderMargin/Attacks/ScrollContainer"]
 margin_right = 270.0
-margin_bottom = 406.0
+margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 [connection signal="close_clicked" from="AttackPanel/BorderMargin/Attacks/WindowTitle" to="." method="_on_WindowTitle_close_clicked"]

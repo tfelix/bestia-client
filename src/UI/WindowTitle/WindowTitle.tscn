@@ -16,7 +16,7 @@ load_path = "res://.import/close-24px.svg-2f7eb4bdf31932325445cac97d3d2d4f.stex"
 
 [node name="WindowTitle" type="MarginContainer"]
 margin_right = 1280.0
-margin_bottom = 41.0
+margin_bottom = 44.0
 custom_constants/margin_bottom = 8
 script = ExtResource( 2 )
 __meta__ = {
@@ -25,7 +25,7 @@ __meta__ = {
 
 [node name="TitleBackground" type="PanelContainer" parent="."]
 margin_right = 1280.0
-margin_bottom = 33.0
+margin_bottom = 36.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -33,23 +33,24 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="TitleBackground"]
 margin_right = 1280.0
-margin_bottom = 33.0
+margin_bottom = 36.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="TitleRow" type="HBoxContainer" parent="TitleBackground/MarginContainer"]
 margin_right = 1280.0
-margin_bottom = 33.0
+margin_bottom = 36.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="IconMargin" type="MarginContainer" parent="TitleBackground/MarginContainer/TitleRow"]
 margin_right = 44.0
-margin_bottom = 33.0
+margin_bottom = 36.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 3
 custom_constants/margin_left = 10
+custom_constants/margin_bottom = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -66,8 +67,8 @@ stretch_mode = 6
 
 [node name="Title" type="Label" parent="TitleBackground/MarginContainer/TitleRow"]
 margin_left = 48.0
-margin_right = 1226.0
-margin_bottom = 33.0
+margin_right = 1231.0
+margin_bottom = 36.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 custom_fonts/font = ExtResource( 3 )
@@ -75,10 +76,9 @@ text = "Title"
 valign = 1
 
 [node name="CloseMargin" type="MarginContainer" parent="TitleBackground/MarginContainer/TitleRow"]
-margin_left = 1230.0
+margin_left = 1235.0
 margin_right = 1280.0
-margin_bottom = 33.0
-custom_constants/margin_right = 5
+margin_bottom = 36.0
 custom_constants/margin_left = 5
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,7 +87,7 @@ __meta__ = {
 [node name="Close" type="TextureButton" parent="TitleBackground/MarginContainer/TitleRow/CloseMargin"]
 margin_left = 5.0
 margin_right = 45.0
-margin_bottom = 33.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 40, 20 )
 texture_normal = SubResource( 3 )
 expand = true

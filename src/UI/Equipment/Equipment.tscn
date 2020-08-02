@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://UI/AttackList/sword-wound.svg" type="Texture" id=4]
 [ext_resource path="res://UI/Equipment/EquipSlot/EquipSlot.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/Equipment/Equipment.gd" type="Script" id=6]
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=7]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("PlayerPortraitView")
@@ -20,25 +21,24 @@ margin_bottom = 367.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 7 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Equipments" type="VBoxContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 641.0
-margin_bottom = 360.0
+margin_right = 648.0
+margin_bottom = 367.0
 
 [node name="Title" parent="Equipments" instance=ExtResource( 2 )]
-margin_right = 634.0
+margin_right = 648.0
 title_text = "Equipment"
 icon = ExtResource( 4 )
 
 [node name="Rows" type="HBoxContainer" parent="Equipments"]
 margin_top = 45.0
-margin_right = 634.0
+margin_right = 648.0
 margin_bottom = 296.0
 
 [node name="LeftMargin" type="MarginContainer" parent="Equipments/Rows"]
@@ -84,7 +84,7 @@ slot_name = "Accessory 1"
 
 [node name="PlayerPortrait" type="TextureRect" parent="Equipments/Rows"]
 margin_left = 234.0
-margin_right = 400.0
+margin_right = 414.0
 margin_bottom = 251.0
 rect_min_size = Vector2( 150, 200 )
 size_flags_horizontal = 3
@@ -94,8 +94,8 @@ expand = true
 stretch_mode = 4
 
 [node name="RightMargin" type="MarginContainer" parent="Equipments/Rows"]
-margin_left = 404.0
-margin_right = 634.0
+margin_left = 418.0
+margin_right = 648.0
 margin_bottom = 251.0
 custom_constants/margin_right = 10
 
@@ -135,13 +135,13 @@ corner_rounding = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Equipments"]
 margin_top = 300.0
-margin_right = 634.0
+margin_right = 648.0
 margin_bottom = 353.0
 mouse_filter = 1
 
 [node name="MarginWeapons" type="MarginContainer" parent="Equipments/CenterContainer"]
-margin_left = 77.0
-margin_right = 557.0
+margin_left = 84.0
+margin_right = 564.0
 margin_bottom = 53.0
 custom_constants/margin_top = 6
 

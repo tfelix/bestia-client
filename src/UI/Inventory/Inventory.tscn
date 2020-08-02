@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://UI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=5]
 [ext_resource path="res://UI/Inventory/InventoryItem.tscn" type="PackedScene" id=9]
 
 [node name="Inventory" type="Control"]
@@ -12,6 +13,7 @@ margin_bottom = 477.0
 mouse_filter = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
+theme = ExtResource( 5 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -33,77 +35,28 @@ __meta__ = {
 }
 
 [node name="HContainer" type="HBoxContainer" parent="InventoryPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 634.0
-margin_bottom = 293.0
+margin_right = 641.0
+margin_bottom = 300.0
 
 [node name="MainContent" type="VBoxContainer" parent="InventoryPanel/HContainer"]
-margin_right = 627.0
-margin_bottom = 286.0
+margin_right = 641.0
+margin_bottom = 300.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="WindowTitle" parent="InventoryPanel/HContainer/MainContent" instance=ExtResource( 3 )]
-margin_right = 627.0
+margin_right = 641.0
 title_text = "Inventory"
 
-[node name="Header" type="HBoxContainer" parent="InventoryPanel/HContainer/MainContent"]
-margin_top = 45.0
-margin_right = 627.0
-margin_bottom = 71.0
-
-[node name="SearchEdit" type="LineEdit" parent="InventoryPanel/HContainer/MainContent/Header"]
-margin_right = 250.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 250, 0 )
-placeholder_text = "Search"
-
-[node name="ClearSearch" type="Button" parent="InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 254.0
-margin_right = 301.0
-margin_bottom = 26.0
-custom_fonts/font = ExtResource( 4 )
-disabled = true
-text = "Clear"
-
-[node name="MarginItemCount" type="MarginContainer" parent="InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 305.0
-margin_right = 443.0
-margin_bottom = 26.0
-custom_constants/margin_right = 20
-custom_constants/margin_left = 20
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemCount" type="Label" parent="InventoryPanel/HContainer/MainContent/Header/MarginItemCount"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 118.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 4 )
-text = "Items: 12 / 300"
-
-[node name="Weight" type="Label" parent="InventoryPanel/HContainer/MainContent/Header"]
-margin_left = 447.0
-margin_top = 3.0
-margin_right = 627.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 180, 0 )
-custom_fonts/font = ExtResource( 4 )
-text = "Weight: 12 kg / 45 kg"
-
 [node name="Content" type="HBoxContainer" parent="InventoryPanel/HContainer/MainContent"]
-margin_top = 75.0
-margin_right = 627.0
-margin_bottom = 286.0
+margin_top = 48.0
+margin_right = 641.0
+margin_bottom = 268.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="InventoryPanel/HContainer/MainContent/Content"]
-margin_right = 627.0
-margin_bottom = 211.0
+margin_right = 641.0
+margin_bottom = 220.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -120,8 +73,8 @@ custom_constants/margin_bottom = 5
 [node name="ScrollContainer" type="ScrollContainer" parent="InventoryPanel/HContainer/MainContent/Content/Panel/Margin"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 622.0
-margin_bottom = 206.0
+margin_right = 636.0
+margin_bottom = 215.0
 scroll_horizontal_enabled = false
 
 [node name="ItemGrid" type="GridContainer" parent="InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer"]
@@ -139,6 +92,53 @@ margin_left = 327.0
 margin_right = 627.0
 margin_bottom = 211.0
 rect_min_size = Vector2( 300, 0 )
+
+[node name="Header" type="HBoxContainer" parent="InventoryPanel/HContainer/MainContent"]
+margin_top = 272.0
+margin_right = 641.0
+margin_bottom = 300.0
+
+[node name="SearchEdit" type="LineEdit" parent="InventoryPanel/HContainer/MainContent/Header"]
+margin_right = 250.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 250, 0 )
+placeholder_text = "Search"
+
+[node name="ClearSearch" type="Button" parent="InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 254.0
+margin_right = 305.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 4 )
+disabled = true
+text = "Clear"
+
+[node name="MarginItemCount" type="MarginContainer" parent="InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 309.0
+margin_right = 447.0
+margin_bottom = 28.0
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemCount" type="Label" parent="InventoryPanel/HContainer/MainContent/Header/MarginItemCount"]
+margin_left = 20.0
+margin_top = 4.0
+margin_right = 118.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Items: 12 / 300"
+
+[node name="Weight" type="Label" parent="InventoryPanel/HContainer/MainContent/Header"]
+margin_left = 451.0
+margin_top = 4.0
+margin_right = 631.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 180, 0 )
+custom_fonts/font = ExtResource( 4 )
+text = "Weight: 12 kg / 45 kg"
 [connection signal="mouse_entered" from="." to="." method="_on_Inventory_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Inventory_mouse_exited"]
 [connection signal="close_clicked" from="InventoryPanel/HContainer/MainContent/WindowTitle" to="." method="_on_WindowTitle_close_clicked"]
