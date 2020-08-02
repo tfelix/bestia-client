@@ -25,7 +25,7 @@ func get_data(item_id: int) -> ItemData:
 	var dict = _item_infos[key]
 	var data = _dict_to_res(dict)
 	data.item_id = item_id
-	
+
 	return data
 
 
@@ -43,4 +43,34 @@ func _dict_to_res(dict) -> ItemData:
 			res.type = ItemData.ItemType.EQUIP
 		_:
 			res.type = ItemData.ItemType.ETC
+	match dict["slot"]:
+		"head":
+			res.equip_slot = ItemData.EquipSlot.HEAD
+		"body":
+			res.equip_slot = ItemData.EquipSlot.BODY
+		"shoulder":
+			res.equip_slot = ItemData.EquipSlot.SHOULDER
+		"arms":
+			res.equip_slot = ItemData.EquipSlot.ARMS
+		"hands":
+			res.equip_slot = ItemData.EquipSlot.HANDS
+		"accessory_1":
+			res.equip_slot = ItemData.EquipSlot.ACCESSORY_1
+		"accessory_2":
+			res.equip_slot = ItemData.EquipSlot.ACCESSORY_2
+		"legs":
+			res.equip_slot = ItemData.EquipSlot.LEGS
+		"shoes":
+			res.equip_slot = ItemData.EquipSlot.SHOES
+		"weapon":
+			res.equip_slot = ItemData.EquipSlot.WEAPON
+		"shield":
+			res.equip_slot = ItemData.EquipSlot.SHIELD
+		"ammunition":
+			res.equip_slot = ItemData.EquipSlot.AMMUNITION
+		"none":
+			res.equip_slot = ItemData.EquipSlot.NONE
+		_:
+			printerr("Unknown equip slot: ", dict["slot"])
+
 	return res

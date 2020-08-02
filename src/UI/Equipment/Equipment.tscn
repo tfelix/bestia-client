@@ -7,7 +7,7 @@
 [ext_resource path="res://UI/Equipment/EquipSlot/EquipSlot.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/Equipment/Equipment.gd" type="Script" id=6]
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("PlayerPortraitView")
 
 [sub_resource type="Environment" id=2]
@@ -42,141 +42,123 @@ margin_right = 634.0
 margin_bottom = 296.0
 
 [node name="LeftMargin" type="MarginContainer" parent="Equipments/Rows"]
-margin_right = 238.0
+margin_right = 230.0
 margin_bottom = 251.0
+mouse_filter = 1
 custom_constants/margin_left = 10
 
 [node name="Left" type="VBoxContainer" parent="Equipments/Rows/LeftMargin"]
 margin_left = 10.0
-margin_right = 238.0
+margin_right = 230.0
 margin_bottom = 251.0
 size_flags_horizontal = 3
 custom_constants/separation = 4
 
-[node name="EquipSlotHead" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
-margin_right = 228.0
+[node name="HeadContainerEmpty" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
+compatible_equip_slot = 0
 
-[node name="SlotContainerHead3" type="HBoxContainer" parent="Equipments/Rows/LeftMargin/Left"]
+[node name="HeadContainer" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 3 )]
+visible = false
 margin_top = 51.0
-margin_right = 228.0
 margin_bottom = 98.0
 
-[node name="ItemContainer" parent="Equipments/Rows/LeftMargin/Left/SlotContainerHead3" instance=ExtResource( 3 )]
-margin_bottom = 47.0
+[node name="ShoulderContainerEmpty" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
+margin_top = 51.0
+margin_bottom = 98.0
+slot_name = "Shoulder"
 
-[node name="SlotContainerHead4" type="HBoxContainer" parent="Equipments/Rows/LeftMargin/Left"]
+[node name="ArmsContainerEmpty" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
 margin_top = 102.0
-margin_right = 228.0
 margin_bottom = 149.0
+slot_name = "Arms"
 
-[node name="ItemContainer" parent="Equipments/Rows/LeftMargin/Left/SlotContainerHead4" instance=ExtResource( 3 )]
-margin_bottom = 47.0
-
-[node name="ItemContainer" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 3 )]
+[node name="HandsContainerEmpty" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
 margin_top = 153.0
 margin_bottom = 200.0
+slot_name = "Hands"
 
-[node name="SlotContainerHead" type="HBoxContainer" parent="Equipments/Rows/LeftMargin/Left"]
+[node name="Accessoiry1ContainerEmpty" parent="Equipments/Rows/LeftMargin/Left" instance=ExtResource( 5 )]
 margin_top = 204.0
-margin_right = 228.0
 margin_bottom = 251.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemContainer" parent="Equipments/Rows/LeftMargin/Left/SlotContainerHead" instance=ExtResource( 3 )]
-margin_bottom = 47.0
+slot_name = "Accessory 1"
 
 [node name="PlayerPortrait" type="TextureRect" parent="Equipments/Rows"]
-margin_left = 242.0
-margin_right = 392.0
+margin_left = 234.0
+margin_right = 400.0
 margin_bottom = 251.0
 rect_min_size = Vector2( 150, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 3 )
+texture = SubResource( 1 )
 expand = true
 stretch_mode = 4
 
 [node name="RightMargin" type="MarginContainer" parent="Equipments/Rows"]
-margin_left = 396.0
+margin_left = 404.0
 margin_right = 634.0
 margin_bottom = 251.0
 custom_constants/margin_right = 10
 
 [node name="Right" type="VBoxContainer" parent="Equipments/Rows/RightMargin"]
-margin_right = 228.0
+margin_right = 220.0
 margin_bottom = 251.0
 size_flags_horizontal = 3
 custom_constants/separation = 4
 
-[node name="EquipSlotHead" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
-margin_right = 228.0
+[node name="BodyContainerEmpty" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
+slot_name = "Body"
 corner_rounding = 1
 
-[node name="SlotContainerHead" type="HBoxContainer" parent="Equipments/Rows/RightMargin/Right"]
+[node name="LegsContainerEmpty" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
 margin_top = 51.0
-margin_right = 228.0
 margin_bottom = 98.0
+slot_name = "Legs"
+corner_rounding = 1
 
-[node name="ItemContainer" parent="Equipments/Rows/RightMargin/Right/SlotContainerHead" instance=ExtResource( 3 )]
-margin_bottom = 47.0
-
-[node name="SlotContainerHead2" type="HBoxContainer" parent="Equipments/Rows/RightMargin/Right"]
+[node name="ShoesContainerEmpty" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
 margin_top = 102.0
-margin_right = 228.0
 margin_bottom = 149.0
+slot_name = "Shoes"
+corner_rounding = 1
 
-[node name="ItemContainer" parent="Equipments/Rows/RightMargin/Right/SlotContainerHead2" instance=ExtResource( 3 )]
-margin_bottom = 47.0
-
-[node name="SlotContainerHead3" type="HBoxContainer" parent="Equipments/Rows/RightMargin/Right"]
+[node name="ShieldContainerEmpty" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
 margin_top = 153.0
-margin_right = 228.0
 margin_bottom = 200.0
+slot_name = "Shield"
+corner_rounding = 1
 
-[node name="ItemContainer" parent="Equipments/Rows/RightMargin/Right/SlotContainerHead3" instance=ExtResource( 3 )]
-margin_bottom = 47.0
-
-[node name="SlotContainerHead4" type="HBoxContainer" parent="Equipments/Rows/RightMargin/Right"]
+[node name="Accessoiry2ContainerEmpty" parent="Equipments/Rows/RightMargin/Right" instance=ExtResource( 5 )]
 margin_top = 204.0
-margin_right = 228.0
 margin_bottom = 251.0
-
-[node name="ItemContainer" parent="Equipments/Rows/RightMargin/Right/SlotContainerHead4" instance=ExtResource( 3 )]
-margin_bottom = 47.0
+slot_name = "Accessoiry 2"
+corner_rounding = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Equipments"]
 margin_top = 300.0
 margin_right = 634.0
 margin_bottom = 353.0
+mouse_filter = 1
 
 [node name="MarginWeapons" type="MarginContainer" parent="Equipments/CenterContainer"]
-margin_left = 69.0
-margin_right = 565.0
+margin_left = 77.0
+margin_right = 557.0
 margin_bottom = 53.0
 custom_constants/margin_top = 6
 
 [node name="Weapons" type="HBoxContainer" parent="Equipments/CenterContainer/MarginWeapons"]
 margin_top = 6.0
-margin_right = 496.0
+margin_right = 480.0
 margin_bottom = 53.0
 custom_constants/separation = 40
 
-[node name="LHand" type="HBoxContainer" parent="Equipments/CenterContainer/MarginWeapons/Weapons"]
-margin_right = 228.0
-margin_bottom = 47.0
+[node name="WeaponContainerEmpty" parent="Equipments/CenterContainer/MarginWeapons/Weapons" instance=ExtResource( 5 )]
+slot_name = "Weapon"
 
-[node name="ItemContainer" parent="Equipments/CenterContainer/MarginWeapons/Weapons/LHand" instance=ExtResource( 3 )]
-margin_bottom = 47.0
-
-[node name="RHand" type="HBoxContainer" parent="Equipments/CenterContainer/MarginWeapons/Weapons"]
-margin_left = 268.0
-margin_right = 496.0
-margin_bottom = 47.0
-
-[node name="ItemContainer" parent="Equipments/CenterContainer/MarginWeapons/Weapons/RHand" instance=ExtResource( 3 )]
-margin_bottom = 47.0
+[node name="AmmoContainerEmpty" parent="Equipments/CenterContainer/MarginWeapons/Weapons" instance=ExtResource( 5 )]
+margin_left = 260.0
+margin_right = 480.0
+slot_name = "Ammunition"
+corner_rounding = 1
 
 [node name="PlayerPortraitView" type="Viewport" parent="."]
 size = Vector2( 250, 250 )
@@ -199,3 +181,4 @@ transform = Transform( 1, 0, 0, 0, 0.804179, 0.594388, 0, -0.594388, 0.804179, 0
 [connection signal="close_clicked" from="Equipments/Title" to="." method="_on_Title_close_clicked"]
 [connection signal="drag_ended" from="Equipments/Title" to="." method="_on_Title_drag_ended"]
 [connection signal="drag_started" from="Equipments/Title" to="." method="_on_Title_drag_started"]
+[connection signal="item_equipped" from="Equipments/Rows/LeftMargin/Left/HeadContainerEmpty" to="." method="_on_HeadContainerEmpty_item_equipped"]

@@ -12,7 +12,6 @@ signal onDamageReceived(damage_message)
 # some stuff without a proper game server
 signal onEnemySpawned(entity)
 
-
 # Player Signals
 signal onPlayerMoved(global_pos)
 signal onPlayerInteract(entity, interaction)
@@ -33,6 +32,13 @@ an onInventoryItemsUpdated signal. Then possible some parts of the application
 need a list of items.
 """
 signal onInventoryItemUpdateRequested()
+
+# Equipment Signals
+"""
+Signal is send when the equipment of a certain slot has changed. If item_data is
+null then no equipment is set for this slot.
+"""
+signal onEquipmentUpdated(slot, item_data)
 
 # Chat Signals
 signal onChatReceived(chat)

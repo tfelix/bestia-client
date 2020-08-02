@@ -10,6 +10,22 @@ enum ItemType {
 	ETC
 }
 
+enum EquipSlot {
+	HEAD,
+	BODY,
+	SHOULDER,
+	ARMS,
+	HANDS,
+	ACCESSORY_1,
+	ACCESSORY_2,
+	LEGS,
+	SHOES,
+	WEAPON,
+	SHIELD,
+	AMMUNITION,
+	NONE
+}
+
 export var database_name: String setget _set_database_name
 export(ItemType) var type = ItemType.ETC
 export var weight: int = 0
@@ -18,7 +34,7 @@ export var amount: int = 0
 export var player_item_id: int = 0
 export var image: Texture
 export var visual: String
-
+export(EquipSlot) var equip_slot = EquipSlot.NONE
 var tr_database_name: String setget ,_get_tr_database_name
 var tr_description: String setget ,_get_tr_description
 
