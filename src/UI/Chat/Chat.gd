@@ -5,10 +5,10 @@ const ChatRow = preload("res://UI/Chat/ChatRow/ChatRow.tscn")
 const MAX_CHAT_COUNT = 50
 
 onready var _chat_cmds = $ChatCommands
-onready var _chat_type = $InputMargin/InputPanel/InputLine/ChatType
+onready var _chat_type = $InputMargin/InputPanel/PanelMargin/InputLine/ChatType
 onready var _chat_line_container = $ChatPanel/MarginContainer/ChatContent/ScrollContainer/Lines
 onready var _scroll = $ChatPanel/MarginContainer/ChatContent/ScrollContainer
-onready var _text_input = $InputMargin/InputPanel/InputLine/Text
+onready var _text_input = $InputMargin/InputPanel/PanelMargin/InputLine/Text
 onready var _animation = $AnimationPlayer as AnimationPlayer
 
 var _has_mouse_over = false
