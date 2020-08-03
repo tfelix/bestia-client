@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=1]
+[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/WorldTemperature/WorldTemperature.gd" type="Script" id=2]
 [ext_resource path="res://UI/WorldTemperature/thermometer-half-solid.png" type="Texture" id=3]
+
 
 [node name="WorldTemperature" type="HBoxContainer"]
 margin_right = 53.0

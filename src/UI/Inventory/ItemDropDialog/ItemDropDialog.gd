@@ -13,7 +13,7 @@ func ask_drop_amount(item: InventoryItem) -> void:
 	_item = item
 	_item_spinner.max_value = _item.data.amount
 	_item_img.texture = item.data.image
-	_item_name.text = tr(item.data.database_name)
+	_item_name.text = item.data.tr_database_name
 
 
 func _on_AllButton_pressed() -> void:

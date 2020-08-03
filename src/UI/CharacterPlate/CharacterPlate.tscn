@@ -2,55 +2,62 @@
 
 [ext_resource path="res://UI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
 [ext_resource path="res://UI/Bar/Bar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=7]
+[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://UI/CharacterPlate/HealthManaFont.tres" type="DynamicFont" id=8]
 
-
 [node name="CharacterPlate" type="PanelContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 345.0
-margin_bottom = 79.0
+margin_right = 360.0
+margin_bottom = 82.0
 theme = ExtResource( 7 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainCols" type="HBoxContainer" parent="."]
-margin_right = 340.0
-margin_bottom = 74.0
+[node name="Margin" type="MarginContainer" parent="."]
+margin_right = 360.0
+margin_bottom = 82.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
 
-[node name="CharInfoMargin" type="MarginContainer" parent="MainCols"]
+[node name="MainCols" type="HBoxContainer" parent="Margin"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 77.0
+
+[node name="CharInfoMargin" type="MarginContainer" parent="Margin/MainCols"]
 margin_right = 182.0
-margin_bottom = 74.0
+margin_bottom = 72.0
 custom_constants/margin_right = 2
 
-[node name="Rows" type="VBoxContainer" parent="MainCols/CharInfoMargin"]
+[node name="Rows" type="VBoxContainer" parent="Margin/MainCols/CharInfoMargin"]
 margin_right = 180.0
-margin_bottom = 74.0
+margin_bottom = 72.0
 
-[node name="CharacterInfo" type="Label" parent="MainCols/CharInfoMargin/Rows"]
+[node name="CharacterInfo" type="Label" parent="Margin/MainCols/CharInfoMargin/Rows"]
 margin_right = 180.0
-margin_bottom = 20.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 0, 18 )
 text = "CharacterName"
 
-[node name="Main" type="HBoxContainer" parent="MainCols/CharInfoMargin/Rows"]
-margin_top = 24.0
+[node name="Main" type="HBoxContainer" parent="Margin/MainCols/CharInfoMargin/Rows"]
+margin_top = 22.0
 margin_right = 180.0
-margin_bottom = 74.0
+margin_bottom = 72.0
 
-[node name="Bars" type="VBoxContainer" parent="MainCols/CharInfoMargin/Rows/Main"]
+[node name="Bars" type="VBoxContainer" parent="Margin/MainCols/CharInfoMargin/Rows/Main"]
 margin_right = 180.0
 margin_bottom = 50.0
 
-[node name="HpBar" parent="MainCols/CharInfoMargin/Rows/Main/Bars" instance=ExtResource( 3 )]
+[node name="HpBar" parent="Margin/MainCols/CharInfoMargin/Rows/Main/Bars" instance=ExtResource( 3 )]
 margin_right = 180.0
 margin_bottom = 6.0
 rect_min_size = Vector2( 180, 6 )
 
-[node name="HealthLabel" type="Label" parent="MainCols/CharInfoMargin/Rows/Main/Bars"]
+[node name="HealthLabel" type="Label" parent="Margin/MainCols/CharInfoMargin/Rows/Main/Bars"]
 margin_top = 10.0
 margin_right = 180.0
 margin_bottom = 23.0
@@ -58,14 +65,14 @@ custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "HP: 0 / 0"
 
-[node name="ManaBar" parent="MainCols/CharInfoMargin/Rows/Main/Bars" instance=ExtResource( 3 )]
+[node name="ManaBar" parent="Margin/MainCols/CharInfoMargin/Rows/Main/Bars" instance=ExtResource( 3 )]
 margin_top = 27.0
 margin_right = 180.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 180, 6 )
 primary_color = Color( 0, 0.372549, 1, 1 )
 
-[node name="ManaLabel" type="Label" parent="MainCols/CharInfoMargin/Rows/Main/Bars"]
+[node name="ManaLabel" type="Label" parent="Margin/MainCols/CharInfoMargin/Rows/Main/Bars"]
 margin_top = 37.0
 margin_right = 180.0
 margin_bottom = 50.0
@@ -73,39 +80,51 @@ custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Mana: 0 / 0"
 
-[node name="Buttons1" type="VBoxContainer" parent="MainCols"]
+[node name="CenterContainer" type="CenterContainer" parent="Margin/MainCols"]
 margin_left = 186.0
-margin_right = 261.0
-margin_bottom = 74.0
+margin_right = 350.0
+margin_bottom = 72.0
 
-[node name="Inventory" type="Button" parent="MainCols/Buttons1"]
-margin_right = 75.0
-margin_bottom = 26.0
+[node name="Buttons" type="HBoxContainer" parent="Margin/MainCols/CenterContainer"]
+margin_top = 10.0
+margin_right = 164.0
+margin_bottom = 62.0
+
+[node name="Buttons1" type="VBoxContainer" parent="Margin/MainCols/CenterContainer/Buttons"]
+margin_right = 80.0
+margin_bottom = 52.0
+
+[node name="Inventory" type="Button" parent="Margin/MainCols/CenterContainer/Buttons/Buttons1"]
+margin_right = 80.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 0 )
 text = "Inventory"
 
-[node name="Attacks" type="Button" parent="MainCols/Buttons1"]
-margin_top = 30.0
-margin_right = 75.0
-margin_bottom = 56.0
+[node name="Attacks" type="Button" parent="Margin/MainCols/CenterContainer/Buttons/Buttons1"]
+margin_top = 28.0
+margin_right = 80.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 80, 0 )
 text = "Attacks"
 
-[node name="Buttons2" type="VBoxContainer" parent="MainCols"]
-margin_left = 265.0
-margin_right = 340.0
-margin_bottom = 74.0
+[node name="Buttons2" type="VBoxContainer" parent="Margin/MainCols/CenterContainer/Buttons"]
+margin_left = 84.0
+margin_right = 164.0
+margin_bottom = 52.0
 
-[node name="Equip" type="Button" parent="MainCols/Buttons2"]
-margin_right = 75.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 75, 26 )
+[node name="Equip" type="Button" parent="Margin/MainCols/CenterContainer/Buttons/Buttons2"]
+margin_right = 80.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 0 )
 text = "Equip"
 
-[node name="Status" type="Button" parent="MainCols/Buttons2"]
-margin_top = 30.0
-margin_right = 75.0
-margin_bottom = 56.0
+[node name="Status" type="Button" parent="Margin/MainCols/CenterContainer/Buttons/Buttons2"]
+margin_top = 28.0
+margin_right = 80.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 80, 0 )
 text = "Status"
-[connection signal="pressed" from="MainCols/Buttons1/Inventory" to="." method="_on_Inventory_pressed"]
-[connection signal="pressed" from="MainCols/Buttons1/Attacks" to="." method="_on_Attacks_pressed"]
-[connection signal="pressed" from="MainCols/Buttons2/Equip" to="." method="_on_Equip_pressed"]
-[connection signal="pressed" from="MainCols/Buttons2/Status" to="." method="_on_Status_pressed"]
+[connection signal="pressed" from="Margin/MainCols/CenterContainer/Buttons/Buttons1/Inventory" to="." method="_on_Inventory_pressed"]
+[connection signal="pressed" from="Margin/MainCols/CenterContainer/Buttons/Buttons1/Attacks" to="." method="_on_Attacks_pressed"]
+[connection signal="pressed" from="Margin/MainCols/CenterContainer/Buttons/Buttons2/Equip" to="." method="_on_Equip_pressed"]
+[connection signal="pressed" from="Margin/MainCols/CenterContainer/Buttons/Buttons2/Status" to="." method="_on_Status_pressed"]

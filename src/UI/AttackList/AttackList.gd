@@ -102,14 +102,15 @@ func _on_Search_text_changed(new_text):
 	_render_filtered_attacks()
 
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		hide()
+func _unhandled_key_input(event):
 	if event.is_action_pressed("ui_attacks"):
-		if visible == true:
+		get_tree().set_input_as_handled()
+		if visible:
 			hide()
 		else:
 			show()
+	if event.is_action_pressed("left_click"):
+		_put_on_top()
 
 
 func _on_AttackList_visibility_changed():
@@ -119,6 +120,11 @@ func _on_AttackList_visibility_changed():
 
 func _on_WindowTitle_close_clicked():
 	hide()
+
+
+func _put_on_top() -> void:
+	var child_count = get_parent().get_child_count()
+	get_parent().move_child(self, child_count)
 
 
 func _on_WindowTitle_drag_ended():

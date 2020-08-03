@@ -1,9 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=1]
+[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/WorldClock/WorldClock.gd" type="Script" id=2]
 [ext_resource path="res://UI/WorldClock/clock-regular.png" type="Texture" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_RegularNormal.tres" type="DynamicFont" id=4]
+
 
 [node name="WorldClock" type="HBoxContainer"]
 margin_right = 55.0
