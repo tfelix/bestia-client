@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/one_man_symphony_wake_up.ogg-f403a2be7564f7cf7ee5e2ce18a8d221.oggstr"
+
+[deps]
+
+source_file="res://shared/audio/bgm/one_man_symphony_wake_up.ogg"
+dest_files=[ "res://.import/one_man_symphony_wake_up.ogg-f403a2be7564f7cf7ee5e2ce18a8d221.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -18,6 +18,8 @@ func update_volumes():
 
 
 func play_bgm(stream: AudioStream):
+	if _player.stream == stream:
+		return
 	_player.stream = stream
 	_player.play()
 

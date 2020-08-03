@@ -3,8 +3,9 @@
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/AttackList/AttackList.gd" type="Script" id=2]
 [ext_resource path="res://UI/AttackList/sword-wound.svg" type="Texture" id=3]
-[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=4]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=4]
 [ext_resource path="res://UI/backspace-24px.svg" type="Texture" id=6]
+
 
 [node name="AttackList" type="HBoxContainer"]
 margin_right = 290.0

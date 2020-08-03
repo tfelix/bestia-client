@@ -5,7 +5,8 @@
 [ext_resource path="res://UI/Chat/ChatCommands/SwitchChatMode.gd" type="Script" id=3]
 [ext_resource path="res://shared/themes/flat_panel_style.tres" type="StyleBox" id=4]
 [ext_resource path="res://UI/Chat/ChatCommands/PrintHelp.gd" type="Script" id=5]
-[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=6]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=6]
+
 
 [sub_resource type="Animation" id=1]
 length = 6.0

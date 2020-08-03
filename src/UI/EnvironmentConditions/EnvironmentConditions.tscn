@@ -2,8 +2,9 @@
 
 [ext_resource path="res://UI/WorldClock/WorldClock.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/WorldTemperature/WorldTemperature.tscn" type="PackedScene" id=2]
-[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=3]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=3]
 [ext_resource path="res://UI/StaminaWatch/StaminaWatch.tscn" type="PackedScene" id=4]
+
 
 [node name="EnvironmentConditions" type="PanelContainer"]
 anchor_left = 1.0

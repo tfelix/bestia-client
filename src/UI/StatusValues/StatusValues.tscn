@@ -2,8 +2,9 @@
 
 [ext_resource path="res://UI/StatusValues/StatusValues.gd" type="Script" id=1]
 [ext_resource path="res://UI/StatusValues/hamburger-menu.svg" type="Texture" id=2]
-[ext_resource path="res://UI/bestia_theme.tres" type="Theme" id=3]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=3]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=6]
+
 
 [node name="StatusValues" type="PanelContainer"]
 margin_right = 557.0

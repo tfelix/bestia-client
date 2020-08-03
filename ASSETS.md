@@ -53,6 +53,7 @@
 * [nimlos_rain-thunder.wav](https://freesound.org/people/Nimlos/sounds/359151/), Nimlos, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [josh74000mc_thunder3.wav](https://freesound.org/people/Josh74000MC/sounds/475094/), Josh74000MC, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [juancamiloorjuela__heal_1.wav](https://freesound.org/people/juancamiloorjuela/sounds/204318/), juancamiloorjuela [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* [one_man_symphony_wake_up.ogg](https://onemansymphony.bandcamp.com/), composed by onemansymphony.bandcamp.com [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ## Shader
 

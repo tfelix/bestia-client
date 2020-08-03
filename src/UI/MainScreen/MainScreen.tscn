@@ -4,8 +4,8 @@
 [ext_resource path="res://UI/TitleBackground/TitleBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=3]
 [ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=4]
-[ext_resource path="res://shared/audio/bgm/rpg_town_loop_2.ogg" type="AudioStream" id=5]
-[ext_resource path="res://UI/menu_theme.tres" type="Theme" id=6]
+[ext_resource path="res://shared/audio/bgm/one_man_symphony_wake_up.ogg" type="AudioStream" id=5]
+[ext_resource path="res://shared/themes/menu_theme.tres" type="Theme" id=6]
 [ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
