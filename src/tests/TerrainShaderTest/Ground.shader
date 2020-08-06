@@ -1,19 +1,4 @@
-[gd_scene load_steps=12 format=2]
-
-[ext_resource path="res://tests/voxel/noise_distorted.png" type="Image" id=1]
-[ext_resource path="res://Game/Sky/Sky.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Terrain/grass_03/hp_03.png" type="Texture" id=4]
-[ext_resource path="res://Terrain/mountain_stone/MountainStone_NRM.png" type="Texture" id=5]
-[ext_resource path="res://Terrain/grass_03/hp_03_n.png" type="Texture" id=6]
-[ext_resource path="res://Terrain/mountain_stone/MountainStone_COLOR.png" type="Texture" id=7]
-
-[sub_resource type="VoxelGeneratorImage" id=1]
-height_range = 120.0
-image = ExtResource( 1 )
-blur_enabled = true
-
-[sub_resource type="Shader" id=2]
-code = "/******************************************************
+/******************************************************
 This shader blends two separate top and side textures, each with their own triplanar mapped albedo, normal and ambient occlusion.
 
 Texture A is the top surface.
@@ -200,67 +185,3 @@ void fragment() {
 	
 }
 
-"
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
-"
-
-[sub_resource type="OpenSimplexNoise" id=3]
-seed = 5
-
-[sub_resource type="NoiseTexture" id=4]
-seamless = true
-noise = SubResource( 3 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 2 )
-shader_param/AB_mix_offset = -6.187
-shader_param/AB_mix_normal = 9.0
-shader_param/AB_mix_blend = 2.0
-shader_param/A_albedo_enabled = true
-shader_param/A_albedo_tint = Color( 1, 1, 1, 1 )
-shader_param/A_normal_enabled = true
-shader_param/A_normal_strength = 1.0
-shader_param/A_ao_tex_channel = Plane( 0.33, 0.33, 0.33, 0 )
-shader_param/A_ao_enabled = false
-shader_param/A_ao_strength = 1.0
-shader_param/A_uv_offset = null
-shader_param/A_uv_tiles = 1
-shader_param/A_tri_blend_sharpness = 17.86
-shader_param/B_albedo_enabled = true
-shader_param/B_albedo_tint = Color( 1, 1, 1, 1 )
-shader_param/B_normal_enabled = true
-shader_param/B_normal_strength = 1.0
-shader_param/B_normal_distance = 0.025
-shader_param/B_ao_tex_channel = Plane( 0.33, 0.33, 0.33, 0 )
-shader_param/B_ao_enabled = false
-shader_param/B_ao_strength = 1.0
-shader_param/B_uv_offset = null
-shader_param/B_uv_tiles = 1
-shader_param/B_tri_blend_sharpness = 17.86
-shader_param/A_albedo_map = ExtResource( 4 )
-shader_param/A_normal_map = ExtResource( 6 )
-shader_param/B_albedo_map = ExtResource( 7 )
-shader_param/B_normal_map = ExtResource( 5 )
-shader_param/noise_texture = SubResource( 4 )
-
-[node name="Voxel" type="Spatial"]
-
-[node name="Sky" parent="." instance=ExtResource( 3 )]
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.709975, 0.162633, 0.68519, -0.306297, 0.947431, 0.0924998, -0.634127, -0.275545, 0.722467, -5.95134, 20.4706, -109.694 )
-far = 1024.0
-
-[node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="."]
-stream = SubResource( 1 )
-view_distance = 1024
-lod_count = 3
-viewer_path = NodePath("../Camera")
-material = SubResource( 5 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.692597, 0.574161, -0.436634, 0, 0.605322, 0.795981, 0.721325, -0.551294, 0.419244, -11.581, 14.1186, 4.85463 )
-light_energy = 0.5

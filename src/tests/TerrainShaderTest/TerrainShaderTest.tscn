@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://tests/TerrainShaderTest/terrain.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://tests/TerrainShaderTest/GroundMaterial.tres" type="Material" id=2]
+[ext_resource path="res://shared/shader/Water/Water_N_B.png" type="Texture" id=3]
+[ext_resource path="res://shared/shader/Water/Water_UV.png" type="Texture" id=4]
+[ext_resource path="res://shared/shader/Water/Caustic.png" type="TextureArray" id=5]
+[ext_resource path="res://shared/shader/Water/Foam.png" type="Texture" id=6]
+[ext_resource path="res://shared/shader/Water/Water_N_A.png" type="Texture" id=7]
+[ext_resource path="res://shared/shader/Water/Water.shader" type="Shader" id=8]
+
+[sub_resource type="ProceduralSky" id=3]
+
+[sub_resource type="Environment" id=4]
+background_mode = 2
+background_sky = SubResource( 3 )
+ss_reflections_enabled = true
+ssao_enabled = true
+ssao_intensity = 3.0
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 8 )
+shader_param/wave_speed = 0.1
+shader_param/wave_a = Plane( 0.02, 0.2, 0.01, 1 )
+shader_param/wave_b = Plane( 0.04, 1, -0.001, 4 )
+shader_param/wave_c = Plane( 0.1, -0.4, 0.03, 5 )
+shader_param/sampler_scale = Vector2( 0.25, 0.25 )
+shader_param/sampler_direction = Vector2( 0.05, 0.04 )
+shader_param/uv_sampler_scale = Vector2( 0.25, 0.25 )
+shader_param/uv_sampler_strength = 0.04
+shader_param/foam_level = 0.5
+shader_param/refraction = 0.075
+shader_param/color_deep = Color( 0.32549, 0.407843, 0.505882, 1 )
+shader_param/color_shallow = Color( 0.666667, 0.752941, 0.768627, 1 )
+shader_param/beers_law = 2.0
+shader_param/depth_offset = -0.75
+shader_param/projector = Transform( 0.81, 0.493, -0.317, 0.558, -0.481, 0.676, 0.18, -0.725, -0.665, -0.137, 16.094, 0.317 )
+shader_param/uv_sampler = ExtResource( 4 )
+shader_param/normalmap_a_sampler = ExtResource( 7 )
+shader_param/normalmap_b_sampler = ExtResource( 3 )
+shader_param/foam_sampler = ExtResource( 6 )
+shader_param/caustic_sampler = ExtResource( 5 )
+
+[sub_resource type="PlaneMesh" id=6]
+material = SubResource( 5 )
+size = Vector2( 10, 15 )
+subdivide_width = 128
+subdivide_depth = 128
+
+[node name="TerrainShaderTest" type="Spatial"]
+
+[node name="Terrain" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.579976, -0.314612, 0.75143, 0.00939987, 0.924938, 0.380002, -0.814579, -0.213329, 0.539399, 9.50131, 3.30281, 5.36463 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( 0.973909, 0.117239, -0.194307, 0.0710098, 0.655788, 0.751598, 0.215541, -0.745786, 0.630353, 3.92925, 10.1598, 14.3668 )
+
+[node name="Water" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5475, -0.359192, 1.59882 )
+mesh = SubResource( 6 )
+material/0 = null

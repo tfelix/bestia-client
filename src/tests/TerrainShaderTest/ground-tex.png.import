@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/TransparentTest.png-a4beafcf289a72dec890d35f98dc417f.s3tc.stex"
-path.etc2="res://.import/TransparentTest.png-a4beafcf289a72dec890d35f98dc417f.etc2.stex"
+path.s3tc="res://.import/ground-tex.png-d7cf8b9cf6416d0a20130dda8be20119.s3tc.stex"
+path.etc2="res://.import/ground-tex.png-d7cf8b9cf6416d0a20130dda8be20119.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://tests/TransparentTest.png"
-dest_files=[ "res://.import/TransparentTest.png-a4beafcf289a72dec890d35f98dc417f.s3tc.stex", "res://.import/TransparentTest.png-a4beafcf289a72dec890d35f98dc417f.etc2.stex" ]
+source_file="res://tests/TerrainShaderTest/ground-tex.png"
+dest_files=[ "res://.import/ground-tex.png-d7cf8b9cf6416d0a20130dda8be20119.s3tc.stex", "res://.import/ground-tex.png-d7cf8b9cf6416d0a20130dda8be20119.etc2.stex" ]
 
 [params]
 
@@ -25,7 +25,7 @@ flags/repeat=true
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

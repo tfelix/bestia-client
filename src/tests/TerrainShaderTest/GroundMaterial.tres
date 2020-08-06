@@ -1,0 +1,185 @@
+[gd_resource type="ShaderMaterial" load_steps=15 format=2]
+
+[ext_resource path="res://Terrain/grass_03/hp_03_r.png" type="Texture" id=1]
+[ext_resource path="res://Terrain/mountain_stone/MountainStone_SPEC.png" type="Texture" id=2]
+[ext_resource path="res://Terrain/grass_03/hp_03_s.png" type="Texture" id=3]
+[ext_resource path="res://Terrain/grass_03/hp_03_n.png" type="Texture" id=4]
+[ext_resource path="res://Terrain/grass_03/hp_03.png" type="Texture" id=5]
+[ext_resource path="res://tests/TerrainShaderTest/ground-tex.png" type="Texture" id=6]
+[ext_resource path="res://Terrain/mountain_stone/MountainStone_DISP.png" type="Texture" id=7]
+[ext_resource path="res://Terrain/mountain_stone/MountainStone_COLOR.png" type="Texture" id=8]
+[ext_resource path="res://Terrain/mountain_stone/MountainStone_NRM.png" type="Texture" id=9]
+[ext_resource path="res://Terrain/bricks_01/Ground_01.png" type="Texture" id=10]
+[ext_resource path="res://Terrain/bricks_01/Ground_01_Nrm.png" type="Texture" id=11]
+
+[sub_resource type="Shader" id=1]
+code = "/******************************************************
+
+This shader blends two separate top and side textures, each with their own triplanar mapped albedo, normal and ambient occlusion.
+
+Texture A1 is the top surface 1.
+Texture A2 is the top surface 2.
+Texture B are the sides and bottom.
+
+The typical use case would be to have grass on top and a rocky surface on the sides and bottom of a terrain.
+
+This version (v2) adds an untiled texture lookup which hides the repeating pattern that appears when stamping the same texture over
+and over. However it costs two additional texture lookups. At lower resolutions the performance cost is marginal, but at 4k the 
+frame rate cuts in half.
+******************************************************/
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+
+uniform sampler2D splat_map : hint_white;
+
+uniform float AB_mix_blend : hint_range(0., 10.) = 2.;
+
+uniform sampler2D A1_albedo_map : hint_albedo;
+uniform sampler2D A1_normal_map : hint_normal;
+uniform sampler2D A1_rougness_map : hint_albedo;
+uniform sampler2D A1_metallic_map : hint_albedo;
+uniform float A1_uv_scale : hint_range(0.1, 10.) = 1.;
+
+uniform sampler2D A2_albedo_map : hint_albedo;
+uniform sampler2D A2_normal_map : hint_normal;
+uniform sampler2D A2_rougness_map : hint_albedo;
+uniform sampler2D A2_metallic_map : hint_albedo;
+
+uniform sampler2D B_albedo_map : hint_albedo;
+uniform sampler2D B_normal_map : hint_normal;
+uniform sampler2D B_rougness_map : hint_albedo;
+uniform sampler2D B_metallic_map : hint_albedo;
+uniform float B_uv_scale : hint_range(0.1, 10.) = 1.;
+
+varying vec3 A_uv_triplanar_pos;
+varying vec3 A_uv_power_normal;
+varying vec3 B_uv_triplanar_pos;
+varying vec3 B_uv_power_normal;
+
+varying vec3 vertex_normal;
+varying float vertex_distance;
+
+void vertex() {
+	vertex_normal = NORMAL;
+
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+
+	A_uv_power_normal = pow(abs(NORMAL), vec3(18.));
+	A_uv_power_normal /= dot(A_uv_power_normal, vec3(1.0));
+	A_uv_triplanar_pos = VERTEX * A1_uv_scale / 16.;
+	// On VoxelTerrain 16 is 100% size, so uv_tile is multiples of 16. 
+	A_uv_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+
+	B_uv_power_normal = pow(abs(NORMAL), vec3(18.));
+	B_uv_power_normal /= dot(B_uv_power_normal,vec3(1.0));
+	B_uv_triplanar_pos = VERTEX * B_uv_scale / 16.;
+	B_uv_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+
+	// Get the distance from camera to VERTEX (VERTEX as if the camera is 0,0,0)
+	vertex_distance = (PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).z;
+}
+
+// This untiles textures with only two sample lookups
+// http://www.iquilezles.org/www/articles/texturerepetition/texturerepetition.htm
+uniform sampler2D 	noise_texture : hint_white;
+float sum( vec4 v ) { return v.x+v.y+v.z; }
+
+
+vec4 untiled_texture(sampler2D samp, in vec2 uv) {
+	 // sample variation pattern    
+	float k = texture( noise_texture, 0.005 * uv ).x; // cheap (cache friendly) lookup    
+	
+	// compute index    
+	float index = k*8.0;
+	float i = floor( index );
+	float f = fract( index );
+	
+	// offsets for the different virtual patterns    
+	vec2 offa = sin(vec2(3.0,7.0)*(i+0.0)); // can replace with any other hash    
+	vec2 offb = sin(vec2(3.0,7.0)*(i+1.0)); // can replace with any other hash    
+	
+	// compute derivatives for mip-mapping    
+	vec2 dx = dFdx(uv);
+	vec2 dy = dFdy(uv);
+	
+	// sample the two closest virtual patterns    
+	vec4 cola = textureGrad( samp, uv + offa, dx, dy );
+	vec4 colb = textureGrad( samp, uv + offb, dx, dy );
+	
+	// interpolate between the two virtual patterns    
+	return mix( cola, colb, smoothstep(0.2,0.8,f-0.1*sum(cola-colb)) );
+}
+
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= untiled_texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= untiled_texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= untiled_texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	// Constants
+	float AB_mix_offset = -6.187; // -11 - 2.5
+	float AB_mix_normal = 8.253; // 0 - 20
+	
+	// Get which texture is important from splatmap
+	vec4 texture_splat = texture(splat_map, UV);
+	float water_tex_influence = texture_splat.b;
+	
+	// Calculate Albedo 
+	vec3 A1_albedo = triplanar_texture(A1_albedo_map, A_uv_power_normal, A_uv_triplanar_pos).rgb;
+	vec3 A2_albedo = triplanar_texture(A2_albedo_map, A_uv_power_normal, A_uv_triplanar_pos).rgb;
+	
+	vec3 A_albedo =  mix(A1_albedo, A2_albedo, water_tex_influence);
+	
+	vec3 B_albedo = triplanar_texture(B_albedo_map, B_uv_power_normal, B_uv_triplanar_pos).rgb;
+	float AB_mix_factor = clamp(AB_mix_normal * dot(vec3(0.,1.,0.), vertex_normal) + AB_mix_offset + AB_mix_blend * A_albedo.g, 0., 1.);
+	
+	// Get the final albedo
+	ALBEDO = mix(B_albedo, A_albedo, AB_mix_factor);
+
+	// Calculate Normals
+	vec3 A_normal = triplanar_texture(A1_normal_map, A_uv_power_normal, A_uv_triplanar_pos).rgb;
+	vec3 B_normal = triplanar_texture(B_normal_map, B_uv_power_normal, B_uv_triplanar_pos).rgb;
+	
+	NORMALMAP = mix(B_normal, A_normal, AB_mix_factor);
+}
+"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
+
+[sub_resource type="OpenSimplexNoise" id=2]
+
+[sub_resource type="NoiseTexture" id=3]
+noise = SubResource( 2 )
+
+[resource]
+shader = SubResource( 1 )
+shader_param/AB_mix_blend = 0.5
+shader_param/A1_uv_scale = 5.0
+shader_param/B_uv_scale = 5.0
+shader_param/splat_map = ExtResource( 6 )
+shader_param/A1_albedo_map = ExtResource( 5 )
+shader_param/A1_normal_map = ExtResource( 4 )
+shader_param/A1_rougness_map = ExtResource( 1 )
+shader_param/A1_metallic_map = ExtResource( 3 )
+shader_param/A2_albedo_map = ExtResource( 10 )
+shader_param/A2_normal_map = ExtResource( 11 )
+shader_param/B_albedo_map = ExtResource( 8 )
+shader_param/B_normal_map = ExtResource( 9 )
+shader_param/B_rougness_map = ExtResource( 7 )
+shader_param/B_metallic_map = ExtResource( 2 )
+shader_param/noise_texture = SubResource( 3 )

@@ -1,12 +1,12 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
 
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
+uniform vec4 gras_top : hint_color;
+uniform vec4 gras_bottom: hint_color;
+uniform vec4 transmission: hint_color;
+
 uniform sampler2D displacement_map;
 
-uniform float point_size : hint_range(0,128);
-uniform vec3 camera_position = vec3(0.0);
 uniform float wind_strenght : hint_range(0,1) = 1.0;
 uniform float max_rotation : hint_range(0, 0.3) = 0.2;
 
@@ -47,7 +47,7 @@ void vertex() {
 	
 	vec3 displacement_sample = texture(displacement_map, mesh_world_uv).rgb;
 	float hide = displacement_sample.b;
-	// We must correct back again to our vector space
+	// We must correct back again to our vector space to have a range of 0-1
 	vec2 displacement = displacement_sample.rg * 2.0 - vec2(1.0);
 	
 	if(hide > 0.1) {
@@ -70,14 +70,7 @@ void vertex() {
 	}
 }
 
-float map(float value, float new_min, float new_max) {
-	return (new_max - new_min) * value + new_min;
-}
-
 void fragment() {
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb * map(COLOR.r, 0.3, 1.0);
-	ALPHA = albedo.a;
-	ALPHA_SCISSOR = 0.97;
+	ALBEDO = mix(gras_bottom.rgb, gras_top.rgb, COLOR.r);
+	TRANSMISSION = transmission.rgb;
 }

@@ -4,8 +4,8 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/albedo = Color( 0.262745, 0.607843, 0.0470588, 1 )
-shader_param/point_size = null
-shader_param/camera_position = Vector3( 0, 0, 0 )
+shader_param/gras_top = Color( 0.294118, 0.752941, 0.105882, 1 )
+shader_param/gras_bottom = Color( 0.239216, 0.392157, 0.0666667, 1 )
+shader_param/transmission = Color( 0.701961, 0.282353, 0.188235, 1 )
 shader_param/wind_strenght = 0.3
 shader_param/max_rotation = 0.2

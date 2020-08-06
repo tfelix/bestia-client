@@ -3,7 +3,8 @@
 [ext_resource path="res://UI/Inventory/ItemDescriptionModule/ItemDescriptionFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/Inventory/ItemDropDialog/ItemDropDialog.gd" type="Script" id=3]
-[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=4]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=4]
+
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4

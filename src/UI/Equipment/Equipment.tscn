@@ -6,8 +6,9 @@
 [ext_resource path="res://UI/AttackList/sword-wound.svg" type="Texture" id=4]
 [ext_resource path="res://UI/Equipment/EquipSlot/EquipSlot.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/Equipment/Equipment.gd" type="Script" id=6]
-[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=7]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://UI/Equipment/player-background.png" type="Texture" id=8]
+
 
 
 [sub_resource type="ViewportTexture" id=1]

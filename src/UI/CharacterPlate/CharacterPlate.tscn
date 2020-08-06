@@ -2,8 +2,9 @@
 
 [ext_resource path="res://UI/CharacterPlate/CharacterPlate.gd" type="Script" id=1]
 [ext_resource path="res://UI/Bar/Bar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://shared/bestia_theme.tres" type="Theme" id=7]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://UI/CharacterPlate/HealthManaFont.tres" type="DynamicFont" id=8]
+
 
 [node name="CharacterPlate" type="PanelContainer"]
 margin_right = 360.0

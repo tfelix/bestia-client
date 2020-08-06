@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Terrain/GrassLump3/Plane.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://tests/GrassField.gd" type="Script" id=2]
@@ -74,7 +74,11 @@ viewport_path = NodePath("GrassHideViewport")
 [sub_resource type="Environment" id=8]
 background_mode = 2
 background_sky = SubResource( 7 )
+fog_depth_begin = 100.0
+fog_depth_end = 1000.0
 tonemap_mode = 2
+ssao_enabled = true
+ssao_edge_sharpness = 1.0
 
 [sub_resource type="Shader" id=9]
 code = "shader_type spatial;
@@ -132,7 +136,7 @@ albedo_texture = ExtResource( 5 )
 metallic_texture = ExtResource( 8 )
 roughness_texture = ExtResource( 6 )
 normal_enabled = true
-normal_scale = 1.0
+normal_scale = 8.0
 normal_texture = ExtResource( 7 )
 uv1_scale = Vector3( 3, 3, 1 )
 
@@ -154,6 +158,12 @@ color_ramp = SubResource( 17 )
 [sub_resource type="QuadMesh" id=19]
 material = ExtResource( 3 )
 
+[sub_resource type="SpatialMaterial" id=21]
+
+[sub_resource type="CubeMesh" id=20]
+material = SubResource( 21 )
+size = Vector3( 15, 15, 1 )
+
 [node name="ShaderTest" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -163,6 +173,7 @@ light_energy = 0.8
 shadow_enabled = true
 
 [node name="Grass" type="MultiMeshInstance" parent="."]
+cast_shadow = 0
 multimesh = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
@@ -259,3 +270,8 @@ local_coords = false
 draw_order = 1
 process_material = SubResource( 18 )
 draw_pass_1 = SubResource( 19 )
+
+[node name="Shadow" type="MeshInstance" parent="."]
+transform = Transform( 0.213632, -0.852695, -0.476731, 0.348697, 0.522409, -0.778138, 0.912563, 0, 0.408936, -7.46826, 15.3293, -3.09142 )
+mesh = SubResource( 20 )
+material/0 = null
