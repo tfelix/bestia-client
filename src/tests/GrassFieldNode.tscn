@@ -158,10 +158,10 @@ color_ramp = SubResource( 17 )
 [sub_resource type="QuadMesh" id=19]
 material = ExtResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=20]
+[sub_resource type="SpatialMaterial" id=21]
 
-[sub_resource type="CubeMesh" id=21]
-material = SubResource( 20 )
+[sub_resource type="CubeMesh" id=20]
+material = SubResource( 21 )
 size = Vector3( 15, 15, 1 )
 
 [node name="ShaderTest" type="Spatial"]
@@ -273,5 +273,5 @@ draw_pass_1 = SubResource( 19 )
 
 [node name="Shadow" type="MeshInstance" parent="."]
 transform = Transform( 0.213632, -0.852695, -0.476731, 0.348697, 0.522409, -0.778138, 0.912563, 0, 0.408936, -7.46826, 15.3293, -3.09142 )
-mesh = SubResource( 21 )
+mesh = SubResource( 20 )
 material/0 = null
