@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Terrain/GrassLump3/Plane.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://tests/GrassField.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Terrain/grass_03/hp_03_r.png" type="Texture" id=6]
 [ext_resource path="res://Terrain/grass_03/hp_03_n.png" type="Texture" id=7]
 [ext_resource path="res://Terrain/grass_03/hp_03_s.png" type="Texture" id=8]
+[ext_resource path="res://Terrain/GrassHider/grass_hider_material.tres" type="Material" id=9]
 
 [sub_resource type="MultiMesh" id=1]
 transform_format = 1
@@ -80,57 +81,18 @@ tonemap_mode = 2
 ssao_enabled = true
 ssao_edge_sharpness = 1.0
 
-[sub_resource type="Shader" id=9]
-code = "shader_type spatial;
-render_mode blend_add,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,depth_test_disable,shadows_disabled,ambient_light_disabled;
-
-uniform bool is_circular = false;
-
-float circle(in vec2 _st, in float _radius){
-    vec2 dist = _st - vec2(0.5);
-	return 1. - smoothstep(_radius - (_radius * 0.01),
-                         _radius + (_radius * 0.01),
-                         dot(dist, dist) * 4.0);
-}
-
-void fragment() {
-	ALBEDO = vec3(0.0, 0.0, 0.0);
-	if(is_circular) {
-		// float pct = distance(UV, vec2(0.5)) * 2.0;
-		ALBEDO.b = circle(UV, 0.9);
-	} else {
-		// bottom-left
-		vec2 bl = smoothstep(vec2(0.0), vec2(0.05), UV);
-		float pct = bl.x * bl.y;
-		// top-right
-		vec2 tr = smoothstep(vec2(0.0), vec2(0.05), vec2(1.0) - UV);
-		pct *= tr.x * tr.y;
-		ALBEDO.b = pct;
-	}
-}
-"
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
-"
-
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
-shader_param/is_circular = false
-
-[sub_resource type="QuadMesh" id=11]
-material = SubResource( 10 )
+[sub_resource type="QuadMesh" id=9]
+material = ExtResource( 9 )
 size = Vector2( 25, 10 )
 
-[sub_resource type="QuadMesh" id=12]
+[sub_resource type="QuadMesh" id=10]
 material = ExtResource( 3 )
 size = Vector2( 20, 20 )
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=11]
 size = Vector2( 50, 50 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=12]
 albedo_color = Color( 0.631373, 0.572549, 0.188235, 1 )
 albedo_texture = ExtResource( 5 )
 metallic_texture = ExtResource( 8 )
@@ -140,28 +102,28 @@ normal_scale = 8.0
 normal_texture = ExtResource( 7 )
 uv1_scale = Vector3( 3, 3, 1 )
 
-[sub_resource type="CapsuleMesh" id=15]
+[sub_resource type="CapsuleMesh" id=13]
 
-[sub_resource type="Gradient" id=16]
+[sub_resource type="Gradient" id=14]
 offsets = PoolRealArray( 0, 0.028436, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=17]
-gradient = SubResource( 16 )
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
 width = 1024
 
-[sub_resource type="ParticlesMaterial" id=18]
+[sub_resource type="ParticlesMaterial" id=16]
 gravity = Vector3( 0, 0, 0 )
 scale = 5.0
-color_ramp = SubResource( 17 )
+color_ramp = SubResource( 15 )
 
-[sub_resource type="QuadMesh" id=19]
+[sub_resource type="QuadMesh" id=17]
 material = ExtResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=20]
+[sub_resource type="SpatialMaterial" id=18]
 
-[sub_resource type="CubeMesh" id=21]
-material = SubResource( 20 )
+[sub_resource type="CubeMesh" id=19]
+material = SubResource( 18 )
 size = Vector3( 15, 15, 1 )
 
 [node name="ShaderTest" type="Spatial"]
@@ -228,37 +190,37 @@ environment = SubResource( 8 )
 [node name="GrassHider" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0 )
 layers = 2
-mesh = SubResource( 11 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="GrassPusher2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -13.2307, 0.0311279, 14.5614 )
 visible = false
 layers = 2
-mesh = SubResource( 12 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="GrassHider2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.458, 2, 14.648 )
 layers = 2
-mesh = SubResource( 11 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Ground" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 13 )
-material/0 = SubResource( 14 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
 
 [node name="Player" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
-mesh = SubResource( 15 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="GrassTrail" parent="Player" instance=ExtResource( 4 )]
 
 [node name="Player2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.51557, 1.5, -17.7863 )
-mesh = SubResource( 15 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="GrassTrail" type="Particles" parent="Player2"]
@@ -268,10 +230,10 @@ amount = 30
 lifetime = 5.0
 local_coords = false
 draw_order = 1
-process_material = SubResource( 18 )
-draw_pass_1 = SubResource( 19 )
+process_material = SubResource( 16 )
+draw_pass_1 = SubResource( 17 )
 
 [node name="Shadow" type="MeshInstance" parent="."]
 transform = Transform( 0.213632, -0.852695, -0.476731, 0.348697, 0.522409, -0.778138, 0.912563, 0, 0.408936, -7.46826, 15.3293, -3.09142 )
-mesh = SubResource( 21 )
+mesh = SubResource( 19 )
 material/0 = null

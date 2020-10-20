@@ -1735,10 +1735,13 @@ ui_equipment={
 
 [layer_names]
 
+3d_render/layer_1="default"
 3d_physics/layer_1="structure"
-3d_render/layer_2="vegetation_displ"
+3d_render/layer_2="vegetation_mod"
 3d_physics/layer_2="player"
+3d_render/layer_3="heigthmap"
 3d_physics/layer_3="enemy"
+3d_render/layer_4="vegetation"
 3d_physics/layer_4="item"
 3d_physics/layer_5="projectile"
 3d_physics/layer_6="terrain"

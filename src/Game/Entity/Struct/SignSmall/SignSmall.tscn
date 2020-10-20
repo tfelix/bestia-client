@@ -114,7 +114,6 @@ script = ExtResource( 1 )
 follow_node = NodePath("../..")
 
 [node name="SignageDetection" type="Area" parent="."]
-visible = false
 input_ray_pickable = false
 collision_layer = 0
 collision_mask = 2

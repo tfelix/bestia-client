@@ -9,8 +9,6 @@
 [ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=7]
 [ext_resource path="res://UI/Equipment/player-background.png" type="Texture" id=8]
 
-
-
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("PlayerPortraitView")
 
@@ -31,8 +29,10 @@ __meta__ = {
 }
 
 [node name="Equipments" type="VBoxContainer" parent="."]
-margin_right = 618.0
-margin_bottom = 367.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 622.0
+margin_bottom = 363.0
 
 [node name="Title" parent="Equipments" instance=ExtResource( 2 )]
 margin_right = 618.0

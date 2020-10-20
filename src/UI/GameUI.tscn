@@ -49,8 +49,10 @@ margin_bottom = 84.0
 [node name="Chat" parent="." instance=ExtResource( 5 )]
 anchor_top = 1.0
 anchor_right = 0.0
-margin_top = -188.0
-margin_right = 400.0
+margin_left = 11.8717
+margin_top = -198.475
+margin_right = 411.872
+margin_bottom = -10.4751
 
 [node name="Shortcuts" parent="." instance=ExtResource( 6 )]
 anchor_left = 1.0

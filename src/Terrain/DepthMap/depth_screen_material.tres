@@ -1,0 +1,52 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+uniform float camera_far_clip = 10;
+uniform float normal_step_delta : hint_range(0.0, 1.0, 0.01) = 0.01;
+
+
+vec2 calculate_normal(sampler2D depth_texture, vec2 uv) {
+	float x1 = texture(depth_texture, vec2(uv.x - normal_step_delta, uv.y)).r;
+	float x2 = texture(depth_texture, vec2(uv.x + normal_step_delta, uv.y)).r;
+	
+	float dx = (x1 - x2) / (2.0 * normal_step_delta);
+	
+	float y1 = texture(depth_texture, vec2(uv.x, uv.y - normal_step_delta)).r;
+	float y2 = texture(depth_texture, vec2(uv.x, uv.y + normal_step_delta)).r;
+	
+	float dy = (y1 - y2) / (2.0 * normal_step_delta);
+	
+	return normalize(vec2(dx, dy));
+}
+
+void fragment() {
+	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
+	// normalized device coordiantes, from -1 to 1.
+	vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
+	// converting ndc to view space coordinates
+	// view space is relative to camera position, z is therefore distance to point
+	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	// far clip distance of camera is used to normalize depth values
+	float linear_depth = -view.z / camera_far_clip;
+	
+	// vec4 world = CAMERA * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	// vec3 world_position = world.xyz / world.w;
+	float height = 1.0 - linear_depth;
+	
+	vec2 surface_normal = calculate_normal(DEPTH_TEXTURE, SCREEN_UV);
+	
+	ALBEDO = vec3(height, max(surface_normal.x, surface_normal.y), 0.0);
+}"
+custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
+#define MAX_FORWARD_LIGHTS 8
+#define MAX_REFLECTION_DATA_STRUCTS 455
+#define MAX_SKELETON_BONES 1365
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/camera_far_clip = 10.0
+shader_param/normal_step_delta = 0.01

@@ -5,12 +5,18 @@ uniform vec4 gras_top : hint_color;
 uniform vec4 gras_bottom: hint_color;
 uniform vec4 transmission: hint_color;
 
+uniform sampler2D height_map;
+uniform float height_zero = 0.0;
+
 uniform sampler2D displacement_map;
 
 uniform float wind_strenght : hint_range(0,1) = 1.0;
 uniform float max_rotation : hint_range(0, 0.3) = 0.2;
+uniform float max_steepness : hint_range(0, 1.0) = 0.6;
 
 const float PI2 = 2.0 * 3.1415926;
+
+varying float height;
 
 vec3 wind_displ() {
 	return vec3(0.0);
@@ -39,19 +45,31 @@ vec3 rotate_about_axis(vec3 v, float angle, vec3 normalized_axis, vec3 pivot) {
 }
 
 void vertex() {
+	const vec3 VERTEX_HIDE_OFFSET = vec3(-10000.0);
 	mat4 model_matrix = inverse(WORLD_MATRIX);
 	vec3 vertex_world = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	vec3 mesh_world = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 	
-	vec2 mesh_world_uv = (mesh_world.xz + vec2(25.0)) / 50.0;
+	// Automate this by setting the maximum size
+	// this is for 50
+	// vec2 mesh_world_uv = (mesh_world.xz + vec2(25.0)) / 50.0;
+	// for size 20
+	vec2 mesh_world_uv = (mesh_world.xz + vec2(10.0)) / 20.0;
 	
 	vec3 displacement_sample = texture(displacement_map, mesh_world_uv).rgb;
 	float hide = displacement_sample.b;
 	// We must correct back again to our vector space to have a range of 0-1
 	vec2 displacement = displacement_sample.rg * 2.0 - vec2(1.0);
 	
-	if(hide > 0.1) {
-		VERTEX = vec3(0.0);
+	// Camera culling is at 20, we might need to feed this param into the shader as well.
+	vec4 height_sample = texture(height_map, mesh_world_uv);
+	height = height_sample.x;
+	
+	if(height_sample.g > max_steepness) {
+		 VERTEX = VERTEX_HIDE_OFFSET;
+	} else if(hide > 0.1) {
+		// Try to put vertex so it gets culled
+		VERTEX = VERTEX_HIDE_OFFSET;
 	} else {
 		float rotation_angle = length(displacement) * max_rotation * PI2;
 		
@@ -66,7 +84,9 @@ void vertex() {
 		// Add wind influence
 		vec3 wind_displ = (large_scale_displ(mesh_world, TIME) + small_scale_displ(VERTEX, TIME)) * COLOR.r * wind_strenght;
 		
-		VERTEX = (model_matrix * vec4(rotated, 1.0)).xyz * 3.0 + wind_displ;
+		float height_offset = 20.0 * height_sample.x - 0.1;
+		VERTEX = (model_matrix * vec4(rotated, 1.0)).xyz + wind_displ;
+		VERTEX += vec3(0., height_offset, 0.0);
 	}
 }
 

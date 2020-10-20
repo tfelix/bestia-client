@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cast-target-marker.obj-56b5c81a474f8449ebb3eeda94f4b4ce.mesh"
+
+[deps]
+
+files=[ "res://.import/cast-target-marker.obj-56b5c81a474f8449ebb3eeda94f4b4ce.mesh" ]
+
+source_file="res://Game/CastTargetMarker/cast-target-marker.obj"
+dest_files=[ "res://.import/cast-target-marker.obj-56b5c81a474f8449ebb3eeda94f4b4ce.mesh", "res://.import/cast-target-marker.obj-56b5c81a474f8449ebb3eeda94f4b4ce.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
