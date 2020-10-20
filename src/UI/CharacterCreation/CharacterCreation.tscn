@@ -1,32 +1,130 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/CharacterCreation/CharacterCreation.gd" type="Script" id=1]
+[ext_resource path="res://UI/ColorPicker/ColorPicker.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
 
 [node name="CharacterCreation" type="Control"]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_left = -3.7207
+margin_top = 11.6037
+margin_right = 1276.28
+margin_bottom = 731.604
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="CharacterForm" type="VBoxContainer" parent="."]
-margin_left = 4.29593
-margin_top = -8.15987
-margin_right = 295.296
-margin_bottom = 711.84
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="CharacterForm"]
-margin_right = 291.0
-margin_bottom = 14.0
-text = "Character Name"
-
-[node name="CharacterName" type="LineEdit" parent="CharacterForm"]
-margin_top = 18.0
-margin_right = 291.0
-margin_bottom = 42.0
-placeholder_text = "Choose a Name"
 
 [node name="CharacterViewport" type="ViewportContainer" parent="."]
 margin_top = 22.0
 margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterMargin" type="MarginContainer" parent="."]
+margin_right = 574.0
+margin_bottom = 220.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterEditor" type="HBoxContainer" parent="CharacterMargin"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 564.0
+margin_bottom = 240.0
+
+[node name="CharacterForm" type="VBoxContainer" parent="CharacterMargin/CharacterEditor"]
+margin_right = 250.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 250, 0 )
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_right = 250.0
+margin_bottom = 14.0
+text = "Character Name"
+
+[node name="CharacterName" type="LineEdit" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 24.0
+margin_right = 250.0
+margin_bottom = 48.0
+placeholder_text = "Choose a Name"
+
+[node name="Gender" type="Label" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 58.0
+margin_right = 250.0
+margin_bottom = 72.0
+text = "Gender"
+
+[node name="GenderButton" type="OptionButton" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 82.0
+margin_right = 250.0
+margin_bottom = 102.0
+text = "Male"
+align = 1
+
+[node name="Hair Color" type="Label" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 112.0
+margin_right = 250.0
+margin_bottom = 126.0
+text = "Hair Color"
+
+[node name="ColorPicker" parent="CharacterMargin/CharacterEditor/CharacterForm" instance=ExtResource( 2 )]
+margin_top = 136.0
+margin_bottom = 166.0
+
+[node name="Hairstyle" type="SpinBox" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 176.0
+margin_right = 250.0
+margin_bottom = 200.0
+min_value = 1.0
+max_value = 2.0
+value = 1.0
+align = 1
+prefix = "Hairstyle"
+
+[node name="NextButton" type="Button" parent="CharacterMargin/CharacterEditor/CharacterForm"]
+margin_top = 210.0
+margin_right = 250.0
+margin_bottom = 230.0
+text = "Next"
+
+[node name="CharacterDisplay" type="ViewportContainer" parent="CharacterMargin/CharacterEditor"]
+margin_left = 254.0
+margin_right = 554.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 300, 0 )
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="CharacterMargin/CharacterEditor/CharacterDisplay"]
+size = Vector2( 300, 230 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="MeshInstance" type="MeshInstance" parent="CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CamTarget" type="Spatial" parent="CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083, 0.32, 5 )
+
+[node name="Light" type="OmniLight" parent="CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98842, 4.2219 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.938215, 0.346052, 0, -0.346052, 0.938215, 0, 1.80189, 7.77121 )
+target = NodePath("../CamTarget")
+speed = 2.0
+enabled = true
+[connection signal="pressed" from="CharacterMargin/CharacterEditor/CharacterForm/NextButton" to="." method="_on_NextButton_pressed"]
