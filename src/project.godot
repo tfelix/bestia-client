@@ -189,6 +189,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/StatusValues/GainPointData.gd"
 }, {
+"base": "BoneAttachment",
+"class": "Hair",
+"language": "GDScript",
+"path": "res://Player/Hair/Hair.gd"
+}, {
 "base": "Reference",
 "class": "InteractionRequest",
 "language": "GDScript",
@@ -461,6 +466,7 @@ _global_script_class_icons={
 "FakeMobHandler": "",
 "FxMessage": "",
 "GainPointData": "",
+"Hair": "",
 "InteractionRequest": "",
 "InteractionResponse": "",
 "InteractionService": "",

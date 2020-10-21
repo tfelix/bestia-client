@@ -1,6 +1,6 @@
 extends GridContainer
 
-var selected_color
+signal color_selected 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,5 +13,5 @@ func _on_Color_selected(selected_color_node):
 		if n != selected_color_node:
 			n.unselect()
 		else:
-			selected_color = n.color
+			emit_signal("color_selected", n.color)
 

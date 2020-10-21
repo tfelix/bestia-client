@@ -6,7 +6,6 @@
 [ext_resource path="res://shared/fonts/OpenSans_SemiboldHeadline.tres" type="DynamicFont" id=4]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=5]
 
-
 [node name="Options" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,10 +56,28 @@ texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Sound" type="Label" parent="PanelContainer/MarginContainer/Rows"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/Rows"]
 margin_top = 84.0
 margin_right = 345.0
-margin_bottom = 115.0
+margin_bottom = 125.0
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/Rows/MarginContainer"]
+margin_right = 345.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 4 )
+text = "Configuration"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="Label" parent="PanelContainer/MarginContainer/Rows"]
+margin_top = 129.0
+margin_right = 345.0
+margin_bottom = 160.0
 custom_fonts/font = ExtResource( 4 )
 text = "Sound"
 __meta__ = {
@@ -68,9 +85,9 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/Rows"]
-margin_top = 119.0
+margin_top = 164.0
 margin_right = 345.0
-margin_bottom = 187.0
+margin_bottom = 232.0
 columns = 2
 
 [node name="VolumeLabel" type="Label" parent="PanelContainer/MarginContainer/Rows/GridContainer"]
@@ -156,9 +173,9 @@ text = "100 %"
 align = 2
 
 [node name="MarginVideo" type="MarginContainer" parent="PanelContainer/MarginContainer/Rows"]
-margin_top = 191.0
+margin_top = 236.0
 margin_right = 345.0
-margin_bottom = 232.0
+margin_bottom = 277.0
 custom_constants/margin_top = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -175,16 +192,16 @@ __meta__ = {
 }
 
 [node name="BorderlessWin" type="CheckButton" parent="PanelContainer/MarginContainer/Rows"]
-margin_top = 236.0
+margin_top = 281.0
 margin_right = 345.0
-margin_bottom = 276.0
+margin_bottom = 321.0
 focus_mode = 0
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 text = "Borderless Fullscreen Window"
 
 [node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/Rows"]
-margin_top = 280.0
+margin_top = 325.0
 margin_right = 345.0
 margin_bottom = 650.0
 size_flags_vertical = 3

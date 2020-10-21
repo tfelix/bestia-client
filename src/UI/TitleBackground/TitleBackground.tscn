@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/MainScreen/landscape-nature-clouds-cloudy.jpg" type="Texture" id=1]
+[ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=2]
 [ext_resource path="res://UI/TitleBackground/TitleBackground.gd" type="Script" id=3]
 
 [node name="TitleBackground" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -26,10 +28,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -114.161
-margin_top = -30.3289
-margin_right = -22.1606
-margin_bottom = -16.3289
+margin_left = -115.161
+margin_top = -39.3289
+margin_right = -23.1606
+margin_bottom = -21.3289
 grow_horizontal = 0
 text = "VERSION"
 __meta__ = {
