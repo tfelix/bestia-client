@@ -17,7 +17,6 @@ func init(damage: DamageMessage):
 
 
 func _ready():
-	# _follower.offset = Vector2(randi() % 20 - 10, randi() % 50 - 25)
 	match _damage.type:
 		DamageMessage.DamageType.DAMAGE:
 			_normal.visible = true

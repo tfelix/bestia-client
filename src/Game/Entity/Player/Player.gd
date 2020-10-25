@@ -8,6 +8,7 @@ enum PlayerState {
 	ATTACKING, 
 	MOVING,
 	USE,
+	PICKUP,
 	INTERACTING # e.g. talking with npc
 }
 
@@ -17,8 +18,11 @@ class PlayerCommand:
 	var target_point: Vector3 = Vector3.INF
 	var casted_attack = null
 
-var _command_queue = []
 
+var _next_command: PlayerCommand = null
+var _current_command: PlayerCommand = null
+
+var _can_move = true
 var _has_attack_delay = false
 
 onready var _model = $Mannequiny
@@ -30,8 +34,10 @@ func _ready():
 	GlobalEvents.connect("onPlayerMoved", self, "_terrain_clicked")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
-	GlobalEvents.connect("onPlayerInteract", self, "_on_player_interact")
+	GlobalEvents.connect("onPlayerAttacked", self, "_attack")
+	GlobalEvents.connect("onPlayerUsed", self, "_use")
 	GlobalEvents.connect("onSkillCasted", self, "_cast_attack_on_entity")
+	GlobalEvents.connect("onPlayerItemPicked", self, "_pick_item")
 	
 	# This seems to be a bug in godot. in order to get mouse over events
 	# we must disable and enable raycasting detection.
@@ -44,40 +50,48 @@ func _ready():
 
 
 func _started_construction(entity) -> void:
+	_can_move = false
 	pass
 	#_current_state = PlayerState.CONSTRUCTING
 
 
 func _ended_construction(entity) -> void:
+	_can_move = true
 	pass
 	#_current_state = PlayerState.IDLE
 
 
+func _process(delta):
+	if _current_command == null:
+		if _next_command != null:
+			_current_command = _next_command
+			_next_command = null
+			_execute_command(_current_command)
+
+
 func _physics_process(delta):
-	# Check if we are in a moving state.
-	if _is_in_state(PlayerState.IDLE):
+	# We only care about moving states.
+	if _current_command == null:
 		_model.transition_to(Mannequiny.States.IDLE)
 		return
 	
-	if not _is_in_state(PlayerState.MOVING):
+	if _current_command.state != PlayerState.MOVING:
 		return
 	
-	var move_target = (_command_queue[0] as PlayerCommand).target_point
-	# Sanity check
+	
+	var move_target = _current_command.target_point
 	if move_target == Vector3.INF:
+		_current_command = null
 		return
 	
 	var global_pos = global_transform.origin
 	var target_delta = (move_target - global_pos).length()
 	
-	if target_delta < 0.1:
-		_command_queue.pop_front()
+	if target_delta <= 0.1:
+		_current_command = null
 		_model.transition_to(Mannequiny.States.IDLE)
-		_check_queued_actions()
 		return
 
-	if move_target == global_pos:
-		return
 
 	var status_comp = _entity.get_component(StatusComponent.NAME) as StatusComponent
 	var speed = 5.0
@@ -85,47 +99,35 @@ func _physics_process(delta):
 		speed = status_comp.walkspeed
 	var velocity = (move_target - global_pos).normalized() * speed
 	
+	_model.transition_to(Mannequiny.States.RUN)
 	move_and_slide_with_snap(velocity, Vector3.UP)
 
 
-func _is_in_state(player_state) -> bool:
-	# When no commands are queued the consider the player idling.
-	if _command_queue.empty() == true:
-		return player_state == PlayerState.IDLE
-	var command = _command_queue[0] as PlayerCommand
-	
-	return command.state == player_state
-	
+func _execute_command(cmd: PlayerCommand) -> void:
+	_current_command = cmd
+	if cmd.state == PlayerState.ATTACKING:
+		var target_entity = cmd.target_entity
+		_attack(target_entity)
+	elif cmd.state == PlayerState.USE:
+		var target_entity = cmd.target_entity
+		if target_entity != null:
+			_use(target_entity)
+	elif cmd.state == PlayerState.PICKUP:
+		var target_entity = cmd.target_entity
+		if target_entity != null:
+			_pick_item(target_entity)
 
 
 func _cast_attack_on_entity(attack, entity, target) -> void:
 	look_at(entity.global_transform.origin, Vector3.UP)
 	
 	# Check if target is in range, if its not, then do nothing.
-	
 	var msg = UseAttackMessage.new()
 	msg.player_attack_id = attack
 	msg.target_entity = entity.id
 	GlobalEvents.emit_signal("onMessageSend", msg)
 	
-	_command_queue.clear()
-
-
-func _check_queued_actions() -> void:
-	if _is_in_state(PlayerState.IDLE):
-		return
-	var cmd = _command_queue[0] as PlayerCommand
-	if _is_in_state(PlayerState.ATTACKING):
-		var target_entity = cmd.target_entity
-		_attack(target_entity)
-	elif _is_in_state(PlayerState.USE):
-		var target_entity = cmd.target_entity
-		if target_entity != null:
-			_use(target_entity)
-
-
-func _clear_queued_actions() -> void:
-	_command_queue.clear()
+	_next_command = null
 
 
 # TODO Later access the real mesh of the player
@@ -135,16 +137,11 @@ func get_aabb() -> AABB:
 
 func _terrain_clicked(global_pos: Vector3) -> void:
 	# We ignore movement clicks if we are currently constructing
-	if _is_in_state(PlayerState.CONSTRUCTING):
+	if not _can_move:
 		return
-	
-	# We also ignore movement clicks when we are marked as non movable
-	if _entity.get_component(NoMovementComponent.NAME) != null:
-		return
-	
 	_play_move_marker(global_pos)
 	# We cancel all queued actions
-	_clear_queued_actions()
+	_next_command = null
 	_move_to(global_pos)
 
 
@@ -165,9 +162,7 @@ func _move_to(global_pos: Vector3) -> void:
 	var cmd = PlayerCommand.new()
 	cmd.state = PlayerState.MOVING
 	cmd.target_point = global_pos
-	_command_queue.push_front(cmd)
-	
-	_model.transition_to(Mannequiny.States.RUN)
+	_current_command = cmd
 
 
 func _play_move_marker(position: Vector3) -> void:
@@ -175,11 +170,22 @@ func _play_move_marker(position: Vector3) -> void:
 	_move_cursor.play()
 
 
-func _on_player_interact(target_entity: Entity, type: String) -> void:
-	if type == "basic_attack":
-		_attack(target_entity)
-	elif type == "use":
-		_use(target_entity)
+func _pick_item(item_entity: Entity) -> void:
+	var target_origin = item_entity.get_spatial().global_transform.origin
+	var target_distance = target_origin.distance_to(global_transform.origin)
+	
+	var in_pick_range = target_distance < 1.0
+	if  in_pick_range:
+		pass
+	else:
+		_current_command = null
+		_next_command = null
+		_move_to_distance_from_entity(0.1, item_entity)
+		
+		var use_cmd = PlayerCommand.new()
+		use_cmd.state = PlayerState.PICKUP
+		use_cmd.target_entity = item_entity
+		_next_command = use_cmd
 
 
 func _use(target_entity: Entity) -> void:
@@ -189,15 +195,14 @@ func _use(target_entity: Entity) -> void:
 	var target_origin = target_entity.get_spatial().global_transform.origin
 	var target_distance = target_origin.distance_to(global_transform.origin)
 	
-	var in_use_range = false
+	var in_use_range = true
 	if  in_use_range:
-		# todo
-		return
+		target_entity.use(_entity)
 	else:
 		var use_cmd = PlayerCommand.new()
 		use_cmd.state = PlayerState.USE
 		use_cmd.target_entity = target_entity
-		_command_queue.push_front(use_cmd)
+		_next_command = use_cmd
 		
 		_move_to_distance_from_entity(0.1, target_entity)
 
@@ -218,7 +223,7 @@ func _attack(target_entity: Entity) -> void:
 	var atk_cmd = PlayerCommand.new()
 	atk_cmd.state = PlayerState.ATTACKING
 	atk_cmd.target_entity = target_entity
-	_command_queue.push_front(atk_cmd)
+	_next_command = atk_cmd
 	
 	# Check if we need to move towards our target before we can perform the attack
 	var target_distance = target_origin.distance_to(global_transform.origin)
@@ -248,10 +253,8 @@ func _move_to_distance_from_entity(distance: float, target_entity: Entity) -> vo
 
 func _on_AttackDelay_timeout():
 	_has_attack_delay = false
-	
-	if _is_in_state(PlayerState.ATTACKING):
-		var cmd = _command_queue[0]
-		if cmd.target_entity == null:
-			_clear_queued_actions()
-		else:
-			_attack(cmd.target_entity)
+
+
+# Executes the next queued command.
+func _on_InteractionRange_body_entered(body):
+	_current_command = null

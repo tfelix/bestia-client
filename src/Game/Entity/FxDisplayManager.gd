@@ -28,6 +28,7 @@ func _handle_message(msg: FxMessage) -> void:
 		_effects[msg.fx] = load(fx_path)
 	if not _effects.has(msg.fx):
 		# Could not load the resource
+		printerr("Could not load fx: ", msg.fx)
 		return
 	
 	var fx = _effects[msg.fx].instance()

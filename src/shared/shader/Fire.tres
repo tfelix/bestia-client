@@ -2,12 +2,12 @@
 
 [ext_resource path="res://shared/shader/Flame.shader" type="Shader" id=1]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.141914, 0.514852, 0.676568, 1 )
 colors = PoolColorArray( 0.929688, 0.323552, 0.138, 1, 0.871094, 0.736929, 0.381104, 1, 0.886891, 0.783052, 0.416278, 1, 0.96875, 0.893394, 0.578979, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 width = 128
 
 [resource]
@@ -17,4 +17,4 @@ shader_param/outerThreshold = 0.15
 shader_param/emissionEnergy = 3.0
 shader_param/flameEdge = 0.05
 shader_param/center = Vector2( 0.5, 0.8 )
-shader_param/flameRamp = SubResource( 3 )
+shader_param/flameRamp = SubResource( 2 )

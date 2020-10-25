@@ -91,12 +91,12 @@ func _send_chat(msg: ChatSend) -> void:
 	GlobalEvents.emit_signal("onMessageReceived", response)
 
 
-func _chop_tree(entity: Entity):
+func _chop_tree(tree_entity: Entity):
 	var no_movement = NoMovementComponent.new()
 	# Some components have a visual clue, others dont
 	GlobalData.player.push_back(no_movement)
 	# Add Progress Component to player entity
-	# After progress is finished despawn tree
+	# After progress is finished despawn tree with animation
 	# Remove NoMovement Component
 	# Spawn Loot on the Ground
 	pass

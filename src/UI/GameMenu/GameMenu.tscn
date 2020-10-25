@@ -4,7 +4,6 @@
 [ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=2]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=3]
 
-
 [node name="GameMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -30,14 +29,16 @@ __meta__ = {
 }
 
 [node name="CenterPanel" type="PanelContainer" parent="CenterContainer"]
-margin_left = 490.0
-margin_top = 251.0
-margin_right = 790.0
-margin_bottom = 469.0
+margin_left = 486.0
+margin_top = 247.0
+margin_right = 794.0
+margin_bottom = 473.0
 
 [node name="MenuMargin" type="MarginContainer" parent="CenterContainer/CenterPanel"]
-margin_right = 300.0
-margin_bottom = 218.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 304.0
+margin_bottom = 222.0
 custom_constants/margin_top = 30
 custom_constants/margin_bottom = 50
 

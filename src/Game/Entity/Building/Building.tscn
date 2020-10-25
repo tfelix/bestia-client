@@ -7,7 +7,7 @@
 size = Vector3( 2, 0.2, 2 )
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.564706, 0.564706, 0.564706, 1 )
+albedo_color = Color( 0.490196, 0.490196, 0.490196, 1 )
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true

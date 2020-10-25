@@ -26,8 +26,6 @@ func _ready():
 
 
 func _on_terrain_clicked(global_pos) -> void:
-	if _current_state != State.DEFAULT:
-		return
 	_interaction_servce.hide_behavior_selection()
 	GlobalEvents.emit_signal("onPlayerMoved", global_pos)
 
@@ -47,8 +45,12 @@ func _on_castselection_ended() -> void:
 func _on_entity_clicked(entity: Entity, click_event: InputEventMouseButton) -> void:
 	match(_current_state):
 		State.CAST_SELECTION:
-			_cast_on_entity(entity)
+			GlobalEvents.emit_signal("onSkillCasted", _casted_attack, entity, null)
+			GlobalEvents.emit_signal("onCastSelectionEnded")
 		State.DEFAULT:
+			# Check if there is a default behavior for the clicked entity,
+			# if not open the menu or if the override condition is met e.g. long
+			# click on entity has happened.
 			if click_event.is_action_pressed(Actions.ACTION_LEFT_CLICK) and click_event.control:
 				_interaction_servce.show_behavior_selection(entity)
 			else:
@@ -56,22 +58,12 @@ func _on_entity_clicked(entity: Entity, click_event: InputEventMouseButton) -> v
 				_interaction_servce.hide_behavior_selection()
 				var interaction = _interaction_servce.get_behavior_for(entity)
 				match interaction:
+					"pickup":
+						GlobalEvents.emit_signal("onPlayerItemPicked", entity)
 					"attack":
-						_attack_entity(entity)
+						GlobalEvents.emit_signal("onPlayerAttacked", entity)
 					"use":
-						_use_entity(entity)
+						GlobalEvents.emit_signal("onPlayerUsed", entity)
 					_:
 						return
 
-
-func _use_entity(target_entity) -> void:
-	GlobalEvents.emit_signal("onPlayerInteract", target_entity, "use")
-
-
-func _cast_on_entity(entity) -> void:
-	GlobalEvents.emit_signal("onSkillCasted", _casted_attack, entity, null)
-	GlobalEvents.emit_signal("onCastSelectionEnded")
-
-
-func _attack_entity(target_entity) -> void:
-	GlobalEvents.emit_signal("onPlayerInteract", target_entity, "basic_attack")

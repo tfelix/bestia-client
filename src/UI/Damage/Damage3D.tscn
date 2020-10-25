@@ -27,6 +27,7 @@ volume_db = -20.0
 bus = "Fx"
 
 [node name="DamageLabelNormal" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [node name="DamageLabelMiss" parent="." instance=ExtResource( 4 )]
 visible = false

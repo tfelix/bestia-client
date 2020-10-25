@@ -14,13 +14,15 @@ signal onEnemySpawned(entity)
 
 # Player Signals
 signal onPlayerMoved(global_pos)
-signal onPlayerInteract(entity, interaction)
 signal onPlayerEntityUpdated(player)
 signal onBuildingEntered(building_id)
 signal onBuildingExit(building_id)
 signal onCastSelectionStarted(attack)
 signal onCastSelectionEnded()
 signal onSkillCasted(attack, entity, target)
+signal onPlayerUsed(player)
+signal onPlayerAttacked(target)
+signal onPlayerItemPicked(item_entity)
 
 # Inventory Signals
 signal onItemUsed(player_item_id)

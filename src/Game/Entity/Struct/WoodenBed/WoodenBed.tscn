@@ -1,8 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game/Entity/Struct/Struct.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Game/Entity/Component/DataComponent.gd" type="Script" id=2]
-[ext_resource path="res://Game/Entity/Component/VisualComponent.gd" type="Script" id=3]
+[ext_resource path="res://Game/Entity/Struct/WoodenBed/WoodenBed.gd" type="Script" id=4]
+[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=5]
+[ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -13,20 +14,12 @@ albedo_color = Color( 0.603922, 0.352941, 0.129412, 1 )
 material = SubResource( 2 )
 size = Vector3( 1, 0.4, 2 )
 
-[sub_resource type="BoxShape" id=4]
-
 [node name="WoodenBed" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
 
 [node name="Entity" parent="." index="0"]
 behavior_group = 4
 aabb_visual_instance_path = NodePath("../Bed")
-
-[node name="DataComponent" type="Node" parent="Entity/Components" index="0"]
-script = ExtResource( 2 )
-
-[node name="VisualComponent" type="Node" parent="Entity/Components" index="1"]
-script = ExtResource( 3 )
-visual = "wooden_bed"
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )
@@ -45,12 +38,22 @@ collision_mask = 22
 transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )
 shape = SubResource( 1 )
 
-[node name="UsableRange" type="Area" parent="." index="3"]
-collision_layer = 0
-collision_mask = 2
+[node name="SpatialFollower" type="Node" parent="." index="3"]
+script = ExtResource( 5 )
+follow_node = NodePath("..")
 
-[node name="CollisionShape" type="CollisionShape" parent="UsableRange" index="0"]
-transform = Transform( 1, 0, 0, 0, 0.250803, 0, 0, 0, 1.39846, 0, 0.232227, 0 )
-shape = SubResource( 4 )
+[node name="Button" type="Button" parent="SpatialFollower" index="0"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Aufstehen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mannequiny" parent="." index="4" instance=ExtResource( 6 )]
+transform = Transform( 0.996204, 0.00467275, -0.0869259, 0.0870514, -0.0534742, 0.994768, 0, -0.998558, -0.053678, 0, 0.239749, 1.0789 )
+visible = false
+[connection signal="used" from="Entity" to="." method="_on_Entity_used"]
 
 [editable path="Entity"]

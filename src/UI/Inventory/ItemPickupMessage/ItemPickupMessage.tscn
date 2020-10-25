@@ -3,9 +3,7 @@
 [ext_resource path="res://UI/Inventory/ItemPickupMessage/ItemPickupMessage.gd" type="Script" id=1]
 [ext_resource path="res://UI/Inventory/ItemPickupMessage/item-obtained.png" type="Texture" id=2]
 
-
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fade"
 length = 3.0
 tracks/0/type = "value"
@@ -52,7 +50,6 @@ margin_bottom = 45.0
 texture = ExtResource( 2 )
 
 [node name="Margin" type="MarginContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -90.0
@@ -85,5 +82,5 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1x Bottle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade = SubResource( 2 )
+anims/fade = SubResource( 1 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

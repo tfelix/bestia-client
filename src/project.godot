@@ -1751,6 +1751,7 @@ ui_equipment={
 3d_physics/layer_4="item"
 3d_physics/layer_5="projectile"
 3d_physics/layer_6="terrain"
+3d_physics/layer_20="click_only"
 
 [locale]
 

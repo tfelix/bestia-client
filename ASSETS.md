@@ -21,6 +21,7 @@
 
 ## Icons
 
+* [UI-Button by StumpyStrust](https://opengameart.org/content/ui-button), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [Material Design Icons](https://material.io), Apache license version 2.0
 * [Cancel Icon by sbed](http://opengameart.org/content/95-game-icons), [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * [Fireball Icon](https://game-icons.net/1x1/lorc/fireball.html), Lorc, [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)

@@ -8,6 +8,7 @@ class_name Entity
 
 signal onVfxPlayed(vfx_name)
 signal component_updated(component)
+signal used(player_entity)
 
 enum BehaviorGroup {
 	PICKUP,
@@ -71,6 +72,14 @@ func get_spatial():
 	return get_parent()
 
 
+func hide() -> void:
+	get_parent().hide()
+
+
+func show() -> void:
+	get_parent().show()
+
+
 """
 Returns the bounding box of the mesh of this entity. If not provided, then a 
 unit sized cube is returned. This is needed as some parts need to know the size
@@ -109,6 +118,10 @@ func update_component(component: Component):
 
 func remove_component(component_name: String):
 	_components.remove_component(component_name)
+
+
+func use(player_entity) -> void:
+	emit_signal("used", player_entity)
 
 
 # The clicking should work like so:

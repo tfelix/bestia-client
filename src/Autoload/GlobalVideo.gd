@@ -1,5 +1,8 @@
 extends Node
 
+func _ready():
+	get_tree().get_root().connect("size_changed", self, "_screen_size_changed")
+
 func update_video() -> void:
 	var has_borderless_win = GlobalConfig.get_value(GlobalConfig.SEC_VIDEO, GlobalConfig.PROP_VIDEO_BORDERLESS_WIN, false)
 	_set_borderless_win(has_borderless_win)
@@ -15,3 +18,7 @@ func _set_borderless_win(enabled: bool) -> void:
 		OS.set_borderless_window(false)
 		var old_screen_size = GlobalConfig.get_value(GlobalConfig.SEC_VIDEO, GlobalConfig.PROP_VIDEO_RESOLUTION, Vector2(800, 600))
 		OS.set_window_size(old_screen_size)
+
+
+func _screen_size_changed() -> void:
+	GlobalConfig.set_value(GlobalConfig.SEC_VIDEO, GlobalConfig.PROP_VIDEO_RESOLUTION, get_viewport().size)

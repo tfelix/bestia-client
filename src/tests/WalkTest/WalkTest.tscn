@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Game/Sky/Sky.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Game/Entity/Struct/Tree01/Tree01.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Game/Entity/Struct/WoodenBed/WoodenBed.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Game/Entity/Item/SimpleBow/SimpleBow.tscn" type="PackedScene" id=24]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -121,6 +122,9 @@ enabled = false
 
 [node name="WoodenBed" parent="Entities" instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.21642, 0, 16.4002 )
+
+[node name="SimpleBow" parent="Entities" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63694, 0, 13.3332 )
 
 [node name="GameUI" parent="." instance=ExtResource( 17 )]
 

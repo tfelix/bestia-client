@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/CharacterCreation/CharacterCreation.gd" type="Script" id=1]
 [ext_resource path="res://UI/ColorPicker/ColorPicker.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=5]
 [ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=6]
 [ext_resource path="res://shared/img/logo.png" type="Texture" id=7]
+[ext_resource path="res://shared/audio/bgm/one_man_symphony_wake_up.ogg" type="AudioStream" id=8]
 
 [node name="CharacterCreation" type="Control"]
 anchor_right = 1.0
@@ -16,6 +17,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+bgm_music = ExtResource( 8 )
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -23,6 +25,18 @@ anchor_bottom = 1.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="."]
+margin_left = 42.0
+margin_top = 33.0
+margin_right = 425.0
+margin_bottom = 266.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,11 +49,11 @@ __meta__ = {
 }
 
 [node name="DialogBackground" type="NinePatchRect" parent="CenterContainer"]
-margin_left = 340.0
+margin_left = 350.0
 margin_top = 184.0
-margin_right = 940.0
+margin_right = 930.0
 margin_bottom = 534.0
-rect_min_size = Vector2( 600, 350 )
+rect_min_size = Vector2( 580, 350 )
 texture = ExtResource( 4 )
 patch_margin_left = 8
 patch_margin_top = 8
@@ -47,10 +61,10 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="CharacterMargin" type="MarginContainer" parent="CenterContainer/DialogBackground"]
-anchor_right = 1.0
+anchor_right = 0.957
 anchor_bottom = 1.0
+margin_right = 18.94
 margin_bottom = -8.00003
-custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
@@ -61,7 +75,7 @@ __meta__ = {
 [node name="CharacterEditor" type="HBoxContainer" parent="CenterContainer/DialogBackground/CharacterMargin"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 590.0
+margin_right = 574.0
 margin_bottom = 332.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,50 +90,105 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
 margin_right = 250.0
+margin_bottom = 136.0
+tabs_visible = false
+
+[node name="Page1" type="VBoxContainer" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page1"]
+margin_right = 242.0
 margin_bottom = 18.0
 text = "Character Name"
 
-[node name="CharacterName" type="LineEdit" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-margin_top = 28.0
-margin_right = 250.0
-margin_bottom = 56.0
+[node name="CharacterName" type="LineEdit" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page1"]
+margin_top = 22.0
+margin_right = 242.0
+margin_bottom = 50.0
 placeholder_text = "Choose a Name"
 
-[node name="Gender" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-visible = false
-margin_top = 66.0
-margin_right = 250.0
-margin_bottom = 84.0
+[node name="Gender" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page1"]
+margin_top = 54.0
+margin_right = 242.0
+margin_bottom = 72.0
 text = "Gender"
 
-[node name="GenderButton" type="OptionButton" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-visible = false
-margin_top = 94.0
-margin_right = 250.0
-margin_bottom = 114.0
+[node name="GenderButton" type="OptionButton" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page1"]
+margin_top = 76.0
+margin_right = 242.0
+margin_bottom = 96.0
+disabled = true
 text = "Male"
 align = 1
 
-[node name="Hair Color" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-margin_top = 66.0
-margin_right = 250.0
-margin_bottom = 84.0
+[node name="Page2" type="VBoxContainer" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -206.0
+margin_bottom = -88.0
+
+[node name="Hair Color" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page2"]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 156.0
 text = "Hair Color"
 
-[node name="HairColorPicker" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm" instance=ExtResource( 2 )]
-margin_top = 94.0
-margin_bottom = 124.0
+[node name="HairColorPicker" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page2" instance=ExtResource( 2 )]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 168.0
 
-[node name="HairstyleButton" type="OptionButton" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-margin_top = 134.0
-margin_right = 250.0
-margin_bottom = 154.0
+[node name="Hairstyle" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page2"]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 156.0
+text = "Hairstyle"
+
+[node name="HairstyleButton" type="OptionButton" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page2"]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 158.0
+disabled = true
 align = 1
 
+[node name="Page3" type="VBoxContainer" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Skin Color" type="Label" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page3"]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 156.0
+text = "Skin Color"
+
+[node name="SkinColorPicker" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page3" instance=ExtResource( 2 )]
+margin_left = -4.0
+margin_top = 138.0
+margin_right = 246.0
+margin_bottom = 168.0
+
 [node name="Spacer" type="Control" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm"]
-margin_top = 164.0
+margin_top = 146.0
 margin_right = 250.0
 margin_bottom = 288.0
 size_flags_vertical = 3
@@ -142,12 +211,12 @@ margin_right = 250.0
 margin_bottom = 322.0
 
 [node name="BackButton" type="Button" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons"]
+visible = false
 margin_right = 44.0
 margin_bottom = 24.0
 text = "Back"
 
 [node name="Spacer" type="Control" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons"]
-margin_left = 48.0
 margin_right = 201.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -160,6 +229,13 @@ margin_left = 205.0
 margin_right = 250.0
 margin_bottom = 24.0
 text = "Next"
+
+[node name="FinishButton" type="Button" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons"]
+visible = false
+margin_left = 199.0
+margin_right = 250.0
+margin_bottom = 24.0
+text = "Finish"
 
 [node name="CharacterDisplay" type="ViewportContainer" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor"]
 margin_left = 254.0
@@ -174,7 +250,7 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CamTarget" type="Spatial" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.958853, 1.898 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.2 )
 
 [node name="Light" type="OmniLight" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterDisplay/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98842, 2.00784 )
@@ -187,14 +263,7 @@ speed = 2.0
 enabled = true
 
 [node name="Mannequiny" parent="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterDisplay/Viewport" instance=ExtResource( 6 )]
-
-[node name="Logo" type="TextureRect" parent="."]
-margin_left = 42.0
-margin_top = 33.0
-margin_right = 239.0
-margin_bottom = 145.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-[connection signal="color_selected" from="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/HairColorPicker" to="." method="_on_HairColorPicker_color_selected"]
+[connection signal="color_selected" from="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/TabContainer/Page2/HairColorPicker" to="." method="_on_HairColorPicker_color_selected"]
+[connection signal="pressed" from="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="CenterContainer/DialogBackground/CharacterMargin/CharacterEditor/CharacterForm/SwitchButtons/FinishButton" to="." method="_on_NextButton_pressed"]

@@ -17,11 +17,6 @@ void fragment() {
 	ALBEDO = vec3(cs_pos.x, cs_pos.y, 0.0);
 }
 "
-custom_defines = "#define MAX_LIGHT_DATA_STRUCTS 409
-#define MAX_FORWARD_LIGHTS 8
-#define MAX_REFLECTION_DATA_STRUCTS 455
-#define MAX_SKELETON_BONES 1365
-"
 
 [resource]
 shader = SubResource( 1 )
