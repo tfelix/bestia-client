@@ -6,8 +6,14 @@ with data from the server.
 """
 class_name Entity
 
-signal onVfxPlayed(vfx_name)
+signal vfx_played(vfx_name)
 signal component_updated(component)
+"""
+Server has signaled that this entity is removed.
+Listenting to this signal you can play a little disappear animation.
+The parent using this entity is responsible for deleting the node.
+"""
+signal removed()
 signal used(player_entity)
 
 enum BehaviorGroup {
@@ -50,11 +56,6 @@ func _ready():
 	# be subscribed to the entity signal. To give it a chance to subscribe
 	# we need to call announce entity deferred.
 	call_deferred("_announce_entity")
-
-
-func free():
-	GlobalEvents.emit_signal("onEntityRemoved", self)
-	.free()
 
 
 func _announce_entity():
@@ -105,6 +106,8 @@ func handle_message(msg):
 		_components.update_component(msg)
 	if msg is ComponentRemoveMessage:
 		_components.remove_component(msg.component_name)
+	if msg is EntityRemoveMessage:
+		emit_signal("removed")
 
 
 func get_component(component_name: String) -> Component:
@@ -143,3 +146,7 @@ func _on_ClickBody_mouse_entered():
 func _on_ClickBody_mouse_exited():
 	_components.on_mouse_exited(self)
 	GlobalEvents.emit_signal("onEntityMouseExited", self)
+
+
+func _on_Entity_tree_exiting():
+	GlobalEvents.emit_signal("onEntityRemoved", self)

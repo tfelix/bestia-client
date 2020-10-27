@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/Inventory/Inventory.gd" type="Script" id=1]
-[ext_resource path="res://UI/Inventory/ItemPickupMessage/ItemPickupMessage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/WindowTitle/WindowTitle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shared/fonts/OpenSans_NormalText.tres" type="DynamicFont" id=4]
 [ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=5]
 [ext_resource path="res://UI/Inventory/InventoryItem.tscn" type="PackedScene" id=9]
-
-
-
 
 [node name="Inventory" type="Control"]
 margin_right = 854.0
@@ -22,11 +18,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemPickupMessage" parent="." instance=ExtResource( 2 )]
-visible = false
-margin_top = 49.0
-margin_bottom = 94.0
-
 [node name="InventoryPanel" type="PanelContainer" parent="."]
 margin_right = 641.0
 margin_bottom = 300.0
@@ -38,28 +29,30 @@ __meta__ = {
 }
 
 [node name="HContainer" type="HBoxContainer" parent="InventoryPanel"]
-margin_right = 641.0
-margin_bottom = 300.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 637.0
+margin_bottom = 296.0
 
 [node name="MainContent" type="VBoxContainer" parent="InventoryPanel/HContainer"]
-margin_right = 641.0
-margin_bottom = 300.0
+margin_right = 633.0
+margin_bottom = 292.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="WindowTitle" parent="InventoryPanel/HContainer/MainContent" instance=ExtResource( 3 )]
-margin_right = 641.0
+margin_right = 633.0
 title_text = "Inventory"
 
 [node name="Content" type="HBoxContainer" parent="InventoryPanel/HContainer/MainContent"]
 margin_top = 48.0
-margin_right = 641.0
-margin_bottom = 268.0
+margin_right = 633.0
+margin_bottom = 260.0
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="InventoryPanel/HContainer/MainContent/Content"]
-margin_right = 641.0
-margin_bottom = 220.0
+margin_right = 633.0
+margin_bottom = 212.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -76,8 +69,8 @@ custom_constants/margin_bottom = 5
 [node name="ScrollContainer" type="ScrollContainer" parent="InventoryPanel/HContainer/MainContent/Content/Panel/Margin"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 636.0
-margin_bottom = 215.0
+margin_right = 628.0
+margin_bottom = 207.0
 scroll_horizontal_enabled = false
 
 [node name="ItemGrid" type="GridContainer" parent="InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer"]
@@ -97,9 +90,9 @@ margin_bottom = 211.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Header" type="HBoxContainer" parent="InventoryPanel/HContainer/MainContent"]
-margin_top = 272.0
-margin_right = 641.0
-margin_bottom = 300.0
+margin_top = 264.0
+margin_right = 633.0
+margin_bottom = 292.0
 
 [node name="SearchEdit" type="LineEdit" parent="InventoryPanel/HContainer/MainContent/Header"]
 margin_right = 250.0

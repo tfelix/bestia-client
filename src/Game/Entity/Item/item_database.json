@@ -2,5 +2,6 @@
 "1": {"database_name": "apple", "type": "consumeable", "weight": 1, "visual": "Apple", "slot": "none"},
 "2": {"database_name": "sign_small", "type": "structure", "weight": 50, "visual": "Crate", "slot": "none"},
 "3": {"database_name": "fire_small", "type": "structure", "weight": 30, "visual": "Apple", "slot": "none"},
-"4": {"database_name": "simple_axe", "type": "equip", "weight": 150, "visual": "SimpleAxe", "slot": "head"}
+"4": {"database_name": "simple_axe", "type": "equip", "weight": 20, "visual": "SimpleAxe", "slot": "head"},
+"5": {"database_name": "simple_bow", "type": "equip", "weight": 10, "visual": "SimpleBow", "slot": "weapon"}
 }

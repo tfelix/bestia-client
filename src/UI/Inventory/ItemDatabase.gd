@@ -4,7 +4,6 @@ const ITEM_DB_FILE = "res://Game/Entity/Item/item_database.json"
 
 var _item_infos = { }
 
-
 func _init():
 	_load_item_db()
 

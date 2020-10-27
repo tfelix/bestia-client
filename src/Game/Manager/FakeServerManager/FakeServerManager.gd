@@ -1,5 +1,7 @@
 extends Node
 
+var _current_entity_id = 100
+
 # The fake server listens to messages from the game and instead of sending it
 # to the server and reacting on the response it will directly manipulate the game
 # with predefined actions.
@@ -11,6 +13,7 @@ onready var _interaction_handler = $FakeInteractionHandler
 
 func _ready():
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
+	GlobalEvents.connect("onEntityAdded", self, "_setup_entity_id")
 	
 	# We must wait until the scene is setup in order to call this.
 	call_deferred("_setup_account")
@@ -30,6 +33,24 @@ func _ready():
 	_item_handler.setup()
 
 
+"""
+Possibly sets up an entity id if the spawned entity has not yet one.
+"""
+func _setup_entity_id(entity) -> void:
+	if entity.id != 0:
+		return
+	entity.id = get_new_entity_id()
+
+
+"""
+This is for local demo only. It makes sure all entity ids are unique if they
+are not send from a server.
+"""
+func get_new_entity_id() -> int:
+	_current_entity_id += 1
+	return _current_entity_id
+
+
 func _on_message(payload):
 	if payload is InteractionRequest:
 		_interaction_handler.check_interactions(payload)
@@ -39,6 +60,8 @@ func _on_message(payload):
 		_mob_handler.use_skill(payload)
 	elif payload is ItemDropMessage:
 		_item_handler.drop_item(payload)
+	elif payload is PickupItemRequestMessage:
+		_item_handler.pick_item(payload)
 	elif payload is RequestInventoryMessage:
 		_item_handler.send_items()
 	elif payload is ItemUseRequestMessage:

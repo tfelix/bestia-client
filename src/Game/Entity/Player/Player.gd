@@ -176,7 +176,10 @@ func _pick_item(item_entity: Entity) -> void:
 	
 	var in_pick_range = target_distance < 1.0
 	if  in_pick_range:
-		pass
+		_current_command = null
+		var msg = PickupItemRequestMessage.new()
+		msg.entity_id = item_entity.id
+		GlobalEvents.emit_signal("onMessageSend", msg)
 	else:
 		_current_command = null
 		_next_command = null

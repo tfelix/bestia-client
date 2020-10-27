@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://UI/Inventory/ItemPickupMessage/ItemPickupMessage.gd" type="Script" id=1]
-[ext_resource path="res://UI/Inventory/ItemPickupMessage/item-obtained.png" type="Texture" id=2]
+[ext_resource path="res://UI/Inventory/NewItemNotification/NewItemNotification.gd" type="Script" id=1]
+[ext_resource path="res://UI/Inventory/NewItemNotification/item-obtained.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade"
@@ -30,16 +30,31 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="ItemPickupMessage" type="Control"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -98.0
-margin_top = 50.0
+margin_top = 34.0
 margin_right = 98.0
-margin_bottom = 95.0
+margin_bottom = 79.0001
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_left = 0.5
@@ -48,6 +63,9 @@ margin_left = -95.0
 margin_right = 95.0
 margin_bottom = 45.0
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Margin" type="MarginContainer" parent="."]
 anchor_left = 0.5

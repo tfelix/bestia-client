@@ -5,7 +5,7 @@ const DragItem = preload("res://UI/Inventory/DragItem.tscn")
 
 signal item_selected
 
-var data: ItemData
+export var data: Resource
 var selected: bool setget _set_selected
 
 

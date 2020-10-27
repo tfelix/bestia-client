@@ -40,6 +40,8 @@ func _server_received(msg) -> void:
 		_check_send_player_entity_update(msg, e)
 	if msg is ComponentRemoveMessage:
 		_send_to_entity(msg)
+	if msg is EntityRemoveMessage:
+		_send_to_entity(msg)
 	else:
 		pass
 
@@ -79,6 +81,8 @@ func _send_to_entity(msg) -> Entity:
 			return null
 	else:
 		e = _entities[msg.entity_id]
+	# TODO Improve this toplevel call as this is not on the entity itself but rather
+	# on the spawned node. Solve this better. 
 	e.handle_message(msg)
 	return e
 
@@ -87,6 +91,6 @@ func _add_entity(entity) -> void:
 	_entities[entity.id] = entity
 
 
-func _remove_entity(entity: Entity) -> void:
-	_entities.erase(entity.id)
+func _remove_entity(entity_id: int) -> void:
+	_entities.erase(entity_id)
 	

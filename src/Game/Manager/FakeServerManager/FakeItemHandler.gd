@@ -1,7 +1,19 @@
 extends Node
 class_name FakeItemHandler
 
+var _server_manager
+export var fake_server_manager_path: NodePath
+
+var _item_db = ItemDatabase.new()
 var _player_items = []
+var _spawned_entity_items = {}
+
+func _ready() -> void:
+	assert(fake_server_manager_path != "", "ERROR: You must give fake_server_manager_path a FakeServerManager node!")
+	_server_manager = get_node(fake_server_manager_path)
+	GlobalEvents.connect("onEntityAdded", self, "_register_spawned_item")
+	GlobalEvents.connect("onEntityRemoved", self, "_remove_spawned_item")
+
 
 func setup() -> void:
 	var item1 = ItemModel.new()
@@ -35,6 +47,24 @@ func setup() -> void:
 	#_player_items.append(item5)
 
 
+func _register_spawned_item(entity: Entity) -> void:
+	# This is a crude hack and wont work if entity is not added
+	# directly under the root object (which is usually the case)
+	if not entity.get_parent() is Item:
+		return
+	print_debug("Adding item entity: ", entity.id)
+	_spawned_entity_items[entity.id] = entity
+
+
+func _remove_spawned_item(entity: Entity) -> void:
+		# This is a crude hack and wont work if entity is not added
+	# directly under the root object (which is usually the case)
+	if not entity.get_parent() is Item:
+		return
+	print_debug("Removing item entity: ", entity.id)
+	_spawned_entity_items.erase(entity.id)
+
+
 func _find_item_pos(item_id: int) -> int:
 	var idx = -1
 	var i = 0
@@ -44,6 +74,22 @@ func _find_item_pos(item_id: int) -> int:
 			break
 		i += 1
 	return idx
+
+
+func pick_item(msg: PickupItemRequestMessage) -> void:
+	var item_entity = _spawned_entity_items[msg.entity_id]
+	assert(item_entity != null, "ERROR: Spawned item not found")
+	
+	var pickup = ItemModel.new()
+	pickup.item_id = 5
+	pickup.player_item_id = 55
+	pickup.amount = 1
+	_player_items.append(pickup)
+	send_items()
+	
+	var remove_entity_msg = EntityRemoveMessage.new()
+	remove_entity_msg.entity_id = msg.entity_id
+	GlobalEvents.emit_signal("onMessageReceived", remove_entity_msg)
 
 
 func use_item(msg: ItemUseMessage) -> void:
@@ -57,6 +103,9 @@ func use_item(msg: ItemUseMessage) -> void:
 	# APPLE
 	if msg.player_item_id == 1:
 		_use_apple()
+	else:
+		printerr("Used non usable item")
+		return
 	
 	if player_item.amount <= 0:
 		_remove_player_item(player_item)
@@ -116,9 +165,8 @@ func drop_item(msg: ItemDropMessage) -> void:
 		_remove_player_item(item)
 	send_items()
 	
-	
-	var info = GlobalData.item_db.get_data(item.item_id)
-	var item_entity_id = GlobalData.get_new_entity_id()
+	var info = _item_db.get_data(item.item_id)
+	var item_entity_id = _server_manager.get_new_entity_id()
 	
 	var visual_data = ComponentData.new()
 	visual_data.entity_id = item_entity_id
@@ -127,6 +175,7 @@ func drop_item(msg: ItemDropMessage) -> void:
 	visual_data.data["animation"] = "spawn"
 	GlobalEvents.emit_signal("onMessageReceived", visual_data)
 	
+	# TODO Bestimmung der Player Entity nicht via GlobalData.
 	# Position the item to the player position.
 	var player = GlobalData.entities.get_entity(GlobalData.client_account_id)
 	var player_pos = player.get_component(PositionComponent.NAME)

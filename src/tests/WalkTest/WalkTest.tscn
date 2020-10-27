@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tests/WalkTest/WalkTestStaticBody.gd" type="Script" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://Game/Entity/Entities.gd" type="Script" id=11]
 [ext_resource path="res://Game/ServerConnector/ServerConnector.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Game/Entity/ChatHoverManager.tscn" type="PackedScene" id=13]
-[ext_resource path="res://tests/WalkTest/WalkTest.gd" type="Script" id=14]
 [ext_resource path="res://Game/Rain/Rain.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Game/Entity/Struct/SignSmall/SignSmall.tscn" type="PackedScene" id=16]
 [ext_resource path="res://UI/GameUI.tscn" type="PackedScene" id=17]
@@ -40,7 +39,6 @@ albedo_color = Color( 0.662745, 0.752941, 0.435294, 1 )
 extents = Vector3( 25, 25, 0.1 )
 
 [node name="WalkTest" type="Spatial"]
-script = ExtResource( 14 )
 
 [node name="Sky" parent="." instance=ExtResource( 21 )]
 
@@ -125,6 +123,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.21642, 0, 16.4002 )
 
 [node name="SimpleBow" parent="Entities" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63694, 0, 13.3332 )
+
+[node name="SimpleBow2" parent="Entities" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67027, 0, 13.3332 )
 
 [node name="GameUI" parent="." instance=ExtResource( 17 )]
 

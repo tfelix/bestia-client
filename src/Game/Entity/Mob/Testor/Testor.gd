@@ -20,7 +20,6 @@ onready var _timer = $StateTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	entity.id = GlobalData.get_new_entity_id()
 	if not enabled:
 		_timer.stop()
 	GlobalEvents.emit_signal("onEnemySpawned", entity)

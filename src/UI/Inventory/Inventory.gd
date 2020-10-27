@@ -8,7 +8,6 @@ class InventoryInfo:
 	var max_weight: int
 	var max_items: int
 
-onready var _pickup_msg = $ItemPickupMessage
 onready var _items_grid = $InventoryPanel/HContainer/MainContent/Content/Panel/Margin/ScrollContainer/ItemGrid
 onready var _weight_label = $InventoryPanel/HContainer/MainContent/Header/Weight
 onready var _count_label = $InventoryPanel/HContainer/MainContent/Header/MarginItemCount/ItemCount
@@ -16,8 +15,11 @@ onready var _search_text = $InventoryPanel/HContainer/MainContent/Header/SearchE
 onready var _search_clear_btn = $InventoryPanel/HContainer/MainContent/Header/ClearSearch
 onready var _module = $InventoryPanel/HContainer/MainContent/Content/Module
 
+var _item_db = ItemDatabase.new()
 var _info: InventoryInfo = InventoryInfo.new()
 
+# To check for existence of resources prior to loading.
+var _dir = Directory.new()
 var _items = []
 var _displayed_items = []
 
@@ -84,15 +86,13 @@ func _clear_inventory_items() -> void:
 
 func _add_inventory_items(items) -> void:
 	for item in items:
-		var item_info = GlobalData.item_db.get_data(item.item_id)
-		if not item_info:
-			printerr("Could not find data for item_id: ", item.item_id)
-			continue
+		var item_info = _item_db.get_data(item.item_id)
+		assert(item_info, "ERROR: Could not find data for item_id: %s" % item.item_id)
 		item_info.amount = item.amount
 		item_info.player_item_id = item.player_item_id
+		
 		var item_node = InventoryItemNode.instance()
 		item_node.data = item_info
-		
 		item_node.connect("item_selected", self, "_on_item_selected")
 		_items.append(item_node)
 
@@ -107,15 +107,15 @@ func _on_shortcut_pressed(action_name: String, shortcut: ShortcutData) -> void:
 """
 Tries to use a certain item
 """
-func use_item(player_item_id)-> void:
+func use_item(player_item_id: int) -> void:
 	print_debug("use_item with pid ", player_item_id)
 	# Make a sanity check if we have items left
 	var pi = _get_item(player_item_id)
 	if pi == null:
-		print_debug("use_item with pid ", player_item_id, " not found")
+		printerr("ERROR: use_item with pid ", player_item_id, " not found")
 		return
 	if not pi.data.is_usable() || pi.data.amount < 1:
-		print_debug("use_item with pid ", player_item_id, " not usable")
+		printerr("ERROR: use_item with pid ", player_item_id, " not usable or amount < 1")
 		return
 	# We need to check with the server if the player is actually allowed
 	# to use this item. Maybe we can just use it and react on the response?
@@ -159,6 +159,7 @@ func _on_item_use_response(msg: ItemUseResponseMessage) -> void:
 	
 	var item_name = item.data.database_name.capitalize().replace(" ", "")
 	var item_path = "res://Game/Entity/Struct/%s/%s.tscn" % [item_name, item_name]
+	assert(_dir.file_exists(item_path), "ERROR: Item scene %s not found" % item_path)
 	# TODO We can probably cache these loads here.
 	var item_scene = load(item_path)
 	var item_instance = item_scene.instance()

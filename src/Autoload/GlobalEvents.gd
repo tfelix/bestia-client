@@ -10,7 +10,7 @@ signal onEntityRemoved(entity)
 signal onDamageReceived(damage_message)
 # These are internal signals which are used by the demo to setup
 # some stuff without a proper game server
-signal onEnemySpawned(entity)
+signal onEntitySpawned(entity)
 
 # Player Signals
 signal onPlayerMoved(global_pos)
@@ -26,12 +26,17 @@ signal onPlayerItemPicked(item_entity)
 
 # Inventory Signals
 signal onItemUsed(player_item_id)
+"""
+Called from the server, when an inventory update message is received.
+Its probably better to use direct calls instead of events when
+server messages arrive.
+"""
 signal onInventoryUpdate(inventory_update)
 signal onInventoryItemsUpdated(updated_items)
 """
 When this signal is send out the inventory is requested to send out
-an onInventoryItemsUpdated signal. Then possible some parts of the application
-need a list of items.
+an onInventoryItemsUpdated signal. Usually then some parts of the application
+need an updated list of items.
 """
 signal onInventoryItemUpdateRequested()
 

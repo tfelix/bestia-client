@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item-obtained.png-571ff273f26d86e34eb8e8395a4bcb58.stex"
+path="res://.import/item-obtained.png-498a3066d524220dd5c6881b85ccdafd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Inventory/ItemPickupMessage/item-obtained.png"
-dest_files=[ "res://.import/item-obtained.png-571ff273f26d86e34eb8e8395a4bcb58.stex" ]
+source_file="res://UI/Inventory/NewItemNotification/item-obtained.png"
+dest_files=[ "res://.import/item-obtained.png-498a3066d524220dd5c6881b85ccdafd.stex" ]
 
 [params]
 

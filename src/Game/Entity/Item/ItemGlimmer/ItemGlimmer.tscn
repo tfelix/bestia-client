@@ -11,7 +11,7 @@ shader_param/texture_albedo = ExtResource( 3 )
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 1 )
-size = Vector2( 0.2, 0.2 )
+size = Vector2( 0.1, 0.1 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "glimmer"

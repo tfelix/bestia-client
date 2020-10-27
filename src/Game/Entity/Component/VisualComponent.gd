@@ -19,7 +19,7 @@ func get_name() -> String:
 
 
 func on_attach(entity) -> void:
-	entity.connect("onVfxPlayed", self, "_vfx_played")
+	entity.connect("vfx_played", self, "_vfx_played")
 	_animation_player = entity.get_parent().get_node("AnimationPlayer")
 
 

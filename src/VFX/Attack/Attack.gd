@@ -11,13 +11,13 @@ func display_damage() -> void:
 		GlobalEvents.emit_signal("onDamageReceived", hit_damage)
 	# The point where damage is displayed can be considered the
 	# end of VFX animation.
-	entity.emit_signal("onVfxPlayed", null)
+	entity.emit_signal("vfx_played", null)
 
 
 func start(target_entity: Entity, damage: DamageMessage) -> void:
 	hit_damage = damage
 	entity = target_entity
-	target_entity.emit_signal("onVfxPlayed", name)
+	target_entity.emit_signal("vfx_played", name)
 	_start_animation()
 
 

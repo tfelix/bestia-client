@@ -19,6 +19,7 @@ one_shot = true
 
 [node name="FakeItemHandler" type="Node" parent="."]
 script = ExtResource( 3 )
+fake_server_manager_path = NodePath("..")
 
 [node name="FakeInteractionHandler" type="Node" parent="."]
 script = ExtResource( 4 )

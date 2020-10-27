@@ -2,7 +2,7 @@ id,en
 APPLE,Apple
 APPLE_DESCRIPTION,A tasty little read apple. It restores 10 HP when eaten.
 SIGN_SMALL,Small Sign
-SIGN_SMALL_DESCRIPTION,"Such signs are usually used to mark an area or a small vilage. Other people will read the name of the village when coming near the sign."
+SIGN_SMALL_DESCRIPTION,Such signs are usually used to mark an area or a small vilage. Other people will read the name of the village when coming near the sign.
 EMPTY_BOTTLE,Empty Bottle
 EMPTY_BOTTLE_DESCRIPTION,A simple empty bottle made out of glas. It can hold liquids.
 KNIFE,Knife
@@ -10,4 +10,6 @@ KNIFE_DESCRIPTION,"A simple, small Knife. Can be used for daily work and maybe a
 SIMPLE_AXE,Simple Axe
 SIMPLE_AXE_DESCRIPTION,Small axe which is used to work upon wood.
 LINEN_SHIRT,Linen Shirt
-LINEN_SHIRT_DESCRIPTION,"A very basic shirt made out of linen. Is usually worn by peasants for their work on the field."
+LINEN_SHIRT_DESCRIPTION,A very basic shirt made out of linen. Is usually worn by peasants for their work on the field.
+SIMPLE_BOW,Simple Bow
+SIMPLE_BOW_DESCRIPTION,A simple but effective bow made from elastic wood.

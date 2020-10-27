@@ -6,7 +6,6 @@ extends Node
 var default_interactions = {}
 
 var shortcut_service := ShortcutsService.new()
-var item_db := ItemDatabase.new()
 
 # Set to the local account which is logged in
 var client_account_id: int = 1
@@ -15,13 +14,4 @@ var client_account_id: int = 1
 # can not be typed
 var entities 
 
-# Used when local entities are spawned
-var _current_entity_id = 100
 
-"""
-This is for local demo only. It makes sure all entity ids are unique if they
-are not send from a server.
-"""
-func get_new_entity_id() -> int:
-	_current_entity_id += 1
-	return _current_entity_id
