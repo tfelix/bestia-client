@@ -2,8 +2,8 @@ extends Control
 
 signal display_finished
 
-onready var _icon = $Margin/HBox/Icon
-onready var _label = $Margin/HBox/Label
+onready var _icon = $TextureRect/Margin/HBox/Icon
+onready var _label = $TextureRect/Margin/HBox/Label
 onready var _player = $AnimationPlayer
 
 

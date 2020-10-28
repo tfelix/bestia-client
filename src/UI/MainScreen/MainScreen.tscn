@@ -6,7 +6,7 @@
 [ext_resource path="res://UI/SceneFade/SceneFade.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shared/audio/bgm/one_man_symphony_wake_up.ogg" type="AudioStream" id=5]
 [ext_resource path="res://shared/themes/menu_theme.tres" type="Theme" id=6]
-[ext_resource path="res://shared/img/tf-logo.png" type="Texture" id=7]
+[ext_resource path="res://shared/img/tf-logo-100.png" type="Texture" id=7]
 [ext_resource path="res://shared/themes/button_bg.png" type="Texture" id=8]
 [ext_resource path="res://shared/themes/button_bg_hover.png" type="Texture" id=9]
 [ext_resource path="res://shared/themes/button_bg_down.png" type="Texture" id=10]
@@ -104,11 +104,9 @@ autoplay = "logo_fade_in"
 anims/logo_fade_in = SubResource( 1 )
 
 [node name="MenuPanel" type="PanelContainer" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.0142857 )
 anchor_bottom = 1.0
-margin_left = 50.7143
-margin_right = 430.714
+margin_left = 100.0
+margin_right = 480.0
 rect_min_size = Vector2( 380, 720 )
 theme = ExtResource( 6 )
 __meta__ = {
@@ -116,19 +114,18 @@ __meta__ = {
 }
 
 [node name="Menu" type="VBoxContainer" parent="MenuPanel"]
-margin_left = 2.0
-margin_right = 378.0
+margin_left = 1.0
+margin_right = 379.0
 margin_bottom = 720.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuPanel/Menu"]
-margin_right = 376.0
+margin_right = 378.0
 margin_bottom = 180.0
 custom_constants/margin_top = 80
 
 [node name="Logo" type="TextureRect" parent="MenuPanel/Menu/MarginContainer"]
-modulate = Color( 1, 1, 1, 0 )
 margin_top = 80.0
-margin_right = 376.0
+margin_right = 378.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 300, 100 )
 texture = ExtResource( 3 )
@@ -137,17 +134,17 @@ stretch_mode = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="MenuPanel/Menu"]
 margin_top = 184.0
-margin_right = 376.0
-margin_bottom = 588.0
+margin_right = 378.0
+margin_bottom = 612.0
 size_flags_vertical = 3
 
 [node name="Menu" type="VBoxContainer" parent="MenuPanel/Menu/CenterContainer"]
-margin_left = 63.0
-margin_top = 142.0
-margin_right = 313.0
-margin_bottom = 262.0
+margin_left = 64.0
+margin_top = 99.0
+margin_right = 314.0
+margin_bottom = 329.0
 rect_min_size = Vector2( 250, 0 )
-custom_constants/separation = 20
+custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -174,9 +171,9 @@ __meta__ = {
 }
 
 [node name="Options" type="TextureButton" parent="MenuPanel/Menu/CenterContainer/Menu"]
-margin_top = 70.0
+margin_top = 60.0
 margin_right = 250.0
-margin_bottom = 120.0
+margin_bottom = 110.0
 rect_min_size = Vector2( 150, 50 )
 size_flags_horizontal = 3
 texture_normal = ExtResource( 8 )
@@ -195,16 +192,59 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Credits" type="TextureButton" parent="MenuPanel/Menu/CenterContainer/Menu"]
+margin_top = 120.0
+margin_right = 250.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 150, 50 )
+size_flags_horizontal = 3
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuPanel/Menu/CenterContainer/Menu/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Credits"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="TextureButton" parent="MenuPanel/Menu/CenterContainer/Menu"]
+margin_top = 180.0
+margin_right = 250.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 150, 50 )
+size_flags_horizontal = 3
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuPanel/Menu/CenterContainer/Menu/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Quit Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Footer" type="CenterContainer" parent="MenuPanel/Menu"]
-margin_top = 592.0
-margin_right = 376.0
+margin_top = 616.0
+margin_right = 378.0
 margin_bottom = 720.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuPanel/Menu/Footer"]
-margin_left = 91.0
-margin_top = 12.0
-margin_right = 284.0
-margin_bottom = 116.0
+margin_left = 92.0
+margin_right = 285.0
+margin_bottom = 104.0
 custom_constants/margin_bottom = 30
 __meta__ = {
 "_edit_use_anchors_": false
@@ -227,9 +267,9 @@ __meta__ = {
 }
 
 [node name="DevDocsLink" type="LinkButton" parent="MenuPanel/Menu/Footer/MarginContainer/FooterVbox"]
-margin_top = 78.0
+margin_top = 54.0
 margin_right = 193.0
-margin_bottom = 98.0
+margin_bottom = 74.0
 text = "https://docs.bestia-game.net"
 underline = 1
 __meta__ = {
@@ -240,7 +280,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -252,5 +292,7 @@ fade_direction = 1
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/PlayDemo" to="." method="_on_PlayDemo_pressed"]
 [connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Credits" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MenuPanel/Menu/CenterContainer/Menu/Quit" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="MenuPanel/Menu/Footer/MarginContainer/FooterVbox/DevDocsLink" to="." method="_on_DevDocsLink_pressed"]
 [connection signal="fade_out_finished" from="SceneFade" to="." method="_on_SceneFade_fade_out_finished"]

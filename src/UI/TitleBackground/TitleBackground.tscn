@@ -1,8 +1,62 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/MainScreen/landscape-nature-clouds-cloudy.jpg" type="Texture" id=1]
 [ext_resource path="res://shared/themes/bestia_theme.tres" type="Theme" id=2]
 [ext_resource path="res://UI/TitleBackground/TitleBackground.gd" type="Script" id=3]
+[ext_resource path="res://placeholder.png" type="Texture" id=4]
+[ext_resource path="res://shared/img/logo-discord.png" type="Texture" id=5]
+[ext_resource path="res://shared/img/logo-twitter.png" type="Texture" id=6]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color: hint_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform int OCTAVES = 4;
+
+float rand(vec2 coord) {
+	return fract(1000.0 * sin(dot(coord, vec2(56, 78)) * 1000.0));
+}
+
+float noise(vec2 coord) {
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+	
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+	
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+	
+	return mix(a, b, cubic.x) + (c -a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+float fbm(vec2 coord) {
+	float value = 0.0;
+	float scale = 0.5;
+	
+	for(int i = 0; i < OCTAVES; i++) {
+		value += noise(coord) * scale;
+		coord *= 2.0;
+		scale *= 0.5;
+	}
+	
+	return value;
+}
+
+void fragment() {
+	vec2 coord = UV * 20.0;
+	vec2 motion = vec2(fbm(coord + TIME * 0.6), fbm(coord - TIME * 0.4));
+	
+	float final = fbm(coord + motion) * UV.y * color.a;
+	
+	COLOR = vec4(color.rgb, final);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color = Color( 0.337255, 0.117647, 0.658824, 0.972549 )
+shader_param/OCTAVES = 4
 
 [node name="TitleBackground" type="Control"]
 anchor_right = 1.0
@@ -23,17 +77,67 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Fog" type="TextureRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Version" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.470588 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -115.161
-margin_top = -39.3289
-margin_right = -23.1606
-margin_bottom = -21.3289
+margin_left = -67.0
+margin_top = -27.0
+margin_right = -13.0
+margin_bottom = -9.0
 grow_horizontal = 0
+grow_vertical = 0
 text = "VERSION"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DiscordLogo" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.470588 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_top = -82.0
+margin_right = -14.0
+margin_bottom = -32.0
+mouse_default_cursor_shape = 2
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TwitterLogo" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.470588 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -126.992
+margin_top = -82.0
+margin_right = -76.9919
+margin_bottom = -32.0
+mouse_default_cursor_shape = 2
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="DiscordLogo" to="." method="_on_DiscordLogo_gui_input"]
+[connection signal="gui_input" from="TwitterLogo" to="." method="_on_TwitterLogo_gui_input"]

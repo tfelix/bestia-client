@@ -82,7 +82,7 @@ func pick_item(msg: PickupItemRequestMessage) -> void:
 	
 	var pickup = ItemModel.new()
 	pickup.item_id = 5
-	pickup.player_item_id = 55
+	pickup.player_item_id = msg.entity_id + 50
 	pickup.amount = 1
 	_player_items.append(pickup)
 	send_items()

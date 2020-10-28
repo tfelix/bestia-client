@@ -7,67 +7,61 @@
 resource_name = "fade"
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 2.5, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 542, 50 ), Vector2( 542, 10 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 2.5, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextureRect:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 60 ), Vector2( 0, 60 ), Vector2( 0, 10 ) ]
+}
 
 [node name="ItemPickupMessage" type="Control"]
 modulate = Color( 1, 1, 1, 0 )
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -98.0
-margin_top = 34.0
-margin_right = 98.0
-margin_bottom = 79.0001
+margin_right = 196.0
+margin_bottom = 45.0001
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -95.0
-margin_right = 95.0
-margin_bottom = 45.0
+margin_top = 60.0
+margin_right = 190.0
+margin_bottom = 105.0
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="TextureRect"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -90.0
@@ -78,20 +72,20 @@ custom_constants/margin_top = 6
 custom_constants/margin_left = 4
 custom_constants/margin_bottom = 4
 
-[node name="HBox" type="HBoxContainer" parent="Margin"]
+[node name="HBox" type="HBoxContainer" parent="TextureRect/Margin"]
 margin_left = 4.0
 margin_top = 6.0
 margin_right = 177.0
 margin_bottom = 38.0
 
-[node name="Icon" type="TextureRect" parent="Margin/HBox"]
+[node name="Icon" type="TextureRect" parent="TextureRect/Margin/HBox"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 expand = true
 stretch_mode = 1
 
-[node name="Label" type="Label" parent="Margin/HBox"]
+[node name="Label" type="Label" parent="TextureRect/Margin/HBox"]
 margin_left = 36.0
 margin_top = 9.0
 margin_right = 94.0
