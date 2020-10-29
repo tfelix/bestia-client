@@ -11,6 +11,9 @@ onready var _label = $Container/Label
 onready var _icon = $Container/Icon
 onready var _counter_label = $Container/Icon/ItemCount
 
+
+const _modulate_color_inactive = Color(1, 1, 1, 0.431373)
+const _modulate_color_active = Color(1, 1, 1, 1)
 var shortcut_data: ShortcutData
 
 func _ready():
@@ -40,9 +43,17 @@ func _inventory_items_updated(updated_items) -> void:
 			updated_item = i
 			break
 	if updated_item == null:
-		print_debug("shortcut item was not found in updated items")
+		# This means the shortcut item was nout found in the players
+		# inventory. We will just hide the count.
+		_icon.modulate = _modulate_color_inactive
+		_counter_label.visible = false
 		return
 	_counter_label.text = str(updated_item.amount)
+	_counter_label.visible = true
+	if updated_item.amount == 0:
+		_icon.modulate = _modulate_color_inactive
+	else:
+		_icon.modulate = _modulate_color_active
 
 
 func _load_shortcut_data() -> void:
