@@ -10,11 +10,14 @@ onready var _color_player = $ColorPlayer
 onready var _label = $Container/Label
 onready var _icon = $Container/Icon
 onready var _counter_label = $Container/Icon/ItemCount
+onready var _cooldown = $Container/Icon/CooldownDisplay
+onready var _cooldown_tween = $CooldownTween
 
 
 const _modulate_color_inactive = Color(1, 1, 1, 0.431373)
 const _modulate_color_active = Color(1, 1, 1, 1)
 var shortcut_data: ShortcutData
+
 
 func _ready():
 	var actions = InputMap.get_action_list(shortcut_action_name)
@@ -27,6 +30,19 @@ func _ready():
 	GlobalEvents.connect("onInventoryItemsUpdated", self, "_inventory_items_updated")
 	_load_shortcut_data()
 
+"""
+When called displays a cooldown on the button to indicate that its not
+usable currently.
+"""
+func _display_cooldown(duration: float) -> void:
+	_cooldown_tween.interpolate_property(
+		_cooldown.material,
+		"shader_param/amount",
+		0.0,
+		1.0,
+		duration
+	)
+	_cooldown_tween.start()
 
 """
 If we have a shortcut saved as an item type we want to display its count.

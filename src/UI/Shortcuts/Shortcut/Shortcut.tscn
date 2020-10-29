@@ -1,9 +1,57 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/Shortcuts/Shortcut/Shortcut.gd" type="Script" id=1]
 [ext_resource path="res://UI/Inventory/ItemCountFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://placeholder.png" type="Texture" id=3]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float amount : hint_range(0, 1);
+uniform vec4 color : hint_color = vec4(0.294118, 0.294118, 0.294118, 0.8);
+
+float atan2(vec2 c) {
+	const float PI2 = 3.14 / 2.0;
+	if(c.x > 0.0) {
+		return atan(c.y / c.x);
+	}
+	if(c.y > 0.0) {
+		return PI2 - atan(c.x / c.y);
+	}
+	if(c.y < 0.0) {
+		return -PI2 - atan(c.x /c.y);
+	}
+	if(c.x < 0.0) {
+		return atan(c.y /c.x) + PI2 * 2.0;
+	}
+	return 0.0;
+}
+
+void fragment() {
+	const float PI = 3.14;
+	const float PI2 = PI / 2.0;
+	const mat2 rot90 = mat2(
+		vec2(cos(PI2), -sin(PI2)),
+		vec2(sin(PI2), cos(PI2))
+	);
+	vec2 center = rot90 * (UV - vec2(0.5));
+	float theta = atan2(center) + PI;
+	
+	if(2.0 * PI * amount > theta) {
+		COLOR = vec4(0.0);
+	} else {
+		COLOR = color;
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 1.0
+shader_param/color = Color( 0.294118, 0.294118, 0.294118, 0.8 )
+
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.32549, 0.32549, 0.32549, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
@@ -12,7 +60,7 @@ corner_radius_bottom_left = 4
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="Theme" id=2]
+[sub_resource type="Theme" id=4]
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
@@ -21,10 +69,9 @@ Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/fonts/font = null
-Label/styles/normal = SubResource( 1 )
+Label/styles/normal = SubResource( 3 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "flash"
+[sub_resource type="Animation" id=5]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:self_modulate")
@@ -72,14 +119,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CooldownDisplay" type="TextureRect" parent="Container/Icon"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Label" type="Label" parent="Container"]
 margin_top = 44.0
 margin_right = 40.0
 margin_bottom = 58.0
-theme = SubResource( 2 )
+theme = SubResource( 4 )
 text = "-"
 align = 1
 
 [node name="ColorPlayer" type="AnimationPlayer" parent="."]
-anims/flash = SubResource( 3 )
+anims/flash = SubResource( 5 )
+
+[node name="CooldownTween" type="Tween" parent="."]
 [connection signal="gui_input" from="." to="." method="_on_Shortcut_gui_input"]
