@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://UI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://UI/DebugWeather/DebugWeather.tscn" type="PackedScene" id=2]
@@ -14,12 +14,27 @@
 [ext_resource path="res://UI/Equipment/Equipment.tscn" type="PackedScene" id=12]
 [ext_resource path="res://UI/GameMenu/GameMenu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/Inventory/NewItemNotification/NewItemNotification.tscn" type="PackedScene" id=14]
+[ext_resource path="res://shared/fonts/OpenSans_SemiboldHeadline.tres" type="DynamicFont" id=15]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlphaBuild" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -122.5
+margin_top = 20.0
+margin_right = 122.5
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 15 )
+custom_colors/font_color = Color( 1, 1, 1, 0.705882 )
+text = "ALPHA PREVIEW BUILD"
 __meta__ = {
 "_edit_use_anchors_": false
 }

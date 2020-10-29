@@ -2,13 +2,12 @@
 It will move its parent origin to the screen projected
 place of the connected spatial node. 
 """
-extends Node
+extends Control
 class_name SpatialFollower
 
 
 export(NodePath) var follow_node
 export(bool) var enabled = true
-export var offset: Vector2 = Vector2(0.0, 0.0)
 
 var _follow_node
 var _camera
@@ -28,6 +27,4 @@ func _process(delta):
 		return
 	
 	var pos = _follow_node.global_transform.origin
-	var cam_pos = _camera.unproject_position(pos)
-	for c in get_children():
-		c.rect_position = cam_pos + offset
+	rect_position = _camera.unproject_position(pos)

@@ -128,6 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63694, 0, 13.3332 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67027, 0, 13.3332 )
 
 [node name="GameUI" parent="." instance=ExtResource( 17 )]
+visible = false
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.644778, 0.476948, -0.597313, 0, 0.781444, 0.623975, 0.76437, -0.402325, 0.503858, -8.83955, 6.75812, 11.8772 )

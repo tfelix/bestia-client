@@ -38,22 +38,32 @@ collision_mask = 22
 transform = Transform( 0.627645, 0, 0, 0, 0.229172, 0, 0, 0, 1.10897, 0, 0.186858, 0 )
 shape = SubResource( 1 )
 
-[node name="SpatialFollower" type="Node" parent="." index="3"]
-script = ExtResource( 5 )
-follow_node = NodePath("..")
-
-[node name="Button" type="Button" parent="SpatialFollower" index="0"]
+[node name="Mannequiny" parent="." index="3" instance=ExtResource( 6 )]
+transform = Transform( 0.996204, 0.00467275, -0.0869259, 0.0870514, -0.0534742, 0.994768, 0, -0.998558, -0.053678, 0, 0.239749, 1.0789 )
 visible = false
-margin_right = 12.0
-margin_bottom = 20.0
-text = "Aufstehen"
+
+[node name="SpatialFollower" type="Control" parent="." index="4"]
+visible = false
+margin_right = 93.0
+margin_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+follow_node = NodePath("..")
 
-[node name="Mannequiny" parent="." index="4" instance=ExtResource( 6 )]
-transform = Transform( 0.996204, 0.00467275, -0.0869259, 0.0870514, -0.0534742, 0.994768, 0, -0.998558, -0.053678, 0, 0.239749, 1.0789 )
-visible = false
+[node name="Button" type="Button" parent="SpatialFollower" index="0"]
+anchor_left = -0.00933805
+anchor_right = -0.00933805
+margin_left = -46.5
+margin_right = 46.5
+margin_bottom = 51.0
+text = "Aufstehen"
+__meta__ = {
+"_edit_use_anchors_": true
+}
 [connection signal="used" from="Entity" to="." method="_on_Entity_used"]
 
 [editable path="Entity"]

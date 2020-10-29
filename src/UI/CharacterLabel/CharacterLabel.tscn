@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://placeholder.png" type="Texture" id=1]
-[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=2]
 [ext_resource path="res://UI/CharacterLabel/CharacterLabel.gd" type="Script" id=3]
 
 [node name="CharacterLabel" type="HBoxContainer"]
@@ -14,7 +13,7 @@ __meta__ = {
 
 [node name="Emblem" type="TextureRect" parent="."]
 margin_right = 24.0
-margin_bottom = 24.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 1 )
 expand = true
@@ -42,6 +41,3 @@ text = "Guild"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SpatialFollower" type="Node" parent="."]
-script = ExtResource( 2 )

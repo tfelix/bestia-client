@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=1]
 [ext_resource path="res://UI/InteractionMenu/InteractionMenu.gd" type="Script" id=2]
 
 [node name="InteractionMenu" type="Control"]
@@ -35,6 +34,3 @@ margin_right = 120.0
 margin_bottom = 98.0
 rect_min_size = Vector2( 120, 30 )
 text = "Attack"
-
-[node name="SpatialFollower" type="Node" parent="."]
-script = ExtResource( 1 )
