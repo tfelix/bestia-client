@@ -1,14 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Game/Entity/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Player/Mannequiny/Mannequiny.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/CursorManager/MoveCursor/MoveCursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game/Entity/Entity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Entity/Component/PlayerComponent.gd" type="Script" id=5]
-[ext_resource path="res://Game/Entity/Component/WeaponComponent.gd" type="Script" id=6]
-[ext_resource path="res://Game/Entity/Component/StatusComponent.gd" type="Script" id=7]
 [ext_resource path="res://Game/Entity/Component/ConditionComponent.gd" type="Script" id=8]
-[ext_resource path="res://Game/Entity/Component/PositionComponent.gd" type="Script" id=9]
+[ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=10]
+[ext_resource path="res://UI/CharacterLabel/CharacterLabel.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.1
@@ -46,16 +45,7 @@ guild_name = "LTU"
 account_id = 1
 player_bestia_id = 1
 
-[node name="WeaponComponent" type="Node" parent="Entity/Components" index="1"]
-script = ExtResource( 6 )
-attack_delay = 0.5
-projectile_speed = 45.0
-
-[node name="StatusComponent" type="Node" parent="Entity/Components" index="2"]
-script = ExtResource( 7 )
-walkspeed = 5.0
-
-[node name="ConditionComponent" type="Node" parent="Entity/Components" index="3"]
+[node name="ConditionComponent" type="Node" parent="Entity/Components" index="1"]
 script = ExtResource( 8 )
 max_health = 100
 cur_health = 90
@@ -63,9 +53,6 @@ max_mana = 120
 cur_mana = 100
 max_stamina = 100
 cur_stamina = 100
-
-[node name="PositionComponent" type="Node" parent="Entity/Components" index="4"]
-script = ExtResource( 9 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.93633, 0 )
@@ -82,7 +69,26 @@ collision_mask = 524288
 [node name="CollisionShape" type="CollisionShape" parent="InteractionRange"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.883215, 0 )
 shape = SubResource( 2 )
+
+[node name="NameFollower" type="Control" parent="."]
+margin_right = 126.0
+margin_bottom = 40.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+follow_node = NodePath("..")
+
+[node name="CharacterLabel" parent="NameFollower" instance=ExtResource( 11 )]
+visible = false
+margin_left = -54.7369
+margin_top = 29.4737
+margin_right = 54.2631
+margin_bottom = 63.4737
 [connection signal="timeout" from="AttackDelay" to="." method="_on_AttackDelay_timeout"]
+[connection signal="component_updated" from="Entity" to="." method="_on_Entity_component_updated"]
+[connection signal="mouse_entered" from="Entity" to="." method="_on_Entity_mouse_entered"]
+[connection signal="mouse_exited" from="Entity" to="." method="_on_Entity_mouse_exited"]
 [connection signal="body_entered" from="InteractionRange" to="." method="_on_InteractionRange_body_entered"]
 
 [editable path="Entity"]

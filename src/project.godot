@@ -309,11 +309,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Entity/Component/PlayerComponent.gd"
 }, {
-"base": "Component",
-"class": "PositionComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/PositionComponent.gd"
-}, {
 "base": "Reference",
 "class": "RangedAttackMessage",
 "language": "GDScript",
@@ -379,11 +374,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/StatusValues/StatusBasedValueData.gd"
 }, {
-"base": "Component",
-"class": "StatusComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/StatusComponent.gd"
-}, {
 "base": "Resource",
 "class": "StatusValueData",
 "language": "GDScript",
@@ -428,11 +418,6 @@ _global_script_classes=[ {
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://tests/WalkTest/Weapon.gd"
-}, {
-"base": "Component",
-"class": "WeaponComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/WeaponComponent.gd"
 }, {
 "base": "Reference",
 "class": "WeatherData",
@@ -500,7 +485,6 @@ _global_script_class_icons={
 "PickupItemRequestMessage": "",
 "Player": "",
 "PlayerComponent": "",
-"PositionComponent": "",
 "RangedAttackMessage": "",
 "RequestAttackListMessage": "",
 "RequestGainPointMessage": "",
@@ -514,7 +498,6 @@ _global_script_class_icons={
 "SlopeDetector": "",
 "SpatialFollower": "",
 "StatusBasedValueData": "",
-"StatusComponent": "",
 "StatusValueData": "",
 "Struct": "",
 "TemperatureData": "",
@@ -524,7 +507,6 @@ _global_script_class_icons={
 "UseAttackMessage": "",
 "VisualComponent": "",
 "Weapon": "",
-"WeaponComponent": "",
 "WeatherData": ""
 }
 
@@ -560,7 +542,7 @@ window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "decals", "protobuf" )
+enabled=PoolStringArray( "decals" )
 
 [global]
 

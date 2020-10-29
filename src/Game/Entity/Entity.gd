@@ -8,6 +8,9 @@ class_name Entity
 
 signal vfx_played(vfx_name)
 signal component_updated(component)
+signal mouse_entered()
+signal mouse_exited()
+
 """
 Server has signaled that this entity is removed.
 Listenting to this signal you can play a little disappear animation.
@@ -141,11 +144,13 @@ func _on_ClickBody_input_event(camera, event, click_position, click_normal, shap
 func _on_ClickBody_mouse_entered():
 	_components.on_mouse_entered(self)
 	GlobalEvents.emit_signal("onEntityMouseEntered", self)
+	emit_signal("mouse_entered")
 
 
 func _on_ClickBody_mouse_exited():
 	_components.on_mouse_exited(self)
 	GlobalEvents.emit_signal("onEntityMouseExited", self)
+	emit_signal("mouse_exited")
 
 
 func _on_Entity_tree_exiting():

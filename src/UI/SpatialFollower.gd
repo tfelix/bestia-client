@@ -10,13 +10,11 @@ export(NodePath) var follow_node
 export(bool) var enabled = true
 
 var _follow_node
-var _camera
 
 
 func _ready():
 	yield(owner, "ready")
 	_follow_node = get_node(follow_node)
-	_camera = get_tree().get_root().get_camera()
 
 
 func _process(delta):
@@ -26,5 +24,9 @@ func _process(delta):
 	if not _follow_node:
 		return
 	
+	var camera = get_tree().get_root().get_camera()
+	if camera == null:
+		return
+	
 	var pos = _follow_node.global_transform.origin
-	rect_position = _camera.unproject_position(pos)
+	rect_position = camera.unproject_position(pos)

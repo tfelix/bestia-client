@@ -25,6 +25,7 @@ var _current_command: PlayerCommand = null
 var _can_move = true
 var _has_attack_delay = false
 
+onready var _character_label = $NameFollower/CharacterLabel
 onready var _model = $Mannequiny
 onready var _move_cursor = $MoveCursor
 onready var _attack_delay = $AttackDelay
@@ -261,3 +262,16 @@ func _on_AttackDelay_timeout():
 # Executes the next queued command.
 func _on_InteractionRange_body_entered(body):
 	_current_command = null
+
+
+func _on_Entity_mouse_entered():
+	_character_label.visible = true
+
+
+func _on_Entity_mouse_exited():
+	_character_label.visible = false
+
+
+func _on_Entity_component_updated(component):
+	if component is PlayerComponent:
+		_character_label.set_data(component)
