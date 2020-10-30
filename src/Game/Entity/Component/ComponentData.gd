@@ -1,6 +1,6 @@
 extends Resource
 class_name ComponentData
 
-var entity_id: int = 0
-var component_name: String
-var data = {}
+export var entity_id: int = 0
+export var component_name: String = ""
+export var data: Dictionary = {}

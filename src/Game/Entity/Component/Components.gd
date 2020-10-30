@@ -3,7 +3,7 @@ class_name Components
 
 
 var _parent_entity
-
+export var initial_data: Resource
 
 func _ready():
 	_parent_entity = get_parent()

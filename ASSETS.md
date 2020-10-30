@@ -18,6 +18,7 @@
 * [Kenney's Particle Pack](https://www.kenney.nl/assets/particle-pack), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [Kenney's UI Pack: RPG Expansion](https://www.kenney.nl/assets/ui-pack-rpg-expansion), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 * [Kenney's Audio Pack](https://kenney.nl/assets/ui-audio), [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
+* town-header.png [vapxiel](https://vapxiel.itch.io/pixel-ui-banners-headers, [CC 0](http://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Icons
 

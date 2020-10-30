@@ -13,26 +13,16 @@ onready var _mana_label = $MainCols/CharInfoMargin/Rows/Main/Bars/ManaLabel
 
 
 func _ready():
-	GlobalEvents.connect("onPlayerEntityUpdated", self, "_on_player_changed")
+	GlobalEvents.connect("player_entity_updated", self, "_on_player_changed")
 
 
-func _on_player_changed(player: Entity):
-	var info = player.get_component(PlayerComponent.NAME) as PlayerComponent
-	if info == null:
-		printerr("No PlayerInfo component on player node")
+func _on_player_changed(player: Player, component: ComponentData):
+	_character_name.text = player.player_name
+	
+	if component.component_name != "condition":
 		return
 	
-	_character_name.text = info.player_name
-	
-	var condition = player.get_component(ConditionComponent.NAME) as ConditionComponent
-	if condition == null:
-		printerr("No ConditionComponent on player node")
-		return
-	
-	_on_player_component_changed(condition)
-
-
-func _on_player_component_changed(component: ConditionComponent):
+	# TODO This wont work. fix this.
 	_health_bar.set_value(component.get_health_perc())
 	_mana_bar.set_value(component.get_mana_perc())
 	var mana_txt = "Mana: %d / %d" % [component.cur_mana, component.max_mana] 

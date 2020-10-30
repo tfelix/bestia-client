@@ -63,7 +63,7 @@ export(Color) var upped_status_color = Color(0.17, 0.8, 0.27)
 
 
 func _ready():
-	GlobalEvents.connect("onPlayerEntityUpdated", self, "_update_values")
+	GlobalEvents.connect("player_entity_updated", self, "_update_values")
 	GlobalEvents.connect("onMessageReceived", self, "_update_gainpoints")
 	_check_up_buttons_state()
 	_update_status_values()
@@ -176,9 +176,8 @@ func _update_status_values() -> void:
 	_stamina_regen.text = "%d" % _status_based_values.stamina_regen
 
 
-func _update_values(player: Entity) -> void:
-	var data = player.get_component(StatusComponent.NAME) as StatusComponent
-	if data == null:
+func _update_values(player: Player, component: ComponentData) -> void:
+	if component.name != "status":
 		return
 	_update_status_values()
 

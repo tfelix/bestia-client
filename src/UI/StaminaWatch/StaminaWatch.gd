@@ -17,52 +17,47 @@ onready var _down = $Indicators/DownIndicator
 
 
 func _ready():
-	GlobalEvents.connect("onPlayerEntityUpdated", self, "_update")
+	GlobalEvents.connect("player_entity_updated", self, "_update")
 
 
-func _update(player) -> void:
-	var cond_comp = player.get_component(ConditionComponent.NAME) as ConditionComponent
-	if cond_comp == null:
-		return
-	var max_stamina = cond_comp.max_stamina
-	var stamina_perc = float(cond_comp.max_stamina) / cond_comp.cur_stamina
-	_progress.value = stamina_perc * 100
-	
-	var status_comp = player.get_component(StatusComponent.NAME) as StatusComponent
-	if status_comp == null:
-		return
-	var stamina_regen = status_comp.stamina_regen
-	var stamina_regen_min = stamina_regen * 60.0
-	var is_fast = abs(stamina_regen) / max_stamina > 0.05
-	if stamina_regen < 0:
-		_up.modulate = Color(1.0,1.0,1.0, 0.0)
-		if is_fast:
-			_down.modulate = Color(
-				down_indicator.r, 
-				down_indicator.g, 
-				down_indicator.b, 
-				1.0
-			)
+func _update(player: Player, component: ComponentData) -> void:
+	if component.name == "condition":
+		var max_stamina = component.max_stamina
+		var stamina_perc = float(component.max_stamina) / component.cur_stamina
+		_progress.value = stamina_perc * 100
+	if component.name == "status":
+		var stamina_regen = component.data.stamina_regen
+		var stamina_regen_min = stamina_regen * 60.0
+		var is_fast = abs(stamina_regen) / component.data.max_stamina > 0.05
+		if stamina_regen < 0:
+			_up.modulate = Color(1.0,1.0,1.0, 0.0)
+			if is_fast:
+				_down.modulate = Color(
+					down_indicator.r, 
+					down_indicator.g, 
+					down_indicator.b, 
+					1.0
+				)
+			else:
+				_down.modulate = Color(
+					down_indicator.r, 
+					down_indicator.g, 
+					down_indicator.b, 
+					0.7
+				)
 		else:
-			_down.modulate = Color(
-				down_indicator.r, 
-				down_indicator.g, 
-				down_indicator.b, 
-				0.7
-			)
-	else:
-		_down.modulate = Color(1.0,1.0,1.0, 0.0)
-		if is_fast:
-			_up.modulate = Color(
-				up_indicator.r, 
-				up_indicator.g, 
-				up_indicator.b, 
-				1.0
-			)
-		else:
-			_up.modulate = Color(
-				up_indicator.r, 
-				up_indicator.g, 
-				up_indicator.b, 
-				0.7
-			)
+			_down.modulate = Color(1.0,1.0,1.0, 0.0)
+			if is_fast:
+				_up.modulate = Color(
+					up_indicator.r, 
+					up_indicator.g, 
+					up_indicator.b, 
+					1.0
+				)
+			else:
+				_up.modulate = Color(
+					up_indicator.r, 
+					up_indicator.g, 
+					up_indicator.b, 
+					0.7
+				)

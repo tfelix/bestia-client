@@ -7,7 +7,7 @@ onready var _health_bar = $HpBar
 
 func _ready():
 	_camera = get_tree().get_root().get_camera()
-	GlobalEvents.connect("onPlayerEntityUpdated", self, "_on_player_changed")
+	GlobalEvents.connect("player_entity_updated", self, "_on_player_changed")
 
 
 func _process(delta):
@@ -19,11 +19,9 @@ func _process(delta):
 	self.set_position(pos + d_pos)
 
 
-func _on_player_changed(player: Entity):
-	var condition = player.get_component(ConditionComponent.NAME) as ConditionComponent
-	if condition == null:
-		printerr("No ConditionComponent on player node")
+func _on_player_changed(player: Player, component):
+	if not component is ConditionComponent:
 		return
 	
-	_health_bar.set_value(condition.get_health_perc())
-	_mana_bar.set_value(condition.get_mana_perc())
+	_health_bar.set_value(component.get_health_perc())
+	_mana_bar.set_value(component.get_mana_perc())

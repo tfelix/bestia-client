@@ -27,7 +27,7 @@ func _ready():
 
 func _on_terrain_clicked(global_pos) -> void:
 	_interaction_servce.hide_behavior_selection()
-	GlobalEvents.emit_signal("onPlayerMoved", global_pos)
+	GlobalEvents.emit_signal("terrain_clicked", global_pos)
 
 
 func _on_castselection_started(attack) -> void:

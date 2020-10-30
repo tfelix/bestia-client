@@ -25,14 +25,19 @@ var _current_command: PlayerCommand = null
 var _can_move = true
 var _has_attack_delay = false
 
+export var walkspeed = 5.0
+export var attack_range = 10.0
+export var attack_delay = 2.0
+export var player_name = "John Doe"
+
 onready var _character_label = $NameFollower/CharacterLabel
 onready var _model = $Mannequiny
 onready var _move_cursor = $MoveCursor
-onready var _attack_delay = $AttackDelay
+onready var _attack_delay_timer = $AttackDelay
 onready var _entity = $Entity
 
 func _ready():
-	GlobalEvents.connect("onPlayerMoved", self, "_terrain_clicked")
+	GlobalEvents.connect("terrain_clicked", self, "_terrain_clicked")
 	GlobalEvents.connect("onStructureConstructionStarted", self, "_started_construction")
 	GlobalEvents.connect("onStructureConstructionEnded", self, "_ended_construction")
 	GlobalEvents.connect("onPlayerAttacked", self, "_attack")
@@ -52,14 +57,10 @@ func _ready():
 
 func _started_construction(entity) -> void:
 	_can_move = false
-	pass
-	#_current_state = PlayerState.CONSTRUCTING
 
 
 func _ended_construction(entity) -> void:
 	_can_move = true
-	pass
-	#_current_state = PlayerState.IDLE
 
 
 func _process(delta):
@@ -93,12 +94,7 @@ func _physics_process(delta):
 		_model.transition_to(Mannequiny.States.IDLE)
 		return
 
-
-	var status_comp = _entity.get_component(StatusComponent.NAME) as StatusComponent
-	var speed = 5.0
-	if status_comp != null:
-		speed = status_comp.walkspeed
-	var velocity = (move_target - global_pos).normalized() * speed
+	var velocity = (move_target - global_pos).normalized() * walkspeed
 	
 	_model.transition_to(Mannequiny.States.RUN)
 	move_and_slide_with_snap(velocity, Vector3.UP)
@@ -218,12 +214,6 @@ func _attack(target_entity: Entity) -> void:
 	var target_origin = target_entity.get_spatial().global_transform.origin
 	look_at(target_origin, Vector3.UP)
 	
-	# Check if in range, if not walk to target
-	var weapon_comp = _entity.get_component(WeaponComponent.NAME) as WeaponComponent
-	if weapon_comp == null:
-		print_debug("No weapon component on player entity")
-		return
-	
 	var atk_cmd = PlayerCommand.new()
 	atk_cmd.state = PlayerState.ATTACKING
 	atk_cmd.target_entity = target_entity
@@ -231,8 +221,8 @@ func _attack(target_entity: Entity) -> void:
 	
 	# Check if we need to move towards our target before we can perform the attack
 	var target_distance = target_origin.distance_to(global_transform.origin)
-	if  weapon_comp.attack_range < target_distance:
-		_move_to_distance_from_entity(weapon_comp.attack_range, target_entity)
+	if  attack_range < target_distance:
+		_move_to_distance_from_entity(attack_range, target_entity)
 		return
 	
 	# TODO diffeentiate between melee or ranged depending on equip component
@@ -242,8 +232,8 @@ func _attack(target_entity: Entity) -> void:
 	GlobalEvents.emit_signal("onMessageSend", atk_msg)
 
 	_has_attack_delay = true
-	_attack_delay.wait_time = weapon_comp.attack_delay
-	_attack_delay.start()
+	_attack_delay_timer.wait_time = attack_delay
+	_attack_delay_timer.start()
 
 
 func _move_to_distance_from_entity(distance: float, target_entity: Entity) -> void:
@@ -275,3 +265,5 @@ func _on_Entity_mouse_exited():
 func _on_Entity_component_updated(component):
 	if component is PlayerComponent:
 		_character_label.set_data(component)
+	if component.walkspeed:
+		walkspeed = component.walkspeed

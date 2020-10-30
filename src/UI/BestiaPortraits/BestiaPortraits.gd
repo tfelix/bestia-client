@@ -5,7 +5,7 @@ const BestiaPortrait = preload("res://UI/BestiaPortraits/BestiaPortrait/BestiaPo
 var _portraits = {}
 
 func _ready():
-	GlobalEvents.connect("onPlayerEntityUpdated", self, "_player_entity_updated")
+	GlobalEvents.connect("player_entity_updated", self, "_player_entity_updated")
 	for c in get_children():
 		c.queue_free()
 

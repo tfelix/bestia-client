@@ -3,14 +3,17 @@ class_name FakeItemHandler
 
 var _server_manager
 export var fake_server_manager_path: NodePath
+export var player_node_path: NodePath
 
 var _item_db = ItemDatabase.new()
 var _player_items = []
 var _spawned_entity_items = {}
+var _player
 
 func _ready() -> void:
 	assert(fake_server_manager_path != "", "ERROR: You must give fake_server_manager_path a FakeServerManager node!")
 	_server_manager = get_node(fake_server_manager_path)
+	_player = get_node(player_node_path)
 	GlobalEvents.connect("onEntityAdded", self, "_register_spawned_item")
 	GlobalEvents.connect("onEntityRemoved", self, "_remove_spawned_item")
 
@@ -177,14 +180,12 @@ func drop_item(msg: ItemDropMessage) -> void:
 	
 	# TODO Bestimmung der Player Entity nicht via GlobalData.
 	# Position the item to the player position.
-	var player = GlobalData.entities.get_entity(GlobalData.client_account_id)
-	var player_pos = player.get_component(PositionComponent.NAME)
 	var pos_data = ComponentData.new()
 	pos_data.entity_id = item_entity_id
-	pos_data.component_name = PositionComponent.NAME
-	pos_data.data["x"] = player_pos.x
-	pos_data.data["y"] = player_pos.y
-	pos_data.data["z"] = player_pos.z
+	pos_data.component_name = "position"
+	pos_data.data["x"] = _player.global_transform.orign.x
+	pos_data.data["y"] = _player.global_transform.orign.y
+	pos_data.data["z"] = _player.global_transform.orign.z
 	GlobalEvents.emit_signal("onMessageReceived", pos_data)
 
 

@@ -13,8 +13,8 @@ signal onDamageReceived(damage_message)
 signal onEntitySpawned(entity)
 
 # Player Signals
-signal onPlayerMoved(global_pos)
-signal onPlayerEntityUpdated(player)
+signal terrain_clicked(global_pos)
+signal player_entity_updated(player_entity, component)
 signal onBuildingEntered(building_id)
 signal onBuildingExit(building_id)
 signal onCastSelectionStarted(attack)
