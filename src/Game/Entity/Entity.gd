@@ -76,14 +76,6 @@ func get_spatial():
 	return get_parent()
 
 
-func hide() -> void:
-	get_parent().hide()
-
-
-func show() -> void:
-	get_parent().show()
-
-
 """
 Returns the bounding box of the mesh of this entity. If not provided, then a 
 unit sized cube is returned. This is needed as some parts need to know the size
