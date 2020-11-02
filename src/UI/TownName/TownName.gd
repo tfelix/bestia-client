@@ -7,7 +7,7 @@ var colorPvpEnabled = Color(1, 0.429688, 0.429688)
 export var text = ""
 export(bool) var is_pvp = false
 
-onready var label = $BackgroundPanel/CenterContainer/TownName
+onready var label = $TextureRect/TownName
 
 func _ready():
 	label.text = text

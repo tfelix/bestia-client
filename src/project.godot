@@ -10,19 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "AccountInfoMessage",
-"language": "GDScript",
-"path": "res://Game/ServerConnector/AccountInfoMessage.gd"
-}, {
-"base": "Reference",
 "class": "Actions",
 "language": "GDScript",
 "path": "res://Actions.gd"
-}, {
-"base": "Component",
-"class": "ActivePlayerBestiaComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/ActivePlayerBestiaComponent.gd"
 }, {
 "base": "Spatial",
 "class": "Arrow",
@@ -54,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/BestiaPortraits/BestiaPortraitData.gd"
 }, {
-"base": "Component",
+"base": "Reference",
 "class": "CastComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/CastComponent.gd"
@@ -89,11 +79,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/Chat/ChatMessage.gd"
 }, {
-"base": "Node",
-"class": "Component",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/Component.gd"
-}, {
 "base": "Resource",
 "class": "ComponentData",
 "language": "GDScript",
@@ -104,12 +89,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Entity/Component/ComponentRemoveMessage.gd"
 }, {
-"base": "Node",
-"class": "Components",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/Components.gd"
-}, {
-"base": "Component",
+"base": "Reference",
 "class": "ConditionComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/ConditionComponent.gd"
@@ -129,7 +109,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/Damage/DamageMessage.gd"
 }, {
-"base": "Component",
+"base": "Reference",
 "class": "DataComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/DataComponent.gd"
@@ -164,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Entity/EntitySpawner.gd"
 }, {
-"base": "Component",
+"base": "Reference",
 "class": "EnvironmentComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/EnvironmentComponent.gd"
@@ -279,21 +259,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/MobLabel/MobLabel.gd"
 }, {
-"base": "Component",
-"class": "NameComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/NameComponent.gd"
-}, {
-"base": "Component",
-"class": "NoMovementComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/NoMovementComponent.gd"
-}, {
-"base": "Component",
-"class": "PerformConstructionComponent",
-"language": "GDScript",
-"path": "res://Game/Entity/Component/PerformConstructionComponent.gd"
-}, {
 "base": "Reference",
 "class": "PickupItemRequestMessage",
 "language": "GDScript",
@@ -304,7 +269,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Entity/Player/Player.gd"
 }, {
-"base": "Component",
+"base": "Reference",
 "class": "PlayerComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/PlayerComponent.gd"
@@ -389,6 +354,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Game/Weather/TemperatureData.gd"
 }, {
+"base": "Spatial",
+"class": "Testor",
+"language": "GDScript",
+"path": "res://Game/Entity/Mob/Testor/Testor.gd"
+}, {
 "base": "RichTextLabel",
 "class": "TimedTextLabel",
 "language": "GDScript",
@@ -409,7 +379,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://VFX/Attack/UseAttackMessage.gd"
 }, {
-"base": "Component",
+"base": "Reference",
 "class": "VisualComponent",
 "language": "GDScript",
 "path": "res://Game/Entity/Component/VisualComponent.gd"
@@ -425,9 +395,7 @@ _global_script_classes=[ {
 "path": "res://Game/Weather/WeatherData.gd"
 } ]
 _global_script_class_icons={
-"AccountInfoMessage": "",
 "Actions": "",
-"ActivePlayerBestiaComponent": "",
 "Arrow": "",
 "Attack": "",
 "AttackData": "",
@@ -441,10 +409,8 @@ _global_script_class_icons={
 "ChatMessage": "",
 "ChatRow": "",
 "ChatSend": "",
-"Component": "",
 "ComponentData": "",
 "ComponentRemoveMessage": "",
-"Components": "",
 "ConditionComponent": "",
 "CursorManager": "",
 "Damage3D": "",
@@ -479,9 +445,6 @@ _global_script_class_icons={
 "ItemUseResponseMessage": "",
 "Mannequiny": "",
 "MobLabel": "",
-"NameComponent": "",
-"NoMovementComponent": "",
-"PerformConstructionComponent": "",
 "PickupItemRequestMessage": "",
 "Player": "",
 "PlayerComponent": "",
@@ -501,6 +464,7 @@ _global_script_class_icons={
 "StatusValueData": "",
 "Struct": "",
 "TemperatureData": "",
+"Testor": "",
 "TimedTextLabel": "",
 "TownName": "",
 "UUID": "",

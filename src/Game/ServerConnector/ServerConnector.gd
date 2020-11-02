@@ -15,9 +15,5 @@ func _on_message_received(message) -> void:
 		GlobalEvents.emit_signal("onChatReceived", message)
 	elif message is InventoryUpdateMessage:
 		GlobalEvents.emit_signal("onInventoryUpdate", message)
-	elif message is AccountInfoMessage:
-		_handle_account_info(message)
 
 
-func _handle_account_info(msg: AccountInfoMessage) -> void:
-	GlobalData.client_account_id = msg.account_id

@@ -12,11 +12,9 @@ onready var _mob_handler = $FakeMobHandler
 onready var _interaction_handler = $FakeInteractionHandler
 
 func _ready():
+	GlobalEvents.connect("player_entity_updated", self, "_setup_account")
 	GlobalEvents.connect("onMessageSend", self, "_on_message")
 	GlobalEvents.connect("onEntityAdded", self, "_setup_entity_id")
-	
-	# We must wait until the scene is setup in order to call this.
-	call_deferred("_setup_account")
 
 	_env_comp = EnvironmentComponent.new()
 	_env_comp.entity_id = 1000
@@ -76,14 +74,17 @@ func _on_message(payload):
 		print_debug("Unknown message: ", payload)
 		pass
 
-func _setup_account() -> void:
-	var info = AccountInfoMessage.new()
-	info.account_id = 1
-	GlobalEvents.emit_signal("onMessageReceived", info)
+
+"""
+Prepares initial account setup. We must wait until we got the player info
+component.
+"""
+func _setup_account(player_entity, component) -> void:
+	if not component is PlayerComponent:
+		return
 	
 	var player = PlayerComponent.new()
-	player.entity_id = 1000
-	player.id = 1
+	player.entity_id = player_entity.id
 	player.player_bestia_id = 1
 	player.player_name = "rocket"
 	GlobalEvents.emit_signal("onMessageReceived", player)
@@ -115,9 +116,6 @@ func _send_chat(msg: ChatSend) -> void:
 
 
 func _chop_tree(tree_entity: Entity):
-	var no_movement = NoMovementComponent.new()
-	# Some components have a visual clue, others dont
-	GlobalData.player.push_back(no_movement)
 	# Add Progress Component to player entity
 	# After progress is finished despawn tree with animation
 	# Remove NoMovement Component
@@ -127,15 +125,11 @@ func _chop_tree(tree_entity: Entity):
 
 func _on_OneShot2_timeout():
 	var msg = ComponentRemoveMessage.new()
-	msg.component_name = PerformConstructionComponent.NAME
+	msg.component_name = "construction"
 	msg.entity_id = 1
 	GlobalEvents.emit_signal("onMessageReceived", msg)
 
 
 func _on_EnvironmentUpdate_timeout():
-	var active_comp = ActivePlayerBestiaComponent.new()
-	active_comp.entity_id = 1000
-	GlobalEvents.emit_signal("onMessageReceived", active_comp)
-
 	_env_comp.current_temp = randi() % 30 - 10
 	GlobalEvents.emit_signal("onMessageReceived", _env_comp)

@@ -10,7 +10,7 @@ signal onEntityRemoved(entity)
 signal onDamageReceived(damage_message)
 # These are internal signals which are used by the demo to setup
 # some stuff without a proper game server
-signal onEntitySpawned(entity)
+signal entity_spawned(entity)
 
 # Player Signals
 signal terrain_clicked(global_pos)

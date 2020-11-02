@@ -1,4 +1,5 @@
 extends Spatial
+class_name Testor
 
 enum MobState {
 	IDLE,
@@ -13,7 +14,7 @@ export var speed = 3.0
 var _state = MobState.IDLE
 var _target_player: Spatial = null
 
-onready var entity = $Entity
+onready var _entity = $Entity
 onready var _player_detector = $PlayerDetector
 onready var _animation = $AnimationPlayer 
 onready var _timer = $StateTimer
@@ -22,7 +23,7 @@ onready var _timer = $StateTimer
 func _ready():
 	if not enabled:
 		_timer.stop()
-	GlobalEvents.emit_signal("onEnemySpawned", entity)
+	GlobalEvents.emit_signal("entity_spawned", _entity)
 
 
 func _physics_process(delta):
@@ -51,8 +52,5 @@ func _on_StateTimer_timeout():
 
 
 func _on_Entity_component_updated(component):
-	if component.get_name() == VisualComponent.NAME:
+	if component is VisualComponent:
 		pass
-		#if component.animaton == "die":
-		#	enabled = false
-		#	_timer.stop()

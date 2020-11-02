@@ -8,7 +8,7 @@ var _is_constructing = false
 onready var _mesh = $SignMesh
 onready var _building_mesh = $SignMeshBuilding
 onready var _collidor = $Collidor
-onready var _user_input = $SignContentInput
+onready var _user_input = $SpatialFollower/SignContentInput
 onready var _entity = $Entity
 onready var _sign_radius = $SignageDetection/CollisionShape
 
@@ -17,8 +17,14 @@ Prevents display of the signange if a player re-enters
 within this time delay.
 """
 export(int) var display_cooldown_s = 60
+export var text = ""
+export var radius = 50
 
 var _last_detection = 0
+
+
+func _ready():
+	_sign_radius.shape.radius = radius
 
 
 func _physics_process(delta):
@@ -113,10 +119,8 @@ func _on_SignageDetection_body_entered(body):
 		return
 	_last_detection = OS.get_ticks_msec()
 	
-	var data_comp = _entity.get_component(DataComponent.NAME)
-	var sign_name = data_comp.data["content"]
 	var town_name = TownName.instance()
-	town_name.text = sign_name
+	town_name.text = text
 	town_name.is_pvp = false
 	add_child(town_name)
 
@@ -125,8 +129,7 @@ func _on_SignageDetection_body_entered(body):
 We must update the radius of the sign.
 """
 func _on_Entity_component_updated(component):
-	if not component.get_name() == DataComponent.NAME:
-		return
-	var radius = int(component.data["radius"])
-	_sign_radius.shape.radius = radius
+	if component is DataComponent:
+		radius = int(component.data["radius"])
+		_sign_radius.shape.radius = radius
 	

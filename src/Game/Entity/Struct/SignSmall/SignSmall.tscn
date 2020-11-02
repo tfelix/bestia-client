@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/SpatialFollower.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Struct/SignSmall/SignSmall.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Game/Entity/Struct/BuildingMaterial.tres" type="Material" id=4]
 [ext_resource path="res://Game/Entity/Struct/SignSmall/SignContentInput.gd" type="Script" id=5]
 [ext_resource path="res://Game/Entity/Entity.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Game/Entity/Component/DataComponent.gd" type="Script" id=8]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder"
@@ -69,13 +68,6 @@ shape = SubResource( 3 )
 [node name="Entity" parent="." instance=ExtResource( 6 )]
 behavior_group = 3
 aabb_visual_instance_path = NodePath("../SignMesh/sign_small")
-
-[node name="DataComponent" type="Node" parent="Entity/Components" index="0"]
-script = ExtResource( 8 )
-data = {
-"content": "My Sign",
-"radius": "15"
-}
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.797192, 0 )

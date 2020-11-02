@@ -157,7 +157,7 @@ and will cancel all other queued commands.
 """
 func _move_to(global_pos: Vector3) -> void:
 	# If the entity is currently marked as non movable we stop movement here.
-	if _entity.get_component(NoMovementComponent.NAME) != null:
+	if not _can_move:
 		return
 	
 	# Cancel the casting target selection.
@@ -280,5 +280,3 @@ func _on_Entity_mouse_exited():
 func _on_Entity_component_updated(component):
 	if component is PlayerComponent:
 		_character_label.set_data(component)
-	if component.walkspeed:
-		walkspeed = component.walkspeed

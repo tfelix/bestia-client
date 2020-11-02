@@ -8,6 +8,7 @@ class_name Entity
 
 signal vfx_played(vfx_name)
 signal component_updated(component)
+signal component_removed(component_name)
 signal mouse_entered()
 signal mouse_exited()
 
@@ -43,8 +44,6 @@ get used to determine the AABB.
 export (NodePath) var aabb_visual_instance_path
 export var id = 0
 
-onready var _components = $Components
-
 var _aabb
 var _is_selected = false
 
@@ -63,10 +62,6 @@ func _ready():
 
 func _announce_entity():
 	GlobalEvents.emit_signal("onEntityAdded", self)
-	# Also iterate over the added components and signal that there
-	# was an update to trigger changes further upstream
-	for c in _components.get_children():
-		emit_signal("component_updated", c)
 
 
 """
@@ -96,26 +91,16 @@ func get_origin_top() -> Vector3:
 	return origin
 
 
-func handle_message(msg):
-	if msg is ComponentData:
-		_components.update_component(msg)
-	if msg is ComponentRemoveMessage:
-		_components.remove_component(msg.component_name)
-	if msg is EntityRemoveMessage:
-		emit_signal("removed")
+func remove():
+	emit_signal("removed")
 
 
-func get_component(component_name: String) -> Component:
-	return _components.get_component(component_name)
-
-
-func update_component(component: Component):
-	_components.update_component(component)
+func update_component(component):
 	emit_signal("component_updated", component)
 
 
 func remove_component(component_name: String):
-	_components.remove_component(component_name)
+	emit_signal("component_removed", component_name)
 
 
 func use(player_entity) -> void:
@@ -134,13 +119,11 @@ func _on_ClickBody_input_event(camera, event, click_position, click_normal, shap
 
 
 func _on_ClickBody_mouse_entered():
-	_components.on_mouse_entered(self)
 	GlobalEvents.emit_signal("onEntityMouseEntered", self)
 	emit_signal("mouse_entered")
 
 
 func _on_ClickBody_mouse_exited():
-	_components.on_mouse_exited(self)
 	GlobalEvents.emit_signal("onEntityMouseExited", self)
 	emit_signal("mouse_exited")
 

@@ -8,10 +8,7 @@ var default_interactions = {}
 var shortcut_service := ShortcutsService.new()
 
 # Set to the local account which is logged in
+# TODO Remove this
 var client_account_id: int = 1
-
-# this is of type Entities, but because of https://github.com/godotengine/godot/issues/27136 
-# can not be typed
-var entities 
 
 

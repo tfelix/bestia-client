@@ -1,13 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Game/Entity/Entity.gd" type="Script" id=1]
-[ext_resource path="res://Game/Entity/Component/Components.gd" type="Script" id=3]
 
 [node name="Entity" type="Spatial"]
 script = ExtResource( 1 )
-
-[node name="Components" type="Node" parent="."]
-script = ExtResource( 3 )
 
 [node name="ClickBody" type="StaticBody" parent="."]
 collision_layer = 524288

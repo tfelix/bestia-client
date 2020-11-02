@@ -1,12 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Game/Entity/Component/NameComponent.gd" type="Script" id=1]
 [ext_resource path="res://Game/Entity/Mob/Testor/Testor.gd" type="Script" id=2]
 [ext_resource path="res://Game/Entity/Mob/Mob.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Game/Entity/Component/ConditionComponent.gd" type="Script" id=5]
 [ext_resource path="res://Game/Entity/Mob/Testor/TestorBody.tres" type="Material" id=6]
 [ext_resource path="res://Game/Entity/Mob/Testor/growl.wav" type="AudioStream" id=7]
-[ext_resource path="res://Game/Entity/Component/VisualComponent.gd" type="Script" id=8]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -130,23 +127,7 @@ material/0 = null
 [node name="Entity" parent="." index="1"]
 aabb_visual_instance_path = NodePath("../MeshInstance")
 
-[node name="NameComponent" type="Node" parent="Entity/Components" index="0"]
-script = ExtResource( 1 )
-entity_name = "Testor"
-
-[node name="ConditionComponent" type="Node" parent="Entity/Components" index="1"]
-script = ExtResource( 5 )
-max_health = 100
-cur_health = 100
-max_mana = 50
-cur_mana = 50
-max_stamina = 100
-cur_stamina = 100
-
-[node name="VisualComponent" type="Node" parent="Entity/Components" index="2"]
-script = ExtResource( 8 )
-
-[node name="ClickBody" parent="Entity" index="1"]
+[node name="ClickBody" parent="Entity" index="0"]
 collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
