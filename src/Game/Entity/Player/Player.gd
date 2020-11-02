@@ -29,12 +29,17 @@ export var walkspeed = 5.0
 export var attack_range = 10.0
 export var attack_delay = 2.0
 export var player_name = "John Doe"
+export var chat_node: NodePath 
+
+var  _has_weapon_equipped = false
 
 onready var _character_label = $NameFollower/CharacterLabel
 onready var _model = $Mannequiny
 onready var _move_cursor = $MoveCursor
 onready var _attack_delay_timer = $AttackDelay
 onready var _entity = $Entity
+
+var _chat_node = null
 
 func _ready():
 	GlobalEvents.connect("terrain_clicked", self, "_terrain_clicked")
@@ -49,6 +54,10 @@ func _ready():
 	# we must disable and enable raycasting detection.
 	input_ray_pickable = false
 	input_ray_pickable = true
+	
+	if chat_node:
+		_chat_node = get_node(chat_node)
+	
 	# As we might be already attached under the Entities node it might not
 	# be subscribed to the entity signal. To give it a chance to subscribe
 	# we need to call announce entity deferred.
@@ -208,6 +217,12 @@ func _use(target_entity: Entity) -> void:
 
 
 func _attack(target_entity: Entity) -> void:
+	if not _has_weapon_equipped:
+		if chat_node:
+			_chat_node.print_text("You must equip a weapon first!")
+		print_debug("Player has no weapon equipped")
+		return
+	
 	if _has_attack_delay:
 		return
 	

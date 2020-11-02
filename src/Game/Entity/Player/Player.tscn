@@ -12,7 +12,7 @@
 radius = 1.1
 height = 1.8
 
-[sub_resource type="Resource" id=3]
+[sub_resource type="Resource" id=2]
 script = ExtResource( 6 )
 entity_id = 1
 component_name = "player"
@@ -23,7 +23,7 @@ data = {
 "player_name": "John Doe"
 }
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape" id=3]
 radius = 1.5
 
 [node name="Player" type="KinematicBody"]
@@ -49,7 +49,7 @@ one_shot = true
 id = 1
 
 [node name="Components" parent="Entity" index="0"]
-initial_data = SubResource( 3 )
+initial_data = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Entity/ClickBody" index="0"]
 transform = Transform( 0.539931, 0, 0, 0, 1, 1.06581e-14, 0, -5.79177e-15, 0.543415, 0, 0.93633, 0 )
@@ -65,7 +65,7 @@ collision_mask = 524288
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionRange"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.883215, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="NameFollower" type="Control" parent="."]
 margin_right = 126.0
