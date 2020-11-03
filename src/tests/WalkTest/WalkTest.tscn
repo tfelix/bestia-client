@@ -60,6 +60,9 @@ script = ExtResource( 7 )
 
 [node name="FakeServerManager" parent="." instance=ExtResource( 9 )]
 
+[node name="FakeItemHandler" parent="FakeServerManager" index="2"]
+player_node_path = NodePath("../../Entities/Player")
+
 [node name="FxDisplayManager" parent="." instance=ExtResource( 18 )]
 _entites_path = NodePath("../Entities")
 
@@ -108,6 +111,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5093, -0.00772339, 8.54126 
 [node name="SignSmall" parent="Entities" instance=ExtResource( 16 )]
 transform = Transform( 0.868917, 0, -0.494958, 0, 1, 0, 0.494958, 0, 0.868917, 6.19306, 0.0199342, 0 )
 visible = false
+text = "My Test"
 
 [node name="Testor" parent="Entities" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2122, 0, 5.26027 )
@@ -133,5 +137,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67027, 0, 13.3332 )
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.644778, 0.476948, -0.597313, 0, 0.781444, 0.623975, 0.76437, -0.402325, 0.503858, -8.83955, 6.75812, 11.8772 )
 [connection signal="input_event" from="Floor/StaticBody" to="Floor/StaticBody" method="_on_StaticBody_input_event"]
+
+[editable path="FakeServerManager"]
 
 [editable path="GameUI"]

@@ -123,6 +123,7 @@ func _on_SignageDetection_body_entered(body):
 	town_name.text = text
 	town_name.is_pvp = false
 	add_child(town_name)
+	
 
 
 """

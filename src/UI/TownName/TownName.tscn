@@ -4,7 +4,7 @@
 [ext_resource path="res://UI/TownName/TownName.gd" type="Script" id=2]
 [ext_resource path="res://shared/fonts/OpenSans-SemiBold.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 35
 use_mipmaps = true
 use_filter = true
@@ -70,7 +70,7 @@ anchor_bottom = 1.0
 margin_top = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2

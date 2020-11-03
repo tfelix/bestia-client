@@ -42,6 +42,11 @@ You can set a path to a VisualInstance (e.g. a MeshInstance) which then will
 get used to determine the AABB.
 """
 export (NodePath) var aabb_visual_instance_path
+
+"""
+Distance on which the player can possibly use this entity. In meters.
+"""
+export var use_range = 5
 export var id = 0
 
 var _aabb
@@ -61,7 +66,7 @@ func _ready():
 
 
 func _announce_entity():
-	GlobalEvents.emit_signal("onEntityAdded", self)
+	GlobalEvents.emit_signal("entity_spawned", self)
 
 
 """

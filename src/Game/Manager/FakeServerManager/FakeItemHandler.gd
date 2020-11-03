@@ -12,6 +12,7 @@ var _player
 
 func _ready() -> void:
 	assert(fake_server_manager_path != "", "ERROR: You must give fake_server_manager_path a FakeServerManager node!")
+	assert(player_node_path, "ERROR: You must assign a Player node to player_node_path")
 	_server_manager = get_node(fake_server_manager_path)
 	_player = get_node(player_node_path)
 	GlobalEvents.connect("onEntityAdded", self, "_register_spawned_item")

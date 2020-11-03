@@ -52,7 +52,7 @@ func get_new_entity_id() -> int:
 func _on_message(payload):
 	if payload is InteractionRequest:
 		_interaction_handler.check_interactions(payload)
-	if payload is ChatSend:
+	elif payload is ChatSend:
 		_send_chat(payload)
 	elif payload is UseAttackMessage:
 		_mob_handler.use_skill(payload)

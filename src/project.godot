@@ -369,6 +369,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://UI/TownName/TownName.gd"
 }, {
+"base": "Spatial",
+"class": "Tree01",
+"language": "GDScript",
+"path": "res://Game/Entity/Struct/Tree01/Tree01.gd"
+}, {
 "base": "Reference",
 "class": "UUID",
 "language": "GDScript",
@@ -467,6 +472,7 @@ _global_script_class_icons={
 "Testor": "",
 "TimedTextLabel": "",
 "TownName": "",
+"Tree01": "",
 "UUID": "",
 "UseAttackMessage": "",
 "VisualComponent": "",

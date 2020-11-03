@@ -58,10 +58,7 @@ func _ready():
 	if chat_node:
 		_chat_node = get_node(chat_node)
 	
-	# As we might be already attached under the Entities node it might not
-	# be subscribed to the entity signal. To give it a chance to subscribe
-	# we need to call announce entity deferred.
-	call_deferred("_announce_entity")
+	_emit_update(null)
 
 
 func _started_construction(entity) -> void:
@@ -204,7 +201,7 @@ func _use(target_entity: Entity) -> void:
 	var target_origin = target_entity.get_spatial().global_transform.origin
 	var target_distance = target_origin.distance_to(global_transform.origin)
 	
-	var in_use_range = true
+	var in_use_range = target_distance < target_entity.use_range
 	if  in_use_range:
 		target_entity.use(_entity)
 	else:
@@ -279,4 +276,10 @@ func _on_Entity_mouse_exited():
 
 func _on_Entity_component_updated(component):
 	if component is PlayerComponent:
+		_emit_update(component)
 		_character_label.set_data(component)
+	if component is CastComponent:
+		print_debug("Cast comp found")
+
+func _emit_update(component) -> void:
+	GlobalEvents.emit_signal("player_entity_updated", _entity, component)
